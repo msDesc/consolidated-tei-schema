@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://jenkins.tei-c.org/job/TEIP5/lastSuccessfulBuild/artifact/P5/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://jenkins.tei-c.org/job/TEIP5/lastSuccessfulBuild/artifact/P5/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>ODD by Example customization</title>
+      </titleStmt>
+      <publicationStmt>
+        <p>Unpublished first draft </p>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Derived from an analysis of 14393 files from ./</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <schemaSpec ident="Bodley-Consolidation" start="TEI ">
+
+        <!-- Modules -->
+        <!-- TEI module include for overall infrastructure -->
+        <moduleRef key="tei"/>
+
+        <!-- core module -->
+        <moduleRef key="core"
+          include="abbr add address addrLine author
+               bibl biblScope
+               choice citedRange cit corr
+               date del desc
+               editor email expan
+               foreign
+               gap graphic
+               head hi
+               item
+               l label lb
+               lg list listBibl
+               measure
+               name note num
+               orig
+               p pb postCode publisher pubPlace
+               q quote
+               ref reg relatedItem resp respStmt
+               series sic street
+               term textLang title
+               unclear
+            "/>
+
+        <!-- figures module -->
+        <moduleRef key="figures" include="figDesc figure formula"/>
+
+        <!-- header module -->
+        <moduleRef key="header"
+          include="authority availability
+               catDesc category change classDecl correspAction correspContext correspDesc
+               distributor
+               edition editionStmt encodingDesc extent
+               fileDesc funder
+               handNote
+               idno
+               keywords
+               principal profileDesc projectDesc publicationStmt
+               revisionDesc
+               schemaRef scriptNote sourceDesc sponsor
+               taxonomy teiHeader textClass titleStmt typeNote"/>
+
+        <!-- linking module -->
+        <moduleRef key="linking" include="seg"/>
+
+        <!-- msdescription module -->
+        <moduleRef key="msdescription"/>
+
+        <!-- namesdates module -->
+        <moduleRef key="namesdates"
+          include="
+               addName
+               country
+               district
+               forename
+               geogFeat
+               geogName
+               orgName
+               persName
+               placeName
+               region
+               settlement
+               surname
+               "/>
+
+        <!-- textstructure module -->
+        <moduleRef key="textstructure"
+          include="
+               body
+               docAuthor
+               div
+               TEI
+               text
+               "/>
+
+        <!-- transcr module -->
+        <moduleRef key="transcr"
+          include="
+               am
+               ex
+               facsimile
+               supplied surface surfaceGrp
+               zone
+               "/>
+
+
+        <!-- attribute changes -->
+
+
+        <!-- availability/@status: "free, restricted, unknown" are TEI default -->
+
+
+        <!-- bibl/@type
+            full list: LYELL, MS, QUARTO, SC, abridgement, bible, commentedOn, digitised-version, edition, extract, extracts, 
+            intervening, ms, realted-volumes, referred, related, related-items, related-volumes, repertory, 
+            text-relations, textual-relations, translated, translation
+
+            Suggested values: MS, QUARTO, SC,  OC, bible, commentary, edition, extract,  
+            related, text-relations, translation
+            
+            In conversion:
+            LYELL, MS, QUARTO, SC: keep 
+            abridgement: ? keep? 
+            bible: keep, 
+            commentedOn: change to 'commentary'
+            digitised-version:? 
+            edition, extract: keep
+            extracts: make extract 
+            intervening: keep 
+            ms: change to MS  
+            realted-volumes: related 
+            referred: related(?)
+            related: keep 
+            related-items, related-volumes: change to 'related' 
+            repertory: keep  
+            text-relations: keep 
+            textual-relations: change to textual-relations 
+            translated: change to translation 
+            translation: keep
+            
+            -->
+
+
+        <elementSpec ident="bibl" module="core" mode="change">
+          <attList>
+            <attDef ident="type" mode="change">
+              <valList mode="replace" type="semi">
+                <valItem ident="MS">
+                  <desc>The reference is to a manuscript</desc>
+                </valItem>
+                <valItem ident="QUARTO">
+                  <desc>The reference is to the Bodleian Quarto Catalogues</desc>
+                </valItem>
+                <valItem ident="SC">
+                  <desc>The reference is to the Bodleian Summary Catalogue</desc>
+                </valItem>
+                <valItem ident="OC">
+                  <desc>The reference is to the Bodleian Old Catalogue</desc>
+                </valItem>
+                <valItem ident="bible">
+                  <desc>The reference is to the bible</desc>
+                </valItem>
+                <valItem ident="commentary">
+                  <desc>The reference is to a commentary</desc>
+                </valItem>
+                <valItem ident="edition">
+                  <desc>The reference is to an edition</desc>
+                </valItem>
+                <valItem ident="extract">
+                  <desc>The reference is to an extract</desc>
+                </valItem>
+                <valItem ident="related">
+                  <desc>The reference is to a related item</desc>
+                </valItem>
+                <valItem ident="text-relations">
+                  <desc>The reference is to a textually-related item</desc>
+                </valItem>
+                <valItem ident="translation">
+                  <desc>The reference is to a translation</desc>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+
+
+        <!-- decoNote/@type -->
+
+        <!-- 
+            Original list: border, bordersInitials, decoration, diagram, diagrams, frieze, illustration, 
+            initial, initial_border, initials, marginal, marginalSketches, micrography, miniature, 
+            other paratext, printmark, rubrication, secondary, unspecified, unwan
+            
+            In conversions: 
+            border: keep 
+            bordersInitials: border? 
+            decoration: keep? redundant?? 
+            diagram: keep 
+            diagrams: change to diagram 
+            frieze: keep 
+            illustration: keeo 
+            initial: keep 
+            initial_border: change to initial 
+            initials: change to initial 
+            marginal: keep
+            marginalSketches: change to marginal 
+            micrography: keep 
+            miniature: keep
+            other: keep
+            paratext: keep
+            printmark: keep
+            rubrication: keep
+            secondary: keep
+            unspecified: change to other?
+            unwan: keep
+            
+            Suggested values:
+            
+            border, 
+            diagram,
+            illustration, 
+            initial, 
+            marginal,
+            micrography, 
+            miniature, 
+            other, 
+            rubrication,
+            
+            -->
+
+
+        <elementSpec ident="decoNote" module="msdescription" mode="change">
+          <attList>
+            <attDef ident="type" mode="change">
+              <valList mode="replace" type="semi">
+                <valItem ident="border">
+                  <desc>The decoration note concerns the border(s)</desc>
+                </valItem>
+                <valItem ident="diagram">
+                  <desc>The decoration note concerns the diagram(s)</desc>
+                </valItem>
+                <valItem ident="illustration">
+                  <desc>The decoration note concerns the illustration(s)</desc>
+                </valItem>
+                <valItem ident="initial">
+                  <desc>The decoration note concerns the initial(s)</desc>
+                </valItem>
+                <valItem ident="marginal">
+                  <desc>The decoration note concerns the marginal decoration</desc>
+                </valItem>
+                <valItem ident="micrography">
+                  <desc>The decoration note concerns the micrography</desc>
+                </valItem>
+                <valItem ident="miniature">
+                  <desc>The decoration note concerns the miniature(s)</desc>
+                </valItem>
+                <valItem ident="rubrication">
+                  <desc>The decoration note concerns the rubrication or other highlighting</desc>
+                </valItem>
+                <valItem ident="other">
+                  <desc>The decoration note concerns other/unspecified aspects (you may also provide a custom value)</desc>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+
+
+
+        <!-- dimensions/@type
+            
+            original: binding, book, folia, leaf, leaves, line-height, membrane, 'number of photograph', printed, ruled, ruledColumn, ruling, unknown, written
+            
+            In conversions:
+            binding: keep 
+            book: keep
+            folia: keep 
+            'number of folia', change to 'folia'
+            leaf: keep 
+            leaves: change to leaf
+            line-height: keep 
+            membrane: keep 
+            photograph: keep
+            printed, ruled: keep 
+            ruledColumn: change to 'ruled'
+            ruling: change to 'ruling'
+            unknown: change to 'other'
+            written: keep
+            
+            Suggested values:
+            binding, folia, leaf, line-height, ruled, written, other
+            
+            -->
+
+
+        <elementSpec ident="dimensions" module="msdescription" mode="change">
+          <attList>
+            <attDef ident="type" mode="change">
+              <valList mode="replace" type="semi">
+                <valItem ident="binding">
+                  <desc>The dimensions concerns the binding(s)</desc>
+                </valItem>
+                <valItem ident="folia">
+                  <desc>The dimensions concerns the folia as a whole</desc>
+                </valItem>
+                <valItem ident="leaf">
+                  <desc>The dimensions concerns the leaf</desc>
+                </valItem>
+                <valItem ident="line-height">
+                  <desc>The dimensions concerns the line-height</desc>
+                </valItem>
+                <valItem ident="ruled">
+                  <desc>The dimensions concerns the ruling</desc>
+                </valItem>
+                <valItem ident="written">
+                  <desc>The dimensions concerns the written area</desc>
+                </valItem>
+                <valItem ident="other">
+                  <desc>The dimensions concerns other/unspecified aspects (you may also provide a custom value)</desc>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+
+
+
+        <!--
+               name/@type
+            Original: " (28) | artist (1) | church (1) | corporate (563) | dedicatee (1) | org (2) | person (8510) | place (10) | unknown (4) "
+            
+            In conversion: blank = delete attribute or change to 'other'
+            artist: change to person
+            church: change to org
+            corporate: change to org
+            dedicatee: keep 
+            org: ?
+            person keep
+            place keep
+            unknown/other: keep
+            
+            suggested values:
+            person
+            place
+            org
+            unknown
+            
+            -->
+
+
+        <elementSpec ident="name" module="core" mode="change">
+          <attList>
+            <attDef ident="type" mode="change">
+              <valList mode="replace" type="semi">
+                <valItem ident="person">
+                  <desc>The name is of a person</desc>
+                </valItem>
+                <valItem ident="place">
+                  <desc>The name is of a place</desc>
+                </valItem>
+                <valItem ident="org">
+                  <desc>The name is of an organisation</desc>
+                </valItem>
+                <valItem ident="unknown">
+                  <desc>The type of name is unknown</desc>
+                </valItem>
+                <valItem ident="other">
+                  <desc>The name is of another type (you may also provide a custom value)</desc>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+
+        <!-- 
+            
+            title/@type
+            Original: alt (6286) | alternative (1) | collection (9017) | desc (4269) | general (38) | main (7) | parallel (223) | sub (14) | supplied (60) | uniform (1)
+         
+         conversion= alternative -> alt
+         
+          Suggested Vvalues:
+           main
+           sub
+           alt
+           short
+           desc
+           collection
+           
+            -->
+
+
+
+        <elementSpec ident="title" module="core" mode="change">
+          <attList>
+            <attDef ident="type" mode="change">
+              <valList mode="replace" type="semi">
+                <valItem ident="main">
+                  <desc>The title is the main title</desc>
+                </valItem>
+                <valItem ident="sub">
+                  <desc>The title is a subtitle or title of a part</desc>
+                </valItem>
+                <valItem ident="alt">
+                  <desc>The title is an alternate title, translation, or alias</desc>
+                </valItem>
+                <valItem ident="short">
+                  <desc>The title is an abbreviated form of the main title</desc>
+                </valItem>
+                <valItem ident="desc">
+                  <desc>The title is a descriptive paraphrase of the work functioning as a title</desc>
+                </valItem>
+                <valItem ident="collection">
+                  <desc>The title is of a collection</desc>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+
+
+
+        <elementSpec ident="include" ns="http://www.w3.org/2001/XInclude" mode="add">
+          <desc xml:lang="en" versionDate="2014-01-12">The W3C XInclude element</desc>
+          <classes>
+            <memberOf key="model.common"/>
+            <memberOf key="model.teiHeaderPart"/>
+          </classes>
+          <content>
+            <elementRef key="fallback" minOccurs="0" maxOccurs="1"/>
+          </content>
+          <attList>
+            <attDef ident="href">
+              <desc xml:lang="en" versionDate="2014-01-12">pointer to the resource being included</desc>
+              <datatype>
+                <dataRef key="teidata.pointer"/>
+              </datatype>
+            </attDef>
+            <attDef ident="parse" usage="opt">
+              <defaultVal>xml</defaultVal>
+              <valList type="closed">
+                <valItem ident="xml"/>
+                <valItem ident="text"/>
+              </valList>
+            </attDef>
+            <attDef ident="xpointer" usage="opt">
+              <datatype>
+                <dataRef key="teidata.text"/>
+              </datatype>
+            </attDef>
+            <attDef ident="encoding" usage="opt">
+              <datatype>
+                <dataRef key="teidata.text"/>
+              </datatype>
+            </attDef>
+            <attDef ident="accept" usage="opt">
+              <datatype>
+                <dataRef key="teidata.text"/>
+              </datatype>
+            </attDef>
+            <attDef ident="accept-charset" usage="opt">
+              <datatype>
+                <dataRef key="teidata.text"/>
+              </datatype>
+            </attDef>
+            <attDef ident="accept-language" usage="opt">
+              <datatype>
+                <dataRef key="teidata.text"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </elementSpec>
+
+        <elementSpec ident="fallback" ns="http://www.w3.org/2001/XInclude" mode="add">
+          <desc  xml:lang="en" versionDate="2014-01-12">Wrapper for fallback elements if an XInclude fails</desc>
+          <content>
+            <alternate>
+              <textNode/>
+              <anyElement/>
+            </alternate>
+            </content>
+        </elementSpec>
+
+
+
+
+      </schemaSpec>
+    </body>
+  </text>
+</TEI>
