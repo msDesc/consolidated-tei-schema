@@ -45,7 +45,8 @@
    <xsl:message>
       Base URI: <xsl:value-of select="$baseURI"/>
       Folder: <xsl:value-of select="$folder"/>
-      Filename: <xsl:value-of select="$filename"/>      
+      Old Filename: <xsl:value-of select="$filename"/>
+      New ID: <xsl:value-of select="$msID"/>
     </xsl:message>
     
     <!-- Create the output file name -->
@@ -97,7 +98,7 @@
          <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
        </xsl:choose>
      </xsl:variable>
-<xsl:attribute name="type"><xsl:value-of select="$type"/></xsl:attribute>     
+     <xsl:if test="normalize-space($type) != ''"><xsl:attribute name="type"><xsl:value-of select="$type"/></xsl:attribute></xsl:if>
    </xsl:template>
   
   
@@ -105,16 +106,17 @@
   <xsl:template match="decoNote/@type">
     <xsl:variable name="type">
       <xsl:choose>
-        <xsl:when test=".='borderInitials' or .='frieze'">border</xsl:when>
+        <xsl:when test=".='frieze' ">border</xsl:when>
         <xsl:when test=".='decoration' or .='paratext' or .='printmark' or .='secondary' or .='unspecified'">other</xsl:when>
         <xsl:when test=".='diagrams'">diagram</xsl:when>
         <xsl:when test=".='ms'">MS</xsl:when>
-        <xsl:when test=".='initial_border' or .='intials'">initial</xsl:when>
+        <xsl:when test=".='borderInitials'">initial_border</xsl:when>
+         <xsl:when test=".='intials'">initial</xsl:when>
         <xsl:when test=".='marginalSketches'">marginal</xsl:when>
         <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:attribute name="type"><xsl:value-of select="$type"/></xsl:attribute>     
+    <xsl:if test="normalize-space($type) != ''"><xsl:attribute name="type"><xsl:value-of select="$type"/></xsl:attribute></xsl:if>
   </xsl:template>
   
   <!-- dimensions/@type -->
@@ -129,7 +131,7 @@
         <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:attribute name="type"><xsl:value-of select="$type"/></xsl:attribute>     
+    <xsl:if test="normalize-space($type) != ''"><xsl:attribute name="type"><xsl:value-of select="$type"/></xsl:attribute></xsl:if>     
   </xsl:template>
   
   <!-- name/@type -->
@@ -143,7 +145,7 @@
         <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-<xsl:if test="$type/text()"><xsl:attribute name="type"><xsl:value-of select="$type"/></xsl:attribute></xsl:if>     
+     <xsl:if test="normalize-space($type) != ''"><xsl:attribute name="type"><xsl:value-of select="$type"/></xsl:attribute></xsl:if>     
   </xsl:template>
   
   <!-- title/@type -->
@@ -156,7 +158,7 @@
         <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:if test="$type/text()"><xsl:attribute name="type"><xsl:value-of select="$type"/></xsl:attribute></xsl:if>     
+     <xsl:if test="normalize-space($type) != ''"><xsl:attribute name="type"><xsl:value-of select="$type"/></xsl:attribute></xsl:if>     
   </xsl:template>
   
    
@@ -199,7 +201,7 @@
   
   <!-- 
 msPart/altIdentifier needs to be changed to msIdentifier
-  but also split those with commas 
+  but also split those existing altIdentifiers with commas 
    -->
   <xsl:template match="altIdentifier">
     <xsl:variable name="current" select="."/>
@@ -244,6 +246,15 @@ msPart/altIdentifier needs to be changed to msIdentifier
       </xsl:choose>
     </xsl:template>
   
+  <!-- Give new ID to each msPart -->
+  <xsl:template match="msPart">
+    <xsl:variable name="num"><xsl:number count="msPart" level="any"/></xsl:variable>
+    <xsl:variable name="msID"><xsl:value-of select="jc:normalizeID(ancestor::msDesc/msIdentifier/idno)"/></xsl:variable>
+<msPart xml:id="{concat($msID, '-', $num)}">
+  <xsl:apply-templates select="@*[not(name()='xml:id')]|node()"/>
+</msPart>   
+  </xsl:template>
+  
   
   <!-- 
   Replace publicationStmt
@@ -275,29 +286,31 @@ msPart/altIdentifier needs to be changed to msIdentifier
   
   <!-- Add revisionDesc to the teiHeader -->
   <xsl:template match="teiHeader">
+    <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
     <xsl:choose>
       <xsl:when test="revisionDesc"><xsl:message>WARNING: Already has a revisionDesc element</xsl:message></xsl:when>
       <xsl:otherwise>
         <revisionDesc>
-          <change when="{current-dateTime()}">
+          <change when="{substring(string(current-date()), 0, 11)}">
             <persName>James Cummings</persName>
             Up-converted the markup using 
-            <ptr target="convertTolkien2Bodley.xsl"/>
+            <ref target="https://github.com/jamescummings/Bodleian-msDesc-ODD/blob/master/convertTolkien2Bodley.xsl">https://github.com/jamescummings/Bodleian-msDesc-ODD/blob/master/convertTolkien2Bodley.xsl</ref>
           </change>
         </revisionDesc>    
       </xsl:otherwise>
     </xsl:choose>
+    </xsl:copy>
   </xsl:template>
   
   <!-- If it has a revisionDesc -->
   <xsl:template match="revisionDesc">
     <xsl:copy>
-    <change when="{current-dateTime()}">
+    <change when="{substring(string(current-date()), 0, 11)}">
       <persName>James Cummings</persName>
       Up-converted the markup using 
-      <ptr target="convertTolkien2Bodley.xsl"/>
-    </change>
+      <ref target="https://github.com/jamescummings/Bodleian-msDesc-ODD/blob/master/convertTolkien2Bodley.xsl">https://github.com/jamescummings/Bodleian-msDesc-ODD/blob/master/convertTolkien2Bodley.xsl</ref>
+     </change>
     <xsl:apply-templates/>
     </xsl:copy>
   </xsl:template>
