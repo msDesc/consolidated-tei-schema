@@ -58,8 +58,8 @@
                edition editionStmt encodingDesc extent
                fileDesc funder
                handNote
-               idno
-               keywords
+               idno 
+               keywords licence
                principal profileDesc projectDesc publicationStmt
                revisionDesc
                schemaRef scriptNote sourceDesc sponsor
@@ -128,7 +128,7 @@
             abridgement: ? keep? 
             bible: keep, 
             commentedOn: change to 'commentary'
-            digitised-version:? 
+            digitised-version:related 
             edition, extract: keep
             extracts: make extract 
             intervening: keep 
@@ -139,7 +139,7 @@
             related-items, related-volumes: change to 'related' 
             repertory: keep  
             text-relations: keep 
-            textual-relations: change to textual-relations 
+            textual-relations: change to text-relations
             translated: change to translation 
             translation: keep
             
@@ -198,11 +198,11 @@
             
             In conversions: 
             border: keep 
-            bordersInitials: border? 
-            decoration: keep? redundant?? 
+            bordersInitials: border 
+            decoration:other
             diagram: keep 
             diagrams: change to diagram 
-            frieze: keep 
+            frieze: border 
             illustration: keeo 
             initial: keep 
             initial_border: change to initial 
@@ -212,12 +212,12 @@
             micrography: keep 
             miniature: keep
             other: keep
-            paratext: keep
-            printmark: keep
+            paratext: other
+            printmark: other
             rubrication: keep
-            secondary: keep
-            unspecified: change to other?
-            unwan: keep
+            secondary: other
+            unspecified: other
+            unwan: other
             
             Suggested values:
             
@@ -285,7 +285,7 @@
             leaves: change to leaf
             line-height: keep 
             membrane: keep 
-            photograph: keep
+            photograph: other
             printed, ruled: keep 
             ruledColumn: change to 'ruled'
             ruling: change to 'ruling'
