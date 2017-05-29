@@ -49,12 +49,15 @@
         <xsl:value-of select="position()"/>
       </xsl:variable>
       <xsl:variable name="msID">
-        <xsl:value-of select="jc:normalizeID(.//msDesc[1]/msIdentifier/idno)"/>
+        <xsl:value-of select="jc:normalizeID(normalize-space(.//sourceDesc/msDesc[1]/msIdentifier/idno[1]/text()))"/>
       </xsl:variable>
 
       <!-- This is just a debugging message so I see the filnames whiz by on the screen -->
-      <xsl:message> Base URI: <xsl:value-of select="$baseURI"/> Folder: <xsl:value-of select="$folder"/> Old Filename:
-          <xsl:value-of select="$filename"/> New ID: <xsl:value-of select="$msID"/>
+      <xsl:message> Base URI: <xsl:value-of select="$baseURI"/> 
+        Folder: <xsl:value-of select="$folder"/> 
+        Old Filename:
+          <xsl:value-of select="$filename"/> 
+        New ID: <xsl:value-of select="$msID"/>
       </xsl:message>
 
       <!-- Create the output file name -->
@@ -91,7 +94,6 @@
 
   <!-- Add ID to msDesc -->
   <xsl:template match="msDesc">
-    <xsl:if test="count(//msDesc) gt 1">Error: more than one msDesc in this file!</xsl:if>
     <msDesc xml:id="{jc:normalizeID(msIdentifier/idno)}">
       <xsl:apply-templates select="@*[name() ne 'xml:id']|node()"/>
     </msDesc>
@@ -222,39 +224,22 @@
        <xsl:otherwise><persName><xsl:apply-templates select="@*[name() ne 'type']|node()" /></persName></xsl:otherwise>
      </xsl:choose>-->
   </xsl:template>
-  <xsl:template match="name[@type='person' or @type='artist']/persName">
-    <xsl:apply-templates/>
-  </xsl:template>
+  <xsl:template match="name[@type='person' or @type='artist']/persName"><xsl:apply-templates/></xsl:template>
 
   <!-- Same with corporate to orgName  and church-->
-  <xsl:template match="name[@type='corporate']|name[@type='church']">
-    <orgName>
-      <xsl:apply-templates select="@*[not(name()='type')]|node()"/>
-    </orgName>
-  </xsl:template>
-  <xsl:template match="name[@type='corporate' or @type='church']/persName">
-    <xsl:apply-templates/>
-  </xsl:template>
+  <xsl:template match="name[@type='corporate']|name[@type='church']"><orgName><xsl:apply-templates select="@*[not(name()='type')]|node()"/></orgName></xsl:template>
+  <xsl:template match="name[@type='corporate' or @type='church']/persName"><xsl:apply-templates/></xsl:template>
 
-  <xsl:template match="author/persName">
-    <xsl:apply-templates/>
-  </xsl:template>
+  <xsl:template match="author/persName"><xsl:apply-templates/></xsl:template>
 
   <!-- Why does author sometimes have title in it? Let's move it to after -->
-  <xsl:template match="author[title]">
-    <xsl:copy>
-      <xsl:apply-templates select="@*|node()[not(name()='title')]"/>
-    </xsl:copy>
+  <xsl:template match="author[title]"><xsl:copy><xsl:apply-templates select="@*|node()[not(name()='title')]"/></xsl:copy>
     <xsl:copy-of select="title"/>
   </xsl:template>
   <!-- make it vanish -->
   <xsl:template match="author/title"/>
 
-  <xsl:template match="origin//date">
-    <origDate>
-      <xsl:apply-templates select="@*|node()"/>
-    </origDate>
-  </xsl:template>
+  <xsl:template match="origin//date"><origDate><xsl:apply-templates select="@*|node()"/></origDate></xsl:template>
 
 
   <!-- 
@@ -281,46 +266,101 @@ msPart/altIdentifier needs to be changed to msIdentifier
       <xsl:number count="msPart" level="any"/>
     </xsl:variable>
     <xsl:variable name="msID">
-      <xsl:value-of select="jc:normalizeID(ancestor::msDesc/msIdentifier/idno)"/>
+      <xsl:value-of select="jc:normalizeID(ancestor::msDesc[1]/msIdentifier[1]/idno[1])"/>
     </xsl:variable>
-    <msPart xml:id="{concat($msID, '-part', $num)}">
+<xsl:variable name="desc1"><xsl:if test="preceding::msDesc"><xsl:value-of select="concat('-desc', count(preceding::msDesc)+1)"/></xsl:if></xsl:variable>    
+<xsl:variable name="part1">
+<xsl:value-of select="concat('-part', count(preceding-sibling::msPart)+1)"/>  
+</xsl:variable>
+    
+    <xsl:variable name="part2">
+<xsl:if test="parent::msPart"><xsl:value-of select="concat('-part', count(parent::msPart/preceding-sibling::msPart)+1)"/></xsl:if>  
+    </xsl:variable>    
+    <msPart xml:id="{concat($msID,$desc1,$part2, $part1)}">
       <xsl:apply-templates select="@*[not(name()='xml:id')]|node()"/>
     </msPart>
   </xsl:template>
 
-  <!-- update IDs on msItems -->
+  <!-- update IDs on msItems and copy textLang if appropriate -->
 
-  <!-- 
-  TODO: https://github.com/holfordm/tolkien-xml/issues/9
-  
-  Where language is only specified at the top level of the description (<msContents>/<textLang>),
-  the language should be copied into each <msItem>. This is to make the SOLR indexing easier.
-Note that this will only be possible when there is a single language in the manuscript 
-(textLang[parent::msContents and not(@otherLangs)])
-  -->
 
   <xsl:template match="msItem">
     <xsl:variable name="msID">
-      <xsl:value-of select="jc:normalizeID(ancestor::msDesc/msIdentifier/idno)"/>
+      <xsl:value-of select="jc:normalizeID(ancestor::msDesc[1]/msIdentifier[1]/idno[1])"/>
     </xsl:variable>
-    <xsl:variable name="msPartNum">
-      <xsl:number count="msPart" level="any"/>
+    <!--<xsl:variable name="msItemNum">
+      <xsl:value-of select="count(preceding-sibling::msItem)+1"/>
     </xsl:variable>
-    <xsl:variable name="msItemNum">
-      <xsl:number count="msItem"/>
+    <xsl:variable name="msItemNum1">
+      <xsl:value-of select="count(parent::msItem/preceding-sibling::msItem)+1"/>
     </xsl:variable>
+    <xsl:variable name="msItemNum2">
+      <xsl:value-of select="count(preceding-sibling::msItem)+1"/>
+    </xsl:variable>-->
+    <xsl:variable name="desc1"><xsl:if test="preceding::msDesc"><xsl:value-of select="concat('-desc', count(preceding::msDesc)+1)"/></xsl:if></xsl:variable>    
     <xsl:variable name="msItemID">
+<xsl:value-of select="$msID"/>
+<xsl:if test="preceding::msDesc"><xsl:value-of select="$desc1"/></xsl:if>      
+<xsl:if test="ancestor::msPart[1]/parent::msPart">-part<xsl:value-of select="count(ancestor::msPart[1]/parent::msPart/preceding-sibling::msPart)+1"/></xsl:if>           
+<xsl:if test="ancestor::msPart">-part<xsl:value-of select="count(ancestor::msPart[1]/preceding-sibling::msPart)+1"/></xsl:if>
+<xsl:choose>
+  <xsl:when test="parent::msItem/parent::msItem/parent::msItem/parent::msItem/parent::msContents">
+    -item<xsl:value-of select="count(parent::msItem/parent::msItem/parent::msItem/parent::msItem/preceding-sibling::msItem)+1"/>
+    -item<xsl:value-of select="count(parent::msItem/parent::msItem/parent::msItem/preceding-sibling::msItem)+1"/>
+    -item<xsl:value-of select="count(parent::msItem/parent::msItem/preceding-sibling::msItem)+1"/>
+    -item<xsl:value-of select="count(parent::msItem/preceding-sibling::msItem)+1"/>
+    -item<xsl:value-of select="count(preceding-sibling::msItem)+1"/>  
+  </xsl:when>
+  <xsl:when test="parent::msItem/parent::msItem/parent::msItem/parent::msContents">
+    -item<xsl:value-of select="count(parent::msItem/parent::msItem/parent::msItem/preceding-sibling::msItem)+1"/>
+    -item<xsl:value-of select="count(parent::msItem/parent::msItem/preceding-sibling::msItem)+1"/>
+    -item<xsl:value-of select="count(parent::msItem/preceding-sibling::msItem)+1"/>
+    -item<xsl:value-of select="count(preceding-sibling::msItem)+1"/>  
+    </xsl:when>
+  <xsl:when test="parent::msItem/parent::msItem/parent::msContents">
+    -item<xsl:value-of select="count(parent::msItem/parent::msItem/preceding-sibling::msItem)+1"/>
+    -item<xsl:value-of select="count(parent::msItem/preceding-sibling::msItem)+1"/>
+    -item<xsl:value-of select="count(preceding-sibling::msItem)+1"/>  
+  </xsl:when>
+  <xsl:when test="parent::msItem/parent::msContents">
+    -item<xsl:value-of select="count(parent::msItem/preceding-sibling::msItem)+1"/>
+    -item<xsl:value-of select="count(preceding-sibling::msItem)+1"/>  
+  </xsl:when>
+  <xsl:when test="parent::msContents">
+    -item<xsl:value-of select="count(preceding-sibling::msItem)+1"/>  
+  </xsl:when>
+</xsl:choose>
+    
+      <!--
       <xsl:choose>
+        
+        
+        <xsl:when test="parent::msItem/parent::msItem/ancestor::msPart">
+          <xsl:value-of select="concat($msID, '-part', $msPartNum, '-item',$msItemNum, '-item', $msItemNum1, '-item', $msItemNum2)"/>
+        </xsl:when>
+        <xsl:when test="parent::msItem/parent::msItem">
+          <xsl:value-of select="concat($msID, '-item',$msItemNum, '-item', $msItemNum1, '-item', $msItemNum2)"/>
+        </xsl:when>
         <xsl:when test="ancestor::msPart">
           <xsl:value-of select="concat($msID, '-part', $msPartNum, '-item',$msItemNum)"/>
+        </xsl:when>
+        
+        <xsl:when test="parent::msItem">
+          <xsl:value-of select="concat($msID, '-item',$msItemNum, '-item', $msItemNum2)"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="concat($msID, '-item',$msItemNum)"/>
         </xsl:otherwise>
-      </xsl:choose>
+      </xsl:choose>-->
     </xsl:variable>
-    <msItem xml:id="{normalize-space($msItemID)}">
+    <msItem xml:id="{translate(normalize-space($msItemID), ' ', '')}">
       <xsl:apply-templates select="@*[name() ne 'xml:id']|node()"/>
+      <xsl:choose>
+        <xsl:when test="not(.//textLang) and ancestor::msContents/textLang[not(@otherLangs)] and not(p)">
+          <xsl:apply-templates select="ancestor::msContents/textLang"/>
+        </xsl:when>
+        <xsl:otherwise/>
+      </xsl:choose>
     </msItem>
   </xsl:template>
 
@@ -334,7 +374,7 @@ Note that this will only be possible when there is a single language in the manu
       <xsl:value-of select="tokenize(base-uri(), '/')[last()-1]"/>
     </xsl:variable>
     <xsl:variable name="msID">
-      <xsl:value-of select="jc:normalizeID(//msDesc[1]/msIdentifier/idno)"/>
+      <xsl:value-of select="jc:normalizeID(//sourceDesc[1]/msDesc[1]/msIdentifier[1]/idno[1]/text())"/>
     </xsl:variable>
     <publicationStmt>
       <publisher>Special Collections, Bodleian Libraries</publisher>
@@ -351,10 +391,12 @@ Note that this will only be possible when there is a single language in the manu
         <email>specialcollections.enquiries@bodleian.ox.ac.uk</email>
       </distributor>
       <xsl:comment>Availability statement will be added here</xsl:comment>
+      
       <!-- <availability>
         <licence target="https://creativecommons.org/licenses/by/4.0/">A Creative Commons Attribution licence applies to this file.</licence>
       </availability>
      -->
+      
       <idno type="msID">
         <xsl:value-of select="$msID"/>
       </idno>
@@ -425,9 +467,37 @@ Note that this will only be possible when there is a single language in the manu
 <xsl:attribute name="{name()}"><xsl:value-of select="jc:normalizeLang(.)"/></xsl:attribute>  
 </xsl:template>
   
+  
+  <xsl:template match="p"><xsl:choose>
+      <xsl:when test="normalize-space(.)=''"/>
+    <xsl:otherwise><xsl:copy><xsl:apply-templates select="@*|node()"/></xsl:copy></xsl:otherwise>
+    </xsl:choose></xsl:template>
+  
+  
+  <xsl:template match="msItem/p"><xsl:choose>
+    <xsl:when test="normalize-space(.)='' and  ancestor::msContents/textLang[not(@otherLangs)]"><xsl:apply-templates select="ancestor::msContents/textLang"/></xsl:when>
+    <xsl:when test="normalize-space(.)=''"><xsl:copy><xsl:comment>Empty paragraph in source of conversion</xsl:comment></xsl:copy></xsl:when>
+    <xsl:otherwise><xsl:copy><xsl:apply-templates select="@*|node()"/></xsl:copy></xsl:otherwise>
+  </xsl:choose></xsl:template>
+  
+  
+  <xsl:template match="binding/p|layoutDesc/p"><xsl:choose>
+    <xsl:when test="normalize-space(.)=''"><xsl:copy><xsl:comment>Empty paragraph in source of conversion</xsl:comment></xsl:copy></xsl:when>
+    <xsl:otherwise><xsl:copy><xsl:apply-templates select="@*|node()"/></xsl:copy></xsl:otherwise>
+  </xsl:choose></xsl:template>
+  
+
+  <xsl:template match="body/p">
+    <xsl:choose>
+      <xsl:when test="normalize-space(.)=''">
+        <xsl:copy><xsl:comment>Body paragraph provided for validation and future transcription</xsl:comment></xsl:copy>
+      </xsl:when>
+      <xsl:otherwise><xsl:copy><xsl:apply-templates select="@*|node()"/></xsl:copy></xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
 
 
-
+<!-- FUNCTIONS -->
   <!-- function to replace characters in manuscript identifiers -->
   <xsl:function name="jc:normalizeID">
     <xsl:param name="ID" as="item()"/>
