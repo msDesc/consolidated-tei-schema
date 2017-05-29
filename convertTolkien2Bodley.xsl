@@ -60,7 +60,7 @@
         New ID: <xsl:value-of select="$msID"/>
       </xsl:message>
 
-      <!-- Create the output file name -->
+      <!-- Create the (hard coded) output file name -->
       <xsl:variable name="outputFilename"
         select="concat('file:/home/jamesc/Dropbox/stuff/Desktop/Work/projects/Bodleian-TEI-Catalogue-Consolidation/working/tolkien-xml/new/', 
       $folder, '/', $msID, '.xml')"/>
@@ -272,7 +272,7 @@ msPart/altIdentifier needs to be changed to msIdentifier
 <xsl:variable name="part1">
 <xsl:value-of select="concat('-part', count(preceding-sibling::msPart)+1)"/>  
 </xsl:variable>
-    
+    <!-- Nested msParts -->
     <xsl:variable name="part2">
 <xsl:if test="parent::msPart"><xsl:value-of select="concat('-part', count(parent::msPart/preceding-sibling::msPart)+1)"/></xsl:if>  
     </xsl:variable>    
@@ -282,22 +282,12 @@ msPart/altIdentifier needs to be changed to msIdentifier
   </xsl:template>
 
   <!-- update IDs on msItems and copy textLang if appropriate -->
-
-
   <xsl:template match="msItem">
     <xsl:variable name="msID">
       <xsl:value-of select="jc:normalizeID(ancestor::msDesc[1]/msIdentifier[1]/idno[1])"/>
     </xsl:variable>
-    <!--<xsl:variable name="msItemNum">
-      <xsl:value-of select="count(preceding-sibling::msItem)+1"/>
-    </xsl:variable>
-    <xsl:variable name="msItemNum1">
-      <xsl:value-of select="count(parent::msItem/preceding-sibling::msItem)+1"/>
-    </xsl:variable>
-    <xsl:variable name="msItemNum2">
-      <xsl:value-of select="count(preceding-sibling::msItem)+1"/>
-    </xsl:variable>-->
-    <xsl:variable name="desc1"><xsl:if test="preceding::msDesc"><xsl:value-of select="concat('-desc', count(preceding::msDesc)+1)"/></xsl:if></xsl:variable>    
+    <xsl:variable name="desc1"><xsl:if test="preceding::msDesc"><xsl:value-of select="concat('-desc', count(preceding::msDesc)+1)"/></xsl:if></xsl:variable>
+<!-- Very manual way of creating ID that deals with nested msDescs, nested msParts and up to 5 levels of msItems -->    
     <xsl:variable name="msItemID">
 <xsl:value-of select="$msID"/>
 <xsl:if test="preceding::msDesc"><xsl:value-of select="$desc1"/></xsl:if>      
@@ -330,31 +320,11 @@ msPart/altIdentifier needs to be changed to msIdentifier
     -item<xsl:value-of select="count(preceding-sibling::msItem)+1"/>  
   </xsl:when>
 </xsl:choose>
-    
-      <!--
-      <xsl:choose>
-        
-        
-        <xsl:when test="parent::msItem/parent::msItem/ancestor::msPart">
-          <xsl:value-of select="concat($msID, '-part', $msPartNum, '-item',$msItemNum, '-item', $msItemNum1, '-item', $msItemNum2)"/>
-        </xsl:when>
-        <xsl:when test="parent::msItem/parent::msItem">
-          <xsl:value-of select="concat($msID, '-item',$msItemNum, '-item', $msItemNum1, '-item', $msItemNum2)"/>
-        </xsl:when>
-        <xsl:when test="ancestor::msPart">
-          <xsl:value-of select="concat($msID, '-part', $msPartNum, '-item',$msItemNum)"/>
-        </xsl:when>
-        
-        <xsl:when test="parent::msItem">
-          <xsl:value-of select="concat($msID, '-item',$msItemNum, '-item', $msItemNum2)"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="concat($msID, '-item',$msItemNum)"/>
-        </xsl:otherwise>
-      </xsl:choose>-->
     </xsl:variable>
+    <!-- Finally use the variable -->
     <msItem xml:id="{translate(normalize-space($msItemID), ' ', '')}">
       <xsl:apply-templates select="@*[name() ne 'xml:id']|node()"/>
+      <!-- textLang -->
       <xsl:choose>
         <xsl:when test="not(.//textLang) and ancestor::msContents/textLang[not(@otherLangs)] and not(p)">
           <xsl:apply-templates select="ancestor::msContents/textLang"/>
@@ -430,8 +400,6 @@ msPart/altIdentifier needs to be changed to msIdentifier
     </xsl:copy>
   </xsl:template>
 
-
-
   <!-- If it has a revisionDesc -->
   <xsl:template match="revisionDesc">
     <xsl:copy>
@@ -467,26 +435,26 @@ msPart/altIdentifier needs to be changed to msIdentifier
 <xsl:attribute name="{name()}"><xsl:value-of select="jc:normalizeLang(.)"/></xsl:attribute>  
 </xsl:template>
   
-  
+  <!-- Get rid of empty p elements -->
   <xsl:template match="p"><xsl:choose>
       <xsl:when test="normalize-space(.)=''"/>
     <xsl:otherwise><xsl:copy><xsl:apply-templates select="@*|node()"/></xsl:copy></xsl:otherwise>
     </xsl:choose></xsl:template>
   
-  
+  <!-- except inside msItems -->
   <xsl:template match="msItem/p"><xsl:choose>
     <xsl:when test="normalize-space(.)='' and  ancestor::msContents/textLang[not(@otherLangs)]"><xsl:apply-templates select="ancestor::msContents/textLang"/></xsl:when>
     <xsl:when test="normalize-space(.)=''"><xsl:copy><xsl:comment>Empty paragraph in source of conversion</xsl:comment></xsl:copy></xsl:when>
     <xsl:otherwise><xsl:copy><xsl:apply-templates select="@*|node()"/></xsl:copy></xsl:otherwise>
   </xsl:choose></xsl:template>
   
-  
+  <!-- and inside binding and layoutDesc -->
   <xsl:template match="binding/p|layoutDesc/p"><xsl:choose>
     <xsl:when test="normalize-space(.)=''"><xsl:copy><xsl:comment>Empty paragraph in source of conversion</xsl:comment></xsl:copy></xsl:when>
     <xsl:otherwise><xsl:copy><xsl:apply-templates select="@*|node()"/></xsl:copy></xsl:otherwise>
   </xsl:choose></xsl:template>
   
-
+<!-- Put different comment in body/p -->
   <xsl:template match="body/p">
     <xsl:choose>
       <xsl:when test="normalize-space(.)=''">
