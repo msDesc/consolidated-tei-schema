@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="http://jenkins.tei-c.org/job/TEIP5/lastSuccessfulBuild/artifact/P5/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+  <?xml-model href="http://jenkins.tei-c.org/job/TEIP5/lastSuccessfulBuild/artifact/P5/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="http://jenkins.tei-c.org/job/TEIP5/lastSuccessfulBuild/artifact/P5/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en">
   <teiHeader>
@@ -424,7 +424,22 @@
         </elementSpec>
 
 
+<!-- Non-TEI-conformant change (as per P5 3.1.0) adding 'hi' to locus -->
+        <elementSpec ident="locus" module="msdescription" mode="change">
+          <content>
+            <alternate minOccurs="0"
+              maxOccurs="unbounded">
+              <textNode/>
+              <classRef key="model.gLike"/>
+              <classRef key="model.hiLike"/>
+            </alternate>
+          </content>
+        </elementSpec>
 
+
+
+
+<!-- Include XInclude into our schema -->
         <elementSpec ident="include" ns="http://www.w3.org/2001/XInclude" mode="add">
           <desc xml:lang="en" versionDate="2014-01-12">The W3C XInclude element</desc>
           <classes>
