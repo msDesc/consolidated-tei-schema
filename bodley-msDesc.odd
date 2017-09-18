@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
   <?xml-model href="http://jenkins.tei-c.org/job/TEIP5/lastSuccessfulBuild/artifact/P5/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="http://jenkins.tei-c.org/job/TEIP5/lastSuccessfulBuild/artifact/P5/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en">
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en" xmlns:sch="http://purl.oclc.org/dsdl/schematron">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -376,6 +376,10 @@
             </attDef>
           </attList>
         </elementSpec>
+        
+        
+        
+        
 
         <!-- 
             
@@ -502,6 +506,105 @@
         </elementSpec>
 
 
+        <!-- ****************** -->
+        <!-- schematron constraints for the medieval catalogue have been added here -->
+        <!-- ****************** -->
+
+        
+        <!-- author inside msItem must have @key -->
+        <elementSpec ident="author" module="core" mode="change">
+          <constraintSpec ident="author.key.check" scheme="isoschematron">
+            <constraint>
+              <sch:rule context="//tei:msItem//tei:author[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                <sch:assert test="@key[matches(., 'person_\d+')]">In the medieval catalogue, the author element, when a child of msItem, must have a key matching the pattern 'person_\d+'.</sch:assert>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+        
+        <!-- persName inside msDesc must have a key -->
+        <elementSpec ident="persName" module="namesdates" mode="change">
+          <constraintSpec ident="persName.key.check" scheme="isoschematron">
+            <constraint>
+              <sch:rule context="//tei:msDesc//tei:persName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                <sch:assert test="@key[matches(., 'person_\d+')]">In the medieval catalogue, the persName element, when a descendant of msDesc, must have a key matching the pattern 'person_\d+'.</sch:assert>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+        
+        <!-- placeName inside msDesc must have a key -->
+        <elementSpec ident="placeName" module="namesdates" mode="change">
+          <constraintSpec ident="placeName.key.check" scheme="isoschematron">
+            <constraint>
+              <sch:rule context="//tei:msDesc//tei:placeName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                <sch:assert test="@key[matches(., 'place_\d+')]">In the medieval catalogue, the placeName element, when a descendant of msDesc, must have a key matching the pattern 'place_\d+'.</sch:assert>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+        
+        <!-- orgName inside msDesc must have a key -->
+        <elementSpec ident="orgName" module="namesdates" mode="change">
+          <constraintSpec ident="orgName.key.check" scheme="isoschematron">
+            <constraint>
+              <sch:rule context="//tei:msDesc//tei:orgName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                <sch:assert test="@key[matches(., 'org_\d+')]">In the medieval catalogue, the orgName element, when a descendant of msDesc, must have a key matching the pattern 'org_\d+'.</sch:assert>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+        
+        <!-- not yet adding a rule about @key for works -->
+        
+        <!-- county inside origin must have a key -->
+        <elementSpec ident="country" module="namesdates" mode="change">
+          <constraintSpec ident="country.key.check" scheme="isoschematron">
+            <constraint>
+              <sch:rule context="//tei:origin//tei:country[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                <sch:assert test="@key[matches(., 'place_\d+')]">In the medieval catalogue, the country element, when a descendant of origin, must have a key matching the pattern 'place_\d+'.</sch:assert>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+        
+        <!-- settlement inside origin must have a key -->
+        <elementSpec ident="settlement" module="namesdates" mode="change">
+          <constraintSpec ident="settlement.key.check" scheme="isoschematron">
+            <constraint>
+              <sch:rule context="//tei:origin//tei:settlement[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                <sch:assert test="@key[matches(., 'place_\d+')]">In the medieval catalogue, the settlement element, when a descendant of origin, must have a key matching the pattern 'place_\d+'.</sch:assert>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+        
+        <!-- a manuscript must have one or more languages  -->
+        <elementSpec ident="textLang" module="core" mode="change">
+          <constraintSpec ident="textLang.check" scheme="isoschematron">
+            <constraint>
+              <sch:rule context="//tei:msContents[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                <sch:assert test="descendant::tei:textLang">In the medieval catalogue, a manuscript must have one or more languages recorded in a textLang element.</sch:assert>
+              </sch:rule>
+              <sch:rule context="//tei:textLang[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                <!-- a more detailed rule could be added here, to check correct attribute values -->
+                <sch:assert test="@mainLang">In the medieval catalogue, the nature of languages should be recorded in a mainLang attribute (and if necessary an otherLang attribute) using the relevant IANA codes. For manuscripts with no linguistic content use code 'zxx'.</sch:assert>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+        
+        <!-- support must be recorded in @support attribute -->
+        <elementSpec ident="supportDesc" module="msdescription" mode="change">
+          <constraintSpec ident="supportDesc.check" scheme="isoschematron">
+            <constraint>
+              <sch:rule context="//tei:supportDesc[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                <!-- a more detailed rule could be added here, to check correct attribute values -->
+                <sch:assert test="@material">In the medieval catalogue, the writing support of a manuscript must be specified in the material attribute on the element supportDesc.</sch:assert>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
 
 
       </schemaSpec>
