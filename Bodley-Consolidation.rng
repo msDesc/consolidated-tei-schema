@@ -5,7 +5,7 @@
          xmlns:teix="http://www.tei-c.org/ns/Examples"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2017-09-18T10:03:37Z. .
+Schema generated from ODD source 2017-10-06T08:59:07Z. .
 TEI Edition: Version 3.2.0. Last updated on
 	10th July 2017, revision 0fcf651
 TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.2.0/
@@ -4862,6 +4862,20 @@ Suggested values include: 1] sent; 2] received; 3] transmitted; 4] redirected; 5
                </group>
             </choice>
          </group>
+        
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="Bodley-Consolidation-msDesc-msDesc-xmlid-constraint-rule-12">
+            <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                      xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      context="//tei:msDesc[1]/@xml:id"> <sch:let xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                  xmlns="http://www.tei-c.org/ns/1.0"
+                  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                  name="filename"
+                  value="substring-before(tokenize(base-uri(), '/')[last()], '.xml')"/>
+               <sch:assert test=". = $filename">The value of @xml:id on the first msDesc element must be the same as the document filename (without the .xml extension).</sch:assert>
+            </sch:rule>
+         </pattern>
          <ref name="att.global.attributes"/>
          <ref name="att.sortable.attributes"/>
          <ref name="att.typed.attributes"/>
@@ -4875,7 +4889,7 @@ Suggested values include: 1] sent; 2] received; 3] transmitted; 4] redirected; 5
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">describes the system used to ensure correct ordering of the quires making up a codex or incunable, typically by means of annotations at the foot of the page. [10.3.7. Catchwords, Signatures, Secundo Folio]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="Bodley-Consolidation-catchwords-catchword_in_msDesc-constraint-assert-11">
+                  id="Bodley-Consolidation-catchwords-catchword_in_msDesc-constraint-assert-12">
             <rule context="tei:catchwords">
                <sch:assert xmlns:rng="http://relaxng.org/ns/structure/1.0"
                            xmlns="http://www.tei-c.org/ns/1.0"
@@ -5109,7 +5123,7 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(second folio) marks the word or words taken from a fixed point in a codex (typically the beginning of the second leaf) in order to provide a unique identifier for it.  [10.3.7. Catchwords, Signatures, Secundo Folio]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="Bodley-Consolidation-secFol-secFol_in_msDesc-constraint-assert-12">
+                  id="Bodley-Consolidation-secFol-secFol_in_msDesc-constraint-assert-13">
             <rule context="tei:secFol">
                <sch:assert xmlns:rng="http://relaxng.org/ns/structure/1.0"
                            xmlns="http://www.tei-c.org/ns/1.0"
@@ -5127,7 +5141,7 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains discussion of the leaf or quire signatures found within a codex. [10.3.7. Catchwords, Signatures, Secundo Folio]</a:documentation>
          <ref name="macro.specialPara"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="Bodley-Consolidation-signatures-signatures_in_msDesc-constraint-assert-13">
+                  id="Bodley-Consolidation-signatures-signatures_in_msDesc-constraint-assert-14">
             <rule context="tei:signatures">
                <sch:assert xmlns:rng="http://relaxng.org/ns/structure/1.0"
                            xmlns="http://www.tei-c.org/ns/1.0"
@@ -5667,7 +5681,7 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
             </group>
          </choice>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="Bodley-Consolidation-supportDesc-supportDesc.check-constraint-rule-12">
+                  id="Bodley-Consolidation-supportDesc-supportDesc.check-constraint-rule-13">
             <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -6605,7 +6619,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(organization name) contains an organizational name. [13.2.2. Organizational Names]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="Bodley-Consolidation-orgName-orgName.key.check-constraint-rule-13">
+                  id="Bodley-Consolidation-orgName-orgName.key.check-constraint-rule-14">
             <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -6626,7 +6640,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(personal name) contains a proper noun or proper-noun phrase referring to a person, possibly including one or more of the person's forenames, surnames, honorifics, added names, etc. [13.2.1. Personal Names]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="Bodley-Consolidation-persName-persName.key.check-constraint-rule-14">
+                  id="Bodley-Consolidation-persName-persName.key.check-constraint-rule-15">
             <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -6677,7 +6691,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains an absolute or relative place name. [13.2.3. Place Names]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="Bodley-Consolidation-placeName-placeName.key.check-constraint-rule-15">
+                  id="Bodley-Consolidation-placeName-placeName.key.check-constraint-rule-16">
             <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -6698,7 +6712,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains the name of a geo-political unit, such as a nation, country, colony, or commonwealth, larger than or administratively superior to a region and smaller than a bloc. [13.2.3. Place Names]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="Bodley-Consolidation-country-country.key.check-constraint-rule-16">
+                  id="Bodley-Consolidation-country-country.key.check-constraint-rule-17">
             <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -6729,7 +6743,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains the name of a settlement such as a city, town, or village identified as a single geo-political or administrative unit. [13.2.3. Place Names]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="Bodley-Consolidation-settlement-settlement.key.check-constraint-rule-17">
+                  id="Bodley-Consolidation-settlement-settlement.key.check-constraint-rule-18">
             <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"

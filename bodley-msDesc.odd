@@ -509,6 +509,19 @@
         <!-- ****************** -->
         <!-- schematron constraints for the medieval catalogue have been added here -->
         <!-- ****************** -->
+        
+        <!-- msDesc[1]/@xml:id must match filename -->
+        <elementSpec ident="msDesc" module="msdescription" mode="change">
+          <constraintSpec scheme="isoschematron" ident="msDesc-xmlid">
+            <constraint>
+              
+              <sch:rule context="//tei:msDesc[1]/@xml:id">
+                <sch:let name="filename" value="substring-before(tokenize(base-uri(), '/')[last()], '.xml')"/>
+                <sch:assert test=". = $filename">The value of @xml:id on the first msDesc element must be the same as the document filename (without the .xml extension).</sch:assert>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
 
         
         <!-- author inside msItem must have @key -->
