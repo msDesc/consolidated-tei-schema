@@ -24,8 +24,8 @@
     <!-- In case there are existing schema associations, let's get rid of those -->
     <xsl:template match="processing-instruction()"/>
     
-    <!-- Named template which we call that starts off the whole thing-->
-    <xsl:template name="main">
+    <!-- Named template that is called from command line to batch convert all manuscript TEI files to HTML -->
+    <xsl:template name="batch">
         
         <!-- Check for parameter to TEI files. Cannot be set to required above because this stylesheet is also
              now being used for previewing individual manuscripts. Cannot be relative path because this stylesheet is
@@ -34,13 +34,10 @@
             <xsl:message terminate="yes">A full path to the collections folder containing source TEI must be specified when batch converting.</xsl:message>
         </xsl:if>
         
-        <!-- Set up the collection of files to be converted - this must now be done in the stylesheet that imports this one
-        <xsl:variable name="path">
-            <xsl:value-of select="concat($collections-path,'/?select=', $files,';on-error=warning;recurse=',$recurse)"/>
-        </xsl:variable>
-        -->
+        <!-- Set up the collection of files to be converted - this must now be done in the stylesheet that imports this one -->
+        <xsl:variable name="path" select="concat('file://', $collections-path,'/?select=', $files,';on-error=warning;recurse=',$recurse)"/>
 
-        <!-- The main collection of all the documents we are dealing with -->
+        <!-- The collection of all the documents we are dealing with -->
         <xsl:variable name="doc" select="collection($path)"/>
 
         <!-- For each item in the collection -->
