@@ -39,7 +39,7 @@
             <xsl:value-of select="concat($collections-path,'/?select=', $files,';on-error=warning;recurse=',$recurse)"/>
         </xsl:variable>
         -->
-        
+
         <!-- The main collection of all the documents we are dealing with -->
         <xsl:variable name="doc" select="collection($path)"/>
 
