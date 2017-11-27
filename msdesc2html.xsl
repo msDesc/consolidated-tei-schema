@@ -16,7 +16,9 @@
     <xsl:param name="collections-path" as="xs:string" select="''"/>
     <xsl:param name="files" select="'*.xml'"/>
     <xsl:param name="recurse" select="'yes'"/>
-    <xsl:param name="verbose" as="xs:boolean" select="false()"/>
+    <xsl:param name="verbose" as="xs:boolean" select="true()"/>
+    
+    <xsl:variable name="website-url" as="xs:string" select="''"/>    <!-- This will be overriden by stylesheets that call this one -->
     
     <!-- <xsl:strip-space elements="*" />
     <xsl:output omit-xml-declaration="yes" method="xml" indent="yes"/> -->
@@ -30,7 +32,7 @@
         <!-- Check for parameter to TEI files. Cannot be set to required above because this stylesheet is also
              now being used for previewing individual manuscripts. Cannot be relative path because this stylesheet is
              imported via URL. -->
-        <xsl:if test="not(starts-with($collections-path, '/') or starts-with($collections-path, '\'))">
+        <xsl:if test="not(starts-with($collections-path, '/'))">
             <xsl:message terminate="yes">A full path to the collections folder containing source TEI must be specified when batch converting.</xsl:message>
         </xsl:if>
         
@@ -221,29 +223,27 @@
     <xsl:template match="supplied">
         <span class="supplied">[<xsl:apply-templates/>]</span>
     </xsl:template>
-
-    <xsl:template match="choice">
-        <xsl:choose>
-            <xsl:when test="sic and corr">
-                <span class="sicAndCorr">
-                    <xsl:apply-templates select="sic"/>
-                    [
-                    <span class="italic">sic for</span>
-                    <xsl:apply-templates select="corr"/>]
-                </span>
-            </xsl:when>
-            <xsl:when test="sic and not(corr)">
-                <span class="sicAndNotCorr">
-                    <xsl:apply-templates select="sic"/>
-                    [<span class="italic">sic</span>]
-                </span>
-            </xsl:when>
-            <xsl:when test="abbr and expan">
-                <span class="expan" title="{abbr}">
-                    <xsl:apply-templates select="expan"/>
-                </span>
-            </xsl:when>
-        </xsl:choose>
+    
+    <xsl:template match="choice[sic and corr]">
+        <span class="sicAndCorr">
+            <xsl:apply-templates select="sic"/>
+            [
+            <span class="italic">sic for</span>
+            <xsl:apply-templates select="corr"/>]
+        </span>
+    </xsl:template>
+    
+    <xsl:template match="choice[sic and not(corr)]">
+        <span class="sicAndNotCorr">
+            <xsl:apply-templates select="sic"/>
+            [<span class="italic">sic</span>]
+        </span>
+    </xsl:template>
+    
+    <xsl:template match="choice[abbr and expan]">
+        <span class="expan" title="{abbr}">
+            <xsl:apply-templates select="expan"/>
+        </span>
     </xsl:template>
 
     <xsl:template match="abbr">
@@ -260,31 +260,27 @@
     </xsl:template>
 
     <xsl:template match="gap">
-        <xsl:choose>
-            <xsl:when test="not(@*)">
-                <span class="gap">…</span>
-            </xsl:when>
-            <xsl:when test="@unit='chars' and number(@quantity)">
-                <xsl:variable name="possibleDots">
-                    .....................................................................................................................
-                </xsl:variable>
-                <span class="gap">
-                    <xsl:value-of select="substring(normalize-space($possibleDots), 1, number(@quantity))"/>
-                </span>
-            </xsl:when>
-            <xsl:when test="@unit='chars' and number(@extent)">
-                <xsl:variable name="possibleDots">
-                    .....................................................................................................................
-                </xsl:variable>
-                <span class="gap">
-                    <xsl:value-of select="substring(normalize-space($possibleDots), 1, number(@extent))"/>
-                </span>
-            </xsl:when>
-            <xsl:otherwise>
-                <span class="gap">…</span>
-            </xsl:otherwise>
-        </xsl:choose>
+        <span class="gap">…</span>
     </xsl:template>
+    
+    <xsl:template match="gap[@unit='chars' and number(@quantity)]">
+        <xsl:variable name="possibleDots">
+            .....................................................................................................................
+        </xsl:variable>
+        <span class="gap">
+            <xsl:value-of select="substring(normalize-space($possibleDots), 1, number(@quantity))"/>
+        </span>
+    </xsl:template>
+    
+    <xsl:template match="gap[@unit='chars' and number(@extent)]">
+        <xsl:variable name="possibleDots">
+            .....................................................................................................................
+        </xsl:variable>
+        <span class="gap">
+            <xsl:value-of select="substring(normalize-space($possibleDots), 1, number(@extent))"/>
+        </span>
+    </xsl:template>
+    
 
     <xsl:template match="expan | ex">
         <!-- was: class = expan, changed 6.11.17 to better match TEI guidelines. ex=parts of words. -->
@@ -432,63 +428,43 @@
             <xsl:apply-templates/>
         </h4>
     </xsl:template>
-
-    <!-- Main Sections inside msDesc-->
-    <xsl:template match="msDesc/head|msPart/head|msContents|physDesc|additional|msPart|msFrag">
-        <!--<h3 class="msDesc-heading3">-->
-            <!--<xsl:choose>-->
-                <!--&lt;!&ndash; this heading may not be necessary,and is repeated on the following line in display &ndash;&gt;-->
-                <!--<xsl:when test="name()='head'">Summary</xsl:when>-->
-                <!--<xsl:when test="name()='msContents'">Contents</xsl:when>-->
-                <!--<xsl:when test="name()='physDesc'">Physical Description</xsl:when>-->
-                <!--<xsl:when test="name()='additional'">Additional Metadata</xsl:when>-->
-                <!--&lt;!&ndash; <xsl:when test="name()='msIdentifier'">Manuscript Identifier</xsl:when> &ndash;&gt;-->
-                <!--<xsl:when test="name()='msPart'">-->
-                    <!--<xsl:value-of select=".//idno[1]"/>-->
-                <!--</xsl:when>-->
-                <!--<xsl:when test="name()='msFrag'">-->
-                    <!--<xsl:value-of select=".//idno[1]"/>-->
-                <!--</xsl:when>-->
-            <!--</xsl:choose>-->
-        <!--</h3>-->
-        <xsl:choose>
-            <xsl:when test="name()='msContents'">
-                <h3>Contents</h3>
-                <div class="msContents">
-                    <xsl:apply-templates />
-                </div>
-            </xsl:when>
-            <xsl:when test="name()='physDesc'">
-                <h3>Physical Description</h3>
-                <div class="physDesc">
-                    <xsl:apply-templates/>
-                </div>
-            </xsl:when>
-            <xsl:when test="name()='additional'">
-                <h3>Record Sources</h3>
-                <div class="additional">
-                    <xsl:apply-templates/>
-                </div>
-            </xsl:when>
-            <xsl:when test="name()='msPart' or name()='msFrag'">
-                <xsl:variable name="pos" select="count(preceding-sibling::msPart) + 1" />
-                <div class="{name()}">
-                    <h2>Manuscript Part <xsl:value-of select="$pos" /></h2>
-                    <xsl:apply-templates/>
-                </div>
-            </xsl:when>
-            <xsl:when test="name()='head'">
-                <!-- make the head more visible h not div  -->
-                <h4 class="msHead"><xsl:apply-templates/></h4>
-            </xsl:when>
-            <xsl:when test="name()='msIdentifier'">
-                <xsl:apply-templates/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates/>
-            </xsl:otherwise>
-        </xsl:choose>
+    
+    <!-- Override to style main and part heads differently -->
+    <xsl:template match="msDesc/head|msPart/head">
+        <h4 class="msHead">
+            <xsl:apply-templates/>
+        </h4>
     </xsl:template>
+    
+    <xsl:template match="msContents">
+        <h3>Contents</h3>
+        <div class="{name()}">
+            <xsl:apply-templates />
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="physDesc">
+        <h3>Physical Description</h3>
+        <div class="{name()}">
+            <xsl:apply-templates/>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="additional">
+        <h3>Record Sources</h3>
+        <div class="{name()}">
+            <xsl:apply-templates/>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="msPart|msFrag">
+        <xsl:variable name="pos" select="count(preceding-sibling::msPart) + 1" />
+        <div class="{name()}">
+            <h2>Manuscript Part <xsl:value-of select="$pos"/></h2>
+            <xsl:apply-templates/>
+        </div>
+    </xsl:template>
+    
 
     <!-- special case history -->
     <xsl:template match="history">
@@ -511,6 +487,7 @@
     </xsl:template>
 
     <!-- inside history -->
+    
     <xsl:template match="origin">
         <xsl:apply-templates/>
     </xsl:template>
@@ -690,37 +667,25 @@
             <!--</xsl:choose>-->
         <!--</span>-->
     <!--</xsl:template>-->
+    
     <xsl:template match="msItem/editor">
         <span class="editor">
             <xsl:value-of select="normalize-space(string-join(text(), ' (editor)'))"/>
         </span>
     </xsl:template>
+    
     <xsl:template match="msItem//bibl | physDesc//bibl | history//bibl">
-        <xsl:choose>
-            <xsl:when test="@type='bible' or @type='commentedOn' or @type='commentary' or @type='related'"/>
-            <xsl:otherwise>
-                <span class="bibl">
-                    <xsl:apply-templates/>
-                    <xsl:if test="following-sibling::title[1]">
-                        <xsl:text>, </xsl:text>
-                    </xsl:if>
-                </span>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:if test="not(@type='bible' or @type='commentedOn' or @type='commentary' or @type='related')">
+            <span class="bibl">
+                <xsl:apply-templates/>
+                <xsl:if test="following-sibling::title[1]">
+                    <xsl:text>, </xsl:text>
+                </xsl:if>
+            </span>
+        </xsl:if>
     </xsl:template>
 
-    <!-- title has been moved above - AH -->
-    <!-- <xsl:template match="msItem/title">
-      <span class="title">
-        <xsl:apply-templates/>
-        <xsl:if
-          test="following-sibling::note[1][not(starts-with(., '('))][not(starts-with(., '[A-Z]'))][not(following-sibling::lb[1])]">
-          <xsl:text>, </xsl:text>
-        </xsl:if>
-      </span>
-    </xsl:template> -->
-
-    <!-- new. First note after title, if in ()  should be span not div to follow title.  -->
+    <!-- First note after title, if in brackets should be span not div to follow title.  -->
     <xsl:template match="msItem/note[starts-with(., '(')]">
         <xsl:text> </xsl:text>
         <span class="{name()}">
@@ -739,14 +704,17 @@
     </xsl:template>
 
     <xsl:template match="msItem/quote">
-        <blockquote class="{name()}">"<xsl:apply-templates/>"
+        <blockquote class="{name()}">
+            <xsl:text>"</xsl:text>
+            <xsl:apply-templates/>
+            <xsl:text>"</xsl:text>
         </blockquote>
     </xsl:template>
 
     <xsl:template match="msItem/incipit">
         <div class="{name()}">
             <span class="tei-label">
-                <xsl:if test="name() = 'incipit'">Incipit: </xsl:if>
+                <xsl:text>Incipit: </xsl:text>
             </span>
             <xsl:if test="@type">
                 <span class="type">(<xsl:value-of select="@type"/>)</span>
@@ -761,7 +729,7 @@
     <xsl:template match="msItem/explicit">
         <div class="{name()}">
             <span class="tei-label">
-                <xsl:if test="name() = 'explicit'">Explicit: </xsl:if>
+                <xsl:text>Explicit: </xsl:text>
             </span>
             <xsl:if test="@type">
                 <span class="type">(<xsl:value-of select="@type"/>)</span>
@@ -963,14 +931,7 @@
                     <xsl:value-of select="@form"/>
                 </div>
             </xsl:if>
-            <xsl:choose>
-                <xsl:when test="p|ab">
-                    <xsl:apply-templates/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:apply-templates/>
         </div>
     </xsl:template>
 
@@ -1076,6 +1037,7 @@
             <xsl:apply-templates/>
         </div>
     </xsl:template>
+    
     <!-- secFol, locus, extent -->
     <xsl:template match="secFol">
         <div class="{ name() }">
@@ -1091,80 +1053,68 @@
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
+    
     <xsl:template match="extent">
         <div class="{name()}">
-            <!-- the label "extent" should only be displayed (1) if there is text (not just whitespace) after, giving the extent (2) if there is <measure> directly afterwards -->
-            <xsl:choose>
-                <xsl:when test="child::text()[1][matches(., '[a-z]')]">
-                    <span class="tei-label">Extent: </span>
-                    <xsl:apply-templates/>
-                </xsl:when>
-                <xsl:when test="child::measure[1]">
-                    <span class="tei-label">Extent: </span>
-                    <xsl:apply-templates/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:apply-templates/>
         </div>
     </xsl:template>
+    
+    <xsl:template match="extent[child::text()[1][matches(., '[a-z]')] or child::*[1][self::measure]]">
+        <!-- TODO: Change to either of:
+                <xsl:template match="extent[child::text()[1][matches(., '\w')] or child::*[1][self::measure]]">
+                <xsl:template match="extent[(not(child::*) and matches(child::*[1]/preceding-sibling::text(), '\w')) or child::*[1][self::measure]]">
+        -->
+        <!-- Prefix with label if it begins with untagged text, or a measure child element -->
+        <div class="{name()}">
+            <span class="tei-label">Extent: </span>
+            <xsl:apply-templates/>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="dimensions">
+        <xsl:apply-templates/>
+    </xsl:template>
 
-    <!-- deal with dimensions in the extent -->
     <xsl:template match="extent/dimensions">
         <div class="{name()}">
-            <span class="tei-label">Dimensions<xsl:if test="@type"><xsl:text> </xsl:text>(<xsl:value-of select="@type"/>)</xsl:if>:<xsl:text> </xsl:text></span>
-            <xsl:choose>
-                <xsl:when test="height and width">
-                    <span class="height"><xsl:value-of select="height"/></span>×<span class="width"><xsl:value-of select="width"/></span>
-                    <xsl:choose>
-                        <xsl:when test="@unit">
-                            <xsl:value-of select="@unit"/>.
-                        </xsl:when>
-                        <xsl:when test="height/@unit">
-                            <xsl:value-of select="height/@unit"/>.
-                        </xsl:when>
-                        <xsl:when test="width/@unit">
-                            <xsl:value-of select="width/@unit"/>.
-                        </xsl:when>
-                    </xsl:choose>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <span class="tei-label">
+                <xsl:text>Dimensions</xsl:text>
+                <xsl:if test="@type">
+                    <xsl:text> (</xsl:text>
+                    <xsl:value-of select="@type"/>
+                    <xsl:text>)</xsl:text>
+                </xsl:if>
+                <xsl:text>: </xsl:text>
+            </span>
+            <xsl:apply-templates/>
         </div>
     </xsl:template>
 
-    <!-- deal with dimensions elsewhere -->
-    <xsl:template match="dimensions">
-        <xsl:choose>
-            <xsl:when test="height and width">
-                <span class="height"><xsl:value-of select="height"/></span>×<span class="width"><xsl:value-of select="width"/></span>
-                <xsl:choose>
-                    <xsl:when test="@unit">
-                        <xsl:value-of select="@unit"/>.
-                    </xsl:when>
-                    <xsl:when test="height/@unit">
-                        <xsl:value-of select="height/@unit"/>.
-                    </xsl:when>
-                    <xsl:when test="width/@unit">
-                        <xsl:value-of select="width/@unit"/>.
-                    </xsl:when>
-                </xsl:choose>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates/>
-            </xsl:otherwise>
-        </xsl:choose>
+    <xsl:template match="height[parent::dimensions/width]">
+        <!-- When height and width are both specified, ensure height is first and units are added. -->
+        <span class="height">
+            <xsl:value-of select="."/>
+        </span>
+        <xsl:text>×</xsl:text>
+        <span class="width">
+            <xsl:value-of select="parent::dimensions/width"/>
+        </span>
+        <xsl:apply-templates select="(parent::dimensions//@unit)[1]"/>
     </xsl:template>
-
+    
+    <xsl:template match="width[parent::dimensions/height]"/>
+    
+    <xsl:template match="dimensions//@unit">
+        <xsl:value-of select="concat(., '.')"/>
+    </xsl:template>
+    
     <xsl:template match="height|width">
         <span class="{name()}">
             <xsl:apply-templates/>
         </span>
     </xsl:template>
+    
     <!-- formula, catchwords, signatures, watermarks  -->
     <xsl:template match="formula">
         <div class="formula">
@@ -1173,12 +1123,14 @@
             <xsl:apply-templates/>
         </div>
     </xsl:template>
+    
     <xsl:template match="catchwords | signatures | watermark | listBibl">
         <!-- changed from div to span since the whole text of <collation> is usually written as a continuous paragraph -->
         <span class="{name()}">
             <xsl:apply-templates/>
         </span>
     </xsl:template>
+    
     <!-- hi used for ad hoc formatting -->
     <xsl:template match="hi">
         <span>
@@ -1188,22 +1140,19 @@
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
+    
     <xsl:template match="list/item | listBibl/bibl">
         <div class="{name()}">
-            <!--  modified to create live links in the catalogue references  -->
-            <xsl:choose>
-                <xsl:when test="@facs">
-                    <!-- this path will need to be updated for final version -->
-                    <xsl:variable name="facs-url" select="concat('https://medieval.bodleian.ox.ac.uk/images/ms/', substring(@facs, 1, 3), '/', @facs)" />
-                    <a href="{$facs-url}">
-                        <xsl:apply-templates/>
-                    </a>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:apply-templates/>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="list/item[@facs] | listBibl/bibl[@facs]">
+        <div class="{name()}">
+            <xsl:variable name="facs-url" select="concat($website-url, '/images/ms/', substring(@facs, 1, 3), '/', @facs)" />
+            <a href="{$facs-url}">
+                <xsl:apply-templates/>
+            </a>
         </div>
     </xsl:template>
 
@@ -1281,10 +1230,16 @@
 
     <!-- names and places -->
     <xsl:template match="persName | placeName | orgName | name | country | settlement | district | region | repository | idno">
+        <!-- NOTE: This list may differ between TEI catalogues -->
         <span class="{name()}">
             <xsl:choose>
                 <xsl:when test="@key">
-                    <a href="/catalog/{@key}">
+                    <a>
+                        <xsl:attribute name="href">
+                            <xsl:value-of select="$website-url"/>
+                            <xsl:text>/catalog/</xsl:text>
+                            <xsl:value-of select="@key"/>
+                        </xsl:attribute>
                         <xsl:apply-templates/>
                     </a>
                 </xsl:when>
@@ -1298,9 +1253,14 @@
     <xsl:template match="author">
         <span class="{name()}">
             <xsl:choose>
-                <xsl:when test="normalize-space(.)=''" />
+                <xsl:when test="normalize-space(.)=''" />   <!-- TODO: Lookup author name defined earlier in the same TEI document?-->
                 <xsl:when test="@key">
-                    <a href="/catalog/{@key}">
+                    <a>
+                        <xsl:attribute name="href">
+                            <xsl:value-of select="$website-url"/>
+                            <xsl:text>/catalog/</xsl:text>
+                            <xsl:value-of select="@key"/>
+                        </xsl:attribute>
                         <xsl:apply-templates/>
                     </a>
                 </xsl:when>
@@ -1308,7 +1268,13 @@
                     <xsl:apply-templates/>
                 </xsl:otherwise>
             </xsl:choose>
-        </span><xsl:if test="following-sibling::*[1]/name()='author'"><xsl:text>; </xsl:text></xsl:if><xsl:if test="following-sibling::*[1]/name()='title'"><xsl:text>, </xsl:text></xsl:if>
+        </span>
+        <xsl:if test="following-sibling::*[1]/name()='author'">
+            <xsl:text>; </xsl:text>
+        </xsl:if>
+        <xsl:if test="following-sibling::*[1]/name()='title'">
+            <xsl:text>, </xsl:text>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="heraldry | label | list/head | seg">
@@ -1338,4 +1304,5 @@
             <xsl:apply-templates select="@*|node()"/>
         </span>
     </xsl:template>
+    
 </xsl:stylesheet>
