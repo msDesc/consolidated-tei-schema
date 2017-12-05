@@ -19,9 +19,9 @@
     <xsl:param name="verbose" as="xs:boolean" select="true()"/>
     
     <xsl:variable name="website-url" as="xs:string" select="''"/>    <!-- This will be overriden by stylesheets that call this one -->
+    <xsl:variable name="output-full-html" as="xs:boolean" select="true()"/>
     
-    <!-- <xsl:strip-space elements="*" />
-    <xsl:output omit-xml-declaration="yes" method="xml" indent="yes"/> -->
+    <xsl:output omit-xml-declaration="yes" method="xhtml" encoding="UTF-8" indent="yes"/>
 
     <!-- In case there are existing schema associations, let's get rid of those -->
     <xsl:template match="processing-instruction()"/>
@@ -36,10 +36,8 @@
             <xsl:message terminate="yes">A full path to the collections folder containing source TEI must be specified when batch converting.</xsl:message>
         </xsl:if>
         
-        <!-- Set up the collection of files to be converted - this must now be done in the stylesheet that imports this one -->
+        <!-- Set up the collection of files to be converted -->
         <xsl:variable name="path" select="concat('file://', $collections-path,'/?select=', $files,';on-error=warning;recurse=',$recurse)"/>
-
-        <!-- The collection of all the documents we are dealing with -->
         <xsl:variable name="doc" select="collection($path)"/>
 
         <!-- For each item in the collection -->
@@ -86,53 +84,30 @@
             <xsl:variable name="outputFilename" select="concat('./html/', $folder, '/', $msID, '.html')"/>
 
             <!-- create output file -->
-            <xsl:result-document href="{$outputFilename}" method="xml" indent="yes">
-
-                <!-- Create content div with the id of the manuscript. Wrap it in an extra root div so that
-                    we can ignore the namespace attribute that XSLT puts on it automatically. -->
-                <div>
-                <div class="content tei-body" id="{//TEI/@xml:id}">
-                    <!-- titleStmt div with the two titles in -->
-
-                    <!-- For tolkien, Blacklight will take care of displaying the title and collection -->
-                    <!-- <div class="titleStmt" id="titleStmt">
-                      <h1 class="mainTitle">
-                        <xsl:value-of select="/TEI/teiHeader/fileDesc/titleStmt/title[1]"/>
-                      </h1>
-                      <h2 class="collectionTitle">
-                        <xsl:value-of select="/TEI/teiHeader/fileDesc/titleStmt/title[@type='collection']"/>
-                      </h2>
-                    </div> -->
-
-                    <!-- Go do everything you need to msDesc -->
-                    <xsl:apply-templates select="//msDesc"/>
-
-                    <!-- Now let's have some publication and editorial metadata -->
-                    <!-- <div class="publicationStmt" id="publicationStmt">
-                      <h3 class="publicationStmtHeading">Publication Statement</h3>
-                      <p class="publisher">Published by <xsl:value-of select="/TEI/teiHeader/fileDesc/publicationStmt/publisher"/>
-                        <xsl:apply-templates select="/TEI/teiHeader/fileDesc/publicationStmt/address"/>
-                      </p>
-                      <p class="distributor">Contact: <a class="distributorEmail"
-                          href="{normalize-space(/TEI/teiHeader/fileDesc/publicationStmt/distributor/email)}"><xsl:value-of
-                            select="normalize-space(/TEI/teiHeader/fileDesc/publicationStmt/distributor/email)"/></a></p>
-                      <xsl:if test="/TEI/teiHeader/fileDesc/publicationStmt/availability/licence">
-                        <p class="availability">License: <xsl:apply-templates
-                            select="/TEI/teiHeader/fileDesc/publicationStmt/availability/licence"/></p>
-                      </xsl:if>
-                    </div> -->
-                    <!-- And some edition and responsibility statements -->
-                    <!-- <div class="respStmt" id="respStmt">
-                      <h3>Description Edition and Responsibilities</h3>
-                      <ul class="editionAndResponsibilities">
-                        <xsl:apply-templates select="/TEI/teiHeader/fileDesc/editionStmt/edition"/>
-                        <xsl:apply-templates select="/TEI/teiHeader/fileDesc/titleStmt/respStmt"/>
-                        <xsl:apply-templates select="/TEI/teiHeader/fileDesc/editionStmt/respStmt"/>
-                        <xsl:apply-templates select="/TEI/teiHeader/revisionDesc"/>
-                      </ul>
-                    </div> -->
-                </div>
-                </div>
+            <xsl:result-document href="{$outputFilename}" method="xhtml" encoding="UTF-8" indent="yes">
+                <xsl:choose>
+                    <xsl:when test="$output-full-html">
+                        <html xmlns="http://www.w3.org/1999/xhtml">
+                            <head>
+                                <title></title>
+                            </head>
+                            <body>
+                                <div class="content tei-body" id="{//TEI/@xml:id}">
+                                    <xsl:apply-templates select="//msDesc"/>
+                                </div>
+                            </body>
+                        </html>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!-- Create content div with the id of the manuscript. Wrap it in an extra root div so that
+                             we can ignore the namespace attribute that XSLT puts on it automatically. -->
+                        <div>
+                            <div class="content tei-body" id="{//TEI/@xml:id}">
+                                <xsl:apply-templates select="//msDesc"/>
+                            </div>
+                        </div>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:result-document>
         </xsl:for-each>
     </xsl:template>
@@ -1146,6 +1121,8 @@
             <xsl:apply-templates/>
         </div>
     </xsl:template>
+    
+    <!-- TODO: bibl templates should output li instead of div when inside additional to create valid HTML-->
 
     <xsl:template match="list/item[@facs] | listBibl/bibl[@facs]">
         <div class="{name()}">
@@ -1203,24 +1180,10 @@
     </xsl:template>
 
     <xsl:template match="source">
-        
         <div class="{name()}">
-           <!-- <xsl:if test="text()[1]">
-                <!-\- modified from div to span. Don't want to make leading text a block necessarily. -\->
-                <xsl:apply-templates select="text()[1]"/>
-            </xsl:if>-->
-
             <xsl:apply-templates/>
         </div>
     </xsl:template>
-
-    <!--<xsl:template match="source/*">
-        <xsl:apply-templates/>
-        <!-\- the following creates (1) div for titles in source (which we don't want) (2) div for listBibl in source (which we do want). that is also handled at l. 1260, though (need to change priority there?) -\->
-        <!-\-<div class="{name()}">
-            <xsl:apply-templates/>
-        </div>-\->
-    </xsl:template>-->
 
     <xsl:template match="source/listBibl" priority="10">
         <div class="{name()}">
