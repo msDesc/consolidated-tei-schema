@@ -426,7 +426,6 @@
     </xsl:template>
     
     <xsl:template match="additional">
-        <h3>Record Sources</h3>
         <div class="{name()}">
             <xsl:apply-templates/>
         </div>
@@ -1180,6 +1179,7 @@
     </xsl:template>
 
     <xsl:template match="source">
+        <h3>Record Sources</h3>
         <div class="{name()}">
             <xsl:apply-templates/>
         </div>
