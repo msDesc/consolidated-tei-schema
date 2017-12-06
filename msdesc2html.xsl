@@ -432,13 +432,36 @@
     </xsl:template>
     
     <xsl:template match="msPart|msFrag">
-        <xsl:variable name="pos" select="count(preceding-sibling::msPart) + 1" />
         <div class="{name()}">
-            <h2>Manuscript Part <xsl:value-of select="$pos"/></h2>
-            <xsl:apply-templates/>
+            <h2>
+                <xsl:apply-templates select="msIdentifier/altIdentifier"/>
+            </h2>
+            <xsl:apply-templates select="*[not(self::msIdentifier)]"/>
         </div>
     </xsl:template>
     
+    <xsl:template match="msPart/msIdentifier/altIdentifier | msFrag/msIdentifier/altIdentifier">
+        <xsl:apply-templates select="idno"/>
+        <xsl:apply-templates select="note"/>
+    </xsl:template>
+    
+    <xsl:template match="msPart/msIdentifier/altIdentifier/idno">
+        <xsl:apply-templates/>
+    </xsl:template>
+    
+    <xsl:template match="msPart/msIdentifier/altIdentifier/note">
+        <xsl:choose>
+            <xsl:when test="matches(text()[1], '^\s*\(')">
+                <xsl:text> </xsl:text>
+                <xsl:apply-templates/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text> (</xsl:text>
+                <xsl:apply-templates/>
+                <xsl:text>)</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
 
     <!-- special case history -->
     <xsl:template match="history">
@@ -516,11 +539,6 @@
     <xsl:template match="msIdentifier">
         <xsl:apply-templates/>
     </xsl:template>
-
-    <!-- don't display altIdentifier for msParts, the identifier already appears as a heading -->
-    <xsl:template match="msPart//altIdentifier" />
-    <!--<xsl:apply-templates/>
-    </xsl:template>-->
 
     <!-- Things in msContents -->
     <xsl:template match="msContents/summary">
@@ -1104,6 +1122,8 @@
             <xsl:apply-templates/>
         </span>
     </xsl:template>
+    
+    <!-- TODO: listBibl shouldn't output spans in contexts that will output uls -->
     
     <!-- hi used for ad hoc formatting -->
     <xsl:template match="hi">
