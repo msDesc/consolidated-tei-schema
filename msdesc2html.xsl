@@ -591,7 +591,10 @@
 
     <!-- what happens if we just apply templates? -->
     <xsl:template match="msContents/msItem" priority="10">
-        <div class="msItem" id="{@xml:id}">
+        <div class="msItem">
+            <xsl:if test="@xml:id">
+                <xsl:attribute name="id" select="@xml:id"/>
+            </xsl:if>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
@@ -600,7 +603,10 @@
     <!-- check what happens with multiple levels of nesting? -->
     <!-- modified to match main treatment of msItem above-->
     <xsl:template match="msItem/msItem">
-        <div class="nestedmsItem" id="{@xml:id}">
+        <div class="nestedmsItem">
+            <xsl:if test="@xml:id">
+                <xsl:attribute name="id" select="@xml:id"/>
+            </xsl:if>
             <!--<hr />
             <xsl:apply-templates select="locus"></xsl:apply-templates>
             <!-\- changed from h3. this level needs to be smaller than the preceding level -\->
@@ -681,16 +687,12 @@
     <xsl:template match="msItem/note[starts-with(., '(')]">
         <xsl:text> </xsl:text>
         <span class="{name()}">
-            <!-- modified: label not needed -->
-            <!--<span class="tei-label">Note: </span>-->
             <xsl:apply-templates/>
         </span>
     </xsl:template>
 
     <xsl:template match="msItem/note[not(starts-with(., '('))]">
         <p class="{name()}">
-            <!-- modified: label not needed -->
-            <!--<span class="tei-label">Note: </span>-->
             <xsl:apply-templates/>
         </p>
     </xsl:template>
@@ -785,7 +787,6 @@
                 <span class="item-number"><xsl:value-of select="parent::msItem/@n"/>.
                 </span>
             </xsl:if>
-            <!--<span class="tei-label">Locus: </span>-->
             <xsl:apply-templates/>
         </div>
     </xsl:template>
