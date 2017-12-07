@@ -6,17 +6,18 @@
                 xpath-default-namespace="http://www.tei-c.org/ns/1.0"
                 xmlns:jc="http://james.blushingbunny.net/ns.html"
                 xmlns:html="http://www.w3.org/1999/xhtml"
-                exclude-result-prefixes="tei jc html xs" version="2.0">
+                xmlns:bdlss="http://www.bodleian.ox.ac.uk/bdlss"
+                exclude-result-prefixes="tei jc html xs bdlss" version="2.0">
     <!--
         Created by Dr James Cummings james@blushingbunny.net
         2017-05 for output of Bodley TEI msDescs as HTML to
         be sucked into the frontend platform.
     -->
-
+    
     <xsl:param name="collections-path" as="xs:string" select="''"/>
     <xsl:param name="files" select="'*.xml'"/>
     <xsl:param name="recurse" select="'yes'"/>
-    <xsl:param name="verbose" as="xs:boolean" select="true()"/>
+    <xsl:param name="verbose" as="xs:boolean" select="false()"/>
     
     <xsl:variable name="website-url" as="xs:string" select="''"/>    <!-- This will be overriden by stylesheets that call this one -->
     <xsl:variable name="output-full-html" as="xs:boolean" select="true()"/>
@@ -25,6 +26,14 @@
 
     <!-- In case there are existing schema associations, let's get rid of those -->
     <xsl:template match="processing-instruction()"/>
+    
+    <xsl:function name="bdlss:logging">
+        <xsl:param name="level" as="xs:string"/>
+        <xsl:param name="msg" as="xs:string"/>
+        <xsl:param name="context" as="element()"/>
+        <xsl:param name="vals"/>
+        <xsl:message select="concat(upper-case($level), '    ', $msg, '    ', ($context/ancestor-or-self::*/@xml:id)[position()=last()], '    ', string-join($vals, '    '))"/>        
+    </xsl:function>
     
     <!-- Named template that is called from command line to batch convert all manuscript TEI files to HTML -->
     <xsl:template name="batch">
@@ -370,7 +379,7 @@
 
     <!-- skip output of msIdentifier block with subtype for now - AH -->
     <!-- was: <xsl:template match="msIdentifier/altIdentifier/idno/@subtype" /> 23.10 -->
-    <xsl:template match="msIdentifier/altIdentifier/idno[@subtype]" />
+    <xsl:template match="msIdentifier[not(parent::msPart)]/altIdentifier/idno[@subtype]" />
     <xsl:template match="msIdentifier/institution | msIdentifier/region | msIdentifier/country | msIdentifier/settlement | msIdentifier/repository | msIdentifier/idno[@type='shelfmark']" />
 
 
@@ -445,11 +454,11 @@
         <xsl:apply-templates select="note"/>
     </xsl:template>
     
-    <xsl:template match="msPart/msIdentifier/altIdentifier/idno">
+    <xsl:template match="msPart/msIdentifier/altIdentifier/idno | msFrag/msIdentifier/altIdentifier/idno">
         <xsl:apply-templates/>
     </xsl:template>
     
-    <xsl:template match="msPart/msIdentifier/altIdentifier/note">
+    <xsl:template match="msPart/msIdentifier/altIdentifier/note | msFrag/msIdentifier/altIdentifier/note">
         <xsl:choose>
             <xsl:when test="matches(text()[1], '^\s*\(')">
                 <xsl:text> </xsl:text>
@@ -684,7 +693,7 @@
     </xsl:template>
 
     <!-- First note after title, if in brackets should be span not div to follow title.  -->
-    <xsl:template match="msItem/note[starts-with(., '(')]">
+    <xsl:template match="msItem/note[starts-with(., '(')]"> <!-- TODO: Add another clause so this only triggers for first notes? -->
         <xsl:text> </xsl:text>
         <span class="{name()}">
             <xsl:apply-templates/>
@@ -1136,7 +1145,7 @@
         </span>
     </xsl:template>
     
-    <xsl:template match="list/item | listBibl/bibl">
+    <xsl:template match="list/item[not(@facs)] | listBibl/bibl[not(@facs)]">
         <div class="{name()}">
             <xsl:apply-templates/>
         </div>
