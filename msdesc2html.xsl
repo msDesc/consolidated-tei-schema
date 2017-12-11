@@ -664,7 +664,13 @@
         <span class="tei-title">
             <xsl:apply-templates/>
         </span>
-        <xsl:if test="following-sibling::note[1][not(starts-with(., '('))][not(starts-with(., '[A-Z]'))][not(following-sibling::lb[1])]">
+        <xsl:if test="following-sibling::*[1][self::note 
+                                                    and not(starts-with(., '\s*[A-Z(,]')) 
+                                                    and not(child::*[1][self::lb and string-length(normalize-space(preceding-sibling::text())) = 0])]
+            ">
+            <!-- Insert a comma only if the title is immediately followed by a note, which isn't in paratheses, 
+                 doesn't start with an uppercase letter or comma, and there is no line-break element. -->
+            <!-- TODO: Move this to the template(s) for notes? -->
             <xsl:text>, </xsl:text>
         </xsl:if>
     </xsl:template>
