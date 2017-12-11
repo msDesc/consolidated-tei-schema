@@ -604,6 +604,13 @@
             <xsl:if test="@xml:id">
                 <xsl:attribute name="id" select="@xml:id"/>
             </xsl:if>
+            <xsl:if test="string-length(@n) gt 0 and count(parent::msContents/msItem[@n]) gt 1 and not(child::*[1][self::locus])">
+                <!-- Display optional numbering on msItems, on its own line (except when the first-child is a locus, then it'll be inline) -->
+                <div class="item-number">
+                    <xsl:value-of select="@n"/>
+                    <xsl:text>. </xsl:text>
+                </div>
+            </xsl:if>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
@@ -615,6 +622,13 @@
         <div class="nestedmsItem">
             <xsl:if test="@xml:id">
                 <xsl:attribute name="id" select="@xml:id"/>
+            </xsl:if>
+            <xsl:if test="string-length(@n) gt 0 and count(parent::msItem/msItem[@n]) gt 1 and not(child::*[1][self::locus])">
+                <!-- Display optional numbering on msItems, on its own line (except when the first-child is a locus, then it'll be inline) -->
+                <div class="item-number">
+                    <xsl:value-of select="@n"/>
+                    <xsl:text>. </xsl:text>
+                </div>
             </xsl:if>
             <!--<hr />
             <xsl:apply-templates select="locus"></xsl:apply-templates>
@@ -644,7 +658,7 @@
             <!--<xsl:text>, </xsl:text>-->
         <!--</xsl:if>-->
     </xsl:template>
-
+    
     <!-- others should be roman -->
     <xsl:template match="msItem/title[@rend or @type]">
         <span class="tei-title">
@@ -788,12 +802,14 @@
             <xsl:apply-templates/>
         </div>
     </xsl:template>
-
+    
     <xsl:template match="msItem/locus">
         <div class="{name()}">
-            <!-- optional? if the item is numbered, we should display the number -->
-            <xsl:if test="parent::msItem[@n]">
-                <span class="item-number"><xsl:value-of select="parent::msItem/@n"/>.
+            <xsl:if test="parent::msItem[@n] and count(parent::msItem/parent::*/msItem[@n]) gt 1 and count(preceding-sibling::*) = 0">
+                <!-- Display optional numbering on msItems, inline when the first-child is a locus (all other cases the number appears on its own line) -->
+                <span class="item-number">
+                    <xsl:value-of select="parent::msItem/@n"/>
+                    <xsl:text>. </xsl:text>
                 </span>
             </xsl:if>
             <xsl:apply-templates/>
