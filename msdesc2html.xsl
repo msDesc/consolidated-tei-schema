@@ -38,19 +38,30 @@
     <!-- Named template that is called from command line to batch convert all manuscript TEI files to HTML -->
     <xsl:template name="batch">
         
-        <!-- Check for parameter to TEI files. Cannot be set to required above because this stylesheet is also
-             now being used for previewing individual manuscripts. Cannot be relative path because this stylesheet is
-             imported via URL. -->
-        <xsl:if test="not(starts-with($collections-path, '/'))">
-            <xsl:message terminate="yes">A full path to the collections folder containing source TEI must be specified when batch converting.</xsl:message>
-        </xsl:if>
-        
-        <!-- Set up the collection of files to be converted -->
-        <xsl:variable name="path" select="concat('file://', $collections-path,'/?select=', $files,';on-error=warning;recurse=',$recurse)"/>
-        <xsl:variable name="doc" select="collection($path)"/>
+        <!-- Set up the collection of files to be converted. The path must be supplied in batch mode, and must be a full
+             path because this stylesheet is normally imported by convert2HTML.xsl via a URL. -->
+        <xsl:variable name="path">
+            <xsl:choose>
+                <xsl:when test="starts-with($collections-path, '/')">
+                    <!-- UNIX-like systems -->
+                    <xsl:value-of select="concat('file://', $collections-path, '/?select=', $files, ';on-error=warning;recurse=', $recurse)"/>
+                </xsl:when>
+                <xsl:when test="matches($collections-path, '[A-Z]:/')">
+                    <!-- Git Bash on Windows -->
+                    <xsl:value-of select="concat('file:///', $collections-path, '/?select=', $files, ';on-error=warning;recurse=', $recurse)"/>
+                </xsl:when>
+                <xsl:when test="matches($collections-path, '[A-Z]:\\')">
+                    <!-- Windows -->
+                    <xsl:value-of select="concat('file:///', replace($collections-path, '\\', '/'), '/?select=', $files, ';on-error=warning;recurse=', $recurse)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:message>A full path to the collections folder containing source TEI must be specified when batch converting.</xsl:message>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
 
         <!-- For each item in the collection -->
-        <xsl:for-each select="$doc">
+        <xsl:for-each select="collection($path)">
 
             <!-- Might as well sort them by current file name -->
             <xsl:sort select="tokenize(base-uri(), '/')[last()-1]"/>
