@@ -665,7 +665,7 @@
             <xsl:apply-templates/>
         </span>
         <xsl:if test="following-sibling::*[1][self::note 
-                                                    and not(starts-with(., '\s*[A-Z(,]')) 
+                                                    and not(matches(., '^\s*[A-Z(,]')) 
                                                     and not(child::*[1][self::lb and string-length(normalize-space(preceding-sibling::text())) = 0])]
             ">
             <!-- Insert a comma only if the title is immediately followed by a note, which isn't in paratheses, 
