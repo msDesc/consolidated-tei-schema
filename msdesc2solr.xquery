@@ -180,9 +180,63 @@ declare function bod:orgRoleLookup($role as xs:string) as xs:string
 };
 
 
+declare function bod:isLeadingStopWord($word as xs:string) as xs:boolean
+{
+    let $result := switch(lower-case($word))
+        case 'the' return true()
+        case 'a' return true()
+        case 'an' return true()
+        case 'le' return true()
+        case 'la' return true()
+        case 'les' return true()
+        case 'l' return true()
+        case 'il' return true()
+        case 'li' return true()
+        case 'der' return true()
+        case 'die' return true()
+        case 'das' return true()
+        default return false()
+    return $result
+};
+
+
+declare function bod:isStopWord($word as xs:string) as xs:boolean
+{
+    let $result := switch(lower-case($word))
+        case 'and' return true()
+        case 'of' return true()
+        case 'for' return true()
+        default return bod:isLeadingStopWord($word)
+    return $result
+};
+
+
+declare function bod:stripStopWords($string as xs:string) as xs:string
+{
+    let $tokens := tokenize($string, "[ ']")
+    let $stopwordsfound := distinct-values(for $token in $tokens return if (bod:isStopWord($token)) then $token else ())
+    return if (count($stopwordsfound) gt 0) then 
+        let $pattern := concat("(", string-join($stopwordsfound, "|"), ")[ ']")
+        return replace($string, $pattern, "", "i") 
+    else $string    
+};
+
+declare function bod:stripLeadingStopWords($string as xs:string) as xs:string
+{
+    let $tokens := tokenize($string, "[ ']")
+    return if (bod:isLeadingStopWord($tokens[1])) then replace($string, "^.+?[ ']", "", "i") else $string
+};
+
+
+declare function bod:alphabetizeTitle($string as xs:string) as xs:string
+{
+    let $firstLetter := functx:capitalize-first(substring(replace(bod:stripLeadingStopWords($string), '[^\p{L}|\p{N}]+', ''), 1, 1))
+    return $firstLetter
+};
+
+
 declare function bod:alphabetize($string as xs:string) as xs:string
 {
-    (: TODO: Strip off stopwords first (e.g. don't return 'T' for 'The Annals of Ulster') :)
     let $firstLetter := functx:capitalize-first(substring(replace($string, '[^\p{L}|\p{N}]+', ''), 1, 1))
     return $firstLetter
 };
@@ -209,7 +263,8 @@ declare function bod:pathFromCollections($fullpath as xs:string) as xs:string
 
 declare function bod:one2one_TESTING($teinode as element()*, $solrfield as xs:string)
 {
-    (: One TEI element maps to a single Solr field :)
+    (: Use this when debugging to find which TEI elements thought to be only exist once per document are actually multiple.
+       Hence either many2one or many2many should be used, or the XPath changed to select only one.  :)
     let $value as xs:string := normalize-space(string-join($teinode[1]//text(), ' '))
     return if (count($teinode) lt 2) then
         if (string-length($value) gt 0) then
