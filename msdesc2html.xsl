@@ -6,8 +6,8 @@
                 xpath-default-namespace="http://www.tei-c.org/ns/1.0"
                 xmlns:jc="http://james.blushingbunny.net/ns.html"
                 xmlns:html="http://www.w3.org/1999/xhtml"
-                xmlns:bdlss="http://www.bodleian.ox.ac.uk/bdlss"
-                exclude-result-prefixes="tei jc html xs bdlss" version="2.0">
+                xmlns:bod="http://www.bodleian.ox.ac.uk/bdlss"
+                exclude-result-prefixes="tei jc html xs bod" version="2.0">
     <!--
         Created by Dr James Cummings james@blushingbunny.net
         2017-05 for output of Bodley TEI msDescs as HTML to
@@ -24,15 +24,23 @@
     
     <xsl:output omit-xml-declaration="yes" method="xhtml" encoding="UTF-8" indent="yes"/>
 
-    <!-- In case there are existing schema associations, let's get rid of those -->
+    <!-- Strip out all processing instructions, including schema associations.
+         NOTE: This stylesheet adds "noindex" ones to control what the XQuery sends to Solr. -->
     <xsl:template match="processing-instruction()"/>
     
-    <xsl:function name="bdlss:logging">
+    <xsl:function name="bod:logging">
         <xsl:param name="level" as="xs:string"/>
         <xsl:param name="msg" as="xs:string"/>
         <xsl:param name="context" as="element()"/>
         <xsl:param name="vals"/>
         <xsl:message select="concat(upper-case($level), '    ', $msg, '    ', ($context/ancestor-or-self::*/@xml:id)[position()=last()], '    ', string-join($vals, '    '))"/>        
+    </xsl:function>
+    
+    <xsl:function name="bod:NoIndex">
+        <xsl:param name="nonindexedtext" as="xs:string*"/>
+        <xsl:processing-instruction name="noindex"/>
+        <xsl:value-of select="normalize-space(string-join($nonindexedtext, ' '))"/>
+        <xsl:processing-instruction name="noindex"/>
     </xsl:function>
     
     <!-- Named template that is called from command line to batch convert all manuscript TEI files to HTML -->
@@ -135,7 +143,10 @@
     <!-- Templates for titleStmt titles and normal titles, author, editors, and related content -->
     <xsl:template match="titleStmt/title">
         <li class="title">
-            <span class="tei-label">Title:</span>
+            <span class="tei-label">
+                <xsl:copy-of select="bod:NoIndex('Title:')"/>
+                <xsl:text> </xsl:text>
+            </span>
             <xsl:apply-templates/>
             <xsl:if test="@type">(<xsl:value-of select="@type"/>)
             </xsl:if>
@@ -286,7 +297,10 @@
     <!-- editions -->
     <xsl:template match="editionStmt/edition">
         <li class="title">
-            <span class="tei-label">Edition: </span>
+            <span class="tei-label">
+                <xsl:copy-of select="bod:NoIndex('Edition:')"/>
+                <xsl:text> </xsl:text>
+            </span>
             <xsl:apply-templates/>
             <xsl:if test="@type">(<xsl:value-of select="@type"/>)
             </xsl:if>
@@ -318,7 +332,10 @@
 
     <xsl:template match="revisionDesc//change">
         <li class="change">
-            <span class="tei-label">Change: </span>
+            <span class="tei-label">
+                <xsl:copy-of select="bod:NoIndex('Change:')"/>
+                <xsl:text> </xsl:text>
+            </span>
             <xsl:if test="@when">
                 <span class="date">
                     <xsl:value-of select="@when"/> --
@@ -432,14 +449,18 @@
     </xsl:template>
     
     <xsl:template match="msContents">
-        <h3>Contents</h3>
+        <h3>
+            <xsl:copy-of select="bod:NoIndex('Contents')"/>
+        </h3>
         <div class="{name()}">
             <xsl:apply-templates />
         </div>
     </xsl:template>
     
     <xsl:template match="physDesc">
-        <h3>Physical Description</h3>
+        <h3>
+            <xsl:copy-of select="bod:NoIndex('Physical Description')"/>
+        </h3>
         <div class="{name()}">
             <xsl:apply-templates/>
         </div>
@@ -485,18 +506,25 @@
 
     <!-- special case history -->
     <xsl:template match="history">
-        <h3 class="msDesc-heading3">History</h3>
+        <h3 class="msDesc-heading3">
+            <xsl:copy-of select="bod:NoIndex('History')"/>
+        </h3>
         <!-- if Origin make it a paragraph -->
         <div class="{name()}">
             <xsl:if test="origin">
                 <div class="origin">
-                    <span class="tei-label">Origin: </span>
+                    <span class="tei-label">
+                        <xsl:copy-of select="bod:NoIndex('Origin:')"/>
+                        <xsl:text> </xsl:text>
+                    </span>
                     <xsl:apply-templates select="origin"/>
                 </div>
             </xsl:if>
             <xsl:if test="provenance or acquisition">
                 <div class="provenance">
-                    <h4>Provenance and Acquisition</h4>
+                    <h4>
+                        <xsl:copy-of select="bod:NoIndex('Provenance and Acquisition')"/>
+                    </h4>
                     <xsl:apply-templates select="provenance | acquisition"/>
                 </div>
             </xsl:if>
@@ -579,7 +607,10 @@
     <xsl:template match="msContents/textLang">
         <p class="ContentsTextLang">
             <!-- this on the other hand does need a label, if it is to appear at all -->
-            <span class="tei-label">Language(s): </span>
+            <span class="tei-label">
+                <xsl:copy-of select="bod:NoIndex('Language(s):')"/>
+                <xsl:text> </xsl:text>
+            </span>
             <xsl:apply-templates/>
         </p>
     </xsl:template>
@@ -748,7 +779,8 @@
     <xsl:template match="msItem/incipit">
         <div class="{name()}">
             <span class="tei-label">
-                <xsl:text>Incipit: </xsl:text>
+                <xsl:copy-of select="bod:NoIndex('Incipit:')"/>
+                <xsl:text> </xsl:text>
             </span>
             <xsl:if test="@type">
                 <span class="type">(<xsl:value-of select="@type"/>)</span>
@@ -763,7 +795,8 @@
     <xsl:template match="msItem/explicit">
         <div class="{name()}">
             <span class="tei-label">
-                <xsl:text>Explicit: </xsl:text>
+                <xsl:copy-of select="bod:NoIndex('Explicit:')"/>
+                <xsl:text> </xsl:text>
             </span>
             <xsl:if test="@type">
                 <span class="type">(<xsl:value-of select="@type"/>)</span>
@@ -777,7 +810,10 @@
 
     <xsl:template match="msItem/rubric">
         <div class="{name()}">
-            <span class="tei-label">Rubric: </span>
+            <span class="tei-label">
+                <xsl:copy-of select="bod:NoIndex('Rubric:')"/>
+                <xsl:text> </xsl:text>
+            </span>
             <!-- can we have this and the following <xsl:if> back? there is a difference inthe records between italic and not italic rubrics etc. -->
             <!--<xsl:if test="not(@rend='roman')">-->
             <!--<xsl:attribute name="class">tei-italic</xsl:attribute>-->
@@ -788,7 +824,10 @@
 
     <xsl:template match="msItem/finalRubric">
         <div class="{name()}">
-            <span class="tei-label">Final rubric: </span>
+            <span class="tei-label">
+                <xsl:copy-of select="bod:NoIndex('Final rubric:')"/>
+                <xsl:text> </xsl:text>
+            </span>
             <!--<xsl:if test="not(@rend='roman')">-->
             <!--<xsl:attribute name="class">tei-italic</xsl:attribute>-->
             <!--</xsl:if>-->
@@ -798,7 +837,10 @@
 
     <xsl:template match="msItem/colophon">
         <div class="{name()}">
-            <span class="tei-label">Colophon: </span>
+            <span class="tei-label">
+                <xsl:copy-of select="bod:NoIndex('Colophon:')"/>
+                <xsl:text> </xsl:text>
+            </span>
             <!--<xsl:if test="not(@rend='roman')">-->
             <!--<xsl:attribute name="class">tei-italic</xsl:attribute>-->
             <!--</xsl:if>-->
@@ -808,14 +850,20 @@
 
     <xsl:template match="msItem/filiation">
         <div class="{name()}">
-            <span class="tei-label">Filiation:</span>
+            <span class="tei-label">
+                <xsl:copy-of select="bod:NoIndex('Filiation:')"/>
+                <xsl:text> </xsl:text>
+            </span>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
 
     <xsl:template match="msItem/textLang">
         <div class="{name()}">
-            <span class="tei-label">Language(s): </span>
+            <span class="tei-label">
+                <xsl:copy-of select="bod:NoIndex('Language(s):')"/>
+                <xsl:text> </xsl:text>
+            </span>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
@@ -849,7 +897,9 @@
 
     <xsl:template match="accMat">
         <div class="{name()}">
-            <h4>Accompanying Material</h4>
+            <h4>
+                <xsl:copy-of select="bod:NoIndex('Accompanying Material')"/>
+            </h4>
             <p>
                 <xsl:apply-templates/>
             </p>
@@ -858,14 +908,19 @@
 
     <xsl:template match="additions">
         <div class="additions">
-            <span class="tei-label">Additions: </span>
+            <span class="tei-label">
+                <xsl:copy-of select="bod:NoIndex('Additions:')"/>
+                <xsl:text> </xsl:text>
+            </span>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
 
     <xsl:template match="bindingDesc">
         <div class="{name()}">
-            <h4>Binding</h4>
+            <h4>
+                <xsl:copy-of select="bod:NoIndex('Binding')"/>
+            </h4>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
@@ -882,14 +937,18 @@
 
     <xsl:template match="decoDesc">
         <div class="{name()}">
-            <h4>Decoration</h4>
+            <h4>
+                <xsl:copy-of select="bod:NoIndex('Decoration')"/>
+            </h4>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
 
     <xsl:template match="handDesc">
         <div class="handDesc">
-            <h4>Hand(s)</h4>
+            <h4>
+                <xsl:copy-of select="bod:NoIndex('Hand(s)')"/>
+            </h4>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
@@ -934,25 +993,36 @@
 
     <xsl:template match="musicNotation">
         <div class="musicNotation">
-            <span class="tei-label">Musical Notation: </span>
+            <span class="tei-label">
+                <xsl:copy-of select="bod:NoIndex('Musical Notation:')"/>
+                <xsl:text> </xsl:text>
+            </span>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
 
     <xsl:template match="typeDesc">
         <div class="typeDesc">
-            <span class="tei-label">Type(s): </span>
+            <span class="tei-label">
+                <xsl:copy-of select="bod:NoIndex('Type(s):')"/>
+                <xsl:text> </xsl:text>
+            </span>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
 
     <xsl:template match="sealDesc">
-        <span class="tei-label">Seal(s): </span>
+        <span class="tei-label">
+            <xsl:copy-of select="bod:NoIndex('Seal(s):')"/>
+            <xsl:text> </xsl:text>
+        </span>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="scriptDesc">
-        <h4>Script(s)</h4>
+        <h4>
+            <xsl:copy-of select="bod:NoIndex('Script(s)')"/>
+        </h4>
         <div class="scriptDesc">
             <xsl:apply-templates/>
         </div>
@@ -962,7 +1032,10 @@
         <div class="objectDesc">
             <xsl:if test="@form">
                 <div class="form">
-                    <span class="tei-label">Form: </span>
+                    <span class="tei-label">
+                        <xsl:copy-of select="bod:NoIndex('Form:')"/>
+                        <xsl:text> </xsl:text>
+                    </span>
                     <xsl:value-of select="@form"/>
                 </div>
             </xsl:if>
@@ -972,7 +1045,9 @@
 
     <xsl:template match="layoutDesc">
         <div class="{name()}">
-            <h4>Layout</h4>
+            <h4>
+                <xsl:copy-of select="bod:NoIndex('Layout')"/>
+            </h4>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
@@ -1041,7 +1116,9 @@
     <!--  collation condition foliation support -->
     <xsl:template match="collation">
         <div class="{name()}">
-            <h4>Collation</h4>
+            <h4>
+                <xsl:copy-of select="bod:NoIndex('Collation')"/>
+            </h4>
             <div class="collation">
                 <xsl:apply-templates/>
             </div>
@@ -1050,7 +1127,9 @@
 
     <xsl:template match="condition">
         <div>
-            <h4>Condition</h4>
+            <h4>
+                <xsl:copy-of select="bod:NoIndex('Condition')"/>
+            </h4>
             <div class="condition">
                 <xsl:apply-templates/>
             </div>
@@ -1060,7 +1139,10 @@
 
     <xsl:template match="foliation">
         <div class="{name()}">
-            <span class="tei-label">Foliation: </span>
+            <span class="tei-label">
+                <xsl:copy-of select="bod:NoIndex('Foliation:')"/>
+                <xsl:text> </xsl:text>
+            </span>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
@@ -1068,7 +1150,10 @@
     <!-- this is handled with supportDesc@material - AH -->
     <xsl:template match="support">
         <div class="{name()}">
-            <span class="tei-label">Support: </span>
+            <span class="tei-label">
+                <xsl:copy-of select="bod:NoIndex('Support:')"/>
+                <xsl:text> </xsl:text>
+            </span>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
@@ -1076,7 +1161,10 @@
     <!-- secFol, locus, extent -->
     <xsl:template match="secFol">
         <div class="{ name() }">
-            <span class="tei-label italic">Secundo Folio: </span>
+            <span class="tei-label italic">
+                <xsl:copy-of select="bod:NoIndex('Secundo Folio:')"/>
+                <xsl:text> </xsl:text>
+            </span>
             <xsl:apply-templates/>
             <!-- would be useful to insert a space at end ? (due to there often being a following <locus>) -->
         </div>
@@ -1102,7 +1190,10 @@
         -->
         <!-- Prefix with label if it begins with untagged text, or a measure child element -->
         <div class="{name()}">
-            <span class="tei-label">Extent: </span>
+            <span class="tei-label">
+                <xsl:copy-of select="bod:NoIndex('Extent:')"/>
+                <xsl:text> </xsl:text>
+            </span>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
@@ -1114,7 +1205,8 @@
     <xsl:template match="extent/dimensions">
         <div class="{name()}">
             <span class="tei-label">
-                <xsl:text>Dimensions</xsl:text>
+                <xsl:copy-of select="bod:NoIndex('Dimensions:')"/>
+                <xsl:text> </xsl:text>
                 <xsl:if test="@type">
                     <xsl:text> (</xsl:text>
                     <xsl:value-of select="@type"/>
@@ -1203,7 +1295,9 @@
 
     <!-- Things inside additional -->
     <xsl:template match="additional/listBibl">
-        <h3 class="msDesc-heading3">Bibliography</h3>
+        <h3 class="msDesc-heading3">
+            <xsl:copy-of select="bod:NoIndex('Bibliography')"/>
+        </h3>
         <div class="listBibl">
             <ul class="listBibl">
                 <xsl:apply-templates/>
@@ -1212,7 +1306,9 @@
     </xsl:template>
 
     <xsl:template match="additional/surrogates">
-        <h3 class="msDesc-heading3">Digital Images</h3>
+        <h3 class="msDesc-heading3">
+            <xsl:copy-of select="bod:NoIndex('Digital Images')"/>
+        </h3>
         <div class="surrogates">
             <!--<xsl:choose>
                 <xsl:when test="bibl/@facs">
@@ -1242,10 +1338,14 @@
     </xsl:template>
 
     <xsl:template match="source">
-        <h3>Record Sources</h3>
+        <xsl:processing-instruction name="noindex"/>
+        <h3>
+            <xsl:text>Record Sources</xsl:text>
+        </h3>
         <div class="{name()}">
             <xsl:apply-templates/>
         </div>
+        <xsl:processing-instruction name="noindex"/>
     </xsl:template>
 
     <xsl:template match="source/listBibl" priority="10">
