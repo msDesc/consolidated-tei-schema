@@ -39,9 +39,10 @@
     
     <xsl:function name="bod:NoIndex">
         <xsl:param name="nonindexedtext" as="xs:string*"/>
-        <xsl:processing-instruction name="ni"/>
+        <!-- TODO: Reactivate this when we've decided what to filter out of the index
+        <xsl:processing-instruction name="ni"/>-->
         <xsl:value-of select="normalize-space(string-join($nonindexedtext, ' '))"/>
-        <xsl:processing-instruction name="ni"/>
+        <!--<xsl:processing-instruction name="ni"/>-->
     </xsl:function>
     
     <!-- Named template that is called from command line to batch convert all manuscript TEI files to HTML -->
