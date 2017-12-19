@@ -399,21 +399,21 @@ declare function bod:languages($teinodes as element()*, $solrfield as xs:string)
 :)
 
 
-declare function bod:displayHTML($htmldoc as document-node())
+declare function bod:displayHTML($htmldoc as document-node(), $solrfield as xs:string)
 {
     let $htmlcontent := ($htmldoc//html:div)[1]
-    return <field name="display">{ normalize-space(serialize($htmlcontent)) }</field>
+    return <field name="{ $solrfield }">{ normalize-space(serialize($htmlcontent)) }</field>
 };
 
 
-declare function bod:indexHTML($htmldoc as document-node())
+declare function bod:indexHTML($htmldoc as document-node(), $solrfield as xs:string)
 {
     (: Only index text node which aren't between 'noindex' or 'ni' processing instructions, unless that's overriden by 'index' ones,
        where noindex and index are for cataloguers to add to the TEI XML, ni is added by msdesc2html.xsl :)
     (: TODO: Split this up into multiple fields where there is a logic break? :)
     let $htmlcontent := ($htmldoc//html:div)[1]
-    return <field name="ms_textcontent_tni">{ normalize-space(
-                serialize(
+    return <field name="{ $solrfield }">{ normalize-space(
+                string-join(
                     $htmlcontent//text()[
                         (
                         count(preceding::processing-instruction('ni')) mod 2 = 0 
