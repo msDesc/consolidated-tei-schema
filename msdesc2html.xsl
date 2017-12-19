@@ -24,9 +24,10 @@
     
     <xsl:output omit-xml-declaration="yes" method="xhtml" encoding="UTF-8" indent="yes"/>
 
-    <!-- Strip out all processing instructions, including schema associations.
-         NOTE: This stylesheet adds "noindex" ones to control what the XQuery sends to Solr. -->
+    <!-- Strip out all processing instructions, including schema associations. except noindex/index ones which cataloguers can use
+         to override the selection of what is or isn't indexed (which is done by this stylesheet and then enforced by the XQuery) -->
     <xsl:template match="processing-instruction()"/>
+    <xsl:template match="processing-instruction()[name() eq 'noindex' or name() eq 'index']"><xsl:copy/></xsl:template>
     
     <xsl:function name="bod:logging">
         <xsl:param name="level" as="xs:string"/>
@@ -38,9 +39,9 @@
     
     <xsl:function name="bod:NoIndex">
         <xsl:param name="nonindexedtext" as="xs:string*"/>
-        <xsl:processing-instruction name="noindex"/>
+        <xsl:processing-instruction name="ni"/>
         <xsl:value-of select="normalize-space(string-join($nonindexedtext, ' '))"/>
-        <xsl:processing-instruction name="noindex"/>
+        <xsl:processing-instruction name="ni"/>
     </xsl:function>
     
     <!-- Named template that is called from command line to batch convert all manuscript TEI files to HTML -->
@@ -1338,14 +1339,14 @@
     </xsl:template>
 
     <xsl:template match="source">
-        <xsl:processing-instruction name="noindex"/>
+        <xsl:processing-instruction name="ni"/>
         <h3>
             <xsl:text>Record Sources</xsl:text>
         </h3>
         <div class="{name()}">
             <xsl:apply-templates/>
         </div>
-        <xsl:processing-instruction name="noindex"/>
+        <xsl:processing-instruction name="ni"/>
     </xsl:template>
 
     <xsl:template match="source/listBibl" priority="10">

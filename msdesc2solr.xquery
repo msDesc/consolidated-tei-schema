@@ -1,6 +1,7 @@
 module namespace bod="http://www.bodleian.ox.ac.uk/bdlss";
 import module namespace functx = "http://www.functx.com" at "functx.xquery";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
+declare namespace html="http://www.w3.org/1999/xhtml";
 
 (:~
  : --------------------------------
@@ -387,4 +388,41 @@ declare function bod:languages($teinodes as element()*, $solrfield as xs:string)
 };
 
 
+
+
+
+
+(:~
+ : --------------------------------
+ : Manuscript HTML view
+ : --------------------------------
+:)
+
+
+declare function bod:displayHTML($htmldoc as document-node())
+{
+    let $htmlcontent := ($htmldoc//html:div)[1]
+    return <field name="display">{ normalize-space(serialize($htmlcontent)) }</field>
+};
+
+
+declare function bod:indexHTML($htmldoc as document-node())
+{
+    (: Only index text node which aren't between 'noindex' or 'ni' processing instructions, unless that's overriden by 'index' ones,
+       where noindex and index are for cataloguers to add to the TEI XML, ni is added by msdesc2html.xsl :)
+    (: TODO: Split this up into multiple fields where there is a logic break? :)
+    let $htmlcontent := ($htmldoc//html:div)[1]
+    return <field name="ms_textcontent_tni">{ normalize-space(
+                serialize(
+                    $htmlcontent//text()[
+                        (
+                        count(preceding::processing-instruction('ni')) mod 2 = 0 
+                        and count(preceding::processing-instruction('noindex')) mod 2 = 0
+                        ) or 
+                        name(preceding::processing-instruction()[1]) = 'index'
+                        ]
+                    )
+                )
+            } </field>
+};
 
