@@ -1339,14 +1339,12 @@
     </xsl:template>
 
     <xsl:template match="source">
-        <xsl:processing-instruction name="ni"/>
         <h3>
-            <xsl:text>Record Sources</xsl:text>
+            <xsl:copy-of select="bod:NoIndex('Record Sources')"/>
         </h3>
         <div class="{name()}">
             <xsl:apply-templates/>
         </div>
-        <xsl:processing-instruction name="ni"/>
     </xsl:template>
 
     <xsl:template match="source/listBibl" priority="10">
