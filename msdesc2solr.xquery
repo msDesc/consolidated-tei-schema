@@ -112,6 +112,7 @@ declare function bod:findCenturies($earliestYear, $latestYear) as xs:string*
 
 declare function bod:languageCodeLookup($lang as xs:string) as xs:string
 {
+    (: TODO: Get these from a lookup file somewhere? :)
     switch($lang)
         case "English" return "English" 
         case "French" return "French"
@@ -162,7 +163,49 @@ declare function bod:languageCodeLookup($lang as xs:string) as xs:string
         case "sco" return "Scots"
         case "spa" return "Spanish"
         case "syc" return "Syriac"
+        case "fa" return "Persian"
+        case "ota" return "Ottoman Turkish"
+        case "ps" return "Pashto"
+        case "syr" return "Syriac"
+        case "ur" return "Urdu"
+        case "ara-Arab" return "Arabic"
+        case "swa" return "Swahili"
+        case "tur" return "Turkish"
+        case "jpr" return "Judeo-Persian"
+        case "pers" return "Persian"
+        case "pes" return "Persian"
+        case "chg" return "Chagatai"
+        case "ms" return "Malay"
+        case "hi" return "Hindi"
+        case "jrb" return "Judeo-Arabic"
+        case "gre" return "Greek"
+        case "kas" return "Kashmiri"
+        case "ku" return "Kurdish"
+        case "pan" return "Panjabi"
+        case "arm" return "Armenian"
+        case "mar" return "Marathi"
+        case "pal" return "Pahlavi"
+        case "uig" return "Uighur"
+        case "ave" return "Avestan"
+        case "bn" return "Bengali"
+        case "sa" return "Sanskrit"
+        case "tel" return "Telugu"
+        case "ara-Latn" return "Arabic"
+        case "arc" return "Aramaic"
+        case "ber" return "Berber"
+        case "chi" return "Chinese"
+        case "dan" return "Danish"
+        case "inc" return "Indic"
+        case "jv" return "Javanese"
+        case "kan" return "Kannada"
+        case "map" return "Austronesian"
+        case "mn" return "Mongolian"
+        case "por" return "Portuguese"
+        case "pre" return "Principense"
+        case "prs" return "Dari Persian"
+        case "snd" return "Sindhi"
         case "zxx" return "No Linguistic Content"
+        case "und" return "Undetermined"
         default return $lang
 };
 
@@ -179,11 +222,20 @@ declare function bod:personRoleLookup($role as xs:string) as xs:string
         default return functx:capitalize-first($role)
 };
 
+
 declare function bod:orgRoleLookup($role as xs:string) as xs:string
 {
     (: For the moment, using the same roles as persons. But could add organization-specific ones here. :)
     let $normalizedRole := bod:personRoleLookup($role)
     return $normalizedRole
+};
+
+
+declare function bod:physFormLookup($form as xs:string) as xs:string
+{
+    (: TODO: Are there any that need translating, rather than just capitalizing? :)
+    let $normalizedForm := functx:capitalize-first($form)
+    return $normalizedForm
 };
 
 
@@ -317,17 +369,6 @@ declare function bod:many2many($teinodes as element()*, $solrfield as xs:string)
             else ()
 };
 
-declare function bod:manyattributes2many($teiattrs as attribute()*, $solrfield as xs:string)
-{
-    (: Generate multiple Solr fields, one for each distinct value from a sequence of TEI attributes :)
-    for $v in distinct-values($teiattrs/data())
-        return
-            if (string-length($v) > 0) then
-                <field name="{ $solrfield }">{ $v }</field>
-            else ()
-};
-
-
 
 declare function bod:trueIfExists($teinode as element()*, $solrfield as xs:string)
 {
@@ -408,6 +449,13 @@ declare function bod:languages($teinodes as element()*, $solrfield as xs:string)
     let $langCodes := for $attr in $teinodes/@* return if (name($attr) = 'mainLang' or name($attr) = 'otherLangs') then tokenize($attr, ' ') else ()
     for $code in distinct-values($langCodes)
         return <field name="{ $solrfield }">{ normalize-space(bod:languageCodeLookup($code)) }</field>
+};
+
+
+declare function bod:physForm($teinodes as element()*, $solrfield as xs:string)
+{
+    for $form in distinct-values($teinodes/@form)
+        return <field name="{ $solrfield }">{ bod:physFormLookup($form) }</field>
 };
 
 
