@@ -317,6 +317,17 @@ declare function bod:many2many($teinodes as element()*, $solrfield as xs:string)
             else ()
 };
 
+declare function bod:manyattributes2many($teiattrs as attribute()*, $solrfield as xs:string)
+{
+    (: Generate multiple Solr fields, one for each distinct value from a sequence of TEI attributes :)
+    for $v in distinct-values($teiattrs/data())
+        return
+            if (string-length($v) > 0) then
+                <field name="{ $solrfield }">{ $v }</field>
+            else ()
+};
+
+
 
 declare function bod:trueIfExists($teinode as element()*, $solrfield as xs:string)
 {
