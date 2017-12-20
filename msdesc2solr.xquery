@@ -106,7 +106,7 @@ declare function bod:findCenturies($earliestYear, $latestYear) as xs:string*
             (: Only a single date, either a precise year or an open-ended range like "Before 1500" or "After 1066", so just output the known century :)
             bod:formatCentury(($earliestCentury, $latestCentury)[. ne 0])
          else
-            bod:logging('info', 'Unreadable dates will not be added to century filter', concat($earliestYear, '-', $latestYear))
+            bod:logging('info', 'Unreadable dates', concat($earliestYear, '-', $latestYear))
 };
 
 
@@ -411,15 +411,15 @@ declare function bod:centuries($teinodes as element()*, $solrfield as xs:string)
         for $date in $teinodes
             return
             if ($date[@when]) then 
-                if (matches($date/@when/data(), '\d\d\d\d')) then
-                    bod:findCenturies(functx:get-matches($date/@when/data(), '\d\d\d\d')[1], '')
+                if (matches($date/@when/data(), '-?\d\d\d\d')) then
+                    bod:findCenturies(functx:get-matches($date/@when/data(), '-?\d\d\d\d')[1], '')
                 else
-                    bod:logging('info', 'Unreadable dates will not be added to century filter', $date[@when]/data())
+                    bod:logging('info', 'Unreadable date', $date[@when]/data())
             else if ($date[@notBefore] or $date[@notAfter]) then
-                if (matches($date/@notBefore/data(), '\d\d\d\d') or matches($date/@notAfter/data(), '\d\d\d\d')) then
-                    bod:findCenturies(functx:get-matches($date/@notBefore/data(), '\d\d\d\d')[1], functx:get-matches($date/@notAfter/data(), '\d\d\d\d')[1])
+                if (matches($date/@notBefore/data(), '-?\d\d\d\d') or matches($date/@notAfter/data(), '-?\d\d\d\d')) then
+                    bod:findCenturies(functx:get-matches($date/@notBefore/data(), '-?\d\d\d\d')[1], functx:get-matches($date/@notAfter/data(), '-?\d\d\d\d')[1])
                 else
-                    bod:logging('info', 'Unreadable dates will not be added to century filter', concat($date/@notBefore/data(), '-', $date/@notAfter/data()))
+                    bod:logging('info', 'Unreadable dates', concat($date/@notBefore/data(), '-', $date/@notAfter/data()))
             else
                 ()
         )
