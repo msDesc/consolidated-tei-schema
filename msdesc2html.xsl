@@ -539,7 +539,7 @@
         <xsl:apply-templates/>
     </xsl:template>
 
-    <xsl:template match="origin/origDate">
+    <xsl:template match="origin//origDate">
         <span class="{name()}">
             <xsl:apply-templates/>
         </span>
