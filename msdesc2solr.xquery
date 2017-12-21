@@ -335,7 +335,6 @@ declare function bod:one2one_TESTING($teinode as element()*, $solrfield as xs:st
 };
 
 
-
 declare function bod:one2one($teinode as element()?, $solrfield as xs:string)
 {
     (: One TEI element maps to a single Solr field :)
@@ -367,6 +366,40 @@ declare function bod:many2many($teinodes as element()*, $solrfield as xs:string)
             if (string-length($v) > 0) then
                 <field name="{ $solrfield }">{ $v }</field>
             else ()
+};
+
+
+
+declare function bod:one2one($teinode as element()?, $solrfield as xs:string, $loglevelifnone as xs:string)
+{
+    (: Overload the same function above to log if nothing found. Logging as 'error' prevents indexing. :)
+    let $result := bod:one2one($teinode, $solrfield)
+    return if (count($result) eq 0) then
+        bod:logging($loglevelifnone, 'No values for field', $solrfield)
+    else
+        $result
+};
+
+
+declare function bod:many2one($teinodes as element()*, $solrfield as xs:string, $loglevelifnone as xs:string)
+{
+    (: Overload the same function above to log if nothing found. Logging as 'error' prevents indexing. :)
+    let $result := bod:many2one($teinodes, $solrfield)
+    return if (count($result) eq 0) then
+        bod:logging($loglevelifnone, 'No values for field', $solrfield)
+    else
+        $result
+};
+
+
+declare function bod:many2many($teinodes as element()*, $solrfield as xs:string, $loglevelifnone as xs:string)
+{
+    (: Overload the same function above to log if nothing found. Logging as 'error' prevents indexing. :)
+    let $result := bod:many2many($teinodes, $solrfield)
+    return if (count($result) eq 0) then
+        bod:logging($loglevelifnone, 'No values for field', $solrfield)
+    else
+        $result
 };
 
 
