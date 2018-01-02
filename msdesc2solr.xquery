@@ -206,7 +206,7 @@ declare function bod:languageCodeLookup($lang as xs:string) as xs:string
         case "snd" return "Sindhi"
         case "zxx" return "No Linguistic Content"
         case "und" return "Undetermined"
-        default return $lang
+        default return concat('Unknown language code: ', $lang)
 };
 
 declare function bod:personRoleLookup($role as xs:string) as xs:string
@@ -346,6 +346,20 @@ declare function bod:one2one($teinode as element()?, $solrfield as xs:string)
 };
 
 
+declare function bod:one2one($teinode as element()?, $solrfield as xs:string, $ifnone as xs:string)
+{
+    (: Overload the same function above to handle when nothing is found in the source TEI. Third param should be either a default value to use instead, or 'error' to prevent indexing. :)
+    let $result := bod:one2one($teinode, $solrfield)
+    return if (count($result) eq 0) then
+        if (lower-case($ifnone) eq 'error') then
+            bod:logging('error', 'No values for mandatory field', $solrfield)
+        else
+            <field name="{ $solrfield }">{ $ifnone }</field>
+    else
+        $result
+};
+
+
 declare function bod:many2one($teinodes as element()*, $solrfield as xs:string)
 {
     (: Concatenate a sequence of TEI elements, into a single Solr field :)
@@ -354,6 +368,20 @@ declare function bod:many2one($teinodes as element()*, $solrfield as xs:string)
         <field name="{ $solrfield }">{ normalize-space(string-join(distinct-values($values), ' ')) }</field>  
     else
         ()
+};
+
+
+declare function bod:many2one($teinodes as element()*, $solrfield as xs:string, $ifnone as xs:string)
+{
+    (: Overload the same function above to handle when nothing is found in the source TEI. Third param should be either a default value to use instead, or 'error' to prevent indexing. :)
+    let $result := bod:many2one($teinodes, $solrfield)
+    return if (count($result) eq 0) then
+        if (lower-case($ifnone) eq 'error') then
+            bod:logging('error', 'No values for mandatory field', $solrfield)
+        else
+            <field name="{ $solrfield }">{ $ifnone }</field>
+    else
+        $result
 };
 
 
@@ -369,37 +397,26 @@ declare function bod:many2many($teinodes as element()*, $solrfield as xs:string)
 };
 
 
-
-declare function bod:one2one($teinode as element()?, $solrfield as xs:string, $loglevelifnone as xs:string)
+declare function bod:many2many($teinodes as element()*, $solrfield as xs:string, $ifnone as xs:string)
 {
-    (: Overload the same function above to log if nothing found. Logging as 'error' prevents indexing. :)
-    let $result := bod:one2one($teinode, $solrfield)
-    return if (count($result) eq 0) then
-        bod:logging($loglevelifnone, 'No values for field', $solrfield)
-    else
-        $result
-};
-
-
-declare function bod:many2one($teinodes as element()*, $solrfield as xs:string, $loglevelifnone as xs:string)
-{
-    (: Overload the same function above to log if nothing found. Logging as 'error' prevents indexing. :)
-    let $result := bod:many2one($teinodes, $solrfield)
-    return if (count($result) eq 0) then
-        bod:logging($loglevelifnone, 'No values for field', $solrfield)
-    else
-        $result
-};
-
-
-declare function bod:many2many($teinodes as element()*, $solrfield as xs:string, $loglevelifnone as xs:string)
-{
-    (: Overload the same function above to log if nothing found. Logging as 'error' prevents indexing. :)
+    (: Overload the same function above to handle when nothing is found in the source TEI. Third param should be either a default value to use instead, or 'error' to prevent indexing. :)
     let $result := bod:many2many($teinodes, $solrfield)
     return if (count($result) eq 0) then
-        bod:logging($loglevelifnone, 'No values for field', $solrfield)
+        if (lower-case($ifnone) eq 'error') then
+            bod:logging('error', 'No values for mandatory field', $solrfield)
+        else
+            <field name="{ $solrfield }">{ $ifnone }</field>
     else
         $result
+};
+
+
+declare function bod:oneoranother2one($teinodes as element()*, $solrfield as xs:string)
+{
+    (: Accepts a sequence of teinodes and uses the first matching one with content to populate a single Solr field :)
+    (: TODO: Test this, and maybe use it for ms_institution_s, so that Christ Church College's manuscripts are included in Medieval? :)
+    let $result := bod:many2many($teinodes, $solrfield)
+    return $result[1]
 };
 
 
@@ -462,6 +479,20 @@ declare function bod:centuries($teinodes as element()*, $solrfield as xs:string)
 };
 
 
+declare function bod:centuries($teinodes as element()*, $solrfield as xs:string, $ifnone as xs:string)
+{
+    (: Overload the same function above to handle when nothing is found in the source TEI. Third param should be either a default value to use instead, or 'error' to prevent indexing. :)
+    let $result := bod:centuries($teinodes, $solrfield)
+    return if (count($result) eq 0) then
+        if (lower-case($ifnone) eq 'error') then
+            bod:logging('error', 'No values for mandatory field', $solrfield)
+        else
+            <field name="{ $solrfield }">{ $ifnone }</field>
+    else
+        $result
+};
+
+
 declare function bod:materials($teinodes as element()*, $solrfield as xs:string)
 {
     for $item in distinct-values($teinodes/string(@material))
@@ -469,11 +500,27 @@ declare function bod:materials($teinodes as element()*, $solrfield as xs:string)
             switch ($item)
                 case "perg" return "Parchment"
                 case "chart" return "Paper"
+                case "paper" return "Paper"
                 case "papyrus" return "Papyrus"
                 case "mixed" return "Mixed"
                 case "unknown" return "Unknown"
-                default return "Other")
+                default return "Other"
+                )
         return <field name="{ $solrfield }">{ $material }</field>
+};
+
+
+declare function bod:materials($teinodes as element()*, $solrfield as xs:string, $ifnone as xs:string)
+{
+    (: Overload the same function above to handle when nothing is found in the source TEI. Third param should be either a default value to use instead, or 'error' to prevent indexing. :)
+    let $result := bod:materials($teinodes, $solrfield)
+    return if (count($result) eq 0) then
+        if (lower-case($ifnone) eq 'error') then
+            bod:logging('error', 'No values for mandatory field', $solrfield)
+        else
+            <field name="{ $solrfield }">{ $ifnone }</field>
+    else
+        $result
 };
 
 
@@ -485,6 +532,20 @@ declare function bod:languages($teinodes as element()*, $solrfield as xs:string)
 };
 
 
+declare function bod:languages($teinodes as element()*, $solrfield as xs:string, $ifnone as xs:string)
+{
+    (: Overload the same function above to handle when nothing is found in the source TEI. Third param should be either a default value to use instead, or 'error' to prevent indexing. :)
+    let $result := bod:languages($teinodes, $solrfield)
+    return if (count($result) eq 0) then
+        if (lower-case($ifnone) eq 'error') then
+            bod:logging('error', 'No values for mandatory field', $solrfield)
+        else
+            <field name="{ $solrfield }">{ $ifnone }</field>
+    else
+        $result
+};
+
+
 declare function bod:physForm($teinodes as element()*, $solrfield as xs:string)
 {
     for $form in distinct-values($teinodes/@form)
@@ -492,6 +553,18 @@ declare function bod:physForm($teinodes as element()*, $solrfield as xs:string)
 };
 
 
+declare function bod:physForm($teinodes as element()*, $solrfield as xs:string, $ifnone as xs:string)
+{
+    (: Overload the same function above to handle when nothing is found in the source TEI. Third param should be either a default value to use instead, or 'error' to prevent indexing. :)
+    let $result := bod:physForm($teinodes, $solrfield)
+    return if (count($result) eq 0) then
+        if (lower-case($ifnone) eq 'error') then
+            bod:logging('error', 'No values for mandatory field', $solrfield)
+        else
+            <field name="{ $solrfield }">{ $ifnone }</field>
+    else
+        $result
+};
 
 
 
