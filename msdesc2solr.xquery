@@ -470,6 +470,11 @@ declare function bod:centuries($teinodes as element()*, $solrfield as xs:string)
                     bod:findCenturies(functx:get-matches($date/@notBefore/data(), '-?\d\d\d\d')[1], functx:get-matches($date/@notAfter/data(), '-?\d\d\d\d')[1])
                 else
                     bod:logging('info', 'Unreadable dates', concat($date/@notBefore/data(), '-', $date/@notAfter/data()))
+            else if ($date[@from] or $date[@to]) then
+                if (matches($date/@from/data(), '-?\d\d\d\d') or matches($date/@to/data(), '-?\d\d\d\d')) then
+                    bod:findCenturies(functx:get-matches($date/@from/data(), '-?\d\d\d\d')[1], functx:get-matches($date/@to/data(), '-?\d\d\d\d')[1])
+                else
+                    bod:logging('info', 'Unreadable dates', concat($date/@from/data(), '-', $date/@to/data()))
             else
                 ()
         )
