@@ -89,7 +89,7 @@
 
             <!-- get the folder from that -->
             <xsl:variable name="folder">
-                <xsl:value-of select="tokenize($baseURI, '/')[last()-1]"/>
+                <xsl:value-of select="tokenize($baseURI, '/')[last()-1][not(. eq 'collections')]"/>
             </xsl:variable>
 
             <!-- Get the @xml:id from the first msDesc inside the sourceDesc
