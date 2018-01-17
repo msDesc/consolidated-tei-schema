@@ -229,7 +229,11 @@
     </xsl:template>
 
     <xsl:template match="supplied">
-        <span class="supplied">[<xsl:apply-templates/>]</span>
+        <span class="supplied">
+            <xsl:text>⟨</xsl:text>
+            <xsl:apply-templates/>
+            <xsl:text>⟩</xsl:text>
+        </span>
     </xsl:template>
     
     <xsl:template match="choice[sic and corr]">
