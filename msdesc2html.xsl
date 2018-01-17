@@ -292,6 +292,7 @@
 
     <xsl:template match="expan | ex">
         <!-- was: class = expan, changed 6.11.17 to better match TEI guidelines. ex=parts of words. -->
+        <!-- TODO: Split this into two templates for expan used in contexts where it is not inline? -->
         <span class="ex">(<xsl:apply-templates/>)</span>
     </xsl:template>
 
