@@ -206,6 +206,14 @@ declare function bod:languageCodeLookup($lang as xs:string) as xs:string
         case "snd" return "Sindhi"
         case "zxx" return "No Linguistic Content"
         case "und" return "Undetermined"
+        case "yi" return "Yiddish"
+        case "hy" return "Armenian"
+        case "xcl" return "Classical Armenian"
+        case "pl" return "Polish"
+        case "shn" return "Shan"
+        case "Arabic" return "Arabic"
+        case "Persian" return "Persian"
+        case "Turkish" return "Turkish"
         default return concat('Unknown language code: ', $lang)
 };
 
