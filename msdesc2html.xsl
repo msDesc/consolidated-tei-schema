@@ -29,12 +29,19 @@
     <xsl:template match="processing-instruction()"/>
     <xsl:template match="processing-instruction()[name() eq 'noindex' or name() eq 'index']"><xsl:copy/></xsl:template>
     
-    <xsl:function name="bod:logging">
+    <xsl:function name="bod:logging" as="empty-sequence()">
         <xsl:param name="level" as="xs:string"/>
         <xsl:param name="msg" as="xs:string"/>
         <xsl:param name="context" as="element()"/>
         <xsl:param name="vals"/>
-        <xsl:message select="concat(upper-case($level), '    ', $msg, '    ', ($context/ancestor-or-self::*/@xml:id)[position()=last()], '    ', string-join($vals, '    '))"/>        
+        <xsl:message select="concat(upper-case($level), '&#9;', $msg, '&#9;', ($context/ancestor-or-self::*/@xml:id)[position()=last()], '    ', string-join($vals, '    '))"/>        
+    </xsl:function>
+    
+    <xsl:function name="bod:logging" as="empty-sequence()">
+        <xsl:param name="level" as="xs:string"/>
+        <xsl:param name="msg" as="xs:string"/>
+        <xsl:param name="context" as="element()"/>
+        <xsl:message select="concat(upper-case($level), '&#9;', $msg, '&#9;', ($context/ancestor-or-self::*/@xml:id)[position()=last()], '    ')"/>        
     </xsl:function>
     
     <xsl:function name="bod:NoIndex">
@@ -380,58 +387,77 @@
     </xsl:template>
 
     <!-- Main msDesc template and processing starts here -->
-    <xsl:template match="msDesc[@xml:id]">
-        <div class="msDesc" id="{concat(@xml:id, '-msDesc', count(preceding::msDesc) + 1)}">
-            <xsl:if test="@xml:lang">
-                <xsl:attribute name="lang">
-                    <xsl:value-of select="@xml:lang"/>
-                </xsl:attribute>
-            </xsl:if>
-
-            <xsl:apply-templates/>
-        </div>
-    </xsl:template>
-
-    <!-- Just a warning template if an msDesc doesn't have an @xml:id -->
     <xsl:template match="msDesc">
-        <xsl:message>No xml:id attribute in <xsl:value-of select="//TEI/@xml:id"/> for <xsl:value-of select="msIdentifier/idno[1]"/></xsl:message>
-
-        <div class="msDesc">
+        <xsl:variable name="id">
+            <xsl:choose>
+                <xsl:when test="@xml:id">
+                    <xsl:value-of select="concat(@xml:id, '-msDesc', count(preceding::msDesc) + 1)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="concat('tempid_', generate-id(.))"/>
+                    <xsl:copy-of select="bod:logging('error', 'msDesc has no xml:id', .)"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <div class="msDesc" id="{$id}">
             <xsl:if test="@xml:lang">
                 <xsl:attribute name="lang">
                     <xsl:value-of select="@xml:lang"/>
                 </xsl:attribute>
             </xsl:if>
-
-            <h2 class="msDesc-heading2">
-                <xsl:value-of select="msIdentifier/idno[@type='shelfmark']"/>
-            </h2>
-
-            <xsl:apply-templates/>
+            <xsl:if test="msIdentifier/collection or msIdentifier/altIdentifier[child::idno[not(@subtype)]]">
+                <div class="msIdentifier">
+                    <xsl:apply-templates select="msIdentifier"/>
+                </div>
+            </xsl:if>
+            <xsl:apply-templates select="*[not(self::msIdentifier)]"/>
         </div>
     </xsl:template>
 
-    <!-- skip output of msIdentifier block with subtype for now - AH -->
-    <!-- was: <xsl:template match="msIdentifier/altIdentifier/idno/@subtype" /> 23.10 -->
+    <!-- Most of the fields in msIdentifier are not wanted for display -->
     <xsl:template match="msIdentifier[not(parent::msPart)]/altIdentifier/idno[@subtype]" />
     <xsl:template match="msIdentifier/institution | msIdentifier/region | msIdentifier/country | msIdentifier/settlement | msIdentifier/repository | msIdentifier/idno[@type='shelfmark']" />
+    <xsl:template match="msDesc/msIdentifier/altIdentifier[child::idno[@subtype]]"/>
 
-
-    <!-- altidentifier/idno is all we want from this section, and not if subtype="alt" -->
-    <!-- altidentifier with subtype alt should not be matched, otherwise we get an empty div which interferes with display [e.g. http://medieval-qa.bodleian.ox.ac.uk/catalog/manuscript_4968] -->
-    <xsl:template match="msDesc/msIdentifier/altIdentifier[child::idno[not(@subtype)]]">
-        <div class="msIdentifier">
-            <xsl:choose>
-                <!--<xsl:when test="idno/@type='shelfmark' or @type='shelfmark'">ShelfMark:</xsl:when>-->
-                <!-- spaces after ':' added 26.6 -->
-                <xsl:when test="idno[not(@subtype)]/@type='SCN'">Summary Catalogue no.: <xsl:apply-templates/></xsl:when>
-                <xsl:when test="idno[not(@subtype)]/@type='TM' or idno/@type='TM'">Trismegistos no.: <xsl:apply-templates/></xsl:when>
-                <xsl:when test="idno[not(@subtype)]/@type='PR'">Papyrological Reference: <xsl:apply-templates/></xsl:when>
-                <xsl:when test="idno[not(@subtype)]/@type='diktyon'">Diktyon no.: <xsl:apply-templates/></xsl:when>
-                <xsl:when test="idno[not(@subtype)]/@type='LDAB'">LDAB no.: <xsl:apply-templates/></xsl:when>
-            </xsl:choose>
-        </div>
+    <xsl:template match="msIdentifier/collection">
+        <p><xsl:apply-templates/></p>
     </xsl:template>
+
+    <xsl:template match="msDesc/msIdentifier/altIdentifier[child::idno[not(@subtype)]]">
+        <xsl:choose>
+            <xsl:when test="idno[not(@subtype)]/@type='SCN'">
+                <p>
+                    <xsl:text>Summary Catalogue no.: </xsl:text>
+                    <xsl:apply-templates/>
+                </p>
+            </xsl:when>
+            <xsl:when test="idno[not(@subtype)]/@type='TM' or idno/@type='TM'">
+                <p>
+                    <xsl:text>Trismegistos no.: </xsl:text>
+                    <xsl:apply-templates/>
+                </p>
+            </xsl:when>
+            <xsl:when test="idno[not(@subtype)]/@type='PR'">
+                <p>
+                    <xsl:text>Papyrological Reference: </xsl:text>
+                    <xsl:apply-templates/>
+                </p>
+            </xsl:when>
+            <xsl:when test="idno[not(@subtype)]/@type='diktyon'">
+                <p>
+                    <xsl:text>Diktyon no.: </xsl:text>
+                    <xsl:apply-templates/>
+                </p>
+            </xsl:when>
+            <xsl:when test="idno[not(@subtype)]/@type='LDAB'">
+                <p>
+                    <xsl:text>LDAB no.: </xsl:text>
+                    <xsl:apply-templates/>
+                </p>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    
 
     <!-- Paragraphs -->
     <xsl:template match="p">
