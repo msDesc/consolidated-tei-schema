@@ -415,6 +415,7 @@
     </xsl:template>
 
     <!-- Most of the fields in msIdentifier are not wanted for display -->
+    <xsl:template match="msDesc/msIdentifier/idno"/>
     <xsl:template match="msIdentifier[not(parent::msPart)]/altIdentifier/idno[@subtype]" />
     <xsl:template match="msIdentifier/institution | msIdentifier/region | msIdentifier/country | msIdentifier/settlement | msIdentifier/repository | msIdentifier/idno[@type='shelfmark']" />
     <xsl:template match="msDesc/msIdentifier/altIdentifier[child::idno[@subtype]]"/>
