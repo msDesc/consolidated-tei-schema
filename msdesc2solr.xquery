@@ -217,6 +217,7 @@ declare function bod:languageCodeLookup($lang as xs:string) as xs:string
         case "lad" return "Ladino"
         case "ka" return "Georgian"
         case "bo" return "Tibetan"
+        case "jpt" return "Judaeo-Portuguese"
         default return concat('Unknown language code: ', $lang)
 };
 
