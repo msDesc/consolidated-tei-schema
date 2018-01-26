@@ -517,7 +517,7 @@
     </xsl:template>
     
     <xsl:template match="msPart|msFrag">
-        <div class="{name()}">
+        <div class="{name()}" id="{(@xml:id, generate-id())[1]}">
             <h2>
                 <xsl:apply-templates select="msIdentifier/altIdentifier"/>
             </h2>
