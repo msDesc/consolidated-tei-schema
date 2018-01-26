@@ -819,6 +819,12 @@
             <xsl:text>"</xsl:text>
         </blockquote>
     </xsl:template>
+    
+    <xsl:template match="quote">
+        <span class="{name()}">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
 
     <xsl:template match="msItem/incipit">
         <div class="{name()}">
