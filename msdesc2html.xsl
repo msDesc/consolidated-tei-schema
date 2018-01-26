@@ -216,10 +216,32 @@
         </span>
     </xsl:template>
 
-    <xsl:template match="add|del">
-        <span class="{name()}">
+    <xsl:template match="add">
+        <ins class="{@place}">
+            <xsl:choose>
+                <xsl:when test="@place = 'above'">
+                    <xsl:text>^</xsl:text>
+                    <xsl:apply-templates/>
+                    <xsl:text>^</xsl:text>
+                </xsl:when>
+                <xsl:when test="@place = 'margin'">
+                    <xsl:text>\</xsl:text>
+                    <xsl:apply-templates/>
+                    <xsl:text>/</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>\</xsl:text>
+                    <xsl:apply-templates/>
+                    <xsl:text>/</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </ins>
+    </xsl:template>
+    
+    <xsl:template match="del">
+        <del>
             <xsl:apply-templates/>
-        </span>
+        </del>
     </xsl:template>
 
     <xsl:template match="note">
