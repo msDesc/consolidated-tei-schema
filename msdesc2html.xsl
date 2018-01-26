@@ -130,7 +130,9 @@
                             </head>
                             <body>
                                 <div class="content tei-body" id="{//TEI/@xml:id}">
-                                    <xsl:apply-templates select="//msDesc"/>
+                                    <xsl:call-template name="Header"/>
+                                    <xsl:apply-templates select="/TEI/teiHeader/fileDesc/sourceDesc/msDesc"/>
+                                    <xsl:call-template name="Footer"/>
                                 </div>
                             </body>
                         </html>
@@ -140,7 +142,9 @@
                              we can ignore the namespace attribute that XSLT puts on it automatically. -->
                         <div>
                             <div class="content tei-body" id="{//TEI/@xml:id}">
-                                <xsl:apply-templates select="//msDesc"/>
+                                <xsl:call-template name="Header"/>
+                                <xsl:apply-templates select="/TEI/teiHeader/fileDesc/sourceDesc/msDesc"/>
+                                <xsl:call-template name="Footer"/>
                             </div>
                         </div>
                     </xsl:otherwise>
@@ -148,7 +152,14 @@
             </xsl:result-document>
         </xsl:for-each>
     </xsl:template>
-
+    
+    
+    <!-- These named templates are intentionally left empty. They can be overridden by 
+         convert2HTML.xsl stylesheets to add a special footer for each catalogue. -->
+    <xsl:template name="Header"></xsl:template>
+    <xsl:template name="Footer"></xsl:template>
+    
+    
     <!-- Templates for titleStmt titles and normal titles, author, editors, and related content -->
     <xsl:template match="titleStmt/title">
         <li class="title">
