@@ -44,6 +44,28 @@
         <xsl:message select="concat(upper-case($level), '&#9;', $msg, '&#9;', ($context/ancestor-or-self::*/@xml:id)[position()=last()], '    ')"/>        
     </xsl:function>
     
+    <xsl:function name="bod:languageCodeLookup" as="xs:string">
+        <xsl:param name="lang" as="xs:string"/>
+        <!-- TODO: Replace this with a lookup to an XML file -->
+        <xsl:choose>
+            <xsl:when test="$lang eq 'he'">Hebrew</xsl:when>
+            <xsl:when test="$lang eq 'yi'">Yiddish</xsl:when>
+            <xsl:when test="$lang eq 'arc'">Aramaic</xsl:when>
+            <xsl:when test="$lang eq 'ka'">Georgian</xsl:when>
+            <xsl:when test="$lang eq 'jrb'">Judeo-Arabic</xsl:when>
+            <xsl:when test="$lang eq 'ar'">Arabic</xsl:when>
+            <xsl:when test="$lang eq 'lad'">Ladino</xsl:when>
+            <xsl:when test="$lang eq 'jpr'">Judeo-Persian</xsl:when>
+            <xsl:when test="$lang eq 'jpt'">Judaeo-Portuguese</xsl:when>
+            <xsl:when test="$lang eq 'grc'">Greek</xsl:when>
+            <xsl:when test="$lang eq 'es'">Spanish</xsl:when>
+            <xsl:when test="$lang eq 'und'">Undetermined</xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$lang"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    
     <xsl:function name="bod:NoIndex">
         <xsl:param name="nonindexedtext" as="xs:string*"/>
         <!-- TODO: Reactivate this when we've decided what to filter out of the index
@@ -677,7 +699,17 @@
                 <xsl:copy-of select="bod:NoIndex('Language(s):')"/>
                 <xsl:text> </xsl:text>
             </span>
-            <xsl:apply-templates/>
+            <xsl:choose>
+                <xsl:when test="not(.//text()) and (@mainLang or @otherLangs)">
+                    <xsl:for-each select="tokenize(string-join((@mainLang, @otherLangs), ' '), ' ')">
+                        <xsl:value-of select="bod:languageCodeLookup(.)"/>
+                        <xsl:if test="position() ne last()"><xsl:text>, </xsl:text></xsl:if>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates/>
+                </xsl:otherwise>
+            </xsl:choose>
         </p>
     </xsl:template>
 
@@ -936,7 +968,17 @@
                 <xsl:copy-of select="bod:NoIndex('Language(s):')"/>
                 <xsl:text> </xsl:text>
             </span>
-            <xsl:apply-templates/>
+            <xsl:choose>
+                <xsl:when test="not(.//text()) and (@mainLang or @otherLangs)">
+                    <xsl:for-each select="tokenize(string-join((@mainLang, @otherLangs), ' '), ' ')">
+                        <xsl:value-of select="bod:languageCodeLookup(.)"/>
+                        <xsl:if test="position() ne last()"><xsl:text>, </xsl:text></xsl:if>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates/>
+                </xsl:otherwise>
+            </xsl:choose>
         </div>
     </xsl:template>
     
