@@ -79,6 +79,30 @@
         <!--<xsl:processing-instruction name="ni"/>-->
     </xsl:function>
     
+    <xsl:function name="bod:shortenToNearestWord" as="xs:string">
+        <xsl:param name="stringval" as="xs:string"/>
+        <xsl:param name="tolength" as="xs:integer"/>
+        <xsl:variable name="cutoffat" as="xs:integer" select="$tolength - 1"/>
+        <xsl:choose>
+            <xsl:when test="string-length($stringval) le $tolength">
+                <!-- Already short enough, so return unmodified -->
+                <xsl:value-of select="$stringval"/>
+            </xsl:when>
+            <xsl:when test="substring($stringval, $cutoffat, 1) = (' ', '&#9;', '&#10;')">
+                <!-- The cut-off is at the location of some whitespace, so won't be cutting off any words -->
+                <xsl:value-of select="concat(normalize-space(substring($stringval, 1, $cutoffat)), '…')"/>
+            </xsl:when>
+            <xsl:when test="substring($stringval, $tolength, 1) = (' ', '&#9;', '&#10;')">
+                <!-- The cut-off is at the end of a word, so won't be cutting off any words -->
+                <xsl:value-of select="concat(substring($stringval, 1, $cutoffat), '…')"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- The cut-off is in the middle of a word, so return everything up to the preceding word -->
+                <xsl:value-of select="concat(replace(substring($stringval, 1, $cutoffat), '\s\S*$', ''), '…')"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    
     <!-- Named template that is called from command line to batch convert all manuscript TEI files to HTML -->
     <xsl:template name="batch">
         
