@@ -200,18 +200,11 @@
         </li>
     </xsl:template>
 
-    <!-- new: default title should be in italic -->
     <xsl:template match="title">
         <span class="{name()} italic">
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
-    <!-- <xsl:template match="author|editor">
-        <span class="{name()}">
-            <xsl:apply-templates/>
-        </span>
-    </xsl:template> -->
 
     <xsl:template match="series">
         <span class="{name()}">
@@ -226,6 +219,7 @@
     </xsl:template>
 
     <!-- transcription related stuff like corr/date/add/dell/note/foreign/sic -->
+    
     <xsl:template match="corr">
         <span class="{name()}">
             <xsl:apply-templates/>
@@ -718,32 +712,6 @@
         </p>
     </xsl:template>
 
-    <!-- msItem -->
-    <!-- <xsl:template match="msContents/msItem" priority="10">
-         <div class="msItem" id="{@xml:id}">
-             <hr />
-             <!-\- add -\-><xsl:apply-templates select="locus"/>
-             <h4 class="tei-title">
-                 <!-\- add -\-><xsl:apply-templates select="author"/>
-                 <xsl:choose>
-                     <xsl:when test="title">
-                         <!-\- modify -\-><xsl:apply-templates select="title[1]"/>
-                         <!-\-<xsl:value-of select="normalize-space(title[1])"/>-\->
-                     </xsl:when>
-                     <xsl:otherwise>
-                         <!-\- this creates duplication with later <note>. need to change? -\->
-                         [<xsl:value-of select="normalize-space(string-join(note/string(), ' '))"/>]
-                     </xsl:otherwise>
-                 </xsl:choose>
-             </h4>
-             <div>
-                 <xsl:apply-templates select="* except (locus, author, title[1])"/>
-             </div>
-         </div>
-     </xsl:template>
-     -->
-
-    <!-- what happens if we just apply templates? -->
     <xsl:template match="msContents/msItem" priority="10">
         <div class="msItem">
             <xsl:if test="@xml:id">
@@ -760,9 +728,6 @@
         </div>
     </xsl:template>
 
-    <!-- nested msItem -->
-    <!-- check what happens with multiple levels of nesting? -->
-    <!-- modified to match main treatment of msItem above-->
     <xsl:template match="msItem/msItem">
         <div class="nestedmsItem">
             <xsl:if test="@xml:id">
@@ -775,26 +740,10 @@
                     <xsl:text>. </xsl:text>
                 </div>
             </xsl:if>
-            <!--<hr />
-            <xsl:apply-templates select="locus"></xsl:apply-templates>
-            <!-\- changed from h3. this level needs to be smaller than the preceding level -\->
-            <h5 class="tei-title">
-                <xsl:apply-templates select="author"/>
-                <xsl:apply-templates select="title[1]"/>
-                <xsl:apply-templates select="note[1][starts-with(., '(') and preceding-sibling::title]"/>
-            </h5>
-            <div class="msItemList">
-                <xsl:apply-templates select="* except (locus, author, title[1], note[1][starts-with(., '(') and preceding-sibling::title])"/>
-            </div>-->
-            <!-- again let's try just applying templates -->
             <xsl:apply-templates/>
         </div>
     </xsl:template>
 
-    <!-- things in msItem -->
-    <!-- don't do anything with an msItem title -->
-    <!-- need to apply templates, sometimes titles contain names for example or formatting  -->
-    <!-- standard titles should be in italic -->
     <xsl:template match="msItem/title[not(@rend) and not(@type)]">
         <span class="tei-title italic">
             <xsl:apply-templates/>
@@ -818,32 +767,6 @@
             <!-- TODO: Move this to the template(s) for notes? -->
             <xsl:text>, </xsl:text>
         </xsl:if>
-    </xsl:template>
-
-    <!--<xsl:template match="msItem/author | msItem/docAuthor">-->
-        <!--<span class="author">-->
-            <!--<xsl:apply-templates /><xsl:if test="following-sibling::*[1]/name()='author'"><xsl:text>; </xsl:text></xsl:if><xsl:if test="following-sibling::*[1]/name()='title'"><xsl:text>. </xsl:text></xsl:if>-->
-            <!--&lt;!&ndash;<xsl:choose>&ndash;&gt;-->
-                <!--<xsl:when test="@key">-->
-                    <!--<a href="/catalog/{@key}">-->
-                        <!--&lt;!&ndash; modified &ndash;&gt;-->
-                        <!--<xsl:apply-templates /><xsl:if test="following-sibling::*[1]/name()='author'"><xsl:text>; </xsl:text></xsl:if><xsl:if test="following-sibling::*[1]/name()='title'"><xsl:text>. </xsl:text></xsl:if>-->
-                        <!--&lt;!&ndash;<xsl:value-of select="normalize-space(string-join(text(), ', '))"/>&ndash;&gt;-->
-                    <!--</a>-->
-                <!--</xsl:when>-->
-                <!--<xsl:otherwise>-->
-                    <!--&lt;!&ndash; modified &ndash;&gt;-->
-                    <!--<xsl:apply-templates /><xsl:if test="following-sibling::*[1]/name()='author'"><xsl:text>; </xsl:text></xsl:if><xsl:if test="following-sibling::*[1]/name()='title'"><xsl:text>. </xsl:text></xsl:if>-->
-                    <!--&lt;!&ndash;<xsl:value-of select="normalize-space(string-join(text(), ', '))"/>&ndash;&gt;-->
-                <!--</xsl:otherwise>-->
-            <!--</xsl:choose>-->
-        <!--</span>-->
-    <!--</xsl:template>-->
-    
-    <xsl:template match="msItem/editor">
-        <span class="editor">
-            <xsl:value-of select="normalize-space(string-join(text(), ' (editor)'))"/>
-        </span>
     </xsl:template>
     
     <xsl:template match="msItem//bibl | physDesc//bibl | history//bibl">
@@ -1000,14 +923,6 @@
         </div>
     </xsl:template>
 
-    <!-- fallback for msItem children -->
-    <!-- <xsl:template match="msItem/*" priority="-10">
-      <span class="{name()}">
-        <xsl:apply-templates/>
-      </span>
-    </xsl:template> -->
-
-    <!-- Things inside physDesc -->
     <xsl:template match="physDesc/p">
         <div class="physDesc-p">
             <xsl:apply-templates/>
@@ -1406,12 +1321,6 @@
         </div>
     </xsl:template>
 
-    <!--<xsl:template match="note//bibl | p//bibl | title//bibl | physDesc//bibl">-->
-        <!--<div class="{name()}">-->
-            <!--<xsl:apply-templates/>-->
-        <!--</div>-->
-    <!--</xsl:template>-->
-
     <!-- Things inside additional -->
     <xsl:template match="additional/listBibl">
         <h3 class="msDesc-heading3">
@@ -1471,7 +1380,7 @@
         </div>
     </xsl:template>
 
-    <!-- names and places -->
+    <!-- Things that can be displayed as hyperlinks (if they've been given a @key attribute -->
     <xsl:template match="persName | placeName | orgName | name | country | settlement | district | region | repository | idno">
         <!-- NOTE: This list may differ between TEI catalogues -->
         <span class="{name()}">
