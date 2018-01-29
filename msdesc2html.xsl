@@ -770,6 +770,14 @@
         </xsl:if>
     </xsl:template>
     
+    <xsl:template match="editor">
+        <xsl:variable name="rolelabel" select="(@role, 'editor')[1]"/>
+        <span class="editor{ if ($rolelabel ne 'editor') then concat(' ', $rolelabel) else ''}">
+            <xsl:apply-templates/>
+            <xsl:value-of select="concat(' (', $rolelabel, ')')"/>
+        </span>
+    </xsl:template>
+    
     <xsl:template match="msItem//bibl | physDesc//bibl | history//bibl">
         <xsl:if test="not(@type='bible' or @type='commentedOn' or @type='commentary' or @type='related')">
             <span class="bibl">
