@@ -59,6 +59,11 @@
             <xsl:when test="$lang eq 'jpt'">Judaeo-Portuguese</xsl:when>
             <xsl:when test="$lang eq 'grc'">Greek</xsl:when>
             <xsl:when test="$lang eq 'es'">Spanish</xsl:when>
+            <xsl:when test="$lang eq 'la'">Latin</xsl:when>
+            <xsl:when test="$lang eq 'lat'">Latin</xsl:when>
+            <xsl:when test="$lang eq 'en'">English</xsl:when>
+            <xsl:when test="$lang eq 'eng'">English</xsl:when>
+            <xsl:when test="$lang eq 'zxx'">No Linguistic Content</xsl:when>
             <xsl:when test="$lang eq 'und'">Undetermined</xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="$lang"/>
