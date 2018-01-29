@@ -272,15 +272,16 @@
     </xsl:template>
 
     <xsl:template match="foreign">
-        <!-- modified to add @rend to the class -->
+        <xsl:text> </xsl:text>
         <span class="{name()} {@rend}">
             <xsl:if test="@xml:lang">
                 <xsl:attribute name="title">
-                    <xsl:value-of select="@xml:lang"/>
+                    <xsl:value-of select="bod:languageCodeLookup(@xml:lang)"/>
                 </xsl:attribute>
             </xsl:if>
             <xsl:apply-templates/>
         </span>
+        <xsl:text> </xsl:text>
     </xsl:template>
 
     <xsl:template match="sic">
