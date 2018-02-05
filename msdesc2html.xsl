@@ -1375,19 +1375,25 @@
                 <h3 class="msDesc-heading3">
                     <xsl:copy-of select="bod:NoIndex('Digital Images')"/>
                 </h3>
-                <xsl:apply-templates select="bibl[@type = ('digital-fascimile','digital-facsimile')]"/>
+                <p>
+                    <xsl:apply-templates select="bibl[@type = ('digital-fascimile','digital-facsimile')]"/>
+                </p>
             </xsl:if>
             <xsl:if test="bibl[idno/@type = 'microfilm']">
                 <h3 class="msDesc-heading3">
                     <xsl:copy-of select="bod:NoIndex('Microfilm')"/>
                 </h3>
-                <xsl:apply-templates select="bibl[idno/@type = 'microfilm']"/>
+                <p>
+                    <xsl:apply-templates select="bibl[idno/@type = 'microfilm']"/>
+                </p>
             </xsl:if>
             <xsl:if test="bibl[not(@type = ('digital-fascimile','digital-facsimile') or idno/@type = 'microfilm')]">
                 <h3 class="msDesc-heading3">
                     <xsl:copy-of select="bod:NoIndex('Surrogates')"/>
                 </h3>
-                <xsl:apply-templates select="bibl[not(@type = ('digital-fascimile','digital-facsimile') or idno/@type = 'microfilm')]"/>
+                <p>
+                    <xsl:apply-templates select="bibl[not(@type = ('digital-fascimile','digital-facsimile') or idno/@type = 'microfilm')]"/>
+                </p>
             </xsl:if>
         </div>
     </xsl:template>
