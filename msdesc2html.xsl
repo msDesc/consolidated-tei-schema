@@ -1370,26 +1370,35 @@
     </xsl:template>
 
     <xsl:template match="additional/surrogates">
-        <h3 class="msDesc-heading3">
-            <xsl:copy-of select="bod:NoIndex('Digital Images')"/>
-        </h3>
         <div class="surrogates">
-            <!--<xsl:choose>
-                <xsl:when test="bibl/@facs">
-                    <a href="{bibl/@facs}">
-                        <xsl:apply-templates/>
-                    </a>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates/>
-                </xsl:otherwise>
-            </xsl:choose>-->
-            <xsl:apply-templates/>
+            <xsl:if test="bibl[@type = ('digital-fascimile','digital-facsimile')]">
+                <h3 class="msDesc-heading3">
+                    <xsl:copy-of select="bod:NoIndex('Digital Images')"/>
+                </h3>
+                <xsl:apply-templates select="bibl[@type = ('digital-fascimile','digital-facsimile')]"/>
+            </xsl:if>
+            <xsl:if test="bibl[idno/@type = 'microfilm']">
+                <h3 class="msDesc-heading3">
+                    <xsl:copy-of select="bod:NoIndex('Microfilm')"/>
+                </h3>
+                <xsl:apply-templates select="bibl[idno/@type = 'microfilm']"/>
+            </xsl:if>
+            <xsl:if test="bibl[not(@type = ('digital-fascimile','digital-facsimile') or idno/@type = 'microfilm')]">
+                <h3 class="msDesc-heading3">
+                    <xsl:copy-of select="bod:NoIndex('Surrogates')"/>
+                </h3>
+                <xsl:apply-templates select="bibl[not(@type = ('digital-fascimile','digital-facsimile') or idno/@type = 'microfilm')]"/>
+            </xsl:if>
         </div>
     </xsl:template>
-    
-    <!-- new 6.11.17 -->
+
     <xsl:template match="surrogates//bibl/@*"/>
+    
+    <xsl:template match="surrogates//bibl/idno[@n]">
+        <xsl:value-of select="@n"/>
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates/>
+    </xsl:template>
 
     <xsl:template match="additional/adminInfo">
         <div class="adminInfo">
