@@ -206,9 +206,11 @@
     
     
     <!-- These named templates are intentionally left empty. They can be overridden by 
-         convert2HTML.xsl stylesheets to add a special footer for each catalogue. -->
+         convert2HTML.xsl stylesheets to add a special footer for each catalogue. The
+         hooks which call them are in other templates above and below in this stylesheet.-->
     <xsl:template name="Header"></xsl:template>
     <xsl:template name="Footer"></xsl:template>
+    <xsl:template name="AdditionalContent"></xsl:template>
     
     
     <!-- Templates for titleStmt titles and normal titles, author, editors, and related content -->
@@ -490,6 +492,7 @@
                 </div>
             </xsl:if>
             <xsl:apply-templates select="*[not(self::msIdentifier)]"/>
+            <xsl:call-template name="AdditionalContent"/>
         </div>
     </xsl:template>
 
