@@ -231,6 +231,8 @@ declare function bod:personRoleLookup($role as xs:string) as xs:string
         case "commissioner" return "Commissioner, dedicatee, or patron"
         case "dedicatee" return "Commissioner, dedicatee, or patron"
         case "patron" return "Commissioner, dedicatee, or patron"
+        case "own" return "Owner"
+        case "aut" return "Author"
         default return functx:capitalize-first($role)
 };
 
