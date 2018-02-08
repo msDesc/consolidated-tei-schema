@@ -1456,6 +1456,10 @@
             </xsl:choose>
         </span>
     </xsl:template>
+    
+    <xsl:template match="addName">
+        <xsl:apply-templates/>
+    </xsl:template>
 
     <xsl:template match="author">
         <span class="{name()}">
