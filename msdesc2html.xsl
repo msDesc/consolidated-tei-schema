@@ -845,35 +845,39 @@
     </xsl:template>
 
     <xsl:template match="msItem/incipit">
-        <div class="{name()}">
-            <span class="tei-label">
-                <xsl:copy-of select="bod:NoIndex('Incipit:')"/>
-                <xsl:text> </xsl:text>
-            </span>
-            <xsl:if test="@type">
-                <span class="type">(<xsl:value-of select="@type"/>)</span>
-            </xsl:if>
-            <xsl:if test="@defective='true'">
-                <span class="defective">||</span>
-            </xsl:if>
-            <xsl:apply-templates/>
-        </div>
+        <xsl:if test=".//text()">
+            <div class="{name()}">
+                <span class="tei-label">
+                    <xsl:copy-of select="bod:NoIndex('Incipit:')"/>
+                    <xsl:text> </xsl:text>
+                </span>
+                <xsl:if test="@type">
+                    <span class="type">(<xsl:value-of select="@type"/>)</span>
+                </xsl:if>
+                <xsl:if test="@defective='true'">
+                    <span class="defective">||</span>
+                </xsl:if>
+                <xsl:apply-templates/>
+            </div>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="msItem/explicit">
-        <div class="{name()}">
-            <span class="tei-label">
-                <xsl:copy-of select="bod:NoIndex('Explicit:')"/>
-                <xsl:text> </xsl:text>
-            </span>
-            <xsl:if test="@type">
-                <span class="type">(<xsl:value-of select="@type"/>)</span>
-            </xsl:if>
-            <xsl:apply-templates/>
-            <xsl:if test="@defective='true'">
-                <span class="defective">||</span>
-            </xsl:if>
-        </div>
+        <xsl:if test=".//text()">
+            <div class="{name()}">
+                <span class="tei-label">
+                    <xsl:copy-of select="bod:NoIndex('Explicit:')"/>
+                    <xsl:text> </xsl:text>
+                </span>
+                <xsl:if test="@type">
+                    <span class="type">(<xsl:value-of select="@type"/>)</span>
+                </xsl:if>
+                <xsl:apply-templates/>
+                <xsl:if test="@defective='true'">
+                    <span class="defective">||</span>
+                </xsl:if>
+            </div>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="msItem/rubric">
