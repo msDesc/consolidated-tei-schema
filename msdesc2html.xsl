@@ -187,11 +187,10 @@
                 </xsl:message>
             </xsl:if>
 
-            <!-- Create the output file name hard coded to my dev machine-->
             <xsl:variable name="outputFilename" select="concat('./html/', $folder, '/', $msID, '.html')"/>
 
-            <!-- create output file -->
-            <xsl:result-document href="{$outputFilename}" method="xhtml" encoding="UTF-8" indent="yes">
+            <!-- Build HTML in a variable so it can be post-processed to strip out undesirable HTML code -->
+            <xsl:variable name="outputdoc" as="element()">
                 <xsl:choose>
                     <xsl:when test="$output-full-html">
                         <html xmlns="http://www.w3.org/1999/xhtml">
@@ -208,8 +207,6 @@
                         </html>
                     </xsl:when>
                     <xsl:otherwise>
-                        <!-- Create content div with the id of the manuscript. Wrap it in an extra root div so that
-                             we can ignore the namespace attribute that XSLT puts on it automatically. -->
                         <div>
                             <div class="content tei-body" id="{//TEI/@xml:id}">
                                 <xsl:call-template name="Header"/>
@@ -219,20 +216,52 @@
                         </div>
                     </xsl:otherwise>
                 </xsl:choose>
+            </xsl:variable>
+
+            <!-- Create output HTML files -->
+            <xsl:result-document href="{$outputFilename}" method="xhtml" encoding="UTF-8" indent="yes">
+                
+                <!-- Applying templates on the HTML already built, with a mode, to strip out undesirable HTML code -->
+                <xsl:apply-templates select="$outputdoc" mode="stripoutempty"/>
+                
             </xsl:result-document>
+            
         </xsl:for-each>
     </xsl:template>
+
+
+
+
+    <!-- These next templates act on HTML already generated from the source TEI, as a post-processing phase to strip out 
+         empty elements. These can confuse web browsers (whose parsers assume that, for example, an empty div element
+         was someone's handcoded mistake and ignores the closing div tag) causing display issues especially in IE/Edge -->
     
-    
+    <xsl:template match="*" mode="stripoutempty">
+        <xsl:if test="child::* or text() or processing-instruction() or local-name() = ('img', 'br', 'hr', 'title')">
+            <xsl:copy>
+                <xsl:copy-of select="@*"/>
+                <xsl:apply-templates mode="stripoutempty"/>
+            </xsl:copy>
+        </xsl:if>
+    </xsl:template>
+    <xsl:template match="text()" mode="stripoutempty"><xsl:value-of select="."/></xsl:template>   
+
+
+
+
     <!-- These named templates are intentionally left empty. They can be overridden by 
          convert2HTML.xsl stylesheets to add a special footer for each catalogue. The
          hooks which call them are in other templates above and below in this stylesheet.-->
+    
     <xsl:template name="Header"></xsl:template>
     <xsl:template name="Footer"></xsl:template>
     <xsl:template name="AdditionalContent"></xsl:template>
-    
-    
-    <!-- Templates for titleStmt titles and normal titles, author, editors, and related content -->
+
+
+
+
+    <!-- Actual TEI-to-HTML templates below -->
+
     <xsl:template match="titleStmt/title">
         <li class="title">
             <span class="tei-label">
