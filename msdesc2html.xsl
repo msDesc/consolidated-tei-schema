@@ -13,7 +13,10 @@
         2017-05 for output of Bodley TEI msDescs as HTML to
         be sucked into the frontend platform.
     -->
-    
+
+
+
+
     <xsl:param name="collections-path" as="xs:string" select="''"/>
     <xsl:param name="files" select="'*.xml'"/>
     <xsl:param name="recurse" select="'yes'"/>
@@ -21,13 +24,24 @@
     
     <xsl:variable name="website-url" as="xs:string" select="''"/>    <!-- This will be overriden by stylesheets that call this one -->
     <xsl:variable name="output-full-html" as="xs:boolean" select="true()"/>
-    
+
+
+
+
     <xsl:output omit-xml-declaration="yes" method="xhtml" encoding="UTF-8" indent="yes"/>
+
+
+
 
     <!-- Strip out all processing instructions, including schema associations. except noindex/index ones which cataloguers can use
          to override the selection of what is or isn't indexed (which is done by this stylesheet and then enforced by the XQuery) -->
     <xsl:template match="processing-instruction()"/>
     <xsl:template match="processing-instruction()[name() eq 'noindex' or name() eq 'index']"><xsl:copy/></xsl:template>
+
+
+
+
+    <!-- Functions -->
     
     <xsl:function name="bod:logging" as="empty-sequence()">
         <xsl:param name="level" as="xs:string"/>
@@ -102,8 +116,13 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
+
+
+
+
+    <!-- Named template which is called from command line 
+         to batch convert all manuscript TEI files to HTML -->
     
-    <!-- Named template that is called from command line to batch convert all manuscript TEI files to HTML -->
     <xsl:template name="batch">
         
         <!-- Set up the collection of files to be converted. The path must be supplied in batch mode, and must be a full
@@ -243,9 +262,7 @@
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
-    <!-- transcription related stuff like corr/date/add/dell/note/foreign/sic -->
-    
+   
     <xsl:template match="corr">
         <span class="{name()}">
             <xsl:apply-templates/>
