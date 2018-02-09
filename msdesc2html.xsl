@@ -356,10 +356,19 @@
         <xsl:text> </xsl:text>
     </xsl:template>
 
-    <xsl:template match="sic">
+    <xsl:template match="sic[child::* or text()]">
         <span class="{name()}">
             <xsl:apply-templates/>
         </span>
+    </xsl:template>
+    
+    <xsl:template match="sic[not(child::* or text())]">
+        <!-- For self-closing sic tags just output a "[sic]" marker -->
+        <xsl:text>[</xsl:text>
+        <span class="italic">
+            <xsl:text>sic</xsl:text>
+        </span>
+        <xsl:text>]</xsl:text>
     </xsl:template>
 
     <xsl:template match="supplied">
