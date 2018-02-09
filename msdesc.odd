@@ -506,9 +506,9 @@
         </elementSpec>
 
 
-        <!-- ****************** -->
-        <!-- schematron constraints for the medieval catalogue have been added here -->
-        <!-- ****************** -->
+        <!-- ********************** -->
+        <!-- Schematron constraints -->
+        <!-- ********************** -->
         
         <!-- msDesc[1]/@xml:id must match filename -->
         <elementSpec ident="msDesc" module="msdescription" mode="change">
