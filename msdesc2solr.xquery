@@ -424,6 +424,16 @@ declare function bod:many2many($teinodes as element()*, $solrfield as xs:string,
         $result
 };
 
+declare function bod:string2one($value as xs:string, $solrfield as xs:string)
+{
+    (: Generate a Solr field from a string :)
+    let $result := normalize-space($value)
+    return if (string-length($result) gt 0) then
+        <field name="{ $solrfield }">{ $result }</field>
+    else
+        ()
+};
+
 declare function bod:strings2many($values as xs:string*, $solrfield as xs:string)
 {
     (: Generate multiple Solr fields, one for each distinct value from a sequence of strings :)
