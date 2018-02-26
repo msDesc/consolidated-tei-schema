@@ -30,13 +30,8 @@
 
     <xsl:output omit-xml-declaration="yes" method="xhtml" encoding="UTF-8" indent="yes"/>
 
-
-
-
-    <!-- Strip out all processing instructions, including schema associations. except noindex/index ones which cataloguers can use
-         to override the selection of what is or isn't indexed (which is done by this stylesheet and then enforced by the XQuery) -->
+    <!-- Strip out all processing instructions in the source XML -->
     <xsl:template match="processing-instruction()"/>
-    <xsl:template match="processing-instruction()[name() eq 'noindex' or name() eq 'index']"><xsl:copy/></xsl:template>
 
 
 
@@ -85,12 +80,18 @@
         </xsl:choose>
     </xsl:function>
     
-    <xsl:function name="bod:NoIndex">
-        <xsl:param name="nonindexedtext" as="xs:string*"/>
-        <!-- TODO: Reactivate this when we've decided what to filter out of the index
-        <xsl:processing-instruction name="ni"/>-->
-        <xsl:value-of select="normalize-space(string-join($nonindexedtext, ' '))"/>
-        <!--<xsl:processing-instruction name="ni"/>-->
+    <xsl:function name="bod:standardText">
+        <xsl:param name="textval" as="xs:string"/>
+        <xsl:choose>
+            <xsl:when test="$textval = ('Physical Description', 'Contents', 'History', 'Record Sources', 'Language(s):', 'Support:', 'Origin:', 'Form:')">
+                <xsl:processing-instruction name="ni"/>
+                <xsl:value-of select="$textval"/>
+                <xsl:processing-instruction name="ni"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$textval"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:function>
     
     <xsl:function name="bod:shortenToNearestWord" as="xs:string">
@@ -244,8 +245,7 @@
             </xsl:copy>
         </xsl:if>
     </xsl:template>
-    <xsl:template match="text()" mode="stripoutempty"><xsl:value-of select="."/></xsl:template>   
-
+    <xsl:template match="text()|processing-instruction()|comment()" mode="stripoutempty"><xsl:copy/></xsl:template>
 
 
 
@@ -265,7 +265,7 @@
     <xsl:template match="titleStmt/title">
         <li class="title">
             <span class="tei-label">
-                <xsl:copy-of select="bod:NoIndex('Title:')"/>
+                <xsl:copy-of select="bod:standardText('Title:')"/>
                 <xsl:text> </xsl:text>
             </span>
             <xsl:apply-templates/>
@@ -447,7 +447,7 @@
     <xsl:template match="editionStmt/edition">
         <li class="title">
             <span class="tei-label">
-                <xsl:copy-of select="bod:NoIndex('Edition:')"/>
+                <xsl:copy-of select="bod:standardText('Edition:')"/>
                 <xsl:text> </xsl:text>
             </span>
             <xsl:apply-templates/>
@@ -482,7 +482,7 @@
     <xsl:template match="revisionDesc//change">
         <li class="change">
             <span class="tei-label">
-                <xsl:copy-of select="bod:NoIndex('Change:')"/>
+                <xsl:copy-of select="bod:standardText('Change:')"/>
                 <xsl:text> </xsl:text>
             </span>
             <xsl:if test="@when">
@@ -620,7 +620,7 @@
     
     <xsl:template match="msContents">
         <h3>
-            <xsl:copy-of select="bod:NoIndex('Contents')"/>
+            <xsl:copy-of select="bod:standardText('Contents')"/>
         </h3>
         <div class="{name()}">
             <xsl:apply-templates />
@@ -629,7 +629,7 @@
     
     <xsl:template match="physDesc">
         <h3>
-            <xsl:copy-of select="bod:NoIndex('Physical Description')"/>
+            <xsl:copy-of select="bod:standardText('Physical Description')"/>
         </h3>
         <div class="{name()}">
             <xsl:apply-templates/>
@@ -677,14 +677,14 @@
     <!-- special case history -->
     <xsl:template match="history">
         <h3 class="msDesc-heading3">
-            <xsl:copy-of select="bod:NoIndex('History')"/>
+            <xsl:copy-of select="bod:standardText('History')"/>
         </h3>
         <!-- if Origin make it a paragraph -->
         <div class="{name()}">
             <xsl:if test="origin">
                 <div class="origin">
                     <span class="tei-label">
-                        <xsl:copy-of select="bod:NoIndex('Origin:')"/>
+                        <xsl:copy-of select="bod:standardText('Origin:')"/>
                         <xsl:text> </xsl:text>
                     </span>
                     <xsl:apply-templates select="origin"/>
@@ -693,7 +693,7 @@
             <xsl:if test="provenance or acquisition">
                 <div class="provenance">
                     <h4>
-                        <xsl:copy-of select="bod:NoIndex('Provenance and Acquisition')"/>
+                        <xsl:copy-of select="bod:standardText('Provenance and Acquisition')"/>
                     </h4>
                     <xsl:apply-templates select="provenance | acquisition"/>
                 </div>
@@ -778,7 +778,7 @@
         <p class="ContentsTextLang">
             <!-- this on the other hand does need a label, if it is to appear at all -->
             <span class="tei-label">
-                <xsl:copy-of select="bod:NoIndex('Language(s):')"/>
+                <xsl:copy-of select="bod:standardText('Language(s):')"/>
                 <xsl:text> </xsl:text>
             </span>
             <xsl:choose>
@@ -822,7 +822,7 @@
                     <xsl:value-of select="@n"/>
                     <xsl:text>. </xsl:text>
                 </div>
-            </xsl:if>
+            </xsl:if>a
             <xsl:apply-templates/>
         </div>
     </xsl:template>
@@ -831,9 +831,6 @@
         <span class="tei-title italic">
             <xsl:apply-templates/>
         </span>
-        <!--<xsl:if test="following-sibling::note[1][not(starts-with(., '('))][not(starts-with(., '[A-Z]'))][not(following-sibling::lb[1])]">-->
-            <!--<xsl:text>, </xsl:text>-->
-        <!--</xsl:if>-->
     </xsl:template>
     
     <!-- others should be roman -->
@@ -903,7 +900,7 @@
         <xsl:if test=".//text()">
             <div class="{name()}">
                 <span class="tei-label">
-                    <xsl:copy-of select="bod:NoIndex('Incipit:')"/>
+                    <xsl:copy-of select="bod:standardText('Incipit:')"/>
                     <xsl:text> </xsl:text>
                 </span>
                 <xsl:if test="@type">
@@ -921,7 +918,7 @@
         <xsl:if test=".//text()">
             <div class="{name()}">
                 <span class="tei-label">
-                    <xsl:copy-of select="bod:NoIndex('Explicit:')"/>
+                    <xsl:copy-of select="bod:standardText('Explicit:')"/>
                     <xsl:text> </xsl:text>
                 </span>
                 <xsl:if test="@type">
@@ -938,7 +935,7 @@
     <xsl:template match="msItem/rubric">
         <div class="{name()}">
             <span class="tei-label">
-                <xsl:copy-of select="bod:NoIndex('Rubric:')"/>
+                <xsl:copy-of select="bod:standardText('Rubric:')"/>
                 <xsl:text> </xsl:text>
             </span>
             <!-- can we have this and the following <xsl:if> back? there is a difference inthe records between italic and not italic rubrics etc. -->
@@ -952,7 +949,7 @@
     <xsl:template match="msItem/finalRubric">
         <div class="{name()}">
             <span class="tei-label">
-                <xsl:copy-of select="bod:NoIndex('Final rubric:')"/>
+                <xsl:copy-of select="bod:standardText('Final rubric:')"/>
                 <xsl:text> </xsl:text>
             </span>
             <!--<xsl:if test="not(@rend='roman')">-->
@@ -965,7 +962,7 @@
     <xsl:template match="msItem/colophon">
         <div class="{name()}">
             <span class="tei-label">
-                <xsl:copy-of select="bod:NoIndex('Colophon:')"/>
+                <xsl:copy-of select="bod:standardText('Colophon:')"/>
                 <xsl:text> </xsl:text>
             </span>
             <!--<xsl:if test="not(@rend='roman')">-->
@@ -978,7 +975,7 @@
     <xsl:template match="msItem/filiation">
         <div class="{name()}">
             <span class="tei-label">
-                <xsl:copy-of select="bod:NoIndex('Filiation:')"/>
+                <xsl:copy-of select="bod:standardText('Filiation:')"/>
                 <xsl:text> </xsl:text>
             </span>
             <xsl:apply-templates/>
@@ -988,7 +985,7 @@
     <xsl:template match="msItem/textLang">
         <div class="{name()}">
             <span class="tei-label">
-                <xsl:copy-of select="bod:NoIndex('Language(s):')"/>
+                <xsl:copy-of select="bod:standardText('Language(s):')"/>
                 <xsl:text> </xsl:text>
             </span>
             <xsl:choose>
@@ -1027,7 +1024,7 @@
     <xsl:template match="accMat">
         <div class="{name()}">
             <h4>
-                <xsl:copy-of select="bod:NoIndex('Accompanying Material')"/>
+                <xsl:copy-of select="bod:standardText('Accompanying Material')"/>
             </h4>
             <p>
                 <xsl:apply-templates/>
@@ -1038,7 +1035,7 @@
     <xsl:template match="additions">
         <div class="additions">
             <span class="tei-label">
-                <xsl:copy-of select="bod:NoIndex('Additions:')"/>
+                <xsl:copy-of select="bod:standardText('Additions:')"/>
                 <xsl:text> </xsl:text>
             </span>
             <xsl:apply-templates/>
@@ -1048,7 +1045,7 @@
     <xsl:template match="bindingDesc">
         <div class="{name()}">
             <h4>
-                <xsl:copy-of select="bod:NoIndex('Binding')"/>
+                <xsl:copy-of select="bod:standardText('Binding')"/>
             </h4>
             <xsl:apply-templates/>
         </div>
@@ -1067,7 +1064,7 @@
     <xsl:template match="decoDesc">
         <div class="{name()}">
             <h4>
-                <xsl:copy-of select="bod:NoIndex('Decoration')"/>
+                <xsl:copy-of select="bod:standardText('Decoration')"/>
             </h4>
             <xsl:apply-templates/>
         </div>
@@ -1076,7 +1073,7 @@
     <xsl:template match="handDesc">
         <div class="handDesc">
             <h4>
-                <xsl:copy-of select="bod:NoIndex('Hand(s)')"/>
+                <xsl:copy-of select="bod:standardText('Hand(s)')"/>
             </h4>
             <xsl:apply-templates/>
         </div>
@@ -1123,7 +1120,7 @@
     <xsl:template match="musicNotation">
         <div class="musicNotation">
             <span class="tei-label">
-                <xsl:copy-of select="bod:NoIndex('Musical Notation:')"/>
+                <xsl:copy-of select="bod:standardText('Musical Notation:')"/>
                 <xsl:text> </xsl:text>
             </span>
             <xsl:apply-templates/>
@@ -1133,7 +1130,7 @@
     <xsl:template match="typeDesc">
         <div class="typeDesc">
             <span class="tei-label">
-                <xsl:copy-of select="bod:NoIndex('Type(s):')"/>
+                <xsl:copy-of select="bod:standardText('Type(s):')"/>
                 <xsl:text> </xsl:text>
             </span>
             <xsl:apply-templates/>
@@ -1142,7 +1139,7 @@
 
     <xsl:template match="sealDesc">
         <span class="tei-label">
-            <xsl:copy-of select="bod:NoIndex('Seal(s):')"/>
+            <xsl:copy-of select="bod:standardText('Seal(s):')"/>
             <xsl:text> </xsl:text>
         </span>
         <xsl:apply-templates/>
@@ -1150,7 +1147,7 @@
 
     <xsl:template match="scriptDesc">
         <h4>
-            <xsl:copy-of select="bod:NoIndex('Script(s)')"/>
+            <xsl:copy-of select="bod:standardText('Script(s)')"/>
         </h4>
         <div class="scriptDesc">
             <xsl:apply-templates/>
@@ -1162,7 +1159,7 @@
             <xsl:if test="@form">
                 <div class="form">
                     <span class="tei-label">
-                        <xsl:copy-of select="bod:NoIndex('Form:')"/>
+                        <xsl:copy-of select="bod:standardText('Form:')"/>
                         <xsl:text> </xsl:text>
                     </span>
                     <xsl:value-of select="@form"/>
@@ -1175,7 +1172,7 @@
     <xsl:template match="layoutDesc">
         <div class="{name()}">
             <h4>
-                <xsl:copy-of select="bod:NoIndex('Layout')"/>
+                <xsl:copy-of select="bod:standardText('Layout')"/>
             </h4>
             <xsl:apply-templates/>
         </div>
@@ -1246,7 +1243,7 @@
     <xsl:template match="collation">
         <div class="{name()}">
             <h4>
-                <xsl:copy-of select="bod:NoIndex('Collation')"/>
+                <xsl:copy-of select="bod:standardText('Collation')"/>
             </h4>
             <div class="collation">
                 <xsl:apply-templates/>
@@ -1257,7 +1254,7 @@
     <xsl:template match="condition">
         <div>
             <h4>
-                <xsl:copy-of select="bod:NoIndex('Condition')"/>
+                <xsl:copy-of select="bod:standardText('Condition')"/>
             </h4>
             <div class="condition">
                 <xsl:apply-templates/>
@@ -1269,7 +1266,7 @@
     <xsl:template match="foliation">
         <div class="{name()}">
             <span class="tei-label">
-                <xsl:copy-of select="bod:NoIndex('Foliation:')"/>
+                <xsl:copy-of select="bod:standardText('Foliation:')"/>
                 <xsl:text> </xsl:text>
             </span>
             <xsl:apply-templates/>
@@ -1280,7 +1277,7 @@
     <xsl:template match="support">
         <div class="{name()}">
             <span class="tei-label">
-                <xsl:copy-of select="bod:NoIndex('Support:')"/>
+                <xsl:copy-of select="bod:standardText('Support:')"/>
                 <xsl:text> </xsl:text>
             </span>
             <xsl:apply-templates/>
@@ -1291,7 +1288,7 @@
     <xsl:template match="secFol">
         <div class="{ name() }">
             <span class="tei-label italic">
-                <xsl:copy-of select="bod:NoIndex('Secundo Folio:')"/>
+                <xsl:copy-of select="bod:standardText('Secundo Folio:')"/>
                 <xsl:text> </xsl:text>
             </span>
             <xsl:apply-templates/>
@@ -1320,7 +1317,7 @@
         <!-- Prefix with label if it begins with untagged text, or a measure child element -->
         <div class="{name()}">
             <span class="tei-label">
-                <xsl:copy-of select="bod:NoIndex('Extent:')"/>
+                <xsl:copy-of select="bod:standardText('Extent:')"/>
                 <xsl:text> </xsl:text>
             </span>
             <xsl:apply-templates/>
@@ -1334,7 +1331,7 @@
     <xsl:template match="extent/dimensions">
         <div class="{name()}">
             <span class="tei-label">
-                <xsl:copy-of select="bod:NoIndex('Dimensions:')"/>
+                <xsl:copy-of select="bod:standardText('Dimensions:')"/>
                 <xsl:text> </xsl:text>
                 <xsl:if test="@type">
                     <xsl:text> (</xsl:text>
@@ -1419,7 +1416,7 @@
     <!-- Things inside additional -->
     <xsl:template match="additional/listBibl">
         <h3 class="msDesc-heading3">
-            <xsl:copy-of select="bod:NoIndex('Bibliography')"/>
+            <xsl:copy-of select="bod:standardText('Bibliography')"/>
         </h3>
         <div class="listBibl">
             <ul class="listBibl">
@@ -1432,7 +1429,7 @@
         <div class="surrogates">
             <xsl:if test="bibl[@type = ('digital-fascimile','digital-facsimile')]">
                 <h3 class="msDesc-heading3">
-                    <xsl:copy-of select="bod:NoIndex('Digital Images')"/>
+                    <xsl:copy-of select="bod:standardText('Digital Images')"/>
                 </h3>
                 <p>
                     <xsl:apply-templates select="bibl[@type = ('digital-fascimile','digital-facsimile')]"/>
@@ -1440,7 +1437,7 @@
             </xsl:if>
             <xsl:if test="bibl[idno/@type = 'microfilm']">
                 <h3 class="msDesc-heading3">
-                    <xsl:copy-of select="bod:NoIndex('Microfilm')"/>
+                    <xsl:copy-of select="bod:standardText('Microfilm')"/>
                 </h3>
                 <p>
                     <xsl:apply-templates select="bibl[idno/@type = 'microfilm']"/>
@@ -1448,7 +1445,7 @@
             </xsl:if>
             <xsl:if test="bibl[not(@type = ('digital-fascimile','digital-facsimile') or idno/@type = 'microfilm')]">
                 <h3 class="msDesc-heading3">
-                    <xsl:copy-of select="bod:NoIndex('Surrogates')"/>
+                    <xsl:copy-of select="bod:standardText('Surrogates')"/>
                 </h3>
                 <p>
                     <xsl:apply-templates select="bibl[not(@type = ('digital-fascimile','digital-facsimile') or idno/@type = 'microfilm')]"/>
@@ -1477,7 +1474,7 @@
 
     <xsl:template match="source">
         <h3>
-            <xsl:copy-of select="bod:NoIndex('Record Sources')"/>
+            <xsl:copy-of select="bod:standardText('Record Sources')"/>
         </h3>
         <div class="{name()}">
             <xsl:apply-templates/>

@@ -624,21 +624,10 @@ declare function bod:displayHTML($htmldoc as document-node(), $solrfield as xs:s
 
 declare function bod:indexHTML($htmldoc as document-node(), $solrfield as xs:string)
 {
-    (: Only index text node which aren't between 'noindex' or 'ni' processing instructions, unless that's overriden by 'index' ones,
-       where noindex and index are for cataloguers to add to the TEI XML, ni is added by msdesc2html.xsl :)
-    (: TODO: Split this up into multiple fields where there is a logic break? :)
+    (: Only index text nodes which aren't between 'ni' processing instructions, which are added by msdesc2html.xsl 
+       to prevent indexing of common headings and labels, like "History", that cause every manuscript to match queries
+       containing those words. :)
     let $htmlcontent := ($htmldoc//html:div)[1]
-    return <field name="{ $solrfield }">{ normalize-space(
-                string-join(
-                    $htmlcontent//text()[
-                        (
-                        count(preceding::processing-instruction('ni')) mod 2 = 0 
-                        and count(preceding::processing-instruction('noindex')) mod 2 = 0
-                        ) or 
-                        name(preceding::processing-instruction()[1]) = 'index'
-                        ]
-                    )
-                )
-            } </field>
+    return <field name="{ $solrfield }">{ normalize-space(string-join($htmlcontent//text()[count(preceding::processing-instruction('ni')) mod 2 = 0])) } </field>
 };
 
