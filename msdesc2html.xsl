@@ -822,7 +822,7 @@
                     <xsl:value-of select="@n"/>
                     <xsl:text>. </xsl:text>
                 </div>
-            </xsl:if>a
+            </xsl:if>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
