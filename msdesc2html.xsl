@@ -545,7 +545,7 @@
             </xsl:when>
             <xsl:when test="contains(base-uri(.), 'hebrew-mss') or contains(base-uri(.), 'genizah-mss')">
                 <!-- In Hebrew and Genizah, a lot of these look like classmarks, so convert them into links to search the catalogue -->
-                <a href="/?q=%22{translate($target, '_#', '  ')}%22">
+                <a href="/?q={translate($target, '_#', '  ')}">
                     <xsl:apply-templates/>
                     <xsl:copy-of select="bod:logging('warn', 'Converting ref with unrecognized target into a search', ., $target)"/>
                 </a>
