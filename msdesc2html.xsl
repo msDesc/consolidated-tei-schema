@@ -43,14 +43,28 @@
         <xsl:param name="msg" as="xs:string"/>
         <xsl:param name="context" as="element()"/>
         <xsl:param name="vals"/>
-        <xsl:message select="concat(upper-case($level), '&#9;', $msg, '&#9;', ($context/ancestor-or-self::*/@xml:id)[position()=last()], '    ', string-join($vals, '    '))"/>        
+        <xsl:choose>
+            <xsl:when test="lower-case($level) eq 'error'">
+                <xsl:message terminate="yes" select="concat(upper-case($level), '&#9;', $msg, '&#9;', ($context/ancestor-or-self::*/@xml:id)[position()=last()], '    ', string-join($vals, '    '))"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:message select="concat(upper-case($level), '&#9;', $msg, '&#9;', ($context/ancestor-or-self::*/@xml:id)[position()=last()], '    ', string-join($vals, '    '))"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:function>
     
     <xsl:function name="bod:logging" as="empty-sequence()">
         <xsl:param name="level" as="xs:string"/>
         <xsl:param name="msg" as="xs:string"/>
         <xsl:param name="context" as="element()"/>
-        <xsl:message select="concat(upper-case($level), '&#9;', $msg, '&#9;', ($context/ancestor-or-self::*/@xml:id)[position()=last()], '    ')"/>        
+        <xsl:choose>
+            <xsl:when test="lower-case($level) eq 'error'">
+                <xsl:message terminate="yes" select="concat(upper-case($level), '&#9;', $msg, '&#9;', ($context/ancestor-or-self::*/@xml:id)[position()=last()], '    ')"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:message select="concat(upper-case($level), '&#9;', $msg, '&#9;', ($context/ancestor-or-self::*/@xml:id)[position()=last()], '    ')"/>
+            </xsl:otherwise>
+        </xsl:choose>      
     </xsl:function>
     
     <xsl:function name="bod:languageCodeLookup" as="xs:string">
@@ -143,7 +157,7 @@
                     <xsl:value-of select="concat('file:///', replace($collections-path, '\\', '/'), '/?select=', $files, ';on-error=warning;recurse=', $recurse)"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:message>A full path to the collections folder containing source TEI must be specified when batch converting.</xsl:message>
+                    <xsl:copy-of select="bod:logging('error', 'A full path to the collections folder containing source TEI must be specified', .)"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -1604,7 +1618,7 @@
     <!-- catch all fallback: this is there to warn me of elements I don't have templates for and should never fire otherwise-->
     <xsl:template match="*" priority="-100">
         <xsl:if test="$verbose">
-            <xsl:message>No template for: <xsl:value-of select="name()"/></xsl:message>
+            <xsl:copy-of select="bod:logging('warn', 'No template for this TEI element', ., name())"/>
         </xsl:if>
         <span class="{name()}">
             <xsl:apply-templates select="@*|node()"/>
