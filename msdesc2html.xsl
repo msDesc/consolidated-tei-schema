@@ -494,11 +494,54 @@
         </li>
     </xsl:template>
 
-    <!-- Refs, with targets and without -->
     <xsl:template match="ref[@target]" priority="10">
-        <a href="{@target}">
-            <xsl:apply-templates/>
-        </a>
+        <xsl:variable name="target" as="xs:string" select="normalize-space(@target)"/>
+        <xsl:choose>
+            <xsl:when test="starts-with($target, '#')">
+                <xsl:choose>
+                    <xsl:when test="$target = (//@xml:id)">
+                        <!-- Create internal link within the same page -->
+                        <a href="{$target}">
+                            <xsl:apply-templates/>
+                        </a>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!-- Don't create links anything that looks like a reference to an old internal ID -->
+                        <xsl:apply-templates/>
+                        <xsl:copy-of select="bod:logging('warn', 'Skipping ref with invalid target', ., $target)"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="string-length($target) le 3">
+                <!-- Anything shorter than a few chars is very likely another old ID -->
+                <xsl:apply-templates/>
+                <xsl:copy-of select="bod:logging('warn', 'Skipping ref with invalid target', ., $target)"/>
+            </xsl:when>
+            <xsl:when test="starts-with($target, 'www')">
+                <!-- Assume if the protocol is missing that it is http (hopefully if it is https the destiantion server will redirect) -->
+                <a href="http://{$target}">
+                    <xsl:apply-templates/>
+                </a>
+            </xsl:when>
+            <xsl:when test="starts-with($target, 'http') or starts-with($target, 'mailto') or starts-with($target, 'ftp')">
+                <!-- For valid-looking URLs create links to external resources -->
+                <a href="{$target}">
+                    <xsl:apply-templates/>
+                </a>
+            </xsl:when>
+            <xsl:when test="contains(base-uri(.), 'hebrew-mss') or contains(base-uri(.), 'genizah-mss')">
+                <!-- In Hebrew and Genizah, a lot of these look like classmarks, so convert them into links to search the catalogue -->
+                <a href="/?q=%22{translate($target, '_#', '  ')}%22">
+                    <xsl:apply-templates/>
+                    <xsl:copy-of select="bod:logging('warn', 'Converting ref with unrecognized target into a search', ., $target)"/>
+                </a>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- Probably either an old ID or a book reference -->
+                <xsl:apply-templates/>
+                <xsl:copy-of select="bod:logging('warn', 'Skipping ref with invalid target', ., $target)"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="ref" priority="5">
