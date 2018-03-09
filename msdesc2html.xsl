@@ -264,13 +264,12 @@
 
 
     <!-- These named templates are intentionally left empty. They can be overridden by 
-         convert2HTML.xsl stylesheets to add a special footer for each catalogue. The
+         convert2HTML.xsl stylesheets to add a special footer for each TEI catalogue. The
          hooks which call them are in other templates above and below in this stylesheet.-->
-    
     <xsl:template name="Header"></xsl:template>
     <xsl:template name="Footer"></xsl:template>
     <xsl:template name="AdditionalContent"></xsl:template>
-
+    <xsl:template name="MsItemFooter"></xsl:template>
 
 
 
@@ -861,6 +860,7 @@
                 </div>
             </xsl:if>
             <xsl:apply-templates/>
+            <xsl:call-template name="MsItemFooter"/>
         </div>
     </xsl:template>
 
@@ -877,6 +877,7 @@
                 </div>
             </xsl:if>
             <xsl:apply-templates/>
+            <xsl:call-template name="MsItemFooter"/>
         </div>
     </xsl:template>
 
