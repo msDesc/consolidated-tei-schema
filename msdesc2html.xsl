@@ -813,11 +813,22 @@
     <!-- Things in msContents -->
     <xsl:template match="msContents/summary">
         <!-- h instead of p -->
-        <h4 class="msSummary">
-            <!-- label unnecessary -->
-            <!--<span class="tei-label">Summary of Contents:</span>-->
-            <xsl:apply-templates/>
-        </h4>
+        <xsl:choose>
+            <xsl:when test="not(child::*) and string-length(text()) le 128">
+                <h4 class="msSummary">
+                    <xsl:apply-templates/>
+                </h4>
+            </xsl:when>
+            <xsl:otherwise>
+                <div class="msSummary">
+                    <span class="tei-label">
+                        <xsl:copy-of select="bod:standardText('Summary of Contents:')"/>
+                        <xsl:text> </xsl:text>
+                    </span>
+                    <xsl:apply-templates/> 
+                </div>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="msContents/summary/p">
