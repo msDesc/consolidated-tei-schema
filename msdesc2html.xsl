@@ -523,7 +523,7 @@
                 </a>
             </xsl:when>
             <xsl:when test="contains(base-uri(.), 'hebrew-mss') or contains(base-uri(.), 'genizah-mss')">
-                <!-- In Hebrew and Genizah, anything that isn't a URL appearsr to be a classmarks, sometimes with part numbers appended, 
+                <!-- In Hebrew and Genizah, anything that isn't a URL appears to be a classmark, sometimes with part numbers appended, 
                      so as a TEMPORARY fix, convert them into links to search the catalogue -->
                 <a href="/?q={translate($target, '_#', '  ')}">
                     <xsl:apply-templates/>
