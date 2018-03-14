@@ -1578,10 +1578,10 @@
         <xsl:apply-templates/>
     </xsl:template>
 
-    <xsl:template match="author">
+    <xsl:template match="author[child::* or text()]">
         <span class="{name()}">
             <xsl:choose>
-                <xsl:when test="normalize-space(.)=''" />   <!-- TODO: Lookup author name defined earlier in the same TEI document?-->
+                <xsl:when test="normalize-space(.)=''" />
                 <xsl:when test="@key">
                     <a>
                         <xsl:attribute name="href">
@@ -1604,6 +1604,8 @@
             <xsl:text>, </xsl:text>
         </xsl:if>
     </xsl:template>
+    
+    <xsl:template match="author[not(child::* or text())]"><!-- Do not output anything for self-closing author tags --></xsl:template>
 
     <xsl:template match="heraldry | label | list/head | seg">
         <span class="{name()}">
