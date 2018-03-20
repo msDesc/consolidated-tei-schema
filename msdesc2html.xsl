@@ -916,7 +916,7 @@
     
     <xsl:template match="editor">
         <xsl:variable name="rolelabel" select="(@role, 'editor')[1]"/>
-        <span class="editor{ if ($rolelabel ne 'editor') then concat(' ', $rolelabel) else ''}">
+        <span class="tei-editor{ if ($rolelabel ne 'editor') then concat(' tei-', lower-case($rolelabel)) else ''}">
             <xsl:apply-templates/>
             <xsl:value-of select="concat(' (', $rolelabel, ')')"/>
         </span>
