@@ -1545,6 +1545,15 @@
             <xsl:apply-templates/>
         </div>
     </xsl:template>
+    
+    <xsl:template match="adminInfo/availability">
+        <h3>
+            <xsl:copy-of select="bod:standardText('Availability')"/>
+        </h3>
+        <div class="{name()}">
+            <xsl:apply-templates/>
+        </div>
+    </xsl:template>
 
     <xsl:template match="source/listBibl" priority="10">
         <div class="{name()}">
