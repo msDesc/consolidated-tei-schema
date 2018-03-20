@@ -48,19 +48,20 @@ declare function bod:ordinal($num as xs:integer) as xs:string
 declare function bod:shortenToNearestWord($stringval as xs:string, $tolength as xs:integer) as xs:string
 {
     let $cutoffat as xs:integer := $tolength - 1
+    let $nsstringval as xs:string := normalize-space($stringval)
     
-    return if (string-length($stringval) le $tolength) then
+    return if (string-length($nsstringval) le $tolength) then
         (: Already short enough, so return unmodified :)
-        $stringval
-    else if (substring($stringval, $cutoffat, 1) = (' ', '&#9;', '&#10;')) then
+        $nsstringval
+    else if (substring($nsstringval, $cutoffat, 1) = (' ', '&#9;', '&#10;')) then
         (: The cut-off is at the location of some whitespace, so won't be cutting off any words :)
-        concat(normalize-space(substring($stringval, 1, $cutoffat)), '…')
-    else if (substring($stringval, $tolength, 1) = (' ', '&#9;', '&#10;')) then
+        concat(normalize-space(substring($nsstringval, 1, $cutoffat)), '…')
+    else if (substring($nsstringval, $tolength, 1) = (' ', '&#9;', '&#10;')) then
         (: The cut-off is at the end of a word, so won't be cutting off any words :)
-        concat(substring($stringval, 1, $cutoffat), '…')
+        concat(substring($nsstringval, 1, $cutoffat), '…')
     else
         (: The cut-off is in the middle of a word, so return everything up to the preceding word :)
-        concat(replace(substring($stringval, 1, $cutoffat), '\s\S*$', ''), '…')
+        concat(replace(substring($nsstringval, 1, $cutoffat), '\s\S*$', ''), '…')
 };
 
 
