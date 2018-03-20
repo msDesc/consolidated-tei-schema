@@ -1533,11 +1533,11 @@
         </div>
     </xsl:template>
 
-    <xsl:template match="adminInfo/*">
+    <xsl:template match="adminInfo/recordHist">
         <xsl:apply-templates/>
     </xsl:template>
 
-    <xsl:template match="source">
+    <xsl:template match="adminInfo//source">
         <h3>
             <xsl:copy-of select="bod:standardText('Record Sources')"/>
         </h3>
