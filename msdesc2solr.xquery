@@ -37,10 +37,14 @@ declare function bod:logging($level, $msg, $values)
 
 declare function bod:ordinal($num as xs:integer) as xs:string
 {
+    (: TODO: Reimplement this using modulo to do 22nd, 31st, 101st, 211th, etc :)
     switch($num)
         case 1 return "st"
         case 2 return "nd"
         case 3 return "rd"
+        case 21 return "st"
+        case 22 return "nd"
+        case 23 return "rd"
         default return "th"
 };
 
