@@ -271,9 +271,13 @@ declare function bod:orgRoleLookup($role as xs:string) as xs:string
 
 declare function bod:physFormLookup($form as xs:string) as xs:string
 {
-    (: TODO: Are there any that need translating, rather than just capitalizing? :)
-    let $normalizedForm := functx:capitalize-first($form)
-    return $normalizedForm
+    switch(lower-case($form))
+        case 'concertina_book' return 'Concertina book'
+        case 'concertina__book' return 'Concertina book'
+        case 'rolled_book' return 'Rolled book'
+        case 'palm_leaf' return 'Palm leaf'
+        case 'modern_notebook' return 'Modern notebook'
+        default return functx:capitalize-first($form)
 };
 
 

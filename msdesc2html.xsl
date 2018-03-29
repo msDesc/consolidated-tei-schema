@@ -1227,7 +1227,23 @@
                         <xsl:copy-of select="bod:standardText('Form:')"/>
                         <xsl:text> </xsl:text>
                     </span>
-                    <xsl:value-of select="@form"/>
+                    <xsl:choose>
+                        <xsl:when test="lower-case(@form) = ('concertina_book','concertina__book')">
+                            <xsl:text>Concertina book</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="lower-case(@form) = 'rolled_book'">
+                            <xsl:text>Rolled book</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="lower-case(@form) = 'palm_leaf'">
+                            <xsl:text>Palm leaf</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="lower-case(@form) = 'modern_notebook'">
+                            <xsl:text>Modern notebook</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="@form"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </div>
             </xsl:if>
             <xsl:apply-templates/>
