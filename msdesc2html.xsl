@@ -164,83 +164,58 @@
 
         <!-- For each item in the collection -->
         <xsl:for-each select="collection($path)">
-
-            <!-- Might as well sort them by current file name -->
-            <xsl:sort select="tokenize(base-uri(), '/')[last()-1]"/>
-            <xsl:sort select="tokenize(base-uri(), '/')[last()]"/>
-
-            <!-- Get the baseURI -->
-            <xsl:variable name="baseURI">
-                <xsl:value-of select="base-uri()"/>
-            </xsl:variable>
-
-            <!-- Get the file name from that -->
-            <xsl:variable name="filename">
-                <xsl:value-of select="tokenize($baseURI, '/')[last()]"/>
-            </xsl:variable>
-
-            <!-- get the folder from that -->
-            <xsl:variable name="folder">
-                <xsl:value-of select="tokenize($baseURI, '/')[last()-1][not(. eq 'collections')]"/>
-            </xsl:variable>
-
-            <!-- Get the @xml:id from the first msDesc inside the sourceDesc
-              (won't work if msDesc elsewhere but stops problem with nested msDesc)
-            -->
-            <xsl:variable name="msID">
-                <xsl:value-of select="//sourceDesc/msDesc[1]/@xml:id"/>
-            </xsl:variable>
-
-            <xsl:if test="$verbose">
-                <!-- This is just a debugging message so I see the msIDs whiz by on the screen in case of any errors -->
-                <xsl:message>
-                    <!--
-                        Folder: <xsl:value-of select="$folder"/>
-                        Old Filename:<xsl:value-of select="$filename"/>
-                    -->
-                    <xsl:value-of select="$msID"/>
-                </xsl:message>
-            </xsl:if>
-
-            <xsl:variable name="outputFilename" select="concat('./html/', $folder, '/', $msID, '.html')"/>
-
-            <!-- Build HTML in a variable so it can be post-processed to strip out undesirable HTML code -->
-            <xsl:variable name="outputdoc" as="element()">
-                <xsl:choose>
-                    <xsl:when test="$output-full-html">
-                        <html xmlns="http://www.w3.org/1999/xhtml">
-                            <head>
-                                <title></title>
-                            </head>
-                            <body>
-                                <div class="content tei-body" id="{//TEI/@xml:id}">
-                                    <xsl:call-template name="Header"/>
-                                    <xsl:apply-templates select="/TEI/teiHeader/fileDesc/sourceDesc/msDesc"/>
-                                    <xsl:call-template name="Footer"/>
-                                </div>
-                            </body>
-                        </html>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <div>
-                            <div class="content tei-body" id="{//TEI/@xml:id}">
-                                <xsl:call-template name="Header"/>
-                                <xsl:apply-templates select="/TEI/teiHeader/fileDesc/sourceDesc/msDesc"/>
-                                <xsl:call-template name="Footer"/>
-                            </div>
-                        </div>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:variable>
-
-            <!-- Create output HTML files -->
-            <xsl:result-document href="{$outputFilename}" method="xhtml" encoding="UTF-8" indent="yes">
-                
-                <!-- Applying templates on the HTML already built, with a mode, to strip out undesirable HTML code -->
-                <xsl:apply-templates select="$outputdoc" mode="stripoutempty"/>
-                
-            </xsl:result-document>
             
+            <xsl:choose>
+                <xsl:when test="string-length(/TEI/@xml:id/string()) eq 0">
+                    
+                    <!-- Cannot do anything if there is no @xml:id on the root TEI element -->
+                    <xsl:copy-of select="bod:logging('warn', 'Cannot process manuscript without @xml:id for root TEI element', /TEI, base-uri())"/>
+                                        
+                </xsl:when>
+                <xsl:otherwise>
+
+                    <!-- Build HTML in a variable so it can be post-processed to strip out undesirable HTML code -->
+                    <xsl:variable name="outputdoc" as="element()">
+                        <xsl:choose>
+                            <xsl:when test="$output-full-html">
+                                <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <head>
+                                        <title></title>
+                                    </head>
+                                    <body>
+                                        <div class="content tei-body" id="{/TEI/@xml:id}">
+                                            <xsl:call-template name="Header"/>
+                                            <xsl:apply-templates select="/TEI/teiHeader/fileDesc/sourceDesc/msDesc"/>
+                                            <xsl:call-template name="Footer"/>
+                                        </div>
+                                    </body>
+                                </html>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <div>
+                                    <div class="content tei-body" id="{/TEI/@xml:id}">
+                                        <xsl:call-template name="Header"/>
+                                        <xsl:apply-templates select="/TEI/teiHeader/fileDesc/sourceDesc/msDesc"/>
+                                        <xsl:call-template name="Footer"/>
+                                    </div>
+                                </div>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+                    
+                    <!-- Create output HTML files -->
+                    <xsl:variable name="subfolders" select="tokenize(substring-after(base-uri(.), $collections-path), '/')[position() ne last()]"/>
+                    <xsl:variable name="outputpath" select="concat('./html/', string-join($subfolders, '/'), '/', /TEI/@xml:id/string(), '.html')"/>
+                    <xsl:result-document href="{$outputpath}" method="xhtml" encoding="UTF-8" indent="yes">
+                        
+                        <!-- Applying templates on the HTML already built, with a mode, to strip out undesirable HTML code -->
+                        <xsl:apply-templates select="$outputdoc" mode="stripoutempty"/>
+                        
+                    </xsl:result-document>
+                    
+                </xsl:otherwise>
+            </xsl:choose>
+
         </xsl:for-each>
     </xsl:template>
 
