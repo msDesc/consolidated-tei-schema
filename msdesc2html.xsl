@@ -838,7 +838,7 @@
             <xsl:if test="@xml:id">
                 <xsl:attribute name="id" select="@xml:id"/>
             </xsl:if>
-            <xsl:if test="string-length(@n) gt 0 and count(parent::msContents/msItem[@n]) gt 1 and not(child::*[1][self::locus])">
+            <xsl:if test="string-length(@n) gt 0 and not(@n = 'toc') and count(parent::msContents/msItem[@n]) gt 1 and not(child::*[1][self::locus])">
                 <!-- Display optional numbering on msItems, on its own line (except when the first-child is a locus, then it'll be inline) -->
                 <div class="item-number">
                     <xsl:value-of select="@n"/>
@@ -855,7 +855,7 @@
             <xsl:if test="@xml:id">
                 <xsl:attribute name="id" select="@xml:id"/>
             </xsl:if>
-            <xsl:if test="string-length(@n) gt 0 and count(parent::msItem/msItem[@n]) gt 1 and not(child::*[1][self::locus])">
+            <xsl:if test="string-length(@n) gt 0 and not(@n = 'toc') and count(parent::msItem/msItem[@n]) gt 1 and not(child::*[1][self::locus])">
                 <!-- Display optional numbering on msItems, on its own line (except when the first-child is a locus, then it'll be inline) -->
                 <div class="item-number">
                     <xsl:value-of select="@n"/>
@@ -1044,7 +1044,7 @@
     
     <xsl:template match="msItem/locus">
         <div class="{name()}">
-            <xsl:if test="parent::msItem[@n] and count(parent::msItem/parent::*/msItem[@n]) gt 1 and count(preceding-sibling::*) = 0">
+            <xsl:if test="parent::msItem[@n] and not(parent::msItem/@n = 'toc') and count(parent::msItem/parent::*/msItem[@n]) gt 1 and count(preceding-sibling::*) = 0">
                 <!-- Display optional numbering on msItems, inline when the first-child is a locus (all other cases the number appears on its own line) -->
                 <span class="item-number">
                     <xsl:value-of select="parent::msItem/@n"/>
