@@ -181,7 +181,7 @@ declare function bod:languageCodeLookup($lang as xs:string) as xs:string
         case "nah" return "Nahuatl"
         case "nl" return "Dutch/Flemish"
         case "pro" return "French"
-        case "pt" return "Portugese"
+        case "pt" return "Portuguese"
         case "ru" return "Russian"
         case "rus" return "Russian"
         case "sco" return "Scots"
