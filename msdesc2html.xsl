@@ -1557,7 +1557,7 @@
         <!-- NOTE: This list may differ between TEI catalogues -->
         <span class="{name()}">
             <xsl:choose>
-                <xsl:when test="@key">
+                <xsl:when test="@key and not(@key='')">
                     <a>
                         <xsl:attribute name="href">
                             <xsl:value-of select="$website-url"/>
@@ -1582,7 +1582,7 @@
         <span class="{name()}">
             <xsl:choose>
                 <xsl:when test="normalize-space(.)=''" />
-                <xsl:when test="@key">
+                <xsl:when test="@key and not(@key='')">
                     <a>
                         <xsl:attribute name="href">
                             <xsl:value-of select="$website-url"/>
