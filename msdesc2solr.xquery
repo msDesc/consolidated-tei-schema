@@ -356,7 +356,21 @@ declare function bod:pathFromCollections($fullpath as xs:string) as xs:string
     return $relativepath
 };
 
-
+declare function bod:italicizeTitles($elem as element()) as xs:string
+{
+    normalize-space(
+        string-join(
+            for $x in $elem//(text()|tei:title)
+            return
+            if ($x/self::tei:title) then
+                concat('&lt;i&gt;', string-join($x//text()), '&lt;/i&gt;')
+            else if (not($x/ancestor::tei:title)) then
+                $x
+            else
+                ()
+        , '')
+    )
+};
 
 
 
