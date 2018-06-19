@@ -487,13 +487,13 @@
         <xsl:choose>
             <xsl:when test="starts-with($target, 'http') or starts-with($target, 'mailto') or starts-with($target, 'ftp')">
                 <!-- For valid-looking URLs create links to external resources -->
-                <a href="{$target}">
+                <a href="{$target}" target="_blank">
                     <xsl:apply-templates/>
                 </a>
             </xsl:when>
             <xsl:when test="starts-with($target, 'www')">
                 <!-- Assume if the protocol is missing that it is http (hopefully the destination server will redirect if https) -->
-                <a href="http://{$target}">
+                <a href="http://{$target}" target="_blank">
                     <xsl:apply-templates/>
                 </a>
             </xsl:when>
