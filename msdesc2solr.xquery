@@ -372,6 +372,21 @@ declare function bod:italicizeTitles($elem as element()) as xs:string
     )
 };
 
+declare function bod:latLongDecimal2DMS($lat as xs:double, $long as xs:double) as xs:string*
+{
+    for $coord at $pos in ($lat, $long)
+        let $direction := if ($pos eq 1) then (if ($coord lt 0) then 'S' else 'N') else (if ($coord lt 0) then 'W' else 'E')
+        let $abscoord := abs($coord)
+        let $wholedegrees := floor($abscoord)
+        let $remainder := $abscoord - $wholedegrees
+        let $minutes := $remainder * 60
+        let $wholeminutes := floor($minutes)
+        let $remainder2 := $minutes - $wholeminutes
+        let $wholeseconds := round($remainder2 * 60)
+        (: Rounding to the nearest second should be good enough. Even including seconds at all might be spurious rigour :)
+        return concat($wholedegrees, '° ', $wholeminutes, "' ", $wholeseconds, '" ', $direction)
+};
+
 
 
 
