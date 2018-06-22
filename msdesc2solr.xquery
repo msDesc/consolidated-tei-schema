@@ -386,7 +386,9 @@ declare function bod:latLongDecimal2DMS($lat as xs:double, $long as xs:double) a
         let $wholeminutes := floor($minutes)
         let $remainder2 := $minutes - $wholeminutes
         let $wholeseconds := round($remainder2 * 60)
-        (: Rounding to the nearest second should be good enough. Even including seconds at all might be spurious rigour :)
+        let $wholeminutes := if ($wholeseconds eq 60) then $wholeminutes + 1 else $wholeminutes
+        let $wholeseconds := if ($wholeseconds eq 60) then 0 else $wholeseconds
+        let $wholeminutes := if ($wholeminutes eq 60) then 0 else $wholeminutes
         return concat($wholedegrees, '° ', $wholeminutes, "' ", $wholeseconds, '" ', $direction)
 };
 
