@@ -257,11 +257,14 @@ declare function bod:personRoleLookup($role as xs:string) as xs:string
     (: Most of the roles just need to be capitalized. These are the exceptions.
        Probably common across all catalogues, but if not can be locally overridden :)
     switch($role)
-        case "formerOwner" return "Owner or signer"
-        case "signer" return "Owner or signer"
+        case "formerOwner" return "Owner, signer, or donor"
+        case "signer" return "Owner, signer, or donor"
+        case "donor" return "Owner, signer, or donor"
         case "commissioner" return "Commissioner, dedicatee, or patron"
         case "dedicatee" return "Commissioner, dedicatee, or patron"
         case "patron" return "Commissioner, dedicatee, or patron"
+        case "stationer" return "Stationer or bookseller"
+        case "bookseller" return "Stationer or bookseller"
         case "own" return "Owner"
         case "aut" return "Author"
         default return functx:capitalize-first($role)
