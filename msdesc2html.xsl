@@ -94,6 +94,315 @@
         </xsl:choose>
     </xsl:function>
     
+    <xsl:function name="bod:personRoleLookup" as="xs:string">
+        <xsl:param name="role" as="xs:string"/>
+        <!-- Lookup the values used in role attributes of people (or organizations) and map 
+            those values to labels for display in facets on the web site -->
+        <xsl:value-of select="
+            if (string-length($role) eq 3) then
+                bod:roleLookupMarcCode($role)
+            else
+                bod:roleNormalizeLabel($role)
+        "/>
+    </xsl:function>
+    
+    <xsl:function name="bod:roleNormalizeLabel" as="xs:string">
+        <xsl:param name="rolelabel" as="xs:string"/>
+        <xsl:variable name="lcrolelabel" as="xs:string" select="lower-case($rolelabel)"/>
+        <xsl:choose>
+            <xsl:when test="$lcrolelabel eq 'formerowner'">Former Owner</xsl:when>
+            <xsl:otherwise>
+                <!-- Anything else, just return with first letter capitalized -->
+                <xsl:value-of select="concat(upper-case(substring($rolelabel, 1, 1)), substring($rolelabel, 2))"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    
+    <xsl:function name="bod:roleLookupMarcCode" as="xs:string">
+        <xsl:param name="rolecode" as="xs:string"/>
+        <!-- This is the MARC Code List for Relators standard, copy taken 
+             on 2018-06-22 from http://id.loc.gov/vocabulary/relators.tsv -->
+        <xsl:variable name="rolesmapping" as="element()*">
+            <map code="abr">Abridger</map>
+            <map code="acp">Art copyist</map>
+            <map code="act">Actor</map>
+            <map code="adi">Art director</map>
+            <map code="adp">Adapter</map>
+            <map code="aft">Author of afterword, colophon, etc.</map>
+            <map code="anl">Analyst</map>
+            <map code="anm">Animator</map>
+            <map code="ann">Annotator</map>
+            <map code="ant">Bibliographic antecedent</map>
+            <map code="ape">Appellee</map>
+            <map code="apl">Appellant</map>
+            <map code="app">Applicant</map>
+            <map code="aqt">Author in quotations or text abstracts</map>
+            <map code="arc">Architect</map>
+            <map code="ard">Artistic director</map>
+            <map code="arr">Arranger</map>
+            <map code="art">Artist</map>
+            <map code="asg">Assignee</map>
+            <map code="asn">Associated name</map>
+            <map code="ato">Autographer</map>
+            <map code="att">Attributed name</map>
+            <map code="auc">Auctioneer</map>
+            <map code="aud">Author of dialog</map>
+            <map code="aui">Author of introduction, etc.</map>
+            <map code="aus">Screenwriter</map>
+            <map code="aut">Author</map>
+            <map code="bdd">Binding designer</map>
+            <map code="bjd">Bookjacket designer</map>
+            <map code="bkd">Book designer</map>
+            <map code="bkp">Book producer</map>
+            <map code="blw">Blurb writer</map>
+            <map code="bnd">Binder</map>
+            <map code="bpd">Bookplate designer</map>
+            <map code="brd">Broadcaster</map>
+            <map code="brl">Braille embosser</map>
+            <map code="bsl">Bookseller</map>
+            <map code="cas">Caster</map>
+            <map code="ccp">Conceptor</map>
+            <map code="chr">Choreographer</map>
+            <map code="cli">Client</map>
+            <map code="cll">Calligrapher</map>
+            <map code="clr">Colorist</map>
+            <map code="clt">Collotyper</map>
+            <map code="cmm">Commentator</map>
+            <map code="cmp">Composer</map>
+            <map code="cmt">Compositor</map>
+            <map code="cnd">Conductor</map>
+            <map code="cng">Cinematographer</map>
+            <map code="cns">Censor</map>
+            <map code="coe">Contestant-appellee</map>
+            <map code="col">Collector</map>
+            <map code="com">Compiler</map>
+            <map code="con">Conservator</map>
+            <map code="cor">Collection registrar</map>
+            <map code="cos">Contestant</map>
+            <map code="cot">Contestant-appellant</map>
+            <map code="cou">Court governed</map>
+            <map code="cov">Cover designer</map>
+            <map code="cpc">Copyright claimant</map>
+            <map code="cpe">Complainant-appellee</map>
+            <map code="cph">Copyright holder</map>
+            <map code="cpl">Complainant</map>
+            <map code="cpt">Complainant-appellant</map>
+            <map code="cre">Creator</map>
+            <map code="crp">Correspondent</map>
+            <map code="crr">Corrector</map>
+            <map code="crt">Court reporter</map>
+            <map code="csl">Consultant</map>
+            <map code="csp">Consultant to a project</map>
+            <map code="cst">Costume designer</map>
+            <map code="ctb">Contributor</map>
+            <map code="cte">Contestee-appellee</map>
+            <map code="ctg">Cartographer</map>
+            <map code="ctr">Contractor</map>
+            <map code="cts">Contestee</map>
+            <map code="ctt">Contestee-appellant</map>
+            <map code="cur">Curator</map>
+            <map code="cwt">Commentator for written text</map>
+            <map code="dbp">Distribution place</map>
+            <map code="dfd">Defendant</map>
+            <map code="dfe">Defendant-appellee</map>
+            <map code="dft">Defendant-appellant</map>
+            <map code="dgg">Degree granting institution</map>
+            <map code="dgs">Degree supervisor</map>
+            <map code="dis">Dissertant</map>
+            <map code="dln">Delineator</map>
+            <map code="dnc">Dancer</map>
+            <map code="dnr">Donor</map>
+            <map code="dpc">Depicted</map>
+            <map code="dpt">Depositor</map>
+            <map code="drm">Draftsman</map>
+            <map code="drt">Director</map>
+            <map code="dsr">Designer</map>
+            <map code="dst">Distributor</map>
+            <map code="dtc">Data contributor</map>
+            <map code="dte">Dedicatee</map>
+            <map code="dtm">Data manager</map>
+            <map code="dto">Dedicator</map>
+            <map code="dub">Dubious author</map>
+            <map code="edc">Editor of compilation</map>
+            <map code="edm">Editor of moving image work</map>
+            <map code="edt">Editor</map>
+            <map code="egr">Engraver</map>
+            <map code="elg">Electrician</map>
+            <map code="elt">Electrotyper</map>
+            <map code="eng">Engineer</map>
+            <map code="enj">Enacting jurisdiction</map>
+            <map code="etr">Etcher</map>
+            <map code="evp">Event place</map>
+            <map code="exp">Expert</map>
+            <map code="fac">Facsimilist</map>
+            <map code="fds">Film distributor</map>
+            <map code="fld">Field director</map>
+            <map code="flm">Film editor</map>
+            <map code="fmd">Film director</map>
+            <map code="fmk">Filmmaker</map>
+            <map code="fmo">Former owner</map>
+            <map code="fmp">Film producer</map>
+            <map code="fnd">Funder</map>
+            <map code="fpy">First party</map>
+            <map code="frg">Forger</map>
+            <map code="gis">Geographic information specialist</map>
+            <map code="his">Host institution</map>
+            <map code="hnr">Honoree</map>
+            <map code="hst">Host</map>
+            <map code="ill">Illustrator</map>
+            <map code="ilu">Illuminator</map>
+            <map code="ins">Inscriber</map>
+            <map code="inv">Inventor</map>
+            <map code="isb">Issuing body</map>
+            <map code="itr">Instrumentalist</map>
+            <map code="ive">Interviewee</map>
+            <map code="ivr">Interviewer</map>
+            <map code="jud">Judge</map>
+            <map code="jug">Jurisdiction governed</map>
+            <map code="lbr">Laboratory</map>
+            <map code="lbt">Librettist</map>
+            <map code="ldr">Laboratory director</map>
+            <map code="led">Lead</map>
+            <map code="lee">Libelee-appellee</map>
+            <map code="lel">Libelee</map>
+            <map code="len">Lender</map>
+            <map code="let">Libelee-appellant</map>
+            <map code="lgd">Lighting designer</map>
+            <map code="lie">Libelant-appellee</map>
+            <map code="lil">Libelant</map>
+            <map code="lit">Libelant-appellant</map>
+            <map code="lsa">Landscape architect</map>
+            <map code="lse">Licensee</map>
+            <map code="lso">Licensor</map>
+            <map code="ltg">Lithographer</map>
+            <map code="lyr">Lyricist</map>
+            <map code="mcp">Music copyist</map>
+            <map code="mdc">Metadata contact</map>
+            <map code="med">Medium</map>
+            <map code="mfp">Manufacture place</map>
+            <map code="mfr">Manufacturer</map>
+            <map code="mod">Moderator</map>
+            <map code="mon">Monitor</map>
+            <map code="mrb">Marbler</map>
+            <map code="mrk">Markup editor</map>
+            <map code="msd">Musical director</map>
+            <map code="mte">Metal-engraver</map>
+            <map code="mtk">Minute taker</map>
+            <map code="mus">Musician</map>
+            <map code="nrt">Narrator</map>
+            <map code="opn">Opponent</map>
+            <map code="org">Originator</map>
+            <map code="orm">Organizer</map>
+            <map code="osp">Onscreen presenter</map>
+            <map code="oth">Other</map>
+            <map code="own">Owner</map>
+            <map code="pan">Panelist</map>
+            <map code="pat">Patron</map>
+            <map code="pbd">Publishing director</map>
+            <map code="pbl">Publisher</map>
+            <map code="pdr">Project director</map>
+            <map code="pfr">Proofreader</map>
+            <map code="pht">Photographer</map>
+            <map code="plt">Platemaker</map>
+            <map code="pma">Permitting agency</map>
+            <map code="pmn">Production manager</map>
+            <map code="pop">Printer of plates</map>
+            <map code="ppm">Papermaker</map>
+            <map code="ppt">Puppeteer</map>
+            <map code="pra">Praeses</map>
+            <map code="prc">Process contact</map>
+            <map code="prd">Production personnel</map>
+            <map code="pre">Presenter</map>
+            <map code="prf">Performer</map>
+            <map code="prg">Programmer</map>
+            <map code="prm">Printmaker</map>
+            <map code="prn">Production company</map>
+            <map code="pro">Producer</map>
+            <map code="prp">Production place</map>
+            <map code="prs">Production designer</map>
+            <map code="prt">Printer</map>
+            <map code="prv">Provider</map>
+            <map code="pta">Patent applicant</map>
+            <map code="pte">Plaintiff-appellee</map>
+            <map code="ptf">Plaintiff</map>
+            <map code="pth">Patent holder</map>
+            <map code="ptt">Plaintiff-appellant</map>
+            <map code="pup">Publication place</map>
+            <map code="rbr">Rubricator</map>
+            <map code="rcd">Recordist</map>
+            <map code="rce">Recording engineer</map>
+            <map code="rcp">Addressee</map>
+            <map code="rdd">Radio director</map>
+            <map code="red">Redaktor</map>
+            <map code="ren">Renderer</map>
+            <map code="res">Researcher</map>
+            <map code="rev">Reviewer</map>
+            <map code="rpc">Radio producer</map>
+            <map code="rps">Repository</map>
+            <map code="rpt">Reporter</map>
+            <map code="rpy">Responsible party</map>
+            <map code="rse">Respondent-appellee</map>
+            <map code="rsg">Restager</map>
+            <map code="rsp">Respondent</map>
+            <map code="rsr">Restorationist</map>
+            <map code="rst">Respondent-appellant</map>
+            <map code="rth">Research team head</map>
+            <map code="rtm">Research team member</map>
+            <map code="sad">Scientific advisor</map>
+            <map code="sce">Scenarist</map>
+            <map code="scl">Sculptor</map>
+            <map code="scr">Scribe</map>
+            <map code="sds">Sound designer</map>
+            <map code="sec">Secretary</map>
+            <map code="sgd">Stage director</map>
+            <map code="sgn">Signer</map>
+            <map code="sht">Supporting host</map>
+            <map code="sll">Seller</map>
+            <map code="sng">Singer</map>
+            <map code="spk">Speaker</map>
+            <map code="spn">Sponsor</map>
+            <map code="spy">Second party</map>
+            <map code="srv">Surveyor</map>
+            <map code="std">Set designer</map>
+            <map code="stg">Setting</map>
+            <map code="stl">Storyteller</map>
+            <map code="stm">Stage manager</map>
+            <map code="stn">Standards body</map>
+            <map code="str">Stereotyper</map>
+            <map code="tcd">Technical director</map>
+            <map code="tch">Teacher</map>
+            <map code="ths">Thesis advisor</map>
+            <map code="tld">Television director</map>
+            <map code="tlp">Television producer</map>
+            <map code="trc">Transcriber</map>
+            <map code="trl">Translator</map>
+            <map code="tyd">Type designer</map>
+            <map code="tyg">Typographer</map>
+            <map code="uvp">University place</map>
+            <map code="vac">Voice actor</map>
+            <map code="vdg">Videographer</map>
+            <map code="wac">Writer of added commentary</map>
+            <map code="wal">Writer of added lyrics</map>
+            <map code="wam">Writer of accompanying material</map>
+            <map code="wat">Writer of added text</map>
+            <map code="wdc">Woodcutter</map>
+            <map code="wde">Wood engraver</map>
+            <map code="win">Writer of introduction</map>
+            <map code="wit">Witness</map>
+            <map code="wpr">Writer of preface</map>
+            <map code="wst">Writer of supplementary textual content</map>
+        </xsl:variable>
+        <xsl:variable name="matchinglabel" as="xs:string" select="$rolesmapping//text()[../@code = lower-case($rolecode)]"/>
+        <xsl:choose>
+            <xsl:when test="exists($matchinglabel)">
+                <xsl:value-of select="$matchinglabel"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="concat('Unknown role code: ', $rolecode)"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    
     <xsl:function name="bod:standardText">
         <xsl:param name="textval" as="xs:string"/>
         <xsl:choose>
