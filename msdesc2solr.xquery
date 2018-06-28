@@ -674,7 +674,16 @@ declare function bod:latLongDecimal2DMS($lat as xs:double, $long as xs:double) a
         return concat($wholedegrees, '° ', $wholeminutes, "' ", $wholeseconds, '" ', $direction)
 };
 
-
+declare function bod:lookupAuthorityName($name as xs:string) as xs:string
+{
+    switch(upper-case($name))
+        case 'VIAF' return "VIAF: Virtual International Authority File (authority record)"
+        case 'LC' return "Library of Congress (authority record)"
+        case 'BNF' return "Bibliothèque nationale de France (authority record)"
+        case 'SUDOC' return "SUDOC: Système Universitaire de Documentation (authority record)"
+        case 'GND' return "GND: Gemeinsame Normdatei (authority record)"
+        default return $name
+};
 
 
 
