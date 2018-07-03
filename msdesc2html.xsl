@@ -86,6 +86,7 @@
             <xsl:when test="$lang eq 'lat'">Latin</xsl:when>
             <xsl:when test="$lang eq 'en'">English</xsl:when>
             <xsl:when test="$lang eq 'eng'">English</xsl:when>
+            <xsl:when test="$lang eq 'bo'">Tibetan</xsl:when>
             <xsl:when test="$lang eq 'zxx'">No Linguistic Content</xsl:when>
             <xsl:when test="$lang eq 'und'">Undetermined</xsl:when>
             <xsl:otherwise>
