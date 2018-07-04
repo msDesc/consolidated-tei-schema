@@ -1405,7 +1405,7 @@
         <xsl:apply-templates/>
     </xsl:template>
 
-    <xsl:template match="binding/p|collation/p|foliation/p">
+    <xsl:template match="binding/p|binding/condition|collation/p|foliation/p">
         <p class="{concat(parent::node()/name(), '-p')}">
             <xsl:apply-templates/>
         </p>
@@ -1618,6 +1618,7 @@
     </xsl:template>
 
     <xsl:template match="condition">
+        <!-- Overridden when the child of a binding element, where it is treated as a simple paragraph -->
         <div>
             <h4>
                 <xsl:copy-of select="bod:standardText('Condition')"/>
