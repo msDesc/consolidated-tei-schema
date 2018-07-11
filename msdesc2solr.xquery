@@ -965,6 +965,17 @@ declare function bod:physForm($teinodes as element()*, $solrfield as xs:string, 
         $result
 };
 
+declare function bod:digitized($teinodes as element()*, $solrfield as xs:string)
+{
+    <field name="ms_digitized_s">
+        { 
+        if ($teinodes[@type=('digital-fascimile','digital-facsimile') and @subtype='full']) then 'Yes' 
+        else if ($teinodes[@type=('digital-fascimile','digital-facsimile') and @subtype='partial']) then 'Selected pages only' 
+        else 'No'
+        }
+    </field>
+};
+
 
 
 
