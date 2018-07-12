@@ -1716,14 +1716,23 @@
         <span class="height">
             <xsl:value-of select="."/>
         </span>
-        <xsl:text>×</xsl:text>
+        <xsl:text> × </xsl:text>
         <span class="width">
             <xsl:value-of select="parent::dimensions/width"/>
         </span>
+        <!-- Finally add depth, if specified -->
+        <xsl:if test="parent::dimensions/depth">
+            <xsl:text> × </xsl:text>
+            <span class="depth">
+                <xsl:value-of select="parent::dimensions/depth"/>
+            </span>
+        </xsl:if>
         <xsl:apply-templates select="(parent::dimensions//@unit)[1]"/>
     </xsl:template>
     
+    <!-- The output of these has been handled by the above template -->
     <xsl:template match="width[parent::dimensions/height]"/>
+    <xsl:template match="depth[parent::dimensions/height]"/>
     
     <xsl:template match="dimensions//@unit">
         <xsl:value-of select="concat(., '.')"/>
