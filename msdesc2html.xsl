@@ -1727,6 +1727,7 @@
                 <xsl:value-of select="parent::dimensions/depth"/>
             </span>
         </xsl:if>
+        <xsl:text> </xsl:text>
         <xsl:apply-templates select="(parent::dimensions//@unit)[1]"/>
     </xsl:template>
     
