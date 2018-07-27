@@ -1809,7 +1809,10 @@
                     <xsl:copy-of select="bod:standardText('Digital Images')"/>
                 </h3>
                 <p>
-                    <xsl:apply-templates select="bibl[@type = ('digital-fascimile','digital-facsimile')]"/>
+                    <xsl:for-each select="bibl[@type = ('digital-fascimile','digital-facsimile')]">
+                        <xsl:apply-templates select="."/>
+                        <br/>
+                    </xsl:for-each>
                 </p>
             </xsl:if>
             <xsl:if test="bibl[idno/@type = 'microfilm']">
@@ -1817,7 +1820,10 @@
                     <xsl:copy-of select="bod:standardText('Microfilm')"/>
                 </h3>
                 <p>
-                    <xsl:apply-templates select="bibl[idno/@type = 'microfilm']"/>
+                    <xsl:for-each select="bibl[idno/@type = 'microfilm']">
+                        <xsl:apply-templates select="."/>
+                        <br/>
+                    </xsl:for-each>
                 </p>
             </xsl:if>
             <xsl:if test="bibl[not(@type = ('digital-fascimile','digital-facsimile') or idno/@type = 'microfilm')]">
@@ -1825,7 +1831,10 @@
                     <xsl:copy-of select="bod:standardText('Surrogates')"/>
                 </h3>
                 <p>
-                    <xsl:apply-templates select="bibl[not(@type = ('digital-fascimile','digital-facsimile') or idno/@type = 'microfilm')]"/>
+                    <xsl:for-each select="bibl[not(@type = ('digital-fascimile','digital-facsimile') or idno/@type = 'microfilm')]">
+                        <xsl:apply-templates select="."/>
+                        <br/>
+                    </xsl:for-each>
                 </p>
             </xsl:if>
         </div>
