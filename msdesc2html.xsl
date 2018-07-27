@@ -1882,10 +1882,13 @@
         </div>
     </xsl:template>
 
-    <!-- Things that can be displayed as hyperlinks (if they've been given a @key attribute -->
+    <!-- Things that can be displayed as hyperlinks (if they've been given a @key attribute) -->
     <xsl:template match="persName | placeName | orgName | name | country | settlement | district | region | repository | idno">
         <!-- NOTE: This list may differ between TEI catalogues -->
-        <span class="{name()}">
+        <span>
+            <xsl:attribute name="class">
+                <xsl:value-of select="string-join((name(), @role), ' ')"/>
+            </xsl:attribute>
             <xsl:choose>
                 <xsl:when test="@key and not(@key='')">
                     <a>
