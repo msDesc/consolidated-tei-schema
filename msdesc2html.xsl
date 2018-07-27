@@ -1232,7 +1232,7 @@
         </p>
     </xsl:template>
 
-    <xsl:template match="msItem/quote">
+    <xsl:template match="quote[parent::*/(p|note|incipit) or parent::msItem]">
         <blockquote class="{name()}">
             <xsl:text>"</xsl:text>
             <xsl:apply-templates/>
