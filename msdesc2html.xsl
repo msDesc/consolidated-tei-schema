@@ -1702,13 +1702,17 @@
                 <xsl:text> </xsl:text>
                 <xsl:if test="@type">
                     <xsl:text> (</xsl:text>
-                    <xsl:value-of select="@type"/>
+                    <xsl:value-of select="translate(@type, '_', ' ')"/>
                     <xsl:text>)</xsl:text>
                 </xsl:if>
                 <xsl:text>: </xsl:text>
             </span>
             <xsl:apply-templates/>
         </div>
+    </xsl:template>
+    
+    <xsl:template match="dimensions/dim">
+        <xsl:apply-templates select="*|text()"/>
     </xsl:template>
 
     <xsl:template match="height[parent::dimensions/width]">
