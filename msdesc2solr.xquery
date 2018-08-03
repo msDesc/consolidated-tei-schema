@@ -569,6 +569,7 @@ declare function bod:physFormLookup($form as xs:string) as xs:string
         case 'rolled_book' return 'Rolled book'
         case 'palm_leaf' return 'Palm leaf'
         case 'modern_notebook' return 'Modern notebook'
+        case 'printed_book' return 'Printed book'
         default return functx:capitalize-first($form)
 };
 
