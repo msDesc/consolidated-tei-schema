@@ -1,5 +1,6 @@
 module namespace bod="http://www.bodleian.ox.ac.uk/bdlss";
 import module namespace functx = "http://www.functx.com" at "functx.xquery";
+import module namespace lang = "http://www.bodleian.ox.ac.uk/bdlss/lang" at "languages.xquery";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace html="http://www.w3.org/1999/xhtml";
 
@@ -131,125 +132,6 @@ declare function bod:findCenturies($earliestYear, $latestYear) as xs:string*
             bod:formatCentury(($earliestCentury, $latestCentury)[. ne 0])
          else
             bod:logging('info', 'Unreadable dates', concat($earliestYear, '-', $latestYear))
-};
-
-
-declare function bod:languageCodeLookup($lang as xs:string) as xs:string
-{
-    (: TODO: Get these from a lookup file somewhere? :)
-    switch($lang)
-        case "English" return "English" 
-        case "French" return "French"
-        case "Hebrew" return "Hebrew" 
-        case "an" return "Spanish"
-        case "ang" return "English"
-        case "ar" return "Arabic"
-        case "ara" return "Arabic"
-        case "ara-Latn-x-lc" return "Arabic"
-        case "ara-Latn-x-lx" return "Arabic"
-        case "br" return "French"
-        case "ca" return "Catalan"
-        case "cop" return "Coptic"
-        case "cs" return "Czech"
-        case "cu" return "Church Slavonic"
-        case "cy" return "Welsh"
-        case "de" return "German"
-        case "dlm" return "Dalmatian"
-        case "egy-Egyd" return "Egyptian in Demotic script"
-        case "egy-Egyh" return "Egyptian in Hieratic script"
-        case "el" return "Greek"
-        case "en" return "English"
-        case "eng" return "English"
-        case "eng-Latn-x-lc" return "English"
-        case "es" return "Spanish"
-        case "fr" return "French"    
-        case "fre" return "French"
-        case "fy" return "Frisian"
-        case "ga" return "Irish"
-        case "gd" return "Gaelic"
-        case "ger" return "German"
-        case "grc" return "Greek"
-        case "he" return "Hebrew"
-        case "hr" return "Croatian"
-        case "hu" return "Hungarian"
-        case "is" return "Icelandic"
-        case "it" return "Italian"
-        case "ita" return "Italian"
-        case "kw" return "Cornish"
-        case "la" return "Latin"
-        case "lat" return "Latin"
-        case "nah" return "Nahuatl"
-        case "nl" return "Dutch/Flemish"
-        case "pro" return "French"
-        case "pt" return "Portuguese"
-        case "ru" return "Russian"
-        case "rus" return "Russian"
-        case "sco" return "Scots"
-        case "spa" return "Spanish"
-        case "syc" return "Syriac"
-        case "fa" return "Persian"
-        case "ota" return "Ottoman Turkish"
-        case "ps" return "Pashto"
-        case "syr" return "Syriac"
-        case "ur" return "Urdu"
-        case "ara-Arab" return "Arabic"
-        case "swa" return "Swahili"
-        case "tur" return "Turkish"
-        case "jpr" return "Judeo-Persian"
-        case "pers" return "Persian"
-        case "pes" return "Persian"
-        case "chg" return "Chagatai"
-        case "ms" return "Malay"
-        case "hi" return "Hindi"
-        case "jrb" return "Judeo-Arabic"
-        case "gre" return "Greek"
-        case "kas" return "Kashmiri"
-        case "ku" return "Kurdish"
-        case "pan" return "Panjabi"
-        case "arm" return "Armenian"
-        case "mar" return "Marathi"
-        case "pal" return "Pahlavi"
-        case "uig" return "Uighur"
-        case "ave" return "Avestan"
-        case "bn" return "Bengali"
-        case "sa" return "Sanskrit"
-        case "tel" return "Telugu"
-        case "ara-Latn" return "Arabic"
-        case "arc" return "Aramaic"
-        case "ber" return "Berber"
-        case "chi" return "Chinese"
-        case "dan" return "Danish"
-        case "inc" return "Indic"
-        case "jv" return "Javanese"
-        case "kan" return "Kannada"
-        case "map" return "Austronesian"
-        case "mn" return "Mongolian"
-        case "por" return "Portuguese"
-        case "pre" return "Principense"
-        case "prs" return "Dari Persian"
-        case "snd" return "Sindhi"
-        case "zxx" return "No Linguistic Content"
-        case "und" return "Undetermined"
-        case "yi" return "Yiddish"
-        case "hy" return "Armenian"
-        case "xcl" return "Classical Armenian"
-        case "pl" return "Polish"
-        case "shn" return "Shan"
-        case "Arabic" return "Arabic"
-        case "Persian" return "Persian"
-        case "Turkish" return "Turkish"
-        case "lad" return "Ladino"
-        case "ka" return "Georgian"
-        case "bo" return "Tibetan"
-        case "jpt" return "Judaeo-Portuguese"
-        case "pli" return "Pali"
-        case "khf" return "Khün"
-        case "mya" return "Burmese"
-        case "khb" return "Tai Lü"
-        case "blk" return "Pa'o"
-        case "nod" return "Lanna"
-        case "per" return "Persian"
-        default return concat('Unknown language code: ', $lang)
 };
 
 declare function bod:personRoleLookup($role as xs:string) as xs:string
@@ -934,7 +816,7 @@ declare function bod:languages($teinodes as element()*, $solrfield as xs:string)
 {
     let $langCodes := for $attr in $teinodes/@* return if (name($attr) = 'mainLang' or name($attr) = 'otherLangs') then tokenize($attr, ' ') else ()
     for $code in distinct-values($langCodes)
-        return <field name="{ $solrfield }">{ normalize-space(bod:languageCodeLookup($code)) }</field>
+        return <field name="{ $solrfield }">{ normalize-space(lang:languageCodeLookup($code)) }</field>
 };
 
 
