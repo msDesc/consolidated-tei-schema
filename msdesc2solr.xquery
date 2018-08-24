@@ -571,8 +571,8 @@ declare function bod:lookupAuthorityName($name as xs:string) as xs:string
 
 declare function bod:shelfmarkVariants($shelfmarks as xs:string*) as xs:string*
 {
-    for $shelfmark in $shelfmarks
-        return distinct-values(($shelfmarks, replace($shelfmark, '\.\s+', ' ')))
+    let $variants := distinct-values(($shelfmarks, for $shelfmark in $shelfmarks return replace($shelfmark, '\.\s+', ' ')))
+    return $variants
 };
 
 
