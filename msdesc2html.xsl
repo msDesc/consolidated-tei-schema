@@ -1155,11 +1155,12 @@
                     <xsl:text>. </xsl:text>
                 </div>
             </xsl:if>
-            <xsl:apply-templates/>
+            <xsl:apply-templates select="*[not(self::msItem)]"/>
+            <xsl:apply-templates select="msItem"/>
             <xsl:call-template name="MsItemFooter"/>
         </div>
     </xsl:template>
-
+        
     <xsl:template match="msItem/msItem">
         <div class="nestedmsItem">
             <xsl:if test="@xml:id">
@@ -1172,7 +1173,8 @@
                     <xsl:text>. </xsl:text>
                 </div>
             </xsl:if>
-            <xsl:apply-templates/>
+            <xsl:apply-templates select="*[not(self::msItem)]"/>
+            <xsl:apply-templates select="msItem"/>
             <xsl:call-template name="MsItemFooter"/>
         </div>
     </xsl:template>
