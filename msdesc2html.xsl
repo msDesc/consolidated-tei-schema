@@ -442,7 +442,35 @@
         </xsl:choose>
     </xsl:function>
 
-
+    <xsl:function name="bod:rtl">
+        <xsl:param name="langcode" as="xs:string*"/>
+        <xsl:if test="boolean(
+            matches($langcode, '.*\-arab', 'i') 
+            or lower-case($langcode) = (
+            'ar',
+            'ara',
+            'chg',
+            'he',
+            'heb',
+            'hi',
+            'fa',
+            'ota',
+            'pan',
+            'per',
+            'pre',
+            'ps',
+            'swa',
+            'syc',
+            'syr',
+            'tr',
+            'ur'
+            )
+            )">
+            <!-- TODO: Expand the above list? -->
+            <xsl:attribute name="style" select="'direction:rtl; display:inline-block;'"/>
+        </xsl:if>
+    </xsl:function>
+    
 
 
     <!-- Named template which is called from command line 
@@ -1258,10 +1286,13 @@
                 <xsl:if test="@type">
                     <span class="type">(<xsl:value-of select="@type"/>)</span>
                 </xsl:if>
-                <xsl:if test="@defective='true'">
-                    <span class="defective">||</span>
-                </xsl:if>
-                <xsl:apply-templates/>
+                <span>
+                    <xsl:copy-of select="bod:rtl(@xml:lang)"/>
+                    <xsl:if test="@defective='true'">
+                        <span class="defective">||</span>
+                    </xsl:if>
+                    <xsl:apply-templates/>
+                </span>
             </div>
         </xsl:if>
     </xsl:template>
@@ -1276,10 +1307,13 @@
                 <xsl:if test="@type">
                     <span class="type">(<xsl:value-of select="@type"/>)</span>
                 </xsl:if>
-                <xsl:apply-templates/>
-                <xsl:if test="@defective='true'">
-                    <span class="defective">||</span>
-                </xsl:if>
+                <span>
+                    <xsl:copy-of select="bod:rtl(@xml:lang)"/>
+                    <xsl:apply-templates/>
+                    <xsl:if test="@defective='true'">
+                        <span class="defective">||</span>
+                    </xsl:if>
+                </span>
             </div>
         </xsl:if>
     </xsl:template>
@@ -1294,7 +1328,10 @@
             <!--<xsl:if test="not(@rend='roman')">-->
             <!--<xsl:attribute name="class">tei-italic</xsl:attribute>-->
             <!--</xsl:if>-->
-            <xsl:apply-templates/>
+            <span>
+                <xsl:copy-of select="bod:rtl(@xml:lang)"/>
+                <xsl:apply-templates/>
+            </span>
         </div>
     </xsl:template>
 
@@ -1307,12 +1344,16 @@
             <!--<xsl:if test="not(@rend='roman')">-->
             <!--<xsl:attribute name="class">tei-italic</xsl:attribute>-->
             <!--</xsl:if>-->
-            <xsl:apply-templates/>
+            <span>
+                <xsl:copy-of select="bod:rtl(@xml:lang)"/>
+                <xsl:apply-templates/>
+            </span>
         </div>
     </xsl:template>
 
     <xsl:template match="msItem/colophon">
         <div class="{name()}">
+            <xsl:copy-of select="bod:rtl(@xml:lang)"/>
             <span class="tei-label">
                 <xsl:copy-of select="bod:standardText('Colophon:')"/>
                 <xsl:text> </xsl:text>
