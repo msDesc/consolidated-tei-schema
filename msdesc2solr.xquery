@@ -134,6 +134,18 @@ declare function bod:findCenturies($earliestYear, $latestYear) as xs:string*
             bod:logging('info', 'Unreadable dates', concat($earliestYear, '-', $latestYear))
 };
 
+declare function bod:summarizeDate($earliestYear, $latestYear) as xs:string?
+{
+    let $centuries := if (string-length($earliestYear) gt 0) then bod:findCenturies($earliestYear, $latestYear) else ()
+    return
+    if (count($centuries) eq 0) then
+        ()
+    else if (count($centuries) eq 1) then
+        $centuries[1]
+    else
+        concat('Between the ', $centuries[1], ' and the ', $centuries[count($centuries)])
+};
+
 declare function bod:personRoleLookup($role as xs:string) as xs:string
 {
     (: Lookup the values used in role attributes of people (or organizations) and map 
