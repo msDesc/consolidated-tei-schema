@@ -17,7 +17,8 @@ declare namespace html="http://www.w3.org/1999/xhtml";
 
 
 declare variable $bod:disablelogging as xs:boolean external := false();
-
+declare variable $bod:nonwordregex as xs:string external := concat('["', "\s'\-\[\]\(\)\{\}]");
+declare variable $bod:wordregex as xs:string external := concat('[^"', "\s'\-\[\]\(\)\{\}]");
 
 
 (:~
@@ -483,6 +484,7 @@ declare function bod:isLeadingStopWord($word as xs:string) as xs:boolean
         case 'der' return true()
         case 'die' return true()
         case 'das' return true()
+        case 'al' return true()
         default return false()
     return $result
 };
@@ -509,12 +511,17 @@ declare function bod:stripStopWords($string as xs:string) as xs:string
     else $string    
 };
 
-declare function bod:stripLeadingStopWords($string as xs:string) as xs:string
+declare function bod:stripLeadingStopWordsOld($string as xs:string) as xs:string
 {
     let $tokens := tokenize($string, "[ ']")
     return if (bod:isLeadingStopWord($tokens[1])) then replace($string, "^.+?[ ']", "", "i") else $string
 };
 
+declare function bod:stripLeadingStopWords($string as xs:string) as xs:string
+{
+    let $tokens := tokenize($string, $bod:nonwordregex)[string-length(.) gt 0]
+    return if (bod:isLeadingStopWord($tokens[1])) then replace($string, concat('^(', $bod:nonwordregex, '*)', $bod:wordregex, '+', $bod:nonwordregex, '+'), '$1') else $string
+};
 
 declare function bod:alphabetizeTitle($string as xs:string) as xs:string
 {
@@ -845,6 +852,10 @@ declare function bod:languages($teinodes as element()*, $solrfield as xs:string,
         $result
 };
 
+declare function bod:languageCodeLookup($lang as xs:string) as xs:string
+{
+    lang:languageCodeLookup($lang)
+};
 
 declare function bod:physForm($teinodes as element()*, $solrfield as xs:string)
 {
