@@ -17,8 +17,10 @@ declare namespace html="http://www.w3.org/1999/xhtml";
 
 
 declare variable $bod:disablelogging as xs:boolean external := false();
+
 declare variable $bod:nonwordregex as xs:string external := concat('["', "\s'\-\[\]\(\)\{\}]");
 declare variable $bod:wordregex as xs:string external := concat('[^"', "\s'\-\[\]\(\)\{\}]");
+declare variable $bod:yearregex as xs:string external := "\-?\d\d\d\d";
 
 
 (:~
@@ -81,9 +83,12 @@ declare function bod:formatCentury($centuryNum as xs:integer) as xs:string
 };
 
 
-declare function bod:findCenturies($earliestYear, $latestYear) as xs:string*
+declare function bod:findCenturies($earliestYear as xs:string*, $latestYear as xs:string*) as xs:string*
 {
-    (: Converts a year range (or single year) into a sequence of century names :)
+    (: Converts a year range into a sequence of century names.
+       Input parametes are strings containing four-digit years (e.g. "0050", "0500", "1500")
+       BCE dates should be prefixed with a minus (e.g. "-0100")
+       For single years, pass it as first param and an empty string for the second, or both. :)
 
     (: Zero below stands for null, as there is no Year 0 :)
     let $ey as xs:double := number(functx:if-empty($earliestYear, 0))
@@ -118,7 +123,7 @@ declare function bod:findCenturies($earliestYear, $latestYear) as xs:string*
 
     return    
         if ($ey gt $ly and $ly ne 0) then
-            bod:logging('info', 'Date range not valid so will not be added to century filter', concat($earliestYear, '-', $latestYear))
+            bod:logging('info', 'Date range not valid', concat($earliestYear, '-', $latestYear))
             
         else if ($earliestCentury ne 0 and $latestCentury ne 0) then
             (: A date range, something like "After 1400 and before 1650", so fill in all the possible centuries between :)
@@ -135,16 +140,28 @@ declare function bod:findCenturies($earliestYear, $latestYear) as xs:string*
             bod:logging('info', 'Unreadable dates', concat($earliestYear, '-', $latestYear))
 };
 
-declare function bod:summarizeDate($earliestYear, $latestYear) as xs:string?
+declare function bod:summarizeDates($teinodes as element()*) as xs:string?
 {
-    let $centuries := if (string-length($earliestYear) gt 0) then bod:findCenturies($earliestYear, $latestYear) else ()
+    let $years := 
+        for $date in $teinodes/(@when|@notBefore|@notAfter|@from|@to)/normalize-space()
+            return functx:get-matches($date, $bod:yearregex)[1]
+    let $earliestYear := min($years)
+    let $latestYear := max($years)
+    let $centuries := 
+        if (string-length($earliestYear) gt 0 and string-length($latestYear) gt 0) then 
+            bod:findCenturies($earliestYear, $latestYear)
+        else if (string-length($earliestYear) gt 0) then 
+            bod:findCenturies($earliestYear, '')
+        else if (string-length($latestYear) gt 0) then 
+            bod:findCenturies('', $latestYear) 
+        else ()
     return
     if (count($centuries) eq 0) then
         ()
     else if (count($centuries) eq 1) then
         $centuries[1]
     else
-        concat('Between the ', $centuries[1], ' and the ', $centuries[count($centuries)])
+        concat($centuries[1], ' – ', $centuries[count($centuries)])
 };
 
 declare function bod:personRoleLookup($role as xs:string) as xs:string
@@ -763,18 +780,18 @@ declare function bod:centuries($teinodes as element()*, $solrfield as xs:string)
         for $date in $teinodes
             return
             if ($date[@when]) then 
-                if (matches($date/@when/data(), '-?\d\d\d\d')) then
-                    bod:findCenturies(functx:get-matches($date/@when/data(), '-?\d\d\d\d')[1], '')
+                if (matches($date/@when/data(), $bod:yearregex)) then
+                    bod:findCenturies(functx:get-matches($date/@when/data(), $bod:yearregex)[1], '')
                 else
                     bod:logging('info', 'Unreadable date', $date[@when]/data())
             else if ($date[@notBefore] or $date[@notAfter]) then
-                if (matches($date/@notBefore/data(), '-?\d\d\d\d') or matches($date/@notAfter/data(), '-?\d\d\d\d')) then
-                    bod:findCenturies(functx:get-matches($date/@notBefore/data(), '-?\d\d\d\d')[1], functx:get-matches($date/@notAfter/data(), '-?\d\d\d\d')[1])
+                if (matches($date/@notBefore/data(), $bod:yearregex) or matches($date/@notAfter/data(), $bod:yearregex)) then
+                    bod:findCenturies(functx:get-matches($date/@notBefore/data(), $bod:yearregex)[1], functx:get-matches($date/@notAfter/data(), $bod:yearregex)[1])
                 else
                     bod:logging('info', 'Unreadable dates', concat($date/@notBefore/data(), '-', $date/@notAfter/data()))
             else if ($date[@from] or $date[@to]) then
-                if (matches($date/@from/data(), '-?\d\d\d\d') or matches($date/@to/data(), '-?\d\d\d\d')) then
-                    bod:findCenturies(functx:get-matches($date/@from/data(), '-?\d\d\d\d')[1], functx:get-matches($date/@to/data(), '-?\d\d\d\d')[1])
+                if (matches($date/@from/data(), $bod:yearregex) or matches($date/@to/data(), $bod:yearregex)) then
+                    bod:findCenturies(functx:get-matches($date/@from/data(), $bod:yearregex)[1], functx:get-matches($date/@to/data(), $bod:yearregex)[1])
                 else
                     bod:logging('info', 'Unreadable dates', concat($date/@from/data(), '-', $date/@to/data()))
             else
