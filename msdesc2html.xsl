@@ -442,31 +442,23 @@
         </xsl:choose>
     </xsl:function>
 
-    <xsl:function name="bod:rtl">
-        <xsl:param name="langcode" as="xs:string*"/>
-        <xsl:if test="boolean(
-            matches($langcode, '.*\-arab', 'i') 
-            or lower-case($langcode) = (
-            'ar',
-            'ara',
-            'chg',
-            'he',
-            'heb',
-            'hi',
-            'fa',
-            'ota',
-            'pan',
-            'per',
-            'pre',
-            'ps',
-            'swa',
-            'syc',
-            'syr',
-            'tr',
-            'ur'
-            )
+    <xsl:function name="bod:direction" as="attribute()?">
+        <xsl:param name="elem" as="element()?"/>
+        <!-- This funtion returns a HTML style attribute if the TEI element has a @xml:lang 
+             specifying the script, as per BCP 47, is right-to-left (eg. "ar-Arab" or "per-Arab-x-lc"),
+             or if over half the characters within match a known right-to-left script, unless it contains
+             a foreign TEI element, indicating the contents are split between multiple scripts -->
+        <xsl:variable name="langcode" as="xs:string?" select="$elem/@xml:lang"/>
+        <xsl:variable name="stringval" as="xs:string" select="normalize-space($elem/string())"/>
+        <xsl:if test="not($elem//foreign or matches($langcode, '[^\-]+\-Latn', 'i')) and (
+            matches($langcode, '[^\-]+\-(Adlm|Arab|Aran|Armi|Avst|Cprt|Egyd|Egyh|Hatr|Hebr|Hung|Inds|Khar|Lydi|Mand|Mani|Mend|Merc|Mero|Narb|Nbat|Nkoo|Orkh|Palm|Phli|Phlp|Phlv|Phnx|Prti|Rohg|Samr|Sarb|Sogd|Sogo|Syrc|Syre|Syrj|Syrn|Thaa|Wole)', 'i') 
+            or string-length(replace($stringval, '[&#x600;-&#x6FF;&#xFE70;-&#xFEFF;&#x10b00;-&#x10b3f;&#x0591;-&#x05f4;&#x0700;-&#x074f;&#x860;-&#x86f;]', '')) lt string-length($stringval) div 2
             )">
-            <!-- TODO: Expand the above list? -->
+            <!-- NOTE: The match against the language code above uses a list of codes for right-to-left 
+                 scripts taken from: https://en.wikipedia.org/wiki/ISO_15924#List_of_codes -->
+            <!-- NOTE: If all the ranges for Arabic symbols then this would make anything with a number 
+                 display as right-to-left. The above should be sufficient to cover most cases. -->
+            <!-- TODO: Add more unicode ranges for non-Middle-Eastern R-T-L scripts? -->
             <xsl:attribute name="style" select="'direction:rtl; display:inline-block;'"/>
         </xsl:if>
     </xsl:function>
@@ -672,11 +664,7 @@
     <xsl:template match="foreign">
         <xsl:text> </xsl:text>
         <span class="{name()} {@rend}">
-            <xsl:if test="@xml:lang">
-                <xsl:attribute name="title">
-                    <xsl:value-of select="bod:languageCodeLookup(@xml:lang)"/>
-                </xsl:attribute>
-            </xsl:if>
+            <xsl:copy-of select="bod:direction(.)"/>
             <xsl:apply-templates/>
         </span>
         <xsl:text> </xsl:text>
@@ -1287,7 +1275,7 @@
                     <span class="type">(<xsl:value-of select="@type"/>)</span>
                 </xsl:if>
                 <span>
-                    <xsl:copy-of select="bod:rtl(@xml:lang)"/>
+                    <xsl:copy-of select="bod:direction(.)"/>
                     <xsl:if test="@defective='true'">
                         <span class="defective">||</span>
                     </xsl:if>
@@ -1308,7 +1296,7 @@
                     <span class="type">(<xsl:value-of select="@type"/>)</span>
                 </xsl:if>
                 <span>
-                    <xsl:copy-of select="bod:rtl(@xml:lang)"/>
+                    <xsl:copy-of select="bod:direction(.)"/>
                     <xsl:apply-templates/>
                     <xsl:if test="@defective='true'">
                         <span class="defective">||</span>
@@ -1329,7 +1317,7 @@
             <!--<xsl:attribute name="class">tei-italic</xsl:attribute>-->
             <!--</xsl:if>-->
             <span>
-                <xsl:copy-of select="bod:rtl(@xml:lang)"/>
+                <xsl:copy-of select="bod:direction(.)"/>
                 <xsl:apply-templates/>
             </span>
         </div>
@@ -1345,7 +1333,7 @@
             <!--<xsl:attribute name="class">tei-italic</xsl:attribute>-->
             <!--</xsl:if>-->
             <span>
-                <xsl:copy-of select="bod:rtl(@xml:lang)"/>
+                <xsl:copy-of select="bod:direction(.)"/>
                 <xsl:apply-templates/>
             </span>
         </div>
@@ -1353,7 +1341,7 @@
 
     <xsl:template match="msItem/colophon">
         <div class="{name()}">
-            <xsl:copy-of select="bod:rtl(@xml:lang)"/>
+            <xsl:copy-of select="bod:direction(.)"/>
             <span class="tei-label">
                 <xsl:copy-of select="bod:standardText('Colophon:')"/>
                 <xsl:text> </xsl:text>
