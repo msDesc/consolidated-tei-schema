@@ -1341,7 +1341,6 @@
 
     <xsl:template match="msItem/colophon">
         <div class="{name()}">
-            <xsl:copy-of select="bod:direction(.)"/>
             <span class="tei-label">
                 <xsl:copy-of select="bod:standardText('Colophon:')"/>
                 <xsl:text> </xsl:text>
@@ -1349,7 +1348,10 @@
             <!--<xsl:if test="not(@rend='roman')">-->
             <!--<xsl:attribute name="class">tei-italic</xsl:attribute>-->
             <!--</xsl:if>-->
-            <xsl:apply-templates/>
+            <span>
+                <xsl:copy-of select="bod:direction(.)"/>
+                <xsl:apply-templates/>
+            </span>
         </div>
     </xsl:template>
 
