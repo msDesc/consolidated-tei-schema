@@ -1171,8 +1171,7 @@
                     <xsl:text>. </xsl:text>
                 </div>
             </xsl:if>
-            <xsl:apply-templates select="*[not(self::msItem)]"/>
-            <xsl:apply-templates select="msItem"/>
+            <xsl:call-template name="SubItems"/>
             <xsl:call-template name="MsItemFooter"/>
         </div>
     </xsl:template>
@@ -1189,10 +1188,17 @@
                     <xsl:text>. </xsl:text>
                 </div>
             </xsl:if>
-            <xsl:apply-templates select="*[not(self::msItem)]"/>
-            <xsl:apply-templates select="msItem"/>
+            <xsl:call-template name="SubItems"/>
             <xsl:call-template name="MsItemFooter"/>
         </div>
+    </xsl:template>
+    
+    <xsl:template name="SubItems">
+        <!-- This lists sub-items (e.g. individual poems in collection of poetry) after any other fields 
+             about parent item (e.g. its language). It is a named template so it can be overriden by each
+             catalogue. -->
+        <xsl:apply-templates select="*[not(self::msItem)]"/>
+        <xsl:apply-templates select="msItem"/>
     </xsl:template>
 
     <xsl:template match="msItem/title[not(@rend) and not(@type)]">
