@@ -1256,7 +1256,7 @@
         </p>
     </xsl:template>
 
-    <xsl:template match="quote[parent::*/(p|note|incipit) or parent::msItem]">
+    <xsl:template match="quote[parent::*[not(self::p or self::note or self::incipit)]/(p|note|incipit) or parent::msItem]">
         <blockquote class="{name()}">
             <xsl:text>"</xsl:text>
             <xsl:apply-templates/>
