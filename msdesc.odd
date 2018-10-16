@@ -1,121 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <?xml-model href="http://jenkins.tei-c.org/job/TEIP5/lastSuccessfulBuild/artifact/P5/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://jenkins.tei-c.org/job/TEIP5/lastSuccessfulBuild/artifact/P5/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="http://jenkins.tei-c.org/job/TEIP5/lastSuccessfulBuild/artifact/P5/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en" xmlns:sch="http://purl.oclc.org/dsdl/schematron">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>ODD by Example customization</title>
-      </titleStmt>
-      <publicationStmt>
-        <p>Unpublished first draft </p>
-      </publicationStmt>
-      <sourceDesc>
-        <p>Derived from an analysis of 14393 files from ./</p>
-      </sourceDesc>
-    </fileDesc>
-  </teiHeader>
-  <text>
-    <body>
-      <schemaSpec ident="Bodley-Consolidation" start="TEI ">
-
-        <!-- Modules -->
-        <!-- TEI module include for overall infrastructure -->
-        <moduleRef key="tei"/>
-
-        <!-- core module -->
-        <moduleRef key="core"
-          include="abbr add address addrLine author
-               bibl biblScope
-               choice citedRange cit corr
-               date del desc
-               editor email expan
-               foreign
-               gap graphic
-               head hi
-               item
-               l label lb
-               lg list listBibl
-               measure
-               name note num
-               orig
-               p pb postCode publisher pubPlace
-               q quote
-               ref reg relatedItem resp respStmt
-               series sic street
-               term textLang title
-               unclear
-            "/>
-
-        <!-- figures module -->
-        <moduleRef key="figures" include="figDesc figure formula"/>
-
-        <!-- header module -->
-        <moduleRef key="header"
-          include="authority availability
-               catDesc category change classDecl correspAction correspContext correspDesc
-               distributor
-               edition editionStmt encodingDesc extent
-               fileDesc funder
-               handNote
-               idno 
-               keywords licence
-               principal profileDesc projectDesc publicationStmt
-               revisionDesc
-               schemaRef scriptNote sourceDesc sponsor
-               taxonomy teiHeader textClass titleStmt typeNote"/>
-
-        <!-- linking module -->
-        <moduleRef key="linking" include="seg"/>
-
-        <!-- msdescription module -->
-        <moduleRef key="msdescription"/>
-
-        <!-- namesdates module -->
-        <moduleRef key="namesdates"
-          include="
-               addName
-               country
-               district
-               forename
-               geogFeat
-               geogName
-               orgName
-               persName
-               placeName
-               region
-               settlement
-               surname
-               "/>
-
-        <!-- textstructure module -->
-        <moduleRef key="textstructure"
-          include="
-               body
-               docAuthor
-               div
-               TEI
-               text
-               "/>
-
-        <!-- transcr module -->
-        <moduleRef key="transcr"
-          include="
-               am
-               ex
-               facsimile
-               supplied surface surfaceGrp
-               zone
-               "/>
-
-
-        <!-- attribute changes -->
-
-
-        <!-- availability/@status: "free, restricted, unknown" are TEI default -->
-
-
-        <!-- bibl/@type
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Bodleian TEI Manuscript Description ODD Customisation</title>
+            </titleStmt>
+            <publicationStmt>
+                <p>Unpublished first draft </p>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Derived from an analysis of 14393 files from ./</p>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <schemaSpec ident="msdesc" start="TEI ">
+                <!-- Modules -->
+                <!-- TEI module include for overall infrastructure -->
+                <moduleRef key="tei"/>
+                <!-- core module -->
+                <moduleRef key="core"
+                    include="
+                        abbr add address addrLine author 
+                        bibl biblScope 
+                        choice citedRange cit corr 
+                        date del desc 
+                        editor email expan 
+                        foreign 
+                        gap graphic 
+                        head hi 
+                        item 
+                        l label lb 
+                        lg list listBibl 
+                        measure 
+                        name note num 
+                        orig 
+                        p pb postCode publisher pubPlace 
+                        q quote 
+                        ref reg relatedItem resp respStmt 
+                        series sic street 
+                        term textLang title 
+                        unclear 
+                    "/>
+                <!-- figures module -->
+                <moduleRef key="figures" include="figDesc figure formula"/>
+                <!-- header module -->
+                <moduleRef key="header"
+                    include="authority availability 
+                        catDesc category change classDecl 
+                        distributor 
+                        edition editionStmt encodingDesc extent 
+                        fileDesc funder 
+                        handNote 
+                        idno 
+                        keywords 
+                        licence 
+                        principal profileDesc projectDesc publicationStmt 
+                        revisionDesc 
+                        scriptNote sourceDesc sponsor 
+                        taxonomy teiHeader textClass titleStmt"/>
+                <!-- linking module -->
+                <moduleRef key="linking" include="seg"/>
+                <!-- msdescription module -->
+                <moduleRef key="msdescription"/>
+                <!-- namesdates module -->
+                <moduleRef key="namesdates"
+                    include="
+                        addName 
+                        country 
+                        district 
+                        forename 
+                        geogFeat 
+                        geogName 
+                        orgName 
+                        persName 
+                        placeName 
+                        region 
+                        settlement 
+                        surname 
+                        "/>
+                <!-- textstructure module -->
+                <moduleRef key="textstructure" 
+                    include="
+                        TEI 
+                        body 
+                        div 
+                        text"/>
+                <!-- transcr module -->
+                <moduleRef key="transcr"
+                    include="
+                        am 
+                        damage 
+                        ex 
+                        facsimile 
+                        subst 
+                        supplied surface surfaceGrp 
+                        zone
+                        "/>
+                <!-- attribute changes -->
+                <!-- availability/@status: "free, restricted, unknown" are TEI default -->
+                <!-- bibl/@type
             full list: LYELL, MS, QUARTO, SC, abridgement, bible, commentedOn, digitised-version, edition, extract, extracts, 
             intervening, ms, realted-volumes, referred, related, related-items, related-volumes, repertory, 
             text-relations, textual-relations, translated, translation
@@ -144,54 +131,49 @@
             translation: keep
             
             -->
-
-
-        <elementSpec ident="bibl" module="core" mode="change">
-          <attList>
-            <attDef ident="type" mode="change">
-              <valList mode="replace" type="semi">
-                <valItem ident="MS">
-                  <desc>The reference is to a manuscript</desc>
-                </valItem>
-                <valItem ident="QUARTO">
-                  <desc>The reference is to the Bodleian Quarto Catalogues</desc>
-                </valItem>
-                <valItem ident="SC">
-                  <desc>The reference is to the Bodleian Summary Catalogue</desc>
-                </valItem>
-                <valItem ident="OC">
-                  <desc>The reference is to the Bodleian Old Catalogue</desc>
-                </valItem>
-                <valItem ident="bible">
-                  <desc>The reference is to the bible</desc>
-                </valItem>
-                <valItem ident="commentary">
-                  <desc>The reference is to a commentary</desc>
-                </valItem>
-                <valItem ident="edition">
-                  <desc>The reference is to an edition</desc>
-                </valItem>
-                <valItem ident="extract">
-                  <desc>The reference is to an extract</desc>
-                </valItem>
-                <valItem ident="related">
-                  <desc>The reference is to a related item</desc>
-                </valItem>
-                <valItem ident="text-relations">
-                  <desc>The reference is to a textually-related item</desc>
-                </valItem>
-                <valItem ident="translation">
-                  <desc>The reference is to a translation</desc>
-                </valItem>
-              </valList>
-            </attDef>
-          </attList>
-        </elementSpec>
-
-
-        <!-- decoNote/@type -->
-
-        <!-- 
+                <elementSpec ident="bibl" module="core" mode="change">
+                    <attList>
+                        <attDef ident="type" mode="change">
+                            <valList mode="replace" type="semi">
+                                <valItem ident="MS">
+                                    <desc>The reference is to a manuscript</desc>
+                                </valItem>
+                                <valItem ident="QUARTO">
+                                    <desc>The reference is to the Bodleian Quarto Catalogues</desc>
+                                </valItem>
+                                <valItem ident="SC">
+                                    <desc>The reference is to the Bodleian Summary Catalogue</desc>
+                                </valItem>
+                                <valItem ident="OC">
+                                    <desc>The reference is to the Bodleian Old Catalogue</desc>
+                                </valItem>
+                                <valItem ident="bible">
+                                    <desc>The reference is to the bible</desc>
+                                </valItem>
+                                <valItem ident="commentary">
+                                    <desc>The reference is to a commentary</desc>
+                                </valItem>
+                                <valItem ident="edition">
+                                    <desc>The reference is to an edition</desc>
+                                </valItem>
+                                <valItem ident="extract">
+                                    <desc>The reference is to an extract</desc>
+                                </valItem>
+                                <valItem ident="related">
+                                    <desc>The reference is to a related item</desc>
+                                </valItem>
+                                <valItem ident="text-relations">
+                                    <desc>The reference is to a textually-related item</desc>
+                                </valItem>
+                                <valItem ident="translation">
+                                    <desc>The reference is to a translation</desc>
+                                </valItem>
+                            </valList>
+                        </attDef>
+                    </attList>
+                </elementSpec>
+                <!-- decoNote/@type -->
+                <!-- 
             Original list: border, bordersInitials, decoration, diagram, diagrams, frieze, illustration, 
             initial, initial_border, initials, marginal, marginalSketches, micrography, miniature, 
             other paratext, printmark, rubrication, secondary, unspecified, unwan
@@ -232,47 +214,45 @@
             rubrication,
             
             -->
-
-
-        <elementSpec ident="decoNote" module="msdescription" mode="change">
-          <attList>
-            <attDef ident="type" mode="change">
-              <valList mode="replace" type="semi">
-                <valItem ident="border">
-                  <desc>The decoration note concerns the border(s)</desc>
-                </valItem>
-                <valItem ident="diagram">
-                  <desc>The decoration note concerns the diagram(s)</desc>
-                </valItem>
-                <valItem ident="illustration">
-                  <desc>The decoration note concerns the illustration(s)</desc>
-                </valItem>
-                <valItem ident="initial">
-                  <desc>The decoration note concerns the initial(s)</desc>
-                </valItem>
-                <valItem ident="marginal">
-                  <desc>The decoration note concerns the marginal decoration</desc>
-                </valItem>
-                <valItem ident="micrography">
-                  <desc>The decoration note concerns the micrography</desc>
-                </valItem>
-                <valItem ident="miniature">
-                  <desc>The decoration note concerns the miniature(s)</desc>
-                </valItem>
-                <valItem ident="rubrication">
-                  <desc>The decoration note concerns the rubrication or other highlighting</desc>
-                </valItem>
-                <valItem ident="other">
-                  <desc>The decoration note concerns other/unspecified aspects (you may also provide a custom value)</desc>
-                </valItem>
-              </valList>
-            </attDef>
-          </attList>
-        </elementSpec>
-
-
-
-        <!-- dimensions/@type
+                <elementSpec ident="decoNote" module="msdescription" mode="change">
+                    <attList>
+                        <attDef ident="type" mode="change">
+                            <valList mode="replace" type="semi">
+                                <valItem ident="border">
+                                    <desc>The decoration note concerns the border(s)</desc>
+                                </valItem>
+                                <valItem ident="diagram">
+                                    <desc>The decoration note concerns the diagram(s)</desc>
+                                </valItem>
+                                <valItem ident="illustration">
+                                    <desc>The decoration note concerns the illustration(s)</desc>
+                                </valItem>
+                                <valItem ident="initial">
+                                    <desc>The decoration note concerns the initial(s)</desc>
+                                </valItem>
+                                <valItem ident="marginal">
+                                    <desc>The decoration note concerns the marginal
+                                        decoration</desc>
+                                </valItem>
+                                <valItem ident="micrography">
+                                    <desc>The decoration note concerns the micrography</desc>
+                                </valItem>
+                                <valItem ident="miniature">
+                                    <desc>The decoration note concerns the miniature(s)</desc>
+                                </valItem>
+                                <valItem ident="rubrication">
+                                    <desc>The decoration note concerns the rubrication or other
+                                        highlighting</desc>
+                                </valItem>
+                                <valItem ident="other">
+                                    <desc>The decoration note concerns other/unspecified aspects
+                                        (you may also provide a custom value)</desc>
+                                </valItem>
+                            </valList>
+                        </attDef>
+                    </attList>
+                </elementSpec>
+                <!-- dimensions/@type
             
             original: binding, book, folia, leaf, leaves, line-height, membrane, 'number of photograph', printed, ruled, ruledColumn, ruling, unknown, written
             
@@ -296,41 +276,37 @@
             binding, folia, leaf, line-height, ruled, written, other
             
             -->
-
-
-        <elementSpec ident="dimensions" module="msdescription" mode="change">
-          <attList>
-            <attDef ident="type" mode="change">
-              <valList mode="replace" type="semi">
-                <valItem ident="binding">
-                  <desc>The dimensions concerns the binding(s)</desc>
-                </valItem>
-                <valItem ident="folia">
-                  <desc>The dimensions concerns the folia as a whole</desc>
-                </valItem>
-                <valItem ident="leaf">
-                  <desc>The dimensions concerns the leaf</desc>
-                </valItem>
-                <valItem ident="line-height">
-                  <desc>The dimensions concerns the line-height</desc>
-                </valItem>
-                <valItem ident="ruled">
-                  <desc>The dimensions concerns the ruling</desc>
-                </valItem>
-                <valItem ident="written">
-                  <desc>The dimensions concerns the written area</desc>
-                </valItem>
-                <valItem ident="other">
-                  <desc>The dimensions concerns other/unspecified aspects (you may also provide a custom value)</desc>
-                </valItem>
-              </valList>
-            </attDef>
-          </attList>
-        </elementSpec>
-
-
-
-        <!--
+                <elementSpec ident="dimensions" module="msdescription" mode="change">
+                    <attList>
+                        <attDef ident="type" mode="change">
+                            <valList mode="replace" type="semi">
+                                <valItem ident="binding">
+                                    <desc>The dimensions concerns the binding(s)</desc>
+                                </valItem>
+                                <valItem ident="folia">
+                                    <desc>The dimensions concerns the folia as a whole</desc>
+                                </valItem>
+                                <valItem ident="leaf">
+                                    <desc>The dimensions concerns the leaf</desc>
+                                </valItem>
+                                <valItem ident="line-height">
+                                    <desc>The dimensions concerns the line-height</desc>
+                                </valItem>
+                                <valItem ident="ruled">
+                                    <desc>The dimensions concerns the ruling</desc>
+                                </valItem>
+                                <valItem ident="written">
+                                    <desc>The dimensions concerns the written area</desc>
+                                </valItem>
+                                <valItem ident="other">
+                                    <desc>The dimensions concerns other/unspecified aspects (you may
+                                        also provide a custom value)</desc>
+                                </valItem>
+                            </valList>
+                        </attDef>
+                    </attList>
+                </elementSpec>
+                <!--
                name/@type
             Original: " (28) | artist (1) | church (1) | corporate (563) | dedicatee (1) | org (2) | person (8510) | place (10) | unknown (4) "
             
@@ -351,37 +327,31 @@
             unknown
             
             -->
-
-
-        <elementSpec ident="name" module="core" mode="change">
-          <attList>
-            <attDef ident="type" mode="change">
-              <valList mode="replace" type="semi">
-                <valItem ident="person">
-                  <desc>The name is of a person</desc>
-                </valItem>
-                <valItem ident="place">
-                  <desc>The name is of a place</desc>
-                </valItem>
-                <valItem ident="org">
-                  <desc>The name is of an organisation</desc>
-                </valItem>
-                <valItem ident="unknown">
-                  <desc>The type of name is unknown</desc>
-                </valItem>
-                <valItem ident="other">
-                  <desc>The name is of another type (you may also provide a custom value)</desc>
-                </valItem>
-              </valList>
-            </attDef>
-          </attList>
-        </elementSpec>
-        
-        
-        
-        
-
-        <!-- 
+                <elementSpec ident="name" module="core" mode="change">
+                    <attList>
+                        <attDef ident="type" mode="change">
+                            <valList mode="replace" type="semi">
+                                <valItem ident="person">
+                                    <desc>The name is of a person</desc>
+                                </valItem>
+                                <valItem ident="place">
+                                    <desc>The name is of a place</desc>
+                                </valItem>
+                                <valItem ident="org">
+                                    <desc>The name is of an organisation</desc>
+                                </valItem>
+                                <valItem ident="unknown">
+                                    <desc>The type of name is unknown</desc>
+                                </valItem>
+                                <valItem ident="other">
+                                    <desc>The name is of another type (you may also provide a custom
+                                        value)</desc>
+                                </valItem>
+                            </valList>
+                        </attDef>
+                    </attList>
+                </elementSpec>
+                <!-- 
             
             title/@type
             Original: alt (6286) | alternative (1) | collection (9017) | desc (4269) | general (38) | main (7) | parallel (223) | sub (14) | supplied (60) | uniform (1)
@@ -397,231 +367,221 @@
            collection
            
             -->
-
-
-
-        <elementSpec ident="title" module="core" mode="change">
-          <attList>
-            <attDef ident="type" mode="change">
-              <valList mode="replace" type="semi">
-                <valItem ident="main">
-                  <desc>The title is the main title</desc>
-                </valItem>
-                <valItem ident="sub">
-                  <desc>The title is a subtitle or title of a part</desc>
-                </valItem>
-                <valItem ident="alt">
-                  <desc>The title is an alternate title, translation, or alias</desc>
-                </valItem>
-                <valItem ident="short">
-                  <desc>The title is an abbreviated form of the main title</desc>
-                </valItem>
-                <valItem ident="desc">
-                  <desc>The title is a descriptive paraphrase of the work functioning as a title</desc>
-                </valItem>
-                <valItem ident="collection">
-                  <desc>The title is of a collection</desc>
-                </valItem>
-              </valList>
-            </attDef>
-          </attList>
-        </elementSpec>
-
-
-<!-- Non-TEI-conformant change (as per P5 3.1.0) adding 'hi' to locus -->
-        <elementSpec ident="locus" module="msdescription" mode="change">
-          <content>
-            <alternate minOccurs="0"
-              maxOccurs="unbounded">
-              <textNode/>
-              <classRef key="model.gLike"/>
-              <classRef key="model.hiLike"/>
-            </alternate>
-          </content>
-        </elementSpec>
-
-
-
-
-<!-- Include XInclude into our schema -->
-        <elementSpec ident="include" ns="http://www.w3.org/2001/XInclude" mode="add">
-          <desc xml:lang="en" versionDate="2014-01-12">The W3C XInclude element</desc>
-          <classes>
-            <memberOf key="model.common"/>
-            <memberOf key="model.teiHeaderPart"/>
-          </classes>
-          <content>
-            <elementRef key="fallback" minOccurs="0" maxOccurs="1"/>
-          </content>
-          <attList>
-            <attDef ident="href">
-              <desc xml:lang="en" versionDate="2014-01-12">pointer to the resource being included</desc>
-              <datatype>
-                <dataRef key="teidata.pointer"/>
-              </datatype>
-            </attDef>
-            <attDef ident="parse" usage="opt">
-              <defaultVal>xml</defaultVal>
-              <valList type="closed">
-                <valItem ident="xml"/>
-                <valItem ident="text"/>
-              </valList>
-            </attDef>
-            <attDef ident="xpointer" usage="opt">
-              <datatype>
-                <dataRef key="teidata.text"/>
-              </datatype>
-            </attDef>
-            <attDef ident="encoding" usage="opt">
-              <datatype>
-                <dataRef key="teidata.text"/>
-              </datatype>
-            </attDef>
-            <attDef ident="accept" usage="opt">
-              <datatype>
-                <dataRef key="teidata.text"/>
-              </datatype>
-            </attDef>
-            <attDef ident="accept-charset" usage="opt">
-              <datatype>
-                <dataRef key="teidata.text"/>
-              </datatype>
-            </attDef>
-            <attDef ident="accept-language" usage="opt">
-              <datatype>
-                <dataRef key="teidata.text"/>
-              </datatype>
-            </attDef>
-          </attList>
-        </elementSpec>
-
-        <elementSpec ident="fallback" ns="http://www.w3.org/2001/XInclude" mode="add">
-          <desc  xml:lang="en" versionDate="2014-01-12">Wrapper for fallback elements if an XInclude fails</desc>
-          <content>
-            <alternate>
-              <textNode/>
-              <anyElement/>
-            </alternate>
-            </content>
-        </elementSpec>
-
-
-        <!-- ********************** -->
-        <!-- Schematron constraints -->
-        <!-- ********************** -->
-        
-        <!-- msDesc[1]/@xml:id must match filename -->
-        <elementSpec ident="msDesc" module="msdescription" mode="change">
-          <constraintSpec scheme="isoschematron" ident="msDesc-xmlid">
-            <constraint>
-              <sch:rule context="/tei:TEI[not(contains(base-uri(.), 'genizah-mss'))]">
-                <sch:assert test="matches(@xml:id, 'manuscript_\d+')">The root TEI element must have an @xml:id beginning with "manuscript_" then a number (which must be unique across the entire collection).</sch:assert>
-              </sch:rule>
-              <sch:rule context="/tei:TEI[contains(base-uri(.), 'genizah-mss')]">
-                <sch:assert test="matches(@xml:id, 'volume_\d+')">The root TEI element must have an @xml:id beginning with "volume_" then a number (which must be unique across the entire collection).</sch:assert>
-              </sch:rule>
-            </constraint>
-          </constraintSpec>
-        </elementSpec>
-
-        
-        <!-- author inside msItem must have @key -->
-        <elementSpec ident="author" module="core" mode="change">
-          <constraintSpec ident="author.key.check" scheme="isoschematron">
-            <constraint>
-              <sch:rule context="//tei:msItem//tei:author[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
-                <sch:assert test="@key[matches(., 'person_\d+')]">In the medieval catalogue, the author element, when a child of msItem, must have a key matching the pattern 'person_\d+'.</sch:assert>
-              </sch:rule>
-            </constraint>
-          </constraintSpec>
-        </elementSpec>
-        
-        <!-- persName inside msDesc must have a key -->
-        <elementSpec ident="persName" module="namesdates" mode="change">
-          <constraintSpec ident="persName.key.check" scheme="isoschematron">
-            <constraint>
-              <sch:rule context="//tei:msDesc//tei:persName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
-                <sch:assert test="@key[matches(., 'person_\d+')]">In the medieval catalogue, the persName element, when a descendant of msDesc, must have a key matching the pattern 'person_\d+'.</sch:assert>
-              </sch:rule>
-            </constraint>
-          </constraintSpec>
-        </elementSpec>
-        
-        <!-- placeName inside msDesc must have a key -->
-        <elementSpec ident="placeName" module="namesdates" mode="change">
-          <constraintSpec ident="placeName.key.check" scheme="isoschematron">
-            <constraint>
-              <sch:rule context="//tei:msDesc//tei:placeName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
-                <sch:assert test="@key[matches(., 'place_\d+')]">In the medieval catalogue, the placeName element, when a descendant of msDesc, must have a key matching the pattern 'place_\d+'.</sch:assert>
-              </sch:rule>
-            </constraint>
-          </constraintSpec>
-        </elementSpec>
-        
-        <!-- orgName inside msDesc must have a key -->
-        <elementSpec ident="orgName" module="namesdates" mode="change">
-          <constraintSpec ident="orgName.key.check" scheme="isoschematron">
-            <constraint>
-              <sch:rule context="//tei:msDesc//tei:orgName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
-                <sch:assert test="@key[matches(., 'org_\d+')]">In the medieval catalogue, the orgName element, when a descendant of msDesc, must have a key matching the pattern 'org_\d+'.</sch:assert>
-              </sch:rule>
-            </constraint>
-          </constraintSpec>
-        </elementSpec>
-        
-        <!-- not yet adding a rule about @key for works -->
-        
-        <!-- county inside origin must have a key -->
-        <elementSpec ident="country" module="namesdates" mode="change">
-          <constraintSpec ident="country.key.check" scheme="isoschematron">
-            <constraint>
-              <sch:rule context="//tei:origin//tei:country[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
-                <sch:assert test="@key[matches(., 'place_\d+')]">In the medieval catalogue, the country element, when a descendant of origin, must have a key matching the pattern 'place_\d+'.</sch:assert>
-              </sch:rule>
-            </constraint>
-          </constraintSpec>
-        </elementSpec>
-        
-        <!-- settlement inside origin must have a key -->
-        <elementSpec ident="settlement" module="namesdates" mode="change">
-          <constraintSpec ident="settlement.key.check" scheme="isoschematron">
-            <constraint>
-              <sch:rule context="//tei:origin//tei:settlement[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
-                <sch:assert test="@key[matches(., 'place_\d+')]">In the medieval catalogue, the settlement element, when a descendant of origin, must have a key matching the pattern 'place_\d+'.</sch:assert>
-              </sch:rule>
-            </constraint>
-          </constraintSpec>
-        </elementSpec>
-        
-        <!-- a manuscript must have one or more languages  -->
-        <elementSpec ident="textLang" module="core" mode="change">
-          <constraintSpec ident="textLang.check" scheme="isoschematron">
-            <constraint>
-              <sch:rule context="//tei:msContents[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
-                <sch:assert test="descendant::tei:textLang">In the medieval catalogue, a manuscript must have one or more languages recorded in a textLang element.</sch:assert>
-              </sch:rule>
-              <sch:rule context="//tei:textLang[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
-                <!-- a more detailed rule could be added here, to check correct attribute values -->
-                <sch:assert test="@mainLang">In the medieval catalogue, the nature of languages should be recorded in a mainLang attribute (and if necessary an otherLang attribute) using the relevant IANA codes. For manuscripts with no linguistic content use code 'zxx'.</sch:assert>
-              </sch:rule>
-            </constraint>
-          </constraintSpec>
-        </elementSpec>
-        
-        <!-- support must be recorded in @support attribute -->
-        <elementSpec ident="supportDesc" module="msdescription" mode="change">
-          <constraintSpec ident="supportDesc.check" scheme="isoschematron">
-            <constraint>
-              <sch:rule context="//tei:supportDesc[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
-                <!-- a more detailed rule could be added here, to check correct attribute values -->
-                <sch:assert test="@material">In the medieval catalogue, the writing support of a manuscript must be specified in the material attribute on the element supportDesc.</sch:assert>
-              </sch:rule>
-            </constraint>
-          </constraintSpec>
-        </elementSpec>
-
-
-      </schemaSpec>
-    </body>
-  </text>
+                <elementSpec ident="title" module="core" mode="change">
+                    <attList>
+                        <attDef ident="type" mode="change">
+                            <valList mode="replace" type="semi">
+                                <valItem ident="main">
+                                    <desc>The title is the main title</desc>
+                                </valItem>
+                                <valItem ident="sub">
+                                    <desc>The title is a subtitle or title of a part</desc>
+                                </valItem>
+                                <valItem ident="alt">
+                                    <desc>The title is an alternate title, translation, or
+                                        alias</desc>
+                                </valItem>
+                                <valItem ident="short">
+                                    <desc>The title is an abbreviated form of the main title</desc>
+                                </valItem>
+                                <valItem ident="desc">
+                                    <desc>The title is a descriptive paraphrase of the work
+                                        functioning as a title</desc>
+                                </valItem>
+                                <valItem ident="collection">
+                                    <desc>The title is of a collection</desc>
+                                </valItem>
+                            </valList>
+                        </attDef>
+                    </attList>
+                </elementSpec>
+                <!-- Non-TEI-conformant change (as per P5 3.1.0) adding 'hi' to locus -->
+                <elementSpec ident="locus" module="msdescription" mode="change">
+                    <content>
+                        <alternate minOccurs="0" maxOccurs="unbounded">
+                            <textNode/>
+                            <classRef key="model.gLike"/>
+                            <classRef key="model.hiLike"/>
+                        </alternate>
+                    </content>
+                </elementSpec>
+                <!-- Include XInclude into our schema -->
+                <elementSpec ident="include" ns="http://www.w3.org/2001/XInclude" mode="add">
+                    <desc xml:lang="en" versionDate="2014-01-12">The W3C XInclude element</desc>
+                    <classes>
+                        <memberOf key="model.common"/>
+                        <memberOf key="model.teiHeaderPart"/>
+                    </classes>
+                    <content>
+                        <elementRef key="fallback" minOccurs="0" maxOccurs="1"/>
+                    </content>
+                    <attList>
+                        <attDef ident="href">
+                            <desc xml:lang="en" versionDate="2014-01-12">pointer to the resource
+                                being included</desc>
+                            <datatype>
+                                <dataRef key="teidata.pointer"/>
+                            </datatype>
+                        </attDef>
+                        <attDef ident="parse" usage="opt">
+                            <defaultVal>xml</defaultVal>
+                            <valList type="closed">
+                                <valItem ident="xml"/>
+                                <valItem ident="text"/>
+                            </valList>
+                        </attDef>
+                        <attDef ident="xpointer" usage="opt">
+                            <datatype>
+                                <dataRef key="teidata.text"/>
+                            </datatype>
+                        </attDef>
+                        <attDef ident="encoding" usage="opt">
+                            <datatype>
+                                <dataRef key="teidata.text"/>
+                            </datatype>
+                        </attDef>
+                        <attDef ident="accept" usage="opt">
+                            <datatype>
+                                <dataRef key="teidata.text"/>
+                            </datatype>
+                        </attDef>
+                        <attDef ident="accept-charset" usage="opt">
+                            <datatype>
+                                <dataRef key="teidata.text"/>
+                            </datatype>
+                        </attDef>
+                        <attDef ident="accept-language" usage="opt">
+                            <datatype>
+                                <dataRef key="teidata.text"/>
+                            </datatype>
+                        </attDef>
+                    </attList>
+                </elementSpec>
+                <elementSpec ident="fallback" ns="http://www.w3.org/2001/XInclude" mode="add">
+                    <desc xml:lang="en" versionDate="2014-01-12">Wrapper for fallback elements if an
+                        XInclude fails</desc>
+                    <content>
+                        <alternate>
+                            <textNode/>
+                            <anyElement/>
+                        </alternate>
+                    </content>
+                </elementSpec>
+                <!-- ********************** -->
+                <!-- Schematron constraints -->
+                <!-- ********************** -->
+                <!-- msDesc[1]/@xml:id must match filename -->
+                <elementSpec ident="msDesc" module="msdescription" mode="change">
+                    <constraintSpec scheme="isoschematron" ident="msDesc-xmlid">
+                        <constraint>
+                            <sch:rule context="/tei:TEI[not(contains(base-uri(.), 'genizah-mss'))]">
+                                <sch:assert test="matches(@xml:id, 'manuscript_\d+')">The root TEI element must have an @xml:id beginning with "manuscript_" then a number (which must be unique across the entire collection).</sch:assert>
+                            </sch:rule>
+                            <sch:rule context="/tei:TEI[contains(base-uri(.), 'genizah-mss')]">
+                                <sch:assert test="matches(@xml:id, 'volume_\d+')">The root TEI element must have an @xml:id beginning with "volume_" then a number (which must be unique across the entire collection).</sch:assert>
+                            </sch:rule>
+                        </constraint>
+                    </constraintSpec>
+                </elementSpec>
+                
+                
+                <!-- author inside msItem must have @key -->
+                <elementSpec ident="author" module="core" mode="change">
+                    <constraintSpec ident="author.key.check" scheme="isoschematron">
+                        <constraint>
+                            <sch:rule context="//tei:msItem//tei:author[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                                <sch:assert test="@key[matches(., 'person_\d+')]">In the medieval catalogue, the author element, when a child of msItem, must have a key matching the pattern 'person_\d+'.</sch:assert>
+                            </sch:rule>
+                        </constraint>
+                    </constraintSpec>
+                </elementSpec>
+                
+                <!-- persName inside msDesc must have a key -->
+                <elementSpec ident="persName" module="namesdates" mode="change">
+                    <constraintSpec ident="persName.key.check" scheme="isoschematron">
+                        <constraint>
+                            <sch:rule context="//tei:msDesc//tei:persName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                                <sch:assert test="@key[matches(., 'person_\d+')]">In the medieval catalogue, the persName element, when a descendant of msDesc, must have a key matching the pattern 'person_\d+'.</sch:assert>
+                            </sch:rule>
+                        </constraint>
+                    </constraintSpec>
+                </elementSpec>
+                
+                <!-- placeName inside msDesc must have a key -->
+                <elementSpec ident="placeName" module="namesdates" mode="change">
+                    <constraintSpec ident="placeName.key.check" scheme="isoschematron">
+                        <constraint>
+                            <sch:rule context="//tei:msDesc//tei:placeName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                                <sch:assert test="@key[matches(., 'place_\d+')]">In the medieval catalogue, the placeName element, when a descendant of msDesc, must have a key matching the pattern 'place_\d+'.</sch:assert>
+                            </sch:rule>
+                        </constraint>
+                    </constraintSpec>
+                </elementSpec>
+                
+                <!-- orgName inside msDesc must have a key -->
+                <elementSpec ident="orgName" module="namesdates" mode="change">
+                    <constraintSpec ident="orgName.key.check" scheme="isoschematron">
+                        <constraint>
+                            <sch:rule context="//tei:msDesc//tei:orgName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                                <sch:assert test="@key[matches(., 'org_\d+')]">In the medieval catalogue, the orgName element, when a descendant of msDesc, must have a key matching the pattern 'org_\d+'.</sch:assert>
+                            </sch:rule>
+                        </constraint>
+                    </constraintSpec>
+                </elementSpec>
+                
+                <!-- not yet adding a rule about @key for works -->
+                
+                <!-- county inside origin must have a key -->
+                <elementSpec ident="country" module="namesdates" mode="change">
+                    <constraintSpec ident="country.key.check" scheme="isoschematron">
+                        <constraint>
+                            <sch:rule context="//tei:origin//tei:country[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                                <sch:assert test="@key[matches(., 'place_\d+')]">In the medieval catalogue, the country element, when a descendant of origin, must have a key matching the pattern 'place_\d+'.</sch:assert>
+                            </sch:rule>
+                        </constraint>
+                    </constraintSpec>
+                </elementSpec>
+                
+                <!-- settlement inside origin must have a key -->
+                <elementSpec ident="settlement" module="namesdates" mode="change">
+                    <constraintSpec ident="settlement.key.check" scheme="isoschematron">
+                        <constraint>
+                            <sch:rule context="//tei:origin//tei:settlement[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                                <sch:assert test="@key[matches(., 'place_\d+')]">In the medieval catalogue, the settlement element, when a descendant of origin, must have a key matching the pattern 'place_\d+'.</sch:assert>
+                            </sch:rule>
+                        </constraint>
+                    </constraintSpec>
+                </elementSpec>
+                
+                <!-- a manuscript must have one or more languages  -->
+                <elementSpec ident="textLang" module="core" mode="change">
+                    <constraintSpec ident="textLang.check" scheme="isoschematron">
+                        <constraint>
+                            <sch:rule context="//tei:msContents[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                                <sch:assert test="descendant::tei:textLang">In the medieval catalogue, a manuscript must have one or more languages recorded in a textLang element.</sch:assert>
+                            </sch:rule>
+                            <sch:rule context="//tei:textLang[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                                <!-- a more detailed rule could be added here, to check correct attribute values -->
+                                <sch:assert test="@mainLang">In the medieval catalogue, the nature of languages should be recorded in a mainLang attribute (and if necessary an otherLang attribute) using the relevant IANA codes. For manuscripts with no linguistic content use code 'zxx'.</sch:assert>
+                            </sch:rule>
+                        </constraint>
+                    </constraintSpec>
+                </elementSpec>
+                
+                <!-- support must be recorded in @support attribute -->
+                <elementSpec ident="supportDesc" module="msdescription" mode="change">
+                    <constraintSpec ident="supportDesc.check" scheme="isoschematron">
+                        <constraint>
+                            <sch:rule context="//tei:supportDesc[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                                <!-- a more detailed rule could be added here, to check correct attribute values -->
+                                <sch:assert test="@material">In the medieval catalogue, the writing support of a manuscript must be specified in the material attribute on the element supportDesc.</sch:assert>
+                            </sch:rule>
+                        </constraint>
+                    </constraintSpec>
+                </elementSpec>
+                
+                
+            </schemaSpec>
+        </body>
+    </text>
 </TEI>
