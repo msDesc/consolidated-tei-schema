@@ -776,7 +776,7 @@ declare function bod:centuries($teinodes as element()*, $solrfield as xs:string)
 {
     (: Convert TEI date files into one Solr field for each century covered by 
        the year or year-range specified in @when/@notAfter/@NotBefore attributes :)
-    let $centuries := (
+    let $centuries := distinct-values(
         for $date in $teinodes
             return
             if ($date[@when]) then 
@@ -797,15 +797,21 @@ declare function bod:centuries($teinodes as element()*, $solrfield as xs:string)
             else
                 ()
         )
-    for $century in distinct-values($centuries)
+    return 
+        (
+        for $century in $centuries
         order by $century
         return if (string-length($century) gt 0) then <field name="{ $solrfield }">{ $century }</field> else ()
+        ,
+        if (count($centuries) gt 1) then <field name="{ $solrfield }">Multiple Centuries</field> else ()
+        )
 };
 
 
 declare function bod:centuries($teinodes as element()*, $solrfield as xs:string, $ifnone as xs:string)
 {
-    (: Overload the same function above to handle when nothing is found in the source TEI. Third param should be either a default value to use instead, or 'error' to prevent indexing. :)
+    (: Overload the same function above to handle when nothing is found in the source TEI. Third param should be either a 
+       default value to use instead, or 'error' to prevent indexing. :)
     let $result := bod:centuries($teinodes, $solrfield)
     return if (count($result) eq 0) then
         if (lower-case($ifnone) eq 'error') then
@@ -819,7 +825,10 @@ declare function bod:centuries($teinodes as element()*, $solrfield as xs:string,
 
 declare function bod:materials($teinodes as element()*, $solrfield as xs:string)
 {
-    for $item in distinct-values($teinodes/string(@material))
+    let $materials := distinct-values($teinodes/string(@material))
+    return 
+        (
+        for $item in $materials
         let $material := (
             switch ($item)
                 case "perg" return "Parchment"
@@ -831,12 +840,17 @@ declare function bod:materials($teinodes as element()*, $solrfield as xs:string)
                 default return "Other"
                 )
         return <field name="{ $solrfield }">{ $material }</field>
+        ,
+        (: Add "Mixed" for manuscripts containing multiple materials, not just the ones catalogued as "mixed" :)
+        if (count($materials[not(. eq 'mixed')]) gt 1) then <field name="{ $solrfield }">Mixed</field> else ()
+        )
 };
 
 
 declare function bod:materials($teinodes as element()*, $solrfield as xs:string, $ifnone as xs:string)
 {
-    (: Overload the same function above to handle when nothing is found in the source TEI. Third param should be either a default value to use instead, or 'error' to prevent indexing. :)
+    (: Overload the same function above to handle when nothing is found in the source TEI. Third param should be either a 
+       default value to use instead, or 'error' to prevent indexing. :)
     let $result := bod:materials($teinodes, $solrfield)
     return if (count($result) eq 0) then
         if (lower-case($ifnone) eq 'error') then
@@ -850,15 +864,21 @@ declare function bod:materials($teinodes as element()*, $solrfield as xs:string,
 
 declare function bod:languages($teinodes as element()*, $solrfield as xs:string)
 {
-    let $langCodes := for $attr in $teinodes/@* return if (name($attr) = 'mainLang' or name($attr) = 'otherLangs') then tokenize($attr, ' ') else ()
-    for $code in distinct-values($langCodes)
+    let $langCodes := distinct-values(for $attr in $teinodes/@* return if (name($attr) = 'mainLang' or name($attr) = 'otherLangs') then tokenize($attr, ' ') else ())
+    return
+        (
+        for $code in $langCodes
         return <field name="{ $solrfield }">{ normalize-space(lang:languageCodeLookup($code)) }</field>
+        ,
+        if (count($langCodes) gt 1) then <field name="{ $solrfield }">Multiple Languages</field> else ()
+        )
 };
 
 
 declare function bod:languages($teinodes as element()*, $solrfield as xs:string, $ifnone as xs:string)
 {
-    (: Overload the same function above to handle when nothing is found in the source TEI. Third param should be either a default value to use instead, or 'error' to prevent indexing. :)
+    (: Overload the same function above to handle when nothing is found in the source TEI. Third param should be either a 
+       default value to use instead, or 'error' to prevent indexing. :)
     let $result := bod:languages($teinodes, $solrfield)
     return if (count($result) eq 0) then
         if (lower-case($ifnone) eq 'error') then
