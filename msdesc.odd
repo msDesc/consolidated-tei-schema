@@ -2687,6 +2687,19 @@
                         </alternate>
                     </content>
                 </elementSpec>
+                
+                <!-- add new attribute "mainStructures" to collation -->
+                <elementSpec ident="collation" module="msdescription" mode="change">
+                    <attList>
+                        <attDef ident="mainStructures">
+                            <desc>Specifies the typical quire structure(s) of the book, according to English notation (i.e. the number of folios in the original quire), e.g. <val>8</val>, <val>6 8</val></desc>
+                            <datatype minOccurs="1" maxOccurs="unbounded">
+                                <dataRef key="teidata.count"/>
+                            </datatype>
+                        </attDef>
+                    </attList>
+                </elementSpec>
+                
                 <!-- ********************** -->
                 <!-- Schematron constraints -->
                 <!-- ********************** -->

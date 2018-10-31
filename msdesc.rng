@@ -5,12 +5,13 @@
          xmlns:teix="http://www.tei-c.org/ns/Examples"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2018-10-15T14:55:12Z. .
-TEI Edition: Version 3.4.0. Last updated on
+Schema generated from ODD source 2018-10-31T13:01:04Z. .
+TEI Edition: Version 3.4.0. Last updated on
 	23rd July 2018, revision 1fa0b54
-TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.4.0/
+TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.4.0/
   
---><!----><define name="macro.paraContent">
+--><!--[https://creativecommons.org/licenses/by/4.0/] Creative Commons Attribution 4.0 International-->
+   <define name="macro.paraContent">
       <zeroOrMore>
          <choice>
             <text/>
@@ -5707,6 +5708,16 @@ Suggested values include: 1] paper; 2] parch (parchment) ; 3] mixed</a:documenta
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains a description of how the leaves or bifolia are physically arranged. [10.7.1. Object Description]</a:documentation>
          <ref name="macro.specialPara"/>
          <ref name="att.global.attributes"/>
+         <optional>
+            <attribute name="mainStructures">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Specifies the typical quire structure(s) of the book, according to English notation (i.e. the number of folios in the original quire), e.g. 8, 6 8</a:documentation>
+               <list>
+                  <oneOrMore>
+                     <data type="nonNegativeInteger"/>
+                  </oneOrMore>
+               </list>
+            </attribute>
+         </optional>
          <empty/>
       </element>
    </define>
