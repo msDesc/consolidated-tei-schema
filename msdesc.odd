@@ -2688,6 +2688,15 @@
                     </content>
                 </elementSpec>
                 
+                
+                <!-- allow accMat to contain msPart -->
+                <elementSpec ident="accMat" module="msdescription" mode="change">
+                    <content>
+                        <macroRef key="macro.specialPara"/>
+                        <elementRef key="msPart" minOccurs="0"/>
+                    </content>
+                </elementSpec>
+                
                 <!-- add new attribute "mainStructures" to collation -->
                 <elementSpec ident="collation" module="msdescription" mode="change">
                     <attList>
@@ -2703,6 +2712,10 @@
                 <!-- ********************** -->
                 <!-- Schematron constraints -->
                 <!-- ********************** -->
+                
+                <!-- todo:
+                    origDate must have dating attributes -->
+                
                 <!-- msDesc[1]/@xml:id must match filename -->
                 <elementSpec ident="msDesc" module="msdescription" mode="change">
                     <constraintSpec scheme="isoschematron" ident="msDesc-xmlid">
