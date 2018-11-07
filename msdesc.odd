@@ -27,7 +27,8 @@
     <text>
             
             <body>
-            <divGen type="toc" xml:id="toc"/>
+            <div xml:id="documentation">
+                <divGen type="toc" xml:id="toc"/>
             <div xml:id="introduction">
                 <head>Introduction</head>
                 <p>TEI P5 ODD Customization for <title>Medieval Manuscripts in Oxford
@@ -1990,8 +1991,10 @@
                     <p>For multi-part manuscripts or in other cases where a ‘syntactical’
                         description is required, the <gi>msPart</gi> element should be used. These
                         guidelines recommend the use of <gi>msPart</gi> for: <list>
-                            <item>manuscripts originally separate, bound together at later dates
-                                <!-- todo: define --></item>
+                            <item>'composite' manuscripts as traditionally understood (i.e., manuscripts composted or originally separate 'production units' and/or 'usage units') 
+                                <!-- todo: define composite / multipart -->
+                            
+                            </item>
                             <item>manuscripts with added codicological units</item>
                             <item>palimpsest manuscripts</item>
                             <item>manuscripts with replacement leaves (not very common in the
@@ -2000,7 +2003,11 @@
                             <!-- <item>description of endleaves</item>-->
                             <!-- todo: check and revise if necessary-->
                         </list></p>
-                    <p>The use of <gi>msPart</gi> is not recommended for described added text or
+                    <p>The definition and understanding of composite manuscripts varies between different codicological traditions. The Western tradition has typically understood a composite manuscript to be composed of more than one combined production/usage unit. (For this terminology see Kwakkel 2002). Manuscripts with separate production units, that were not also at some point separate usage units, are not typically catalogued as composite, although the different production units are usually noted in the description. (For a recent example, see Hanna and Rundle, <title>Cat. Christ Church MSS.</title>, MS. 92.) </p>
+                    <!-- todo: ref andrist -->
+                    <!-- todo: more. example: mairhofer. -->
+                    <p>For endleaves, see under <ptr target="#accMat"/></p>
+                    <p>The use of <gi>msPart</gi> is <emph>not</emph> recommended for describing added text or
                         decoration where this has been added on the original codicological unit as a
                         supplement to existing text (rather than, as with a palimpsest, as a
                         replacement for that text).</p>
@@ -2012,6 +2019,8 @@
                             <specDesc key="history"/>
                         </specList>
                     </p>
+                    <!-- todo: use of @type on msPart -->
+                    <p>The element <gi>msFrag</gi> should not be used for this purpose. This element is used for describing manuscripts that have been 'virtually reconstructed' and is not currently used in this project.</p>
                     <p>Each codicological unit should be numbered using arabic numerals (or
                         according to the convention of the existing catalogue in the case of
                         retroconversion) inside the <gi>idno</gi> in the <gi>altIdentifier</gi>
@@ -2231,11 +2240,9 @@
 
 
             </div>
-
-        </body>
-    </text>
-    <back>
-        <div xml:id="schema">
+            </div>
+                <div xml:id="schema">
+                    
             <head>Schema</head>
             <schemaSpec ident="msdesc" start="TEI ">
                 <!-- Modules -->
@@ -2718,7 +2725,7 @@
                 
                 <!-- msDesc[1]/@xml:id must match filename -->
                 <elementSpec ident="msDesc" module="msdescription" mode="change">
-                    <constraintSpec scheme="isoschematron" ident="msDesc-xmlid">
+                    <constraintSpec scheme="schematron" ident="msDesc-xmlid">
                         <constraint>
                             <sch:rule context="/tei:TEI[not(contains(base-uri(.), 'genizah-mss'))]">
                                 <sch:assert test="matches(@xml:id, 'manuscript_\d+')">The root TEI element must have an @xml:id beginning with "manuscript_" then a number (which must be unique across the entire collection).</sch:assert>
@@ -2733,7 +2740,7 @@
                 
                 <!-- author inside msItem must have @key -->
                 <elementSpec ident="author" module="core" mode="change">
-                    <constraintSpec ident="author.key.check" scheme="isoschematron">
+                    <constraintSpec ident="author.key.check" scheme="schematron">
                         <constraint>
                             <sch:rule context="//tei:msItem//tei:author[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
                                 <sch:assert test="@key[matches(., 'person_\d+')]">In the medieval catalogue, the author element, when a child of msItem, must have a key matching the pattern 'person_\d+'.</sch:assert>
@@ -2744,7 +2751,7 @@
                 
                 <!-- persName inside msDesc must have a key -->
                 <elementSpec ident="persName" module="namesdates" mode="change">
-                    <constraintSpec ident="persName.key.check" scheme="isoschematron">
+                    <constraintSpec ident="persName.key.check" scheme="schematron">
                         <constraint>
                             <sch:rule context="//tei:msDesc//tei:persName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
                                 <sch:assert test="@key[matches(., 'person_\d+')]">In the medieval catalogue, the persName element, when a descendant of msDesc, must have a key matching the pattern 'person_\d+'.</sch:assert>
@@ -2755,7 +2762,7 @@
                 
                 <!-- placeName inside msDesc must have a key -->
                 <elementSpec ident="placeName" module="namesdates" mode="change">
-                    <constraintSpec ident="placeName.key.check" scheme="isoschematron">
+                    <constraintSpec ident="placeName.key.check" scheme="schematron">
                         <constraint>
                             <sch:rule context="//tei:msDesc//tei:placeName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
                                 <sch:assert test="@key[matches(., 'place_\d+')]">In the medieval catalogue, the placeName element, when a descendant of msDesc, must have a key matching the pattern 'place_\d+'.</sch:assert>
@@ -2766,7 +2773,7 @@
                 
                 <!-- orgName inside msDesc must have a key -->
                 <elementSpec ident="orgName" module="namesdates" mode="change">
-                    <constraintSpec ident="orgName.key.check" scheme="isoschematron">
+                    <constraintSpec ident="orgName.key.check" scheme="schematron">
                         <constraint>
                             <sch:rule context="//tei:msDesc//tei:orgName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
                                 <sch:assert test="@key[matches(., 'org_\d+')]">In the medieval catalogue, the orgName element, when a descendant of msDesc, must have a key matching the pattern 'org_\d+'.</sch:assert>
@@ -2779,7 +2786,7 @@
                 
                 <!-- county inside origin must have a key -->
                 <elementSpec ident="country" module="namesdates" mode="change">
-                    <constraintSpec ident="country.key.check" scheme="isoschematron">
+                    <constraintSpec ident="country.key.check" scheme="schematron">
                         <constraint>
                             <sch:rule context="//tei:origin//tei:country[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
                                 <sch:assert test="@key[matches(., 'place_\d+')]">In the medieval catalogue, the country element, when a descendant of origin, must have a key matching the pattern 'place_\d+'.</sch:assert>
@@ -2790,7 +2797,7 @@
                 
                 <!-- settlement inside origin must have a key -->
                 <elementSpec ident="settlement" module="namesdates" mode="change">
-                    <constraintSpec ident="settlement.key.check" scheme="isoschematron">
+                    <constraintSpec ident="settlement.key.check" scheme="schematron">
                         <constraint>
                             <sch:rule context="//tei:origin//tei:settlement[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
                                 <sch:assert test="@key[matches(., 'place_\d+')]">In the medieval catalogue, the settlement element, when a descendant of origin, must have a key matching the pattern 'place_\d+'.</sch:assert>
@@ -2801,7 +2808,7 @@
                 
                 <!-- a manuscript must have one or more languages  -->
                 <elementSpec ident="textLang" module="core" mode="change">
-                    <constraintSpec ident="textLang.check" scheme="isoschematron">
+                    <constraintSpec ident="textLang.check" scheme="schematron">
                         <constraint>
                             <sch:rule context="//tei:msContents[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
                                 <sch:assert test="descendant::tei:textLang">In the medieval catalogue, a manuscript must have one or more languages recorded in a textLang element.</sch:assert>
@@ -2816,7 +2823,7 @@
                 
                 <!-- support must be recorded in @support attribute -->
                 <elementSpec ident="supportDesc" module="msdescription" mode="change">
-                    <constraintSpec ident="supportDesc.check" scheme="isoschematron">
+                    <constraintSpec ident="supportDesc.check" scheme="schematron">
                         <constraint>
                             <sch:rule context="//tei:supportDesc[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
                                 <!-- a more detailed rule could be added here, to check correct attribute values -->
@@ -2828,6 +2835,11 @@
                 
                 
             </schemaSpec>
-        </div>
-    </back>
-</TEI>
+        
+    
+
+                </div>
+        </body>
+    </text>
+    
+        </TEI>
