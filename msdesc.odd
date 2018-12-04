@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="http://jenkins.tei-c.org/job/TEIP5/lastSuccessfulBuild/artifact/P5/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="http://jenkins.tei-c.org/job/TEIP5/lastSuccessfulBuild/artifact/P5/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<!--<?xml-model href="http://jenkins.tei-c.org/job/TEIP5/lastSuccessfulBuild/artifact/P5/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://jenkins.tei-c.org/job/TEIP5/lastSuccessfulBuild/artifact/P5/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>-->
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en" xmlns:sch="http://purl.oclc.org/dsdl/schematron">
     <teiHeader>
         <fileDesc>
@@ -16,8 +16,8 @@
             </publicationStmt>
             <notesStmt>
                 <note>Medieval manuscript guidelines written by James Freeman and Matthew Holford and encoded by Matthew Holford</note>
-                <note>Medieval manuscript guidelines owe a debt to those created by Patrick Granholm and
-                    Eva Nyström for <title>Manuscripta</title> and licenced CC BY 4.0</note>
+                <note>Medieval manuscript guidelines owe a debt and incorporate some material from those created by Patrick Granholm and
+                    Eva Nyström for <ref target="https://www.manuscripta.se/"><title>Manuscripta</title></ref> and licenced CC BY 4.0</note>
             </notesStmt>
             <sourceDesc>
                 <p>Born digital</p>
@@ -743,6 +743,27 @@
                                 <!-- todo: check and add more examples: Douce 180, Macregol gospels -->
                             </p>
                         </div>
+                        <div xml:id="msItemandQuires">
+                            <head>Relating manuscript items to quires</head>
+                            <p>Some catalogues/cataloguers indicate the relationship between each item and the quires of the codex. This may be encoded as follows:
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                <msItem>
+                                    <note>Items 2-3 occupy quires 3-4.</note>
+                                </msItem>
+                            </egXML>
+                            </p>
+                        </div>
+                        <div xml:id="generalContentNotes">
+                            <head>General notes on the content</head>
+                            <p>These may be placed at the beginning or end of the <gi>msContents</gi> section in a separate <gi>msItem</gi> element.
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <msItem>
+                                        <note>Items (a)-(i), (j), (k) are in Vienna, Nationalbibl. MS. 415 in the same order.</note>
+                                    </msItem>
+                                </egXML>
+                            </p>
+                        </div>
+                        
                         <div xml:id="addedTexts">
                             <head>Added texts</head>
                             <p>Significant added texts should be described in <gi>msContents</gi>,
@@ -914,6 +935,8 @@
                             <p>Follow the principles of transcription outlined above <ptr
                                     target="#transcription"/> to transcribe the MS. or to encode the
                                 text given in an existing catalogue.</p>
+                            <p>It is assumed that the language of incipits, etc., is the same as the language specified in <gi>textLang</gi>. It is not necessary to use <att>xml:lang</att> to specify the language
+                            of the incipit (etc.), unless multiple languages are involved (e.g. <gi>msItem</gi> with <gi>rubric</gi> in French but <gi>incipit</gi> in Latin).</p>
                             <p>For mutilated items the attribute <att>defective</att> should be
                                 used.
                                 <!-- TODO: specify what this will generate in the browser --></p>
@@ -950,7 +973,7 @@
                                     <!-- Merton College MS. 20 -->
                                     <msItem n="1">
                                         <locus>(fols. 1-14v)</locus>
-                                        <author key="person_100187025">ANSELM</author>
+                                        <author key="person_100187025">Anselm</author>
                                         <title key="work_537">Monologion</title>
                                         <rubric>Incipit epistola Anselmi archiepiscopi ad Lanfrancum
                                             primatem Anglie</rubric>
@@ -1081,7 +1104,7 @@
                             </p>
                             <p>The support material for the codicological unit(s) should be recorded
                                 in the <att>material</att> attribute of <gi>supportDesc</gi>
-                                (values: <val>chart</val>, <val>perg</val> or <val>mixed</val>).
+                                (values: <val>chart</val>, <val>perg</val>, <val>mixed</val>, or <val>other</val>).
                                 Further description of the support should be added in the
                                     <gi>support</gi> element.</p>
                             <div xml:id="support">
@@ -1094,6 +1117,36 @@
                                             with parchment bifolia for the outer and inner leaves of
                                             the quire.</support></egXML>
                                 </p>
+                                
+                                <!-- todo: paperDesc element? -->
+                                <div xml:id="paper">
+                                    <head>Description of paper</head>
+                                    <p>The level of detail in which paper is described will vary: in retroconversion, according to the detail of existing descriptions; in cataloguing afresh, according to the resources available</p>
+                                    <p>The folding of the paper should be recorded using a <gi>measure</gi> element with the <att>type</att> attribute (value: <val>folding</val>)</p>
+                                    <p>The distance between chainlines should be recorded using <gi>dimensions</gi> with <att>type</att> of <val>chainLines</val>, containing a <gi>width</gi> element with <att>quantity</att>.</p>
+                                    <p>The number of laidlines per 20mm. should be recorded using the <gi>measure</gi> element with <att>type</att> of <val>laidLinesIn20mm</val>, <att>unit</att> of <val>lines</val>, and <att>quantity</att> of the relevant number.</p>
+                                    <!-- todo: folding -->
+                                    <div xml:id="watermarks">
+                                        <head>Watermarks</head>
+                                        <p>Describe each watermark in the <gi>watermark</gi> element.</p>
+                                        <p>The motif should be encoded using the <gi>term</gi> element with attribute <att>type</att> of value <val>watermarkMotif</val> and attribute <att>key</att> with the relevant value from the IPH standard.
+                                        
+                                        </p>
+                                        <p>The dimensions of the watermark should be given in a <gi>dimensions</gi> element with <att>type</att> of <val>watermark</val>.</p>
+                                        <p>References to printed repertories should be given in the format specified above at Repertories.</p>
+                                        <!-- todo: references to online repertories -->
+                                        <!-- todo: useful to have a new attribute for a watermark to record whether / how closely it has been matched in a repertory? -->
+                                    </div>
+                                    <div>
+                                        <head>Examples:</head>
+                                        <p>
+                                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                            <watermark><term type="watermarkMotif" key="J3/3">Monts/Dreiberg</term></watermark>
+                                        </egXML>
+                                        </p>
+                                    </div>
+                                </div>
+                                
                                 <!-- TODO: description of paper -->
                                 <!--<p>
                                     For each kind of support material record the extent inside a paragraph, with the <gi>locus</gi> element. Specify the support material in a <gi>material</gi> element. (values: Western paper, Western paper without watermark, Arabic paper, Parchment). For paper note if the folding is Folio, Quarto or Octavo in a <gi>measure</gi> element with the <att>type</att> attribute (value: <val>folding</val>). Give the height and width of the leaves in mm (with 5 mm precision) in the <gi>dimensions</gi> element (<att>type</att> attribute with value <val>leaf</val>).</p>
@@ -1333,11 +1386,11 @@
                                 <p>In retroconversion, if the source catalogue uses "c.", the
                                         <att>precision</att> attribute should be used. (The default
                                     value of <att>precision</att> is assumed to be <val>high</val>.)
-                                        <dimensions type="leaf" unit="mm">
+                                        <egXML xmlns="http://www.tei-c.org/ns/Examples"><dimensions type="leaf" unit="mm">
                                         <height min="290" max="315" precision="medium">c.
                                             290</height>
                                         <width min="160" max="180" precision="medium">c. 160</width>
-                                    </dimensions>
+                                    </dimensions></egXML>
                                 </p>
                                 <p>If there is evidence of cropping (e.g. loss of text in the
                                     margins), record this using the attribute <att>cert</att> with
@@ -1483,9 +1536,17 @@
                         </div>
                         <div xml:id="collation">
                             <head>Collation</head>
-                            <p><!-- todo --></p>
-                            <p>Record the quire signatures in the <gi>signatures</gi> element.</p>
+                            <p>The collation formula should be given inside the <gi>formula</gi> element.</p>
+                            <p>The <att>mainStructures</att> attribute may be used to record the most frequently-occuring quire structure(s). The value of the attribute should be the number of leaves in the most frequently-occuring structure(s). A single value indicates that the given quire structure occurs in approximately 80% or more of quires. Multiple values indicate that the given structures in combination account for approximately 80% or more of quires; the most frequently-occuring structure should be placed first.
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <collation mainStructures="8"><formula>I-XXII(8), XXIII(3)</formula></collation>
+                                    <collation mainStructures="12 16"><formula>I(14), II-III(12), IV(16), V-VI(12), VII(16), VIII-XI(12), XII(16), XIII(12), XIV(16), XV(10), XVI(16), XVII(13)</formula></collation>
+                                </egXML>
+                                
+                                </p>
+                            <p>Record quire or leaf signatures in the <gi>signatures</gi> element.</p>
                             <p>Record the catchwords in the <gi>catchwords</gi> element.</p>
+                            <p>For multi-part manuscripts, the collation of each part should be recorded separately. In retroconversion this is likely to involve reorganization of the formula.</p>
                             <!-- todo: examples -->
                         </div>
                         <div xml:id="condition">
@@ -1522,6 +1583,7 @@
                     </div>
                     <div xml:id="layoutdesc">
                         <head>Layout Description</head>
+                        <p>The layout section (which might more fully be called ‘layout and preparation of the page’) should be used to record: written and/or ruled space (but see also under Extent); number of columns and number of written and/or ruled lines; how and according to what pattern ruling was executed; whether the writing is ‘above’ or ‘below’ top line; and evidence for pricking of the page.</p>
                         <p>Give the number of columns and ruled lines in the <gi>layout</gi> element
                             using the <att>columns</att> and <att>ruledLines</att> or
                                 <att>writtenLines</att> attribute. If the number of written or ruled
@@ -1547,16 +1609,15 @@
                             dimensions of columns and intercolumnar margins for the more complex,
                             multi-column layouts such as those found in glossed books. Give a prose
                             description in a <gi>note</gi> element instead. </p>
-                        <p>If the layout shows great variation and cannot be expressed using the
-                                <att>columns</att>, <att>ruledLines</att> or <att>writtenLines</att>
-                            attributes, <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                        <p>Record the written (and/or ruled) space in the <gi>dimensions</gi> element with <att>type</att> of <val>written</val>/<val>ruled</val> as appropriate.</p>
+                        <p> <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                 <layoutDesc>
                                     <layout columns="2" writtenLines="24 52">
                                         <locus from="29r" to="30v" scheme="folios">Fols.
                                             29r-30v</locus>: written space <dimensions
                                             type="written">
-                                            <height quantity="165" unit="mm"/>
-                                            <width quantity="115" unit="mm"/>
+                                            <height quantity="165" unit="mm">165</height>
+                                            <width quantity="115" unit="mm">115</width>
                                         </dimensions>
                                         <note>Main text always 24 lines per page. In the commentary
                                             surrounding the main text there around twice as many
@@ -1564,6 +1625,8 @@
                                     </layout> </layoutDesc>
                             </egXML>
                         </p>
+                        <p>If the layout varies between different sections of the manuscript, use separate <gi>layout</gi> elements to record this.</p>
+                        <!-- check / todo: treat commentary and main text in separate layout elements? -->
                     </div>
 
 
@@ -1796,15 +1859,18 @@
 
                 </div>
 
-                <div xml:id="historyBook">
+                <div xml:id="history">
                     <head>History</head>
                     <p>The <gi>history</gi> element should include information about the origin,
                         provenance and acquisition of the manuscript.</p>
                     <div xml:id="origin">
+                        <head>Origin</head>
                         <p>In the <gi>origin</gi> element specify date (<gi>origDate</gi>) and place
-                                (<gi>origPlace</gi>)<!--with the help of internal or other evidence-->. </p>
+                                (<gi>origPlace</gi>) (if known) of the manuscript's production.</p>
                         <!-- todo: more guidance on style and values -->
-                        <p>Dating attributes from the set <att>notBefore</att>, <att>notAfter</att>,
+                        <div type="origDate">
+                            <head>origDate</head>
+                            <p>Dating attributes from the set <att>notBefore</att>, <att>notAfter</att>,
                             and <att>when</att> MUST be used for <gi>origDate</gi></p>
                         <p>In retroconversion, the values given to the element and its attributes
                             should reflect the conventions of the particular catalogue as expressed
@@ -1817,7 +1883,16 @@
                                         rend="superscript">in</hi></origDate>
                             </egXML>
                         </p>
-                        <p>Dates should be inclusive, i.e. 1000-1050, not 1001-1050 or
+                        <p>Values used in the Bodleian catalogues (intended to capture the usage of the Summary Catalogue and Paecht and Alexander) are as follows:
+                        <table>
+                            <row><cell>Early 14th century</cell><cell>1300-1310</cell></row>
+                            <row><cell>Mid 14th century</cell><cell>1340-1360</cell></row>
+                            <row><cell>Late 14th century</cell><cell>1390-1400</cell></row>
+                            <row><cell>14th century, first quarter</cell><cell>1300-1325</cell></row>
+                        </table>
+                            Etc.
+                        </p>
+                        <p>Values of dating attributes should be inclusive, i.e. 1000-1050, not 1001-1050 or
                             1000-1049.</p>
                         <p>The attribute <att>evidence</att> MAY be used to indicate the evidence
                             for dating and localization. It is assumed that this will usually be
@@ -1826,24 +1901,33 @@
                             SHOULD be indicated using the attribute <att>cert</att> with value
                                 <val>high</val>, and the nature of the evidence may be specified
                             with the <att>evidence</att> attribute.</p>
-                        <!-- todo: values? -->
-                        <p>The content of <gi>origPlace</gi> should where possible be structured in
+                        <p>For manuscripts with significant later additions, textual or decorative,
+                            use additional <gi>origDate</gi> elements with <att>type</att> of
+                            <val>additions</val></p></div>
+                       <div xml:id="origPlace">
+                           <head>origPlace</head>
+                           <p>The content of <gi>origPlace</gi> should where possible be structured in
                             the order (where relevant), country, settlement, institution. These
                             should be marked up using the <gi>country</gi>, <gi>settlement</gi>, and
                                 <gi>org</gi> elements, which MUST have attributes <att>key</att>
                             linking to the places authority file.</p>
-                        <p>For manuscripts with significant later additions, textual or decorative,
-                            use additional <gi>origDate</gi> elements with <att>type</att> of
-                                <val>additions</val></p>
-                        <p>Likewise, for manuscripts produced in more than one location, use
-                            multiple <gi>origPlace</gi> elements.</p>
-                        <p>Countries of origin are typically expressed with reference to modern
+                           <p>There MUST be a country or country-like entity (see below), inside a <gi>country</gi> tag, if the <gi>origPlace</gi> element is used.</p>
+                           <p>Countries of origin are typically expressed with reference to modern
                             countries with some exceptions. Examples: England, France, Spain, Italy,
                             Germany, Austria, Switzerland, but Bohemia, Dalmatia, Serbia,
                             Flanders.</p>
+                        <p>For manuscripts with significant later additions, textual or decorative,
+                            use additional <gi>origDate</gi> elements with <att>type</att> of
+                                <val>additions</val></p>
+                           <p>For manuscripts produced in more than one place, use multiple <gi>origDate</gi> elements; for manuscripts with significant later additions, textual or decorative,
+                               use additional <gi>origPlace</gi> elements with <att>type</att> of
+                               <val>additions</val>, 
+                            multiple <gi>origPlace</gi> elements.</p>
+                        </div>
                         <!-- TODO: examples -->
                     </div>
                     <div xml:id="provenance">
+                        <head>Provenance</head>
                         <p>Record the different stages in the provenance in one or more
                                 <gi>provenance</gi> elements.</p>
                         <p>There are different conventions for the presentation of provenance
@@ -1856,6 +1940,7 @@
 
                     </div>
                     <div xml:id="acquisition">
+                        <head>Acquisition</head>
                         <p>The <gi>acquisition</gi> element should describe the last stage of the
                             manuscript's history, i.e. how it was acquired by its present owners. It
                             SHOULD have relevant dating attributes.</p>
@@ -1898,13 +1983,14 @@
                                 <gi>bibl</gi> elements.</p>
                         <p>
                             <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                                <source>Description adapted from <bibl><title>The Douce
+                                <source>Description adapted (2018) from the following sources:
+                                    <listBibl><bibl><title>The Douce
                                             Legacy</title> (1984), no. 244</bibl>; <bibl>Pächt and
                                         Alexander</bibl>; and <bibl>S. J. P. Van Dijk,
                                             <title>Handlist of the Latin Liturgical Manuscripts in
                                             the Bodleian Library Oxford : Vol. 2: Office
-                                            Books</title> (typescript, 1957)</bibl>; additional
-                                    description of content and decoration by Matthew Holford, March
+                                            Books</title> (typescript, 1957)</bibl></listBibl>
+                                    Additional description of content and decoration by Matthew Holford, March
                                     2018. Previously described in the Summary Catalogue. <listBibl>
                                         <bibl type="SC" facs="aaz0626.gif">Summary Catalogue, vol.
                                             4, p. 607</bibl>
@@ -1917,7 +2003,7 @@
 
                     <div xml:id="surrogates">
                         <head>Surrogates</head>
-                        <p>The <gi>surrogates</gi> element is used to link to digital facsimiles
+                        <p>The <gi>surrogates</gi> element is used to link to digital or other facsimiles
                             where these are hosted independently from the catalogue. The structure
                             of a typical entry is shown below. The <att>subtype</att> attribute on
                             the <gi>bibl</gi> element has the values <val>full</val>, where a
@@ -1944,10 +2030,10 @@
                             this catalogue only major printed descriptions or reproductions of the
                             manuscript are listed here; other items should be recorded in the Zotero
                             bibliography. The works should be listed in a chronological order, with
-                            the newest item first.</p>
+                            the most recent item first.</p>
                         <p>This section is also used to provide links to online resources such as
                             Pinakes, Trismegistos, JONAS etc. Online resources are placed in a
-                            separate <gi>listBibl</gi> element with the heading <gi>head</gi>.</p>
+                            separate <gi>listBibl</gi> element with the heading <gi>head</gi> 'Online resources:'.</p>
                         <p><egXML xmlns="http://www.tei-c.org/ns/Examples">
                                 <additional>
                                     <listBibl type="WRAPPER">
@@ -1992,7 +2078,7 @@
                         guidelines recommend the use of <gi>msPart</gi> for: <list>
                             <item>manuscripts originally separate, bound together at later dates
                                 <!-- todo: define --></item>
-                            <item>manuscripts with added codicological units</item>
+                            <item>manuscripts with added codicological units</item><!-- todo: example? -->
                             <item>palimpsest manuscripts</item>
                             <item>manuscripts with replacement leaves (not very common in the
                                 Western manuscript tradition, relatively common in the Greek
@@ -2003,7 +2089,8 @@
                     <p>The use of <gi>msPart</gi> is not recommended for described added text or
                         decoration where this has been added on the original codicological unit as a
                         supplement to existing text (rather than, as with a palimpsest, as a
-                        replacement for that text).</p>
+                        replacement for that text). In those cases, use of multiple <gi>origDate</gi> and/or <gi>origPlace</gi> elements is recommended; see above.</p>
+                    <p>Endleaves should be described using the <gi>accMat</gi> element (q.v.)</p>
                     <p>Each codicological unit should be described in a separate <gi>msPart</gi>
                         element using the following elements: <specList>
                             <specDesc key="msIdentifier"/>
@@ -2233,8 +2320,7 @@
             </div>
 
         </body>
-    </text>
-    <back>
+         <back>
         <div xml:id="schema">
             <head>Schema</head>
             <schemaSpec ident="msdesc" start="TEI ">
@@ -2709,12 +2795,53 @@
                     </attList>
                 </elementSpec>
                 
+                
+                <!-- add new attributes "topLine" and "rulingMedium" to layout -->
+                <elementSpec ident="layout" module="msdescription" mode="change">
+                    <attList>
+                        <attDef ident="topLine">
+                            <desc>Specifies the whether the writing is above top line, below top line, or mixed.</desc>
+                            <valList type="closed">
+                                <valItem ident="above">
+                                    <desc>The writing is above top line.</desc>
+                                </valItem>
+                                <valItem ident="below">
+                                    <desc>The writing is below top line.</desc>
+                                </valItem>
+                                <valItem ident="mixed">
+                                    <desc>The writing is variously above and below top line with no clear pattern.</desc>
+                                </valItem>
+                                
+                            </valList>
+                        </attDef>
+                        <attDef ident="rulingMedium">
+                            <desc>Specifies the medium used to carry out the ruling.</desc>
+                            <datatype minOccurs="1" maxOccurs="1">
+                                <dataRef key="teidata.enumerated"></dataRef>
+                            </datatype>
+                            <valList type="semi">
+                                <valItem ident="ink">
+                                    <desc>The ruling is carried out using ink.</desc>
+                                </valItem>
+                                <valItem ident="leadpoint">
+                                    <desc>The ruling is carried out using leadpoint or plummet.</desc>
+                                </valItem>
+                                <valItem ident="hardpoint">
+                                    <desc>The ruling is carried out using hardpoint or drypoint.</desc>
+                                </valItem>
+                                <valItem ident="crayon">
+                                    <desc>The ruling is carried out using ‘crayon’.</desc>
+                                </valItem>
+                                
+                            </valList>
+                        </attDef>
+                    </attList>
+                </elementSpec>
+                
                 <!-- ********************** -->
                 <!-- Schematron constraints -->
                 <!-- ********************** -->
-                
-                <!-- todo:
-                    origDate must have dating attributes -->
+             
                 
                 <!-- msDesc[1]/@xml:id must match filename -->
                 <elementSpec ident="msDesc" module="msdescription" mode="change">
@@ -2826,8 +2953,32 @@
                     </constraintSpec>
                 </elementSpec>
                 
+                <!-- binding element must have dating attributes -->
+                <elementSpec ident="binding" module="msdescription" mode="change">
+                    <constraintSpec ident="binding.check" scheme="isoschematron">
+                        <constraint>
+                            <sch:rule context="//tei:binding[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                                <sch:assert test="@when|@notBefore|@notAfter">In the medieval catalogue, the binding element must have dating attributes.</sch:assert>
+                            </sch:rule>
+                        </constraint>
+                    </constraintSpec>
+                </elementSpec>
+                
+                <!-- origDate element must have dating attributes -->
+                <elementSpec ident="origDate" module="msdescription" mode="change">
+                    <constraintSpec ident="origDate.check" scheme="isoschematron">
+                        <constraint>
+                            <sch:rule context="//tei:origDate[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                                <sch:assert test="@when|@notBefore|@notAfter">In the medieval catalogue, the origDate element must have dating attributes.</sch:assert>
+                            </sch:rule>
+                        </constraint>
+                    </constraintSpec>
+                </elementSpec>
+                
                 
             </schemaSpec>
         </div>
     </back>
+    </text>
+   
 </TEI>

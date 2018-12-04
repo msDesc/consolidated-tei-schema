@@ -5,7 +5,7 @@
          xmlns:teix="http://www.tei-c.org/ns/Examples"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2018-11-01T17:13:03Z. .
+Schema generated from ODD source 2018-12-04T16:13:17Z. .
 TEI Edition: Version 3.4.0. Last updated on
 	23rd July 2018, revision 1fa0b54
 TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.4.0/
@@ -5085,6 +5085,14 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
                <ref name="model.global"/>
             </choice>
          </zeroOrMore>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="msdesc-origDate-origDate.check-constraint-rule-15">
+            <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      context="//tei:origDate[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+               <sch:assert test="@when|@notBefore|@notAfter">In the medieval catalogue, the origDate element must have dating attributes.</sch:assert>
+            </sch:rule>
+         </pattern>
          <ref name="att.global.attributes"/>
          <ref name="att.datable.attributes"/>
          <ref name="att.dimensions.attributes"/>
@@ -5110,7 +5118,7 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(second folio) marks the word or words taken from a fixed point in a codex (typically the beginning of the second leaf) in order to provide a unique identifier for it.  [10.3.7. Catchwords, Signatures, Secundo Folio]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-secFol-secFol_in_msDesc-constraint-assert-14">
+                  id="msdesc-secFol-secFol_in_msDesc-constraint-assert-15">
             <rule context="tei:secFol">
                <sch:assert xmlns:rng="http://relaxng.org/ns/structure/1.0"
                            xmlns="http://www.tei-c.org/ns/1.0"
@@ -5128,7 +5136,7 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains discussion of the leaf or quire signatures found within a codex. [10.3.7. Catchwords, Signatures, Secundo Folio]</a:documentation>
          <ref name="macro.specialPara"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-signatures-signatures_in_msDesc-constraint-assert-15">
+                  id="msdesc-signatures-signatures_in_msDesc-constraint-assert-16">
             <rule context="tei:signatures">
                <sch:assert xmlns:rng="http://relaxng.org/ns/structure/1.0"
                            xmlns="http://www.tei-c.org/ns/1.0"
@@ -5667,7 +5675,7 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
             </group>
          </choice>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-supportDesc-supportDesc.check-constraint-rule-15">
+                  id="msdesc-supportDesc-supportDesc.check-constraint-rule-16">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="//tei:supportDesc[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
@@ -5768,6 +5776,38 @@ Suggested values include: 1] paper; 2] parch (parchment) ; 3] mixed</a:documenta
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">describes how text is laid out on the page, including information about any ruling, pricking, or other evidence of page-preparation techniques. [10.7.2. Writing, Decoration, and Other Notations]</a:documentation>
          <ref name="macro.specialPara"/>
          <ref name="att.global.attributes"/>
+         <optional>
+            <attribute name="topLine">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Specifies the whether the writing is above top line, below top line, or mixed.</a:documentation>
+               <choice>
+                  <value>above</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The writing is above top line.</a:documentation>
+                  <value>below</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The writing is below top line.</a:documentation>
+                  <value>mixed</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The writing is variously above and below top line with no clear pattern.</a:documentation>
+               </choice>
+            </attribute>
+         </optional>
+         <optional>
+            <attribute name="rulingMedium">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Specifies the medium used to carry out the ruling.
+Suggested values include: 1] ink; 2] leadpoint; 3] hardpoint; 4] crayon</a:documentation>
+               <choice>
+                  <value>ink</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The ruling is carried out using ink.</a:documentation>
+                  <value>leadpoint</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The ruling is carried out using leadpoint or plummet.</a:documentation>
+                  <value>hardpoint</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The ruling is carried out using hardpoint or drypoint.</a:documentation>
+                  <value>crayon</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The ruling is carried out using ‘crayon’.</a:documentation>
+                  <data type="token">
+                     <param name="pattern">(\p{L}|\p{N}|\p{P}|\p{S})+</param>
+                  </data>
+               </choice>
+            </attribute>
+         </optional>
          <optional>
             <attribute name="columns">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">specifies the number of columns per page</a:documentation>
@@ -6021,6 +6061,14 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
                <ref name="decoNote"/>
             </choice>
          </oneOrMore>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="msdesc-binding-binding.check-constraint-rule-17">
+            <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      context="//tei:binding[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+               <sch:assert test="@when|@notAfter|@notBefore">In the medieval catalogue, the binding element must have dating attributes.</sch:assert>
+            </sch:rule>
+         </pattern>
          <ref name="att.global.attributes"/>
          <ref name="att.datable.attributes"/>
          <optional>
@@ -6628,7 +6676,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(organization name) contains an organizational name. [13.2.2. Organizational Names]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-orgName-orgName.key.check-constraint-rule-16">
+                  id="msdesc-orgName-orgName.key.check-constraint-rule-18">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="//tei:msDesc//tei:orgName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
@@ -6648,7 +6696,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(personal name) contains a proper noun or proper-noun phrase referring to a person, possibly including one or more of the person's forenames, surnames, honorifics, added names, etc. [13.2.1. Personal Names]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-persName-persName.key.check-constraint-rule-17">
+                  id="msdesc-persName-persName.key.check-constraint-rule-19">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="//tei:msDesc//tei:persName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
@@ -6698,7 +6746,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains an absolute or relative place name. [13.2.3. Place Names]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-placeName-placeName.key.check-constraint-rule-18">
+                  id="msdesc-placeName-placeName.key.check-constraint-rule-20">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="//tei:msDesc//tei:placeName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
@@ -6718,7 +6766,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains the name of a geo-political unit, such as a nation, country, colony, or commonwealth, larger than or administratively superior to a region and smaller than a bloc. [13.2.3. Place Names]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-country-country.key.check-constraint-rule-19">
+                  id="msdesc-country-country.key.check-constraint-rule-21">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="//tei:origin//tei:country[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
@@ -6748,7 +6796,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains the name of a settlement such as a city, town, or village identified as a single geo-political or administrative unit. [13.2.3. Place Names]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-settlement-settlement.key.check-constraint-rule-20">
+                  id="msdesc-settlement-settlement.key.check-constraint-rule-22">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="//tei:origin//tei:settlement[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
@@ -7426,7 +7474,7 @@ Sample values include: 1] glued; 2] pinned; 3] sewn</a:documentation>
             </choice>
          </oneOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-subst-substContents1-constraint-assert-22">
+                  id="msdesc-subst-substContents1-constraint-assert-24">
             <rule context="tei:subst">
                <assert xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                        test="child::tei:add and child::tei:del">
