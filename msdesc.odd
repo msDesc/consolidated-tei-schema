@@ -27,7 +27,8 @@
     <text>
             
             <body>
-            <divGen type="toc" xml:id="toc"/>
+            <div xml:id="documentation">
+                <divGen type="toc" xml:id="toc"/>
             <div xml:id="introduction">
                 <head>Introduction</head>
                 <p>TEI P5 ODD Customization for <title>Medieval Manuscripts in Oxford
@@ -2076,9 +2077,11 @@
                     <p>For multi-part manuscripts or in other cases where a ‘syntactical’
                         description is required, the <gi>msPart</gi> element should be used. These
                         guidelines recommend the use of <gi>msPart</gi> for: <list>
+
                             <item>manuscripts originally separate, bound together at later dates
                                 <!-- todo: define --></item>
                             <item>manuscripts with added codicological units</item><!-- todo: example? -->
+
                             <item>palimpsest manuscripts</item>
                             <item>manuscripts with replacement leaves (not very common in the
                                 Western manuscript tradition, relatively common in the Greek
@@ -2086,7 +2089,11 @@
                             <!-- <item>description of endleaves</item>-->
                             <!-- todo: check and revise if necessary-->
                         </list></p>
-                    <p>The use of <gi>msPart</gi> is not recommended for described added text or
+                    <p>The definition and understanding of composite manuscripts varies between different codicological traditions. The Western tradition has typically understood a composite manuscript to be composed of more than one combined production/usage unit. (For this terminology see Kwakkel 2002). Manuscripts with separate production units, that were not also at some point separate usage units, are not typically catalogued as composite, although the different production units are usually noted in the description. (For a recent example, see Hanna and Rundle, <title>Cat. Christ Church MSS.</title>, MS. 92.) </p>
+                    <!-- todo: ref andrist -->
+                    <!-- todo: more. example: mairhofer. -->
+                    <p>For endleaves, see under <ptr target="#accMat"/></p>
+                    <p>The use of <gi>msPart</gi> is <emph>not</emph> recommended for describing added text or
                         decoration where this has been added on the original codicological unit as a
                         supplement to existing text (rather than, as with a palimpsest, as a
                         replacement for that text). In those cases, use of multiple <gi>origDate</gi> and/or <gi>origPlace</gi> elements is recommended; see above.</p>
@@ -2099,6 +2106,8 @@
                             <specDesc key="history"/>
                         </specList>
                     </p>
+                    <!-- todo: use of @type on msPart -->
+                    <p>The element <gi>msFrag</gi> should not be used for this purpose. This element is used for describing manuscripts that have been 'virtually reconstructed' and is not currently used in this project.</p>
                     <p>Each codicological unit should be numbered using arabic numerals (or
                         according to the convention of the existing catalogue in the case of
                         retroconversion) inside the <gi>idno</gi> in the <gi>altIdentifier</gi>
@@ -2319,9 +2328,10 @@
 
             </div>
 
-        </body>
-         <back>
-        <div xml:id="schema">
+            </div>
+                <div xml:id="schema">
+                    
+
             <head>Schema</head>
             <schemaSpec ident="msdesc" start="TEI ">
                 <!-- Modules -->
@@ -2977,8 +2987,13 @@
                 
                 
             </schemaSpec>
-        </div>
-    </back>
+
+        
+    
+
+                </div>
+        </body>
     </text>
-   
-</TEI>
+    
+        </TEI>
+
