@@ -22,6 +22,9 @@
                     those created by Patrick Granholm and Eva Nyström for <ref
                         target="https://www.manuscripta.se/"><title>Manuscripta</title></ref> and
                     licenced CC BY 4.0</note>
+                <note>Additional guidelines for non-medieval manuscripts added from <ref
+                        target="https://github.com/fihristorg/fihrist-mss/raw/master/archive/old_manual.pdf"
+                        >Fihrist Cataloguing Manual</ref></note>
             </notesStmt>
             <sourceDesc>
                 <p>Born digital</p>
@@ -36,8 +39,8 @@
                 <head>Encoding guidelines</head>
                 <div xml:id="introduction">
                     <head>Introduction</head>
-                    <p>TEI P5 ODD Customization for <title>Medieval Manuscripts in Oxford
-                            Libaries</title>
+                    <p>TEI P5 ODD Customization for <title>Manuscripts in Oxford Libaries and the
+                            Fihrist and Senmai union catalogues</title>
                         <!--was created by Patrik Granholm and Eva Nyström, and is released under a <ref target="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International license</ref>.--></p>
                 </div>
                 <!-- todo: general intro, principles, differences from usual TEI, camelCase for attributes -->
@@ -312,7 +315,10 @@
 
                             <!-- TODO: add title type="collection" and explain -->
 
-                            <p>The <gi>titleStmt</gi> element must contain (1) a <gi>title</gi>
+                            <p>The <gi>titleStmt</gi> element summarizes the scope and authorship of
+                                the TEI file, and the cataloguing project of which it is a part,
+                                rather than for the manuscript itself (which is described in the
+                                    <gi>sourceDesc</gi>). It must contain (1) a <gi>title</gi>
                                 element containing the manuscript shelfmark, (2) a <gi>title</gi>
                                 element with <att>type</att> attribute of value
                                     <val>collection</val> describing the collection of which the
@@ -342,6 +348,7 @@
                                 <specList>
                                     <specDesc key="titleStmt"/>
                                     <specDesc key="title"/>
+                                    <specDesc key="funder"/>
                                     <specDesc key="respStmt" atts="xml:id"/>
                                     <specDesc key="persName" atts="ref"/>
                                     <specDesc key="resp" atts="key"/>
@@ -351,10 +358,10 @@
                         <div xml:id="responsibility">
                             <head>Responsibility</head>
                             <p>Where a description has been compiled from multiple sources, each
-                                source shoud be listed in the <gi>respStmt</gi>, and the elements of
-                                the description for which they are responsible should be identified
-                                using the <att>resp</att> attribute with value equivalent to that
-                                source's <att>xml:id</att>.</p>
+                                source should be listed in the <gi>respStmt</gi>, and the elements
+                                of the description for which they are responsible should be
+                                identified using the <att>resp</att> attribute with value equivalent
+                                to that source's <att>xml:id</att>.</p>
                             <p>
                                 <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                     <respStmt xml:id="PA">
@@ -362,7 +369,7 @@
                                         <persName>Otto Pächt</persName>
                                         <persName>J. J. G. Alexander</persName>
                                     </respStmt>
-                                    <respStmt xml:id="MLH">
+                                    <respStmt xml:id="MH">
                                         <resp when="2017">Encoding and markup</resp>
                                         <persName>Matthew Holford</persName>
                                     </respStmt>
@@ -392,7 +399,13 @@
                         </div>
                         <div xml:id="publicationstatement">
                             <head>Publication Statement</head>
-                            <!-- TODO: availability and explain -->
+                            <p>The <gi>publicationStmt</gi> summarizes the publication of the TEI
+                                document, rather than the manuscript itself (which is described in
+                                the <gi>sourceDesc</gi>). For union catalogues such as Fihrist, it
+                                should contain an <gi>email</gi> containing the address to which
+                                enquiries should be sent, and an <gi>idno</gi> of <att>type</att>
+                                <val>marcOrg</val> containing the MARC Organization Code of the
+                                institution (e.g. "UkCu" for University of Cambridge).</p>
                             <p>
                                 <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                     <publicationStmt>
@@ -423,6 +436,7 @@
                                     <specDesc key="publisher"/>
                                     <specDesc key="date" atts="when"/>
                                     <specDesc key="availability" atts="status"/>
+                                    <specDesc key="email"/>
                                 </specList>
                             </p>
                         </div>
@@ -459,22 +473,80 @@
                     </div>
                 </div>
 
+                <div xml:id="subjectclass">
+                    <head>Subject Classifications</head>
+                    <p>In some catalogues, the fourth button in the header is "Subjects" rather than
+                        "Places". This is an index of subject classifications, using the Library of
+                        Congress subject heading and name authorities.</p>
+                    <p/>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                        <encodingDesc>
+                            <classDecl>
+                                <taxonomy xml:id="LCSH">
+                                    <bibl>
+                                        <ref target="http://id.loc.gov/authorities/about.html#lcsh"
+                                            >Library of Congress Subject Headings</ref>
+                                    </bibl>
+                                </taxonomy>
+                            </classDecl>
+                        </encodingDesc>
+                        <profileDesc>
+                            <textClass>
+                                <keywords scheme="#LCSH">
+                                    <list>
+                                        <item>
+                                            <term key="subject_sh2008111606">Shafiites--Early works
+                                                to 1800</term>
+                                        </item>
+                                        <item>
+                                            <term key="subject_sh85072984">Koran--Recitation</term>
+                                        </item>
+                                    </list>
+                                </keywords>
+                            </textClass>
+                        </profileDesc>
+                    </egXML>
+                    <p>Keywords apply to the manuscript as a whole. You can associate each with one
+                        or more specific works by enclosing the <gi>term</gi> in a <gi>ref</gi>
+                        whose <att>target</att> attribute is a space-separated list of pointers to
+                        the <att>xml:id</att> values of <gi>msItem</gi> elements, prefixed with
+                        #.</p>
+                    <p>Each <gi>term</gi> must have a key attribute containing the LoC authority
+                        entry identifier prefixed with "subject_". The text within the <gi>term</gi>
+                        element is also required, as this is what is displayed on the manuscript's
+                        page on the web site. It can be a variant of LoC's preferred term, if you
+                        think that more appropriate. If the term hasn't been used before, it will be
+                        automatically added to the web site the next time it is re-indexed.</p>
+                </div>
+
+
                 <div xml:id="msdescription">
                     <head>Manuscript Description</head>
-                    <p>The manuscript description must be informed by attention to codicological
-                        units.</p>
+                    <p>The <gi>sourceDesc</gi> element contains a single child element, the
+                            <gi>msDesc</gi>. Within that is all the information about the manuscript
+                        as a physical object, its constituent parts, and intellectual works
+                        represented within.</p>
+                    <p>All manuscript descriptions must be informed by attention to codicological
+                        units. In other words, whether the manuscripts was created in one place,
+                        over one period of time, or is a composite of parts from multiple source,
+                        assembled at a later date.</p>
                     <p>If the manuscript forms a single codicological unit, its intellectual
                         content, physical description, and history should be described directly
-                        under the <gi>msDesc</gi> element.</p>
-                    <p>If the manuscript comprises multiple codicological units, information common
-                        to the whole manuscript should be described directly under the
-                            <gi>msDesc</gi> element. This will typically include aspects of the
-                        physical description (e.g. extent, foliation, binding), aspects of history
-                        (notably provenance and acquisition), but possibly also some intellectual
-                        content (for example, if a table of contents for the whole volume was added
-                        by a later owner, or if the manuscript has replacement leaves). Conversely
-                        information relevant to each unit should be described in separate
-                            <gi>msPart</gi> elements. </p>
+                        under the <gi>msDesc</gi> element. Individual works can vary in date or
+                        hands while still being of a single source. In such cases, add <gi>note</gi>
+                        elements to the <gi>msItem</gi> for each work, and an overview for the whole
+                        manuscript in <gi>physDesc</gi>, <gi>history</gi>, etc. Do not simply enter
+                        information (dates, dimensions, etc) as lists of <gi>ref</gi> elements.</p>
+                    <p>If the manuscript comprises <ref target="#msPart">multiple codicological
+                            units</ref>, each should be described in its own <gi>msPart</gi>
+                        element, and only information common to the whole manuscript should be
+                        described directly under the <gi>msDesc</gi> element. This will typically
+                        include aspects of the physical description (e.g. extent, foliation,
+                        binding), aspects of history (notably provenance and acquisition), but
+                        possibly also some intellectual content (for example, if a table of contents
+                        for the whole volume was added by a later owner, or if the manuscript has
+                        replacement leaves). Conversely information relevant to each unit should be
+                        described in separate <gi>msPart</gi> elements. </p>
                     <p> In each case the following elements are used: <specList>
                             <specDesc key="msIdentifier"/>
                             <specDesc key="head"/>
@@ -554,8 +626,9 @@
                         <head>The Heading</head>
                         <p>For manuscripts described in detail, and/or containing more than one
                             item, the <gi>head</gi> element should provide (1) a brief descriptive
-                            title (2) place of origin if known (3) date of origin. <egXML
-                                xmlns="http://www.tei-c.org/ns/Examples">
+                            title (2) place of origin if known (3) date of origin. If the latter two
+                            are unknown, use the <gi>summary</gi> element within <gi>msContents</gi>
+                            instead. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                 <head>Ovid; England, 12th century</head>
                             </egXML>
                             <specList>
@@ -575,7 +648,8 @@
                         <div xml:id="summary">
                             <head>Summary (optional)</head>
                             <p>The <gi>summary</gi> element can be used to provide a brief prose
-                                account of a manuscript's contents and significance. </p>
+                                account of a manuscript's contents and significance, unless this has
+                                already been covered by the <gi>head</gi>.</p>
                         </div>
                         <div xml:id="textlanguage">
                             <head>Language(s) of the manuscript as a whole (optional)</head>
@@ -588,20 +662,25 @@
                                 </egXML>
                             </p>
                             <p>For bilingual or multilingual units give the other languages in the
-                                    <att>otherLangs</att> attribute. <egXML
-                                    xmlns="http://www.tei-c.org/ns/Examples">
-                                    <textLang mainLang="grc" otherLangs="la">Greek with some
-                                        Latin</textLang>
+                                    <att>otherLangs</att> attribute, as a space-separated list.
+                                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <textLang mainLang="grc" otherLangs="la en">Greek with some
+                                        Latin and English</textLang>
                                 </egXML>
                             </p>
                             <p>In some cases the decision of which language is ‘main’ and which
-                                is/are ‘other’ may be rather arbitary.</p>
-                            <p>The attributes used should be those used by the IANA language subtag
-                                registry (<ref
+                                is/are ‘other’ may be rather arbitrary.</p>
+                            <p>The attributes values used should conform to the BCP 47 standard
+                                    (<ref target="http://www.rfc-editor.org/rfc/bcp/bcp47.txt"
+                                    >http://www.rfc-editor.org/rfc/bcp/bcp47.txt</ref>) which start
+                                with two-or-three-letter ISO 639 codes for languages, then an ISO
+                                15924 code for the script, and finally IANA language subtags (<ref
                                     target="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry"
-                                    >https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry</ref>).</p>
-                            <p>If the unit contains more than one language, the <gi>textLang</gi>
-                                element may also be used in the <gi>msItem</gi>, q.v.</p>
+                                    >https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry</ref>)
+                                for other information, such as methods of transliteration.</p>
+                            <p>If the unit contains multiple works, in different languages or
+                                scripts, the <gi>textLang</gi> element should be used in the
+                                    <gi>msItem</gi> instead, q.v.</p>
                             <p>Languages should be described and encoded as accurately as possible,
                                 e.g Middle English (enm) rather than English, Anglo-Norman (xno)
                                 rather than French.</p>
@@ -613,16 +692,27 @@
                                     <gi>msItem</gi></p>
 
                             <p>The items should be numbered with the <att>n</att> attribute. (This
-                                is particularly useful when the <gi>msItem</gi> element is nested.)
-                                For retroconversion, follow the numbering system used in the
+                                is particularly useful when the <gi>msItem</gi> element is nested,
+                                say to describe sections within works, or works in collections of
+                                works.) For retroconversion, follow the numbering system used in the
                                 original catalogue. For new cataloguing, use arabic numbers, using a
-                                decimal point when <gi>msItem</gi> is nested. <egXML
+                                decimal point when <gi>msItem</gi> is nested. For example, for the
+                                second section of the first work: <egXML
                                     xmlns="http://www.tei-c.org/ns/Examples">
-                                    <msItem n="1.1">
+                                    <msItem n="1.2">
                                         <!-- ... -->
                                     </msItem>
                                 </egXML>
                                 <!--If the manuscript item is incomplete through loss or damage use the <att>defective</att> attribute with value <val>true</val> (default value is <val>false</val>).--></p>
+                            <p>Just as the <att>n</att> attribute provides a way for readers to
+                                reference and locate items, <att>xml:id</att> attributes do the same
+                                for computers. So these ideally should be added too: <egXML
+                                    xmlns="http://www.tei-c.org/ns/Examples">
+                                    <msItem n="1.2" xml:id="Add_1056-item1-item2">
+                                        <!-- ... -->
+                                    </msItem>
+                                </egXML>
+                            </p>
                             <p>Blank pages may be recorded as part of the item they follow, in a
                                 separate <gi>note</gi> element.
                                 <!--For new cataloguing, note whether or not a blank page has been
@@ -644,7 +734,7 @@
                             <div xml:id="whatIsMsItem">
                                 <head>What is a manuscript item?</head>
                                 <p>The identification of manuscript items can pose difficulties both
-                                    for the cataloguer and the encoder. Common cases include: <list>
+                                    for the cataloguer and the encoder. Special cases include: <list>
                                         <item>texts which circulate with shorter related texts, for
                                             example Augustine’s De Trinitate, preceded in Merton
                                             College MS. 32 by the relevant extract from
@@ -719,6 +809,7 @@
                                         <item>sermon collections</item>
                                         <item>texts containing several sections, e.g. preface,
                                             prologue, dedicatory letter, multiple books.</item>
+                                        <item>poetry collections</item>
                                     </list>
                                 </p>
                                 <p>The level of detail and elements required in sub-items will vary
@@ -728,8 +819,8 @@
                             </div>
                             <div xml:id="glossedTexts">
                                 <head>Texts with gloss and commentary</head>
-                                <p>Treatment of these texts will vary according to the arrangment of
-                                    text, gloss, and commentary; whether gloss and commentary are
+                                <p>Treatment of these texts will vary according to the arrangement
+                                    of text, gloss, and commentary; whether gloss and commentary are
                                     continuous; whether gloss and commentary are contemporary or
                                     later, and whether they form an integral part of the
                                     mise-en-page; whether there are multiple layers of gloss /
@@ -809,7 +900,7 @@
                                     better done using <gi>msItem</gi> inside <gi>msContents</gi>.
                                     This may involve some reorganization of the description during
                                     retroconversion.</p>
-                                <p>There are two approaches. <list>
+                                <p>There are two approaches:<list>
                                         <item>describe every <gi>msItem</gi> in sequence, using
                                                 <gi>note</gi> to indicate if it is a later
                                             addition</item>
@@ -932,6 +1023,33 @@
                                         <author key="person_66806872">Augustine</author>
                                     </egXML>
                                 </p>
+                                <p>If you are not responsible for maintaining the authority files,
+                                    go to the web site, click the People button, and search to see
+                                    if the same person already exists in another manuscript in the
+                                    same catalogue, with the same or similar (or translated) name.
+                                    If they have, set the <att>key</att> attribute to the identifier
+                                    of the existing record, which is the part of the URL after the
+                                    last slash, starting with "person_". If you can find the person
+                                    by searching in VIAF (<ref target="http://viaf.org/"
+                                        >http://viaf.org/</ref>) set the value to "person_" followed
+                                    by their VIAF number. Otherwise, leave the <att>key</att>
+                                    attribute blank and an identifier will be assigned to it at a
+                                    later date.</p>
+                                <p>Where an author has multiple names (e.g. translations or
+                                    transliterations) add these as child <gi>persName</gi> elements
+                                    (with <att>xml:lang</att> attributes). Do not use
+                                        <gi>foreign</gi> in this context. But the <att>key</att>
+                                    attribute remains on the <gi>author</gi> element. Multiple
+                                        <gi>author</gi> elements should be used for works with
+                                    multiple authors (not other contributors, such as scribes, these
+                                    should be added as <gi>editor</gi> elements with <att>role</att>
+                                    attributes.)</p>
+                                <p>(Optional) Either <gi>author</gi> or <gi>persName</gi> elements
+                                    can contain <gi>surname</gi>, <gi>forename</gi> and
+                                        <gi>addName</gi> child elements to divide up the full name
+                                    as appropriate to naming customs (<gi>addName</gi> has a
+                                        <att>type</att> attribute in which you can specify "laqab",
+                                    "kunyah", "khitab", "nisbah”", etc.)</p>
                                 <p>(Optional) To indicate that an author's name is not present in
                                     the MS., use <gi>supplied</gi>. <egXML
                                         xmlns="http://www.tei-c.org/ns/Examples">
@@ -943,6 +1061,31 @@
                                 <p>For retroconversion, use the form of the name given in the source
                                     text; for new cataloguing, use a standard form from the usual
                                     reference works. <!-- TODO: list these somewhere? --></p>
+                            </div>
+                            <div xml:id="msitemEditor">
+                                <head>Editor</head>
+                                <p>For secondary statements of responsibility, use the
+                                        <gi>editor</gi> element, distinguished with a
+                                        <att>role</att> attribute containing a three-letter code (or
+                                    multiple codes separated by spaces) selected from the MARC
+                                    relators list (<ref
+                                        target="https://www.loc.gov/marc/relators/relaterm.html"
+                                        >https://www.loc.gov/marc/relators/relaterm.html</ref>). Do
+                                    not add a label for their role, as this will be added when
+                                    displayed on the web site. For example, for a translator:</p>
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <editor role="trl" key="person_5150639">
+                                        <persName>Abū al-Faz̤l ibn Mubārak, 1551-1602</persName>
+                                        <persName xml:lang="fa">ابو الفضل بن مبارك علامی</persName>
+                                    </editor>
+                                </egXML>
+                                <p>In all other respects, <gi>editor</gi> elements can contain the
+                                    same child elements as <gi>author</gi> (eg. multiple
+                                        <gi>persName</gi> elements) and attributes (e.g. a
+                                        <att>key</att> linking them to an entry in the persons
+                                    authority file, so that they are indexed on the web site.)
+                                    Further details about their role in the creation of the work can
+                                    be explained in a separate <gi>note</gi>. </p>
                             </div>
                             <div xml:id="msitemTitle">
                                 <head>Title</head>
@@ -956,14 +1099,32 @@
                                 </p>
                                 <p>If the title is descriptive, the <att>type</att> attribute should
                                     then be set with the value <val>desc</val>. This will display
-                                    the title in normal font. </p>
-                                <p>Works which are to be indexed MUST have a reference using the
-                                        <att>key</att> attribute to the works authority file <egXML
-                                        xmlns="http://www.tei-c.org/ns/Examples">
+                                    the title in normal font. Alternative titles should be give a
+                                        <att>type</att> of <val>alt</val>, and <val>main</val> and
+                                        <val>sub</val> can be used if there is a subtitle.</p>
+                                <p>When providing translations of the title, or multiple versions in
+                                    different scripts or forms of transliteration, add them as
+                                    sibling <gi>title</gi> elements, each with an
+                                        <att>xml:lang</att> attribute. Do not use <gi>foreign</gi>
+                                    except to mark up a word or phrase within a title as being in a
+                                    different language to the rest of the title.</p>
+                                <p>Works which are to be indexed (i.e. you consider significant
+                                    enough to be listed under the Works button on the web site) MUST
+                                    have a reference using the <att>key</att> attribute to the works
+                                    authority file <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                         <title type="desc" key="work_15602">Commentary on
                                             Apocalypse</title>
                                     </egXML>
                                 </p>
+                                <p>If you are not responsible for maintaining the authority files,
+                                    go to the web site, click the Works button, and search to see if
+                                    the same work already exists in another manuscript in the same
+                                    catalogue, with the same or similar (or translated) title. If it
+                                    has, set the <att>key</att> attribute in the <gi>title</gi>
+                                    element(s) to the identifier of the existing record, which is
+                                    the part of the URL after the last slash, starting with "work_".
+                                    Otherwise, leave the key attribute blank and an identifier will
+                                    be assigned to it at a later date.</p>
                                 <!-- TODO: clarify policy on indexing of works -->
                             </div>
                             <div xml:id="rubrics-etc">
@@ -987,10 +1148,12 @@
                                     used with value <val>true</val>.
                                     <!-- TODO: specify what this will generate in the browser --></p>
                                 <p>Multiple incipits, rubrics, etc., e.g. for prologues, prefaces,
-                                    text, may be distinguished using <att>type</att>; this will not
-                                    always be possible in retroversion if the catalogue does not
-                                    provide the information. In this case a series of the relevant
-                                    elements without <att>type</att> should be used.</p>
+                                    text, may be distinguished using <att>type</att>, or by location
+                                    by including a child <gi>locus</gi> element at the start of each
+                                    one; this will not always be possible in retroversion if the
+                                    catalogue does not provide the information. In this case a
+                                    series of the relevant elements without <att>type</att> should
+                                    be used.</p>
                                 <p>The formatting of the rubric can be recorded in the
                                         <att>rend</att> attribute (see <ptr target="#formatting"/>).
                                     Comments on the rubric (e.g. if it is a later addition) can be
@@ -1074,6 +1237,33 @@
                                     </egXML>
                                 </p>
 
+                                <p>The <gi>filiation</gi> element provides information about the
+                                    relationship of the manuscript with other surviving manuscripts
+                                    in terms of their content. For example: <egXML
+                                        xmlns="http://www.tei-c.org/ns/Examples">
+                                        <msItem n="2">
+                                            <title xml:lang="ara-Latn-x-lc">Khulāṣat al-ikhtiṣāṣ fī
+                                                maʻrifat al-quwá wa-al-khawāṣṣ</title>
+                                            <filiation>There is another manuscript of this work at
+                                                the Birmingham University, Mingana Collection,
+                                                Islamic Arabic Ms. no. 933 (1485)</filiation>
+                                        </msItem>
+                                    </egXML>
+                                </p>
+                                <p>A <gi>bibl</gi> containing a <gi>ref</gi> element can be used to
+                                    link to external resources related to a work, such as printed
+                                    catalogue pages. <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                        <listBibl>
+                                            <bibl>
+                                                <ref
+                                                  target="http://www.lib.cam.ac.uk/arabic_catalogues/browne/view.php?
+                                                    id=76"
+                                                  >no. 673</ref>
+                                            </bibl>
+                                        </listBibl>
+                                    </egXML> Do not use this method to link to digitized copies, use
+                                        <ref target="#surrogates"><gi>surrogates</gi></ref>
+                                    instead.</p>
                             </div>
 
 
@@ -1082,6 +1272,18 @@
                     </div>
                     <div xml:id="physdescBook">
                         <head>Physical description</head>
+                        <p>The physical description includes serveral different aspects of the
+                            manuscript (or part of a manuscript) including:</p>
+                        <list>
+                            <item>aspects of the form, support, extent, and quire structure of the
+                                manuscript object and of the way in which the text is laid out on
+                                the page.</item>
+                            <item>the style of writing used and discussion of any decorative
+                                features, any musical notation employed, and of any annotations or
+                                marginalia.</item>
+                            <item>discussion of binding, seals, and any accompanying
+                                material.</item>
+                        </list>
                         <div xml:id="secFol">
                             <head>secundo folio</head>
                             <p>Provide a transcription of the words found at the beginning of the
@@ -1192,7 +1394,7 @@
                                         <!-- todo: folding -->
                                         <div xml:id="watermarks">
                                             <head>Watermarks</head>
-                                            <p>Describe each watermark in a <gi>watermark</gi>
+                                            <p>Describe each watermark in the <gi>watermark</gi>
                                                 element.</p>
                                             <p>The motif should be encoded using the <gi>term</gi>
                                                 element with attribute <att>type</att> of value
@@ -1548,9 +1750,21 @@
 
                             <div xml:id="foliation">
                                 <head>Foliation</head>
-                                <p>The foliation should be recorded in the <gi>foliation</gi>
-                                    element. <!-- todo -->
-                                </p>
+                                <p>The <gi>foliation</gi> element is used to provide information
+                                    about the systems used to number the folios or pages in the
+                                    manuscript. Where multiple systems have been used these can be
+                                    referred to elsewhere if <att>xml:id</att> attributes are used.
+                                    For example:</p>
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <foliation xml:id="original">
+                                        <p>Original foliation in red Arab numerals in the outer
+                                            margin of each recto</p>
+                                    </foliation>
+                                    <foliation xml:id="modern">
+                                        <p>Additional pagination in pencil in <locus from="1b"
+                                                to="67a">ff. 1b-67a</locus></p>
+                                    </foliation>
+                                </egXML>
                             </div>
                             <div xml:id="collation">
                                 <head>Collation</head>
@@ -1576,9 +1790,10 @@
                                 <p>Record quire or leaf signatures in the <gi>signatures</gi>
                                     element.</p>
                                 <p>Record the catchwords in the <gi>catchwords</gi> element.</p>
-                                <p>For multi-part manuscripts, the collation of each part should be
-                                    recorded separately. In retroconversion this is likely to
-                                    involve reorganization of the formula.</p>
+                                <p>For <ref target="#msPart">multi-part manuscripts</ref>, the
+                                    collation of each part should be recorded separately. In
+                                    retroconversion this is likely to involve reorganization of the
+                                    formula.</p>
                                 <!-- todo: examples; leaf vs. quire signatures? -->
                             </div>
                             <div xml:id="condition">
@@ -1706,36 +1921,63 @@
                                 and the <att>role</att> attribute with value <val>scribe</val>.
                                 <!-- todo: new example -->
                             </p>
-                            <p>The attribute <att>scope</att> used to indicate the extent of the
-                                hand's appearance in the manuscript (values: <val>sole</val>,
-                                    <val>major</val>, <val>minor</val></p>
-                            <p>The attribute <att>script</att> may be used to provide a high-level
-                                classification of the script. Suggested values are: <list>
-                                    <item><val>capitalsSquare</val></item>
-                                    <item><val>capitalsRustic</val></item>
-                                    <item><val>uncial</val></item>
-                                    <item><val>halfUncial</val></item>
-                                    <item><val>minusculeInsular</val></item>
-                                    <item><val>minusculeVernacular</val> (use for English vernacular
-                                        minuscule / Anglo-Saxon minuscule)</item>
-                                    <item><val>minusculeCaroline</val> (use for both English and
-                                        continental variants of the script)</item>
-                                    <item><val>minuscule</val> (other forms of minuscule:
-                                        Beneventan, Luxeuil, etc.)</item>
-                                    <item><val>protogothic</val></item>
-                                    <item><val>textualisNorthern</val></item>
-                                    <item><val>textualisSouthern</val></item>
-                                    <item><val>semitextualis</val></item>
-                                    <item><val>cursivaAntiquior</val></item>
-                                    <item><val>cursiva</val></item>
-                                    <item><val>hybrida</val></item>
-                                    <item><val>gothicoAntiqua</val></item>
-                                    <item><val>humanisticaTextualis</val></item>
-                                    <item><val>humanisticaSemitextualis</val></item>
-                                    <item><val>humanisticaCursiva</val></item>
-                                </list> The classification for early scripts is based on Brown
-                                (1990) with modifications, for Gothic scripts on Derolez (2003), for
-                                humanistic scripts on Derolez (2011). </p>
+                            <p>The <att>scope</att> attribute can be used to indicate the extent of
+                                the hand's appearance in the manuscript. Its values can be one
+                                of:</p>
+                            <list>
+                                <item><val>sole</val></item>
+                                <item><val>major</val></item>
+                                <item><val>minor</val></item>
+                            </list>
+                            <p>The <att>script</att> attribute may be used to provide a high-level
+                                classification of the script. Suggested values in Western
+                                manuscripts are:</p>
+                            <list>
+                                <item><val>capitalsSquare</val></item>
+                                <item><val>capitalsRustic</val></item>
+                                <item><val>uncial</val></item>
+                                <item><val>halfUncial</val></item>
+                                <item><val>minusculeInsular</val></item>
+                                <item><val>minusculeVernacular</val> (use for English vernacular
+                                    minuscule / Anglo-Saxon minuscule)</item>
+                                <item><val>minusculeCaroline</val> (use for both English and
+                                    continental variants of the script)</item>
+                                <item><val>minuscule</val> (other forms of minuscule: Beneventan,
+                                    Luxeuil, etc.)</item>
+                                <item><val>protogothic</val></item>
+                                <item><val>textualisNorthern</val></item>
+                                <item><val>textualisSouthern</val></item>
+                                <item><val>semitextualis</val></item>
+                                <item><val>cursivaAntiquior</val></item>
+                                <item><val>cursiva</val></item>
+                                <item><val>hybrida</val></item>
+                                <item><val>gothicoAntiqua</val></item>
+                                <item><val>humanisticaTextualis</val></item>
+                                <item><val>humanisticaSemitextualis</val></item>
+                                <item><val>humanisticaCursiva</val></item>
+                            </list>
+                            <p>The classification for early scripts is based on Brown (1990) with
+                                modifications, for Gothic scripts on Derolez (2003), for humanistic
+                                scripts on Derolez (2011). </p>
+                            <p>In Islamicate manuscripts suggested <att>script</att> values are:</p>
+                            <list>
+                                <item><val>muhaqqaq</val></item>
+                                <item><val>rayhani</val></item>
+                                <item><val>naskh</val></item>
+                                <item><val>maghribi</val></item>
+                                <item><val>bihari</val></item>
+                                <item><val>nasta_liq</val></item>
+                                <item><val>thuluth</val></item>
+                                <item><val>tawqi_</val></item>
+                                <item><val>riqa_</val></item>
+                                <item><val>ghubar</val></item>
+                                <item><val>ta_liq</val></item>
+                                <item><val>diwani</val></item>
+                                <item><val>ruq_ah</val></item>
+                                <item><val>siyaqah</val></item>
+                                <item><val>unknown</val></item>
+                            </list>
+
                             <p>For further levels of classification the <gi>term</gi> element with
                                     <att>type</att> of <val>script</val> may be used. <egXML
                                     xmlns="http://www.tei-c.org/ns/Examples">
@@ -1773,8 +2015,8 @@
                             <head>Description of the Decoration</head>
                             <p>Within the tag <gi>decoDesc</gi>, use <gi>decoNote</gi> to provide a
                                 hierarchical breakdown of the decoration in the manuscript, in the
-                                order given in the following table, with the appropriate value of
-                                    <att>type</att>. <table>
+                                order given in the following table, with the appropriate values of
+                                    <att>type</att> attribute. <table>
                                     <row>
                                         <cell>Miniatures, listed in the following order: full-page,
                                             half-page, small, column</cell>
@@ -1857,6 +2099,29 @@
                                     </row>
                                 </table>
                             </p>
+                            <p>In Fihrist, the following values for the <att>type</att> attribute
+                                should be used:</p>
+                            <list>
+                                <item>border</item>
+                                <item>diagram</item>
+                                <item>frieze</item>
+                                <item>illustration</item>
+                                <item>initial</item>
+                                <item>map</item>
+                                <item>marginal</item>
+                                <item>miniature</item>
+                                <item>mixed</item>
+                                <item>other</item>
+                                <item>paratext</item>
+                                <item>printmark</item>
+                                <item>publishmark</item>
+                                <item>rubrication</item>
+                                <item>secondary</item>
+                                <item>tooling</item>
+                                <item>unspecified</item>
+                                <item>unwan</item>
+                                <item>vignette</item>
+                            </list>
                             <p>Artists should be identified using the <gi>persName</gi> element with
                                     <att>role</att> = <val>artist</val> and <att>key</att> referring
                                 to the persons authority file.</p>
@@ -1864,7 +2129,6 @@
                                 <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                     <decoDesc>
                                         <decoNote type="miniature">
-                                            <p>Miniatures:</p>
                                             <p>Two full-page miniatures, framed by green, blue,
                                                 orange, ochre or pink panels linked by gold
                                                 quadrilobes and surrounded by short black sprays
@@ -1883,8 +2147,9 @@
                         <div xml:id="additions">
                             <head>Additions</head>
                             <p>Marginalia, notes, and other additions of interest should be recorded
-                                in the <gi>additions</gi> element. inside one or more <gi>p</gi>
-                                elements. </p>
+                                in the <gi>additions</gi> element, inside one or more <gi>p</gi>
+                                elements. Use <gi>locus</gi> to specify the location of these
+                                features.</p>
                             <!-- todo: more extensive annotations -->
                         </div>
 
@@ -1935,6 +2200,17 @@
 
 
 
+                        <div xml:id="seals">
+                            <head>Seals</head>
+                            <p>The <gi>sealDesc</gi> element supplies information about the seals
+                                attached to documents. It can either contain a text description in
+                                    <gi>p</gi> tags, or any number of <gi>seal</gi> elements. These
+                                can be numbered using <att>n</att> attributes.</p>
+                            <p>The seal impression of stamps of ownership may be described in
+                                    <gi>decoDesc</gi>, in stylistic and decorative terms, or in
+                                    <gi>provenance</gi> as regards its textual content.</p>
+                        </div>
+
                         <div xml:id="accMat">
                             <head>Accompanying material</head>
                             <p>The <gi>accMat</gi> element may be used for brief descpritions of
@@ -1942,6 +2218,8 @@
                                 the ‘original’ codex but were supplied during a binding process. If
                                 a detailed codicological description is required, use
                                     <gi>msPart</gi></p>
+                            <p>Use <gi>p</gi> to split up descriptions of multiple materials, and
+                                    <gi>locus</gi> to identifying their locations.</p>
                             <!-- todo: add xref -->
                         </div>
 
@@ -1955,7 +2233,9 @@
                             <head>Origin</head>
                             <p>In the <gi>origin</gi> element specify date (<gi>origDate</gi>) and
                                 place (<gi>origPlace</gi>) (if known) of the manuscript's
-                                production.</p>
+                                production. If not known, state this in a <gi>p</gi> element. Do not
+                                enclose a statement such as "No date" or "n.d." with
+                                    <gi>origDate</gi> tags.</p>
                             <!-- todo: calendars -->
                             <div type="origDate">
                                 <head>origDate</head>
@@ -1968,6 +2248,18 @@
                                         <att>notAfter</att> denote the terminus a quo and terminus
                                     ad quem within which the writing is believed to have
                                     occured.</p>
+                                <p>The values of those attributes are a date, starting with the
+                                    year, then the month, then the day, separated by hyphens (but
+                                    most often just a year, always expressed using four-digits) must
+                                    be in the Gregorian calendar. the <att>calendar</att> attribute
+                                    records the calendar system used by the expression of the date
+                                    in the text enclosed by the <gi>origDate</gi> tags. The text is
+                                    for display, the attributes are the machine-readable
+                                    interpretation. For example:</p>
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <origDate calendar="#Hijri-qamari" when="1684">1096
+                                        AH</origDate>
+                                </egXML>
                                 <p>In retroconversion, the values given to the element and its
                                     attributes should reflect the conventions of the particular
                                     catalogue as expressed in the catalogue or, if necessary, as
@@ -2020,14 +2312,19 @@
                                     institution. These should be marked up using the
                                         <gi>country</gi>, <gi>settlement</gi>, and <gi>org</gi>
                                     elements, which MUST have attributes <att>key</att> linking to
-                                    the places authority file.</p>
+                                    the places authority file. Or, in catalogues such as Fihrist
+                                    which have a subjects authority file instead of a places one,
+                                    the <att>key</att> attribute should be "subject_" followed by
+                                    the Library of Congress Name Authority identifier (e.g.
+                                    "subject_n12345678").</p>
                                 <p>There MUST be a country or country-like entity (see below),
                                     inside a <gi>country</gi> tag, if the <gi>origPlace</gi> element
                                     is used.</p>
-                                <p>Countries of origin are typically expressed with reference to
-                                    modern countries with some exceptions. Examples: England,
-                                    France, Spain, Italy, Germany, Austria, Switzerland, but
-                                    Bohemia, Dalmatia, Serbia, Flanders.</p>
+                                <p>In Western manuscripts, countries of origin are typically
+                                    expressed with reference to modern countries with some
+                                    exceptions. Examples: England, France, Spain, Italy, Germany,
+                                    Austria, Switzerland, but Bohemia, Dalmatia, Serbia,
+                                    Flanders.</p>
                                 <p>For manuscripts with significant later additions, textual or
                                     decorative, use additional <gi>origDate</gi> elements with
                                         <att>type</att> of <val>additions</val></p>
@@ -2048,7 +2345,13 @@
                                 involve some restructuring of material in the case of
                                 retroconversion) is that where possible each provenance event should
                                 occur in its own <gi>provenance</gi> element, which should have
-                                relevant dating attributes.</p>
+                                relevant dating attributes (<att>when</att>, <att>notBefore</att>,
+                                etc.) or contain <gi>date</gi> elements. People involved in the
+                                transfer of ownership should be marked up with <gi>persName</gi>
+                                tags, with a <att>role</att> attribute (a <ref
+                                    target="http://www.loc.gov/marc//relators/relaterm.html">Library
+                                    of Congress relator code</ref>, usually "fmo" for former
+                                owner).</p>
                             <!-- todo: add details re EVIDENCE and TYPE? -->
 
                         </div>
@@ -2122,8 +2425,24 @@
                                 </egXML></p>
                         </div>
 
-                        <!-- todo: availability -->
-                        <!-- todo: custodialHist -->
+                        <div xml:id="availability">
+                            <head>Availability</head>
+                            <p>The <gi>availability</gi> element can be used to supply information
+                                about the availability of a manuscript, using the <att>status</att>
+                                attribute. Valid values for status are <val>free</val>,
+                                    <val>unknown</val> and <val>restricted</val>. It may also
+                                contain information about the images or text, such as any
+                                restrictions on their use or distribution, their copyright status,
+                                etc. </p>
+                        </div>
+                        <div xml:id="custodial_history">
+                            <head>Custodial History</head>
+                            <p>The <gi>custodialHist</gi> element can be used to describe a
+                                manuscript's custodial history (e.g. being rebound after
+                                acquisition) either as prose tagged with <gi>p</gi> elements, or as
+                                a series of dated custodial events, using the <gi>custEvent</gi>
+                                element.</p>
+                        </div>
                         <!-- todo: note -->
 
                         <div xml:id="surrogates">
