@@ -1737,8 +1737,7 @@
     <xsl:template match="extent/dimensions">
         <div class="{name()}">
             <span class="tei-label">
-                <xsl:copy-of select="bod:standardText('Dimensions:')"/>
-                <xsl:text> </xsl:text>
+                <xsl:copy-of select="bod:standardText('Dimensions')"/>
                 <xsl:if test="@type">
                     <xsl:text> (</xsl:text>
                     <xsl:value-of select="translate(@type, '_', ' ')"/>
