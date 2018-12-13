@@ -916,13 +916,26 @@ declare function bod:physForm($teinodes as element()*, $solrfield as xs:string, 
 
 declare function bod:digitized($teinodes as element()*, $solrfield as xs:string)
 {
+    let $uuids := 
+        for $dburl in $teinodes/tei:ref/@target[contains(., 'digital.bodleian.ox.ac.uk')]
+            return tokenize($dburl, '/')[matches(., '\w{8}\-\w{4}\-\w{4}\-\w{4}\-\w{12}')]
+    return (
     <field name="ms_digitized_s">
         { 
         if ($teinodes[@type=('digital-fascimile','digital-facsimile') and @subtype='full']) then 'Yes' 
         else if ($teinodes[@type=('digital-fascimile','digital-facsimile') and @subtype='partial']) then 'Selected pages only' 
         else 'No'
         }
-    </field>
+    </field>,
+    if (count($uuids) gt 0) then
+        <field name="ms_digbod_b">true</field>
+    else
+        ()
+    ,
+    for $uuid in $uuids
+        return
+        <field name="ms_digbod_smni">{ $uuid }</field>
+    )
 };
 
 
