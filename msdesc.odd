@@ -580,6 +580,28 @@
                     </constraintSpec>
                 </elementSpec>
                 
+                <classSpec ident="att.global.rendition" type="atts" mode="change" module="tei">
+                    <constraintSpec ident="rend.info" scheme="schematron">
+                        <constraint>
+                            <sch:rule context="*[@rend]" role="info">
+                                <sch:report test="self::tei:hi and not(every $r in tokenize(@rend, '\s+')[string-length() gt 0] satisfies $r = ('bold', 'italic', 'smallcaps', 'roman', 'superscript', 'subscript', 'underline', 'overline', 'strikethrough'))">
+                                    Any values can be used in rend attributes, but the web site currently only supports combinations of: 
+                                    bold, italic, roman, smallcaps, superscript, subscript, underline, overline, and strikethrough.
+                                </sch:report>
+                                <sch:assert test="self::tei:hi" role="info">
+                                    The web site currently only supports rend attributes for hi elements. Using it on <sch:value-of select="name(.)"/> 
+                                    elements is valid but will be ignored.
+                                </sch:assert>
+                            </sch:rule>
+                            <sch:rule context="*[@rendition or @style]" role="info">
+                                <sch:assert test="false()">
+                                    The web site currently ignores rendition and style attributes.
+                                </sch:assert>
+                            </sch:rule>
+                        </constraint>
+                    </constraintSpec>
+                </classSpec>
+                
                 
             </schemaSpec>
         </body>
