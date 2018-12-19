@@ -3347,20 +3347,25 @@
 
                     <!-- msDesc[1]/@xml:id must match filename -->
                     <elementSpec ident="msDesc" module="msdescription" mode="change">
-                        <constraintSpec scheme="isoschematron" ident="msDesc-xmlid">
+                        <constraintSpec scheme="schematron" ident="msDesc-xmlid">
                             <constraint>
                                 <sch:rule
                                     context="/tei:TEI[not(contains(base-uri(.), 'genizah-mss'))]">
-                                    <sch:assert test="matches(@xml:id, 'manuscript_\d+')">The root
-                                        TEI element must have an @xml:id beginning with
+                                    <sch:assert 
+                                        test="matches(@xml:id, '^manuscript_\d+$')" 
+                                        role="fatal">
+                                        The root TEI element must have an @xml:id beginning with
                                         "manuscript_" then a number (which must be unique across the
-                                        entire collection).</sch:assert>
+                                        entire collection).
+                                    </sch:assert>
                                 </sch:rule>
-                                <sch:rule context="/tei:TEI[contains(base-uri(.), 'genizah-mss')]">
-                                    <sch:assert test="matches(@xml:id, 'volume_\d+')">The root TEI
-                                        element must have an @xml:id beginning with "volume_" then a
-                                        number (which must be unique across the entire
-                                        collection).</sch:assert>
+                                <sch:rule 
+                                    context="/tei:TEI[contains(base-uri(.), 'genizah-mss')]">
+                                    <sch:assert test="matches(@xml:id, '^volume_\d+$')" 
+                                        role="fatal">
+                                        The root TEI element must have an @xml:id beginning with "volume_" 
+                                        then a number (which must be unique across the entire collection).
+                                    </sch:assert>
                                 </sch:rule>
                             </constraint>
                         </constraintSpec>
@@ -3460,22 +3465,37 @@
 
                     <!-- a manuscript must have one or more languages  -->
                     <elementSpec ident="textLang" module="core" mode="change">
-                        <constraintSpec ident="textLang.check" scheme="isoschematron">
+                        <constraintSpec ident="textLang.check" scheme="schematron">
                             <constraint>
                                 <sch:rule
-                                    context="//tei:msContents[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
-                                    <sch:assert test="descendant::tei:textLang">In the medieval
-                                        catalogue, a manuscript must have one or more languages
-                                        recorded in a textLang element.</sch:assert>
+                                    context="//tei:msContents">
+                                    <sch:assert 
+                                        test="descendant::tei:textLang" 
+                                        role="warn">
+                                        A manuscript should have one or more languages recorded in a textLang element. 
+                                        For manuscripts with no linguistic content use code 'zxx'. If the language is 
+                                        undetermined use the code 'und'.
+                                    </sch:assert>
                                 </sch:rule>
                                 <sch:rule
-                                    context="//tei:textLang[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
-                                    <!-- a more detailed rule could be added here, to check correct attribute values -->
-                                    <sch:assert test="@mainLang">In the medieval catalogue, the
-                                        nature of languages should be recorded in a mainLang
-                                        attribute (and if necessary an otherLang attribute) using
-                                        the relevant IANA codes. For manuscripts with no linguistic
-                                        content use code 'zxx'.</sch:assert>
+                                    context="//tei:textLang">
+                                    <sch:assert 
+                                        test="@mainLang and string-length(normalize-space(string())) gt 0" 
+                                        role="error">
+                                        The predominant language must be recorded in using a code in a mainLang attribute 
+                                        (and an otherLang attribute if there are other languages) and described as text 
+                                        within the textLang element.
+                                    </sch:assert>
+                                </sch:rule>
+                                <sch:rule
+                                    context="//tei:textLang/@mainLang | //tei:textLang/@otherLangs | //@xml:lang">
+                                    <sch:assert 
+                                        test="every $code in tokenize(., ' ') satisfies matches($code, '^[a-z]{2,3}(-|$)')" 
+                                        role="error">
+                                        Codes in <sch:value-of select="name(.)"/> attributes must conform to BCP 47 
+                                        (https://tools.ietf.org/html/bcp47), starting with an ISO 639 code for the language, 
+                                        then optionally further codes for the script (ISO 15924), region, transliteration, etc.
+                                    </sch:assert>
                                 </sch:rule>
                             </constraint>
                         </constraintSpec>
@@ -3483,14 +3503,17 @@
 
                     <!-- support must be recorded in @support attribute -->
                     <elementSpec ident="supportDesc" module="msdescription" mode="change">
-                        <constraintSpec ident="supportDesc.check" scheme="isoschematron">
+                        <constraintSpec ident="supportDesc.check" scheme="schematron">
                             <constraint>
                                 <sch:rule
-                                    context="//tei:supportDesc[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                                    context="//tei:supportDesc">
+                                    <sch:assert 
+                                        test="@material" 
+                                        role="warn">
+                                        The writing support of a manuscript should be specified in the
+                                        material attribute on the element supportDesc.
+                                    </sch:assert>
                                     <!-- a more detailed rule could be added here, to check correct attribute values -->
-                                    <sch:assert test="@material">In the medieval catalogue, the
-                                        writing support of a manuscript must be specified in the
-                                        material attribute on the element supportDesc.</sch:assert>
                                 </sch:rule>
                             </constraint>
                         </constraintSpec>
@@ -3498,13 +3521,16 @@
 
                     <!-- binding element must have dating attributes -->
                     <elementSpec ident="binding" module="msdescription" mode="change">
-                        <constraintSpec ident="binding.check" scheme="isoschematron">
+                        <constraintSpec ident="binding.check" scheme="schematron">
                             <constraint>
                                 <sch:rule
-                                    context="//tei:binding[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
-                                    <sch:assert test="@when|@notBefore|@notAfter">In the medieval
-                                        catalogue, the binding element must have dating
-                                        attributes.</sch:assert>
+                                    context="//tei:binding">
+                                    <sch:assert 
+                                        test="@when | @notBefore | @notAfter | @contemporary='true'" 
+                                        role="warn">
+                                        The binding element should have dating attributes (when or notBefore/notAfter) 
+                                        or a contemporary attribute (with the value 'true').
+                                    </sch:assert>
                                 </sch:rule>
                             </constraint>
                         </constraintSpec>
@@ -3512,13 +3538,16 @@
 
                     <!-- origDate element must have dating attributes -->
                     <elementSpec ident="origDate" module="msdescription" mode="change">
-                        <constraintSpec ident="origDate.check" scheme="isoschematron">
+                        <constraintSpec ident="origDate.check" scheme="schematron">
                             <constraint>
                                 <sch:rule
-                                    context="//tei:origDate[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
-                                    <sch:assert test="@when|@notBefore|@notAfter">In the medieval
-                                        catalogue, the origDate element must have dating
-                                        attributes.</sch:assert>
+                                    context="//tei:origDate">
+                                    <sch:assert 
+                                        test="@calendar and (@when | @notBefore | @notAfter | @from | @to) and string-length(normalize-space(string())) gt 0" 
+                                        role="error">
+                                        The origDate element must have two or more attributes - calendar and at least one of
+                                        when, notBefore, notAfter, from and/or to - and must contain some text describing the date.
+                                    </sch:assert>
                                 </sch:rule>
                             </constraint>
                         </constraintSpec>
