@@ -1770,7 +1770,8 @@
                                 <head>Collation</head>
                                 <p>The collation formula should be given inside the <gi>formula</gi>
                                     element.</p>
-                                <p>The <att>mainStructures</att> attribute may be used to record the
+                                <p>The <att>mainStructures</att> attribute (a customization not currently part of the TEI P5 standard) 
+                                    may be used to record the
                                     most frequently-occuring quire structure(s). The value of the
                                     attribute should be the number of leaves in the most
                                     frequently-occuring structure(s). A single value indicates that
@@ -3281,7 +3282,8 @@
                             <attDef ident="mainStructures">
                                 <desc>Specifies the typical quire structure(s) of the book,
                                     according to English notation (i.e. the number of folios in the
-                                    original quire), e.g. <val>8</val>, <val>6 8</val></desc>
+                                    original quire), e.g. <val>8</val>, <val>6 8</val>. 
+                                    Note: This is a customization which is not currently part of the TEI P5 standard.</desc>
                                 <datatype minOccurs="1" maxOccurs="unbounded">
                                     <dataRef key="teidata.count"/>
                                 </datatype>
@@ -3293,9 +3295,9 @@
                     <!-- add new attributes "topLine" and "rulingMedium" to layout -->
                     <elementSpec ident="layout" module="msdescription" mode="change">
                         <attList>
-                            <attDef ident="topLine">
+                            <attDef ident="topLine" mode="add">
                                 <desc>Specifies the whether the writing is above top line, below top
-                                    line, or mixed.</desc>
+                                    line, or mixed. Note: This is a customization which is not currently part of the TEI P5 standard.</desc>
                                 <valList type="closed">
                                     <valItem ident="above">
                                         <desc>The writing is above top line.</desc>
@@ -3310,9 +3312,9 @@
 
                                 </valList>
                             </attDef>
-                            <attDef ident="rulingMedium">
+                            <attDef ident="rulingMedium" mode="add">
                                 <desc>Specifies the medium <!-- OK? --> used to carry out the
-                                    ruling.</desc>
+                                    ruling. Note: This is a customization which is not currently part of the TEI P5 standard.</desc>
                                 <datatype minOccurs="1" maxOccurs="1">
                                     <dataRef key="teidata.enumerated"/>
                                 </datatype>
