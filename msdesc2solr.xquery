@@ -916,13 +916,36 @@ declare function bod:physForm($teinodes as element()*, $solrfield as xs:string, 
 
 declare function bod:digitized($teinodes as element()*, $solrfield as xs:string)
 {
+    (: This function returns 1 or 3 Solr fields:
+            ms_digitized_s is the 'Digital facsimile online' facet on the web site, including digitized images hosted anywhere
+            ms_digbod_sm is the UUID on Digital Bodleian, to be used to create links back to the catalogue from there
+            ms_digbod_b is a boolean field which is true if there is at least one Digital Bodleian UUID
+    :)
+    let $uuids := 
+        for $dburl in $teinodes/tei:ref/@target[matches(., '(digital|iiif)\.bodleian\.ox\.ac\.uk')]
+            let $matchinguuids := tokenize($dburl, '/')[matches(., '\w{8}\-\w{4}\-4\w{3}\-\w{4}\-\w{12}')]
+            return
+            if (count($matchinguuids) eq 1) then 
+                $matchinguuids[1]
+            else
+                bod:logging('warn', 'Invalid Digital Bodleian URL', $dburl)
+    return (
     <field name="ms_digitized_s">
         { 
         if ($teinodes[@type=('digital-fascimile','digital-facsimile') and @subtype='full']) then 'Yes' 
         else if ($teinodes[@type=('digital-fascimile','digital-facsimile') and @subtype='partial']) then 'Selected pages only' 
         else 'No'
         }
-    </field>
+    </field>,
+    if (count($uuids) gt 0) then
+        <field name="ms_digbod_b">true</field>
+    else
+        ()
+    ,
+    for $uuid in $uuids
+        return
+        <field name="ms_digbod_sm">{ $uuid }</field>
+    )
 };
 
 

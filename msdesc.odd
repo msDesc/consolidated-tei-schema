@@ -3165,6 +3165,7 @@
            collection
            
             -->
+
                     <elementSpec ident="title" module="core" mode="change">
                         <attList>
                             <attDef ident="type" mode="change">
@@ -3528,7 +3529,7 @@
                                 <sch:rule
                                     context="//tei:binding">
                                     <sch:assert 
-                                        test="@when | @notBefore | @notAfter | @contemporary='true'" 
+                                        test="@when or @notBefore or @notAfter or @contemporary='true'" 
                                         role="warn">
                                         The binding element should have dating attributes (when or notBefore/notAfter) 
                                         or a contemporary attribute (with the value 'true').
@@ -3545,7 +3546,7 @@
                                 <sch:rule
                                     context="//tei:origDate">
                                     <sch:assert 
-                                        test="@calendar and (@when | @notBefore | @notAfter | @from | @to) and string-length(normalize-space(string())) gt 0" 
+                                        test="@calendar and (@when or @notBefore or @notAfter or @from or @to) and string-length(normalize-space(string())) gt 0" 
                                         role="error">
                                         The origDate element must have two or more attributes - calendar and at least one of
                                         when, notBefore, notAfter, from and/or to - and must contain some text describing the date.
@@ -3555,12 +3556,37 @@
                         </constraintSpec>
                     </elementSpec>
 
+                    <classSpec ident="att.global.rendition" type="atts" mode="change" module="tei">
+                        <constraintSpec ident="rend.info" scheme="schematron">
+                            <constraint>
+                                <sch:rule 
+                                    context="*[@rend]">
+                                    <sch:report 
+                                        test="self::tei:hi and not(every $r in tokenize(@rend, '\s+')[string-length() gt 0] satisfies $r = ('bold', 'italic', 'smallcaps', 'roman', 'superscript', 'subscript', 'underline', 'overline', 'strikethrough'))"
+                                        role="info">
+                                        Any values can be used in rend attributes, but the web site currently only supports combinations of: 
+                                        bold, italic, roman, smallcaps, superscript, subscript, underline, overline, and strikethrough.
+                                    </sch:report>
+                                    <sch:assert 
+                                        test="self::tei:hi" 
+                                        role="info">
+                                        The web site currently only supports rend attributes for hi elements. Using it on <sch:value-of select="name(.)"/> 
+                                        elements is valid but will be ignored.
+                                    </sch:assert>
+                                </sch:rule>
+                                <sch:rule 
+                                    context="*[@rendition or @style]">
+                                    <sch:assert 
+                                        test="false()"
+                                        role="info">
+                                        The web site currently ignores rendition and style attributes.
+                                    </sch:assert>
+                                </sch:rule>
+                            </constraint>
+                        </constraintSpec>
+                    </classSpec>
 
                 </schemaSpec>
-
-
-
-
             </div>
         </body>
     </text>

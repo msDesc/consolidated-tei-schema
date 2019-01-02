@@ -1737,8 +1737,7 @@
     <xsl:template match="extent/dimensions">
         <div class="{name()}">
             <span class="tei-label">
-                <xsl:copy-of select="bod:standardText('Dimensions:')"/>
-                <xsl:text> </xsl:text>
+                <xsl:copy-of select="bod:standardText('Dimensions')"/>
                 <xsl:if test="@type">
                     <xsl:text> (</xsl:text>
                     <xsl:value-of select="translate(@type, '_', ' ')"/>
@@ -1806,14 +1805,120 @@
     
     <!-- TODO: listBibl shouldn't output spans in contexts that will output uls -->
     
-    <!-- hi used for ad hoc formatting -->
-    <xsl:template match="hi">
-        <span>
-            <xsl:attribute name="class">
-                <xsl:value-of select="@rend"/>
-            </xsl:attribute>
+    <!--    <xsl:template match="msItem/listBibl[bibl]"> 
+        <span class="{name()}"> 
+            <span class="tei-label"> 
+                <xsl:copy-of select="bod:standardText('References:')"/> 
+                <xsl:text> </xsl:text> 
+            </span> 
             <xsl:apply-templates/>
         </span>
+    </xsl:template>--> 
+    
+    <xsl:template match="hi[@rend]">
+        <!-- hi is used for ad-hoc formatting. To handle multiple space-separate values in @rend attributes, 
+             which need to be transformed into nested HTML tags, a recursively-called name template is required. -->
+        <xsl:call-template name="Rend">
+            <xsl:with-param name="rends" select="tokenize(@rend, '\s+')[string-length(.) gt 0]"/>
+            <xsl:with-param name="contents">
+                <xsl:apply-templates/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+    
+    <xsl:template name="Rend">
+        <xsl:param name="rends" as="xs:string*"/>
+        <xsl:param name="contents" as="document-node()*"/>
+        <xsl:choose>
+            <xsl:when test="count($rends) eq 0">
+                <xsl:copy-of select="$contents"/>
+            </xsl:when>
+            <xsl:when test="$rends[1] eq 'bold'">
+                <b>
+                    <xsl:call-template name="Rend">
+                        <xsl:with-param name="rends" select="$rends[position() gt 1]"/>
+                        <xsl:with-param name="contents" select="$contents"/>
+                    </xsl:call-template>
+                </b>
+            </xsl:when>
+            <xsl:when test="$rends[1] eq 'italic'">
+                <i>
+                    <xsl:call-template name="Rend">
+                        <xsl:with-param name="rends" select="$rends[position() gt 1]"/>
+                        <xsl:with-param name="contents" select="$contents"/>
+                    </xsl:call-template>
+                </i>
+            </xsl:when>
+            <xsl:when test="$rends[1] eq 'smallcaps'">
+                <span style="font-variant:small-caps;">
+                    <xsl:call-template name="Rend">
+                        <xsl:with-param name="rends" select="$rends[position() gt 1]"/>
+                        <xsl:with-param name="contents" select="$contents"/>
+                    </xsl:call-template>
+                </span>
+            </xsl:when>
+            <xsl:when test="$rends[1] eq 'roman'">
+                <span style="font-style:normal ! important;">
+                    <xsl:call-template name="Rend">
+                        <xsl:with-param name="rends" select="$rends[position() gt 1]"/>
+                        <xsl:with-param name="contents" select="$contents"/>
+                    </xsl:call-template>
+                </span>
+            </xsl:when>
+            <xsl:when test="$rends[1] eq 'superscript'">
+                <sup>
+                    <xsl:call-template name="Rend">
+                        <xsl:with-param name="rends" select="$rends[position() gt 1]"/>
+                        <xsl:with-param name="contents" select="$contents"/>
+                    </xsl:call-template>
+                </sup>
+            </xsl:when>
+            <xsl:when test="$rends[1] eq 'subscript'">
+                <sub>
+                    <xsl:call-template name="Rend">
+                        <xsl:with-param name="rends" select="$rends[position() gt 1]"/>
+                        <xsl:with-param name="contents" select="$contents"/>
+                    </xsl:call-template>
+                </sub>
+            </xsl:when>
+            <xsl:when test="$rends[1] eq 'underline'">
+                <span style="text-decoration:underline;">
+                    <xsl:call-template name="Rend">
+                        <xsl:with-param name="rends" select="$rends[position() gt 1]"/>
+                        <xsl:with-param name="contents" select="$contents"/>
+                    </xsl:call-template>
+                </span>
+            </xsl:when>
+            <xsl:when test="$rends[1] eq 'overline'">
+                <span style="text-decoration:overline;">
+                    <xsl:call-template name="Rend">
+                        <xsl:with-param name="rends" select="$rends[position() gt 1]"/>
+                        <xsl:with-param name="contents" select="$contents"/>
+                    </xsl:call-template>
+                </span>
+            </xsl:when>
+            <xsl:when test="$rends[1] eq 'strikethrough'">
+                <span style="text-decoration:line-through;">
+                    <xsl:call-template name="Rend">
+                        <xsl:with-param name="rends" select="$rends[position() gt 1]"/>
+                        <xsl:with-param name="contents" select="$contents"/>
+                    </xsl:call-template>
+                </span>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- If a @rend value is not one of the above, ignore it... -->
+                <xsl:call-template name="Rend">
+                    <xsl:with-param name="rends" select="$rends[position() gt 1]"/>
+                    <xsl:with-param name="contents" select="$contents"/>
+                </xsl:call-template>
+                <!-- ...but also log it... -->
+                <xsl:copy-of select="bod:logging('warn', concat('Unrecognized rend attribute value: ', $rends[1]), .)"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template match="hi[not(@rend)]">
+        <mark><xsl:apply-templates/></mark>
     </xsl:template>
     
     <xsl:template match="list/item[not(@facs)] | listBibl/bibl[not(@facs)]">
