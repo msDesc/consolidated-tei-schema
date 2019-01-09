@@ -2108,6 +2108,16 @@
         </ul>
     </xsl:template>
     
+    <xsl:template match="email[matches(normalize-space(string()), '^\S+@\S+\.\S+$')]">
+        <a>
+            <xsl:attribute name="href">
+                <xsl:text>mailto:</xsl:text>
+                <xsl:value-of select="normalize-space(string())"/>
+            </xsl:attribute>
+            <xsl:apply-templates/>
+        </a>
+    </xsl:template>
+
     <xsl:template match="@xml:*"></xsl:template>
 
     <!-- catch all fallback: this is there to warn me of elements I don't have templates for and should never fire otherwise-->
