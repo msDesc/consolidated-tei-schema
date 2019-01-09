@@ -1099,11 +1099,10 @@
         </span>
     </xsl:template>
 
-    <!-- quotations - should I be putting in quotation marks? -->
     <xsl:template match="q">
-        <span class="{name()}">
-            <xsl:apply-templates/>
-        </span>
+        <xsl:text>‘</xsl:text>
+        <xsl:apply-templates/>
+        <xsl:text>’</xsl:text>
     </xsl:template>
 
     <!-- msIdentifier -->
