@@ -166,27 +166,24 @@ declare function bod:summarizeDates($teinodes as element()*) as xs:string?
 
 declare function bod:personRoleLookup($role as xs:string) as xs:string
 {
-    (: Lookup the values used in role attributes of people (or organizations) and map 
-       those values to labels for display in facets on the web site :)
-    if (string-length($role) eq 3) then
-        bod:roleLookupMarcCode($role)
+    let $lcrole := lower-case($role)
+    return
+    if ($lcrole eq 'author') then
+        "Author"
+    else if ($lcrole eq 'editor') then
+        "Editor"
+    else if (string-length($role) eq 3) then
+        (: Expecting three-char MARC relator codes. Merge and rename 
+           some special cases, but otherwise lookup label. :)
+        if ($lcrole = ('fmo', 'sgn', 'dnr')) then
+            "Owner, signer, or donor"
+        else if ($lcrole = ('dte', 'pat')) then
+            "Commissioner, dedicatee, or patron"
+        else if ($lcrole eq 'bsl') then
+            "Stationer or bookseller"
+        else bod:roleLookupMarcCode($lcrole)
     else
-        bod:roleNormalizeLabel($role)
-};
-
-declare function bod:roleNormalizeLabel($rolelabel as xs:string) as xs:string
-{
-    (: Local descriptive labels :)
-    switch(lower-case($rolelabel))
-        case "formerowner" return "Owner, signer, or donor"
-        case "signer" return "Owner, signer, or donor"
-        case "donor" return "Owner, signer, or donor"
-        case "commissioner" return "Commissioner, dedicatee, or patron"
-        case "dedicatee" return "Commissioner, dedicatee, or patron"
-        case "patron" return "Commissioner, dedicatee, or patron"
-        case "stationer" return "Stationer or bookseller"
-        case "bookseller" return "Stationer or bookseller"
-        default return functx:capitalize-first($rolelabel)
+        concat('Unknown role code: ', $role)
 };
 
 declare function bod:roleLookupMarcCode($rolecode as xs:string) as xs:string
