@@ -172,6 +172,8 @@ declare function bod:personRoleLookup($role as xs:string) as xs:string
         "Author"
     else if ($lcrole eq 'editor') then
         "Editor"
+    else if ($lcrole eq 'subject') then
+        "Subject of a work"
     else if (string-length($role) eq 3) then
         (: Expecting three-char MARC relator codes. Merge and rename 
            some special cases, but otherwise lookup label. :)
@@ -183,7 +185,8 @@ declare function bod:personRoleLookup($role as xs:string) as xs:string
             "Stationer or bookseller"
         else bod:roleLookupMarcCode($lcrole)
     else
-        concat('Unknown role code: ', $role)
+        (: Anything else, assume it is a label :)
+        functx:capitalize-first($role)
 };
 
 declare function bod:roleLookupMarcCode($rolecode as xs:string) as xs:string
@@ -483,7 +486,7 @@ declare function bod:physFormLookup($form as xs:string) as xs:string
 };
 
 
-declare function bod:isLeadingStopWord($word as xs:string) as xs:boolean
+declare function bod:isLeadingStopWord($word as xs:string*) as xs:boolean
 {
     let $result := switch(lower-case($word))
         case 'the' return true()
