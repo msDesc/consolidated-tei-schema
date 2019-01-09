@@ -971,6 +971,12 @@
         </h4>
     </xsl:template>
     
+    <xsl:template match="list//head">
+        <p>
+            <xsl:apply-templates/>
+        </p>
+    </xsl:template>
+    
     <xsl:template match="msContents">
         <h3>
             <xsl:copy-of select="bod:standardText('Contents')"/>
@@ -1485,25 +1491,8 @@
         </p>
     </xsl:template>
 
-    <xsl:template match="decoNote//list|handNote//list|support//list" priority="10">
-        <div class="{concat(parent::node()/name(), '-list')}">
-            <xsl:apply-templates/>
-        </div>
-    </xsl:template>
-
-    <xsl:template match="decoNote/list/item|handNote/list/item|support//item" priority="10">
-        <span class="{name()}">
-            <xsl:apply-templates/>
-        </span>
-    </xsl:template>
-
     <!-- where all the text inside a decoNote (e.g. not nested children) = ' Decoration' get rid of it -->
     <xsl:template match="decoNote/text()[normalize-space(.) = 'Decoration']"/>
-    <xsl:template match="decoNote/list/head|decoNote/list/label|handNote/list/head|handnote/list/label" priority="10">
-        <span class="{name()}">
-            <xsl:apply-templates/>
-        </span>
-    </xsl:template>
 
     <xsl:template match="musicNotation">
         <div class="musicNotation">
@@ -1936,6 +1925,14 @@
             </a>
         </div>
     </xsl:template>
+    
+    <xsl:template match="item[not(preceding-sibling::label)]"> 
+        <li class="mslistitem"> 
+            <xsl:apply-templates/> 
+        </li> 
+    </xsl:template>
+    
+    <xsl:template match="item[preceding-sibling::label]"><!-- These items are handled in the template for label --></xsl:template>
 
     <!-- Things inside additional -->
     <xsl:template match="additional/listBibl">
@@ -2089,24 +2086,37 @@
     
     <xsl:template match="author[not(child::* or text())]"><!-- Do not output anything for self-closing author tags --></xsl:template>
 
-    <xsl:template match="heraldry | label | list/head | seg">
+    <xsl:template match="heraldry | seg">
         <span class="{name()}">
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
+    
     <xsl:template match="label">
-        <span class="{name()}">
+        <b>
             <xsl:apply-templates/>
-        </span>
+        </b>
     </xsl:template>
-
+    
     <xsl:template match="list">
-        <ul class="{name()}">
-            <xsl:apply-templates/>
+        <span class="head">
+            <xsl:apply-templates select="head"/>
+        </span>
+        <ul class="{name()}"> 
+            <xsl:apply-templates select="(*|text())[not(self::head)]"/>
         </ul>
     </xsl:template>
     
+    <xsl:template match="list/label[following-sibling::item]">
+        <li>
+            <b>
+                <xsl:apply-templates/>
+            </b>
+            <xsl:text> </xsl:text>
+            <xsl:apply-templates select="following-sibling::item[1]/(*|text())"/>
+        </li>
+    </xsl:template>
+
     <xsl:template match="email[matches(normalize-space(string()), '^\S+@\S+\.\S+$')]">
         <a>
             <xsl:attribute name="href">
