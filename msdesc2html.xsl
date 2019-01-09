@@ -2057,7 +2057,7 @@
         </span>
     </xsl:template>
     
-    <xsl:template match="addName">
+    <xsl:template match="forename|addName">
         <xsl:apply-templates/>
     </xsl:template>
 
