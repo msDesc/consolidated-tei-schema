@@ -2020,7 +2020,9 @@
             <xsl:copy-of select="bod:standardText('Availability')"/>
         </h3>
         <div class="{name()}">
+            <xsl:processing-instruction name="ni"/>
             <xsl:apply-templates/>
+            <xsl:processing-instruction name="ni"/>
         </div>
     </xsl:template>
 
