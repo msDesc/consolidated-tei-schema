@@ -103,15 +103,15 @@
                             the <att>role</att> attribute. Values should correspond to the Library
                             of Congress relator term list (<ref
                                 target="http://www.loc.gov/marc//relators/relaterm.html"
-                                >http://www.loc.gov/marc//relators/relaterm.html</ref>), converted
-                            to camelCase where necessary. The most commonly occurring roles are:
-                            "author", "scribe", "artist", "formerOwner", "signer", "patron". If
+                                >http://www.loc.gov/marc//relators/relaterm.html</ref>). The most commonly occurring roles are:
+                            "aut" (author), "scr" (scribe), "art" (artist; NB this is preferred to illustrator), "fmo" (former owner),"sgn" (signer), "pat" (patron). If
                             necessary, multiple roles can be separated with whitespace. <egXML
                                 xmlns="http://www.tei-c.org/ns/Examples"> Common-place book of
                                     <persName role="scribe formerOwner" key="person_697">John
                                     Curteys</persName> of Winchester College and New College, Oxford
                             </egXML>
                         </p>
+                        <p>Use "fmo" where their is evidence that a person owned an item. Use "sgn" where the person is only associated with the item by a signature or an inscription which does not necessarily imply ownership. Use "dnr" (donor) where the person gave the manuscript to an institution but evidence of ownership before the gift is lacking; i.e. to describe manuscripts apparently bought or made with the intention of being directly presented.</p>
                     </div>
                     <div xml:id="orgnames">
                         <head>Corporate / organization names</head>
@@ -121,8 +121,7 @@
                             organization referred to should be indicated using the <att>role</att>
                             attribute. Values should correspond to the Library of Congress relator
                             term list (<ref target="http://www.loc.gov/marc//relators/relaterm.html"
-                                >http://www.loc.gov/marc//relators/relaterm.html</ref>), converted
-                            to camelCase where necessary. Separate multiple roles with whitespace.
+                                >http://www.loc.gov/marc//relators/relaterm.html</ref>). Separate multiple roles with whitespace.
                             <!-- todo: example -->
                         </p>
                     </div>
@@ -1063,7 +1062,7 @@
                                     reference works. <!-- TODO: list these somewhere? --></p>
                             </div>
                             <div xml:id="msitemEditor">
-                                <head>Editor</head>
+                                <head>Editor / translator / etc.</head>
                                 <p>For secondary statements of responsibility, use the
                                         <gi>editor</gi> element, distinguished with a
                                         <att>role</att> attribute containing a three-letter code (or
@@ -1086,6 +1085,15 @@
                                     authority file, so that they are indexed on the web site.)
                                     Further details about their role in the creation of the work can
                                     be explained in a separate <gi>note</gi>. </p>
+                                <p>Alternatively (this is current practice in the medieval catalogue) information about translators, etc., may be provided in the <gi>note</gi> element as follows:
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <author key="person_95155322">
+                                        Origen
+                                    </author>
+                                    <title key="work_3395">Homilies on Joshua</title> 
+                                    <note>(Latin tr. by <persName key="person_77679446" role="trl">Rufinus</persName>)</note>
+                                </egXML>
+                                </p>
                             </div>
                             <div xml:id="msitemTitle">
                                 <head>Title</head>
@@ -3268,13 +3276,13 @@
                     </elementSpec>
 
 
-                    <!-- allow accMat to contain msPart -->
-                    <elementSpec ident="accMat" module="msdescription" mode="change">
+                    <!-- allow accMat to contain msPart (commented out 15.1.19 -->
+                    <!--<elementSpec ident="accMat" module="msdescription" mode="change">
                         <content>
                             <macroRef key="macro.specialPara"/>
                             <elementRef key="msPart" minOccurs="0"/>
                         </content>
-                    </elementSpec>
+                    </elementSpec>-->
 
                     <!-- add new attribute "mainStructures" to collation -->
                     <elementSpec ident="collation" module="msdescription" mode="change">
@@ -3337,6 +3345,29 @@
                                         <desc>The ruling is carried out using a board.</desc>
                                     </valItem>
 
+                                </valList>
+                            </attDef>
+                        </attList>
+                    </elementSpec>
+                    
+                    <!-- add new attribute value "offsite" for the availability element -->
+                    <elementSpec ident="availability" module="header" mode="change">
+                        <attList>
+                            <attDef ident="status" mode="change">
+                                <desc>Specifies the availability of a manuscript. This attribute should not be used to specify the availability of manuscript metadata: use the <gi>licence</gi> element for that purpose.</desc>
+                                <valList type="closed">
+                                    <valItem ident="free">
+                                        <desc>The item is available.</desc>
+                                    </valItem>
+                                    <valItem ident="restricted">
+                                        <desc>Access to the item is permanently restricted for conservation or other reasons.</desc>
+                                    </valItem>
+                                    <valItem ident="exhibition">
+                                        <desc>The item is on exhibition at the owning library or another institution, and is likely to be temporarily unavailable.</desc>
+                                    </valItem>
+                                    <valItem ident="offsite">
+                                        <desc>The item is stored offsite, and will take at least twenty-four hours to produce.</desc>
+                                    </valItem>
                                 </valList>
                             </attDef>
                         </attList>
