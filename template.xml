@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/bodleian/consolidated-tei-schema/master/msdesc.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/bodleian/consolidated-tei-schema/master/msdesc.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0"
+     xmlns:tei="http://www.tei-c.org/ns/1.0"
+     xml:id=""><!-- insert the correct xmlid in the form manuscript_12345 -->
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title><!-- insert the title of manuscript --></title>
+            
+            <respStmt xml:id="">
+               <resp when="">Cataloguer</resp>
+               <persName><!-- insert name of cataloguer --></persName>
+            </respStmt>
+            <respStmt xml:id="">
+               <resp when="">Markup and encoding</resp>
+               <persName><!-- insert name of encoder --></persName>
+            </respStmt>
+         </titleStmt>
+         <editionStmt>
+            <edition>TEI P5</edition>
+            <funder><!-- insert any funding details --></funder>
+         </editionStmt>
+         <publicationStmt>
+            <publisher>Special Collections, Bodleian Libraries</publisher>
+            <address>
+               <orgName type="department">Special Collections</orgName>
+               <orgName type="unit">Bodleian Libraries</orgName>
+               <orgName type="institution">University of Oxford</orgName>
+               <street>Weston Library, Broad Street</street>
+               <settlement>Oxford</settlement>
+               <postCode>OX1 3BG</postCode>
+               <country>United Kingdom</country>
+            </address>
+            <distributor>
+               <email>specialcollections.enquiries@bodleian.ox.ac.uk</email>
+            </distributor>
+            <idno type="msID"><!-- insert normalized form of shelfmark --></idno>
+            <idno type="collection"><!-- insert normalized form of shelfmark --></idno>
+            <idno type="catalogue"><!-- insert catalogue ID --></idno>
+         </publicationStmt>
+         <sourceDesc>
+            <msDesc xml:lang="en" xml:id=""><!-- xmlid should be a normalized form of the shelfmark, e.g. Merton_College_MS_10 -->
+               <msIdentifier>
+                  <settlement><!-- insert --></settlement>
+                  <repository><!-- insert --></repository>
+                  <idno type="shelfmark"><!-- insert --></idno>
+                  <altIdentifier type="former">
+                     <idno><!-- insert --></idno>
+                  </altIdentifier>
+                  
+               </msIdentifier>
+               <head><!-- provide a summary if required--></head>
+               <!-- information relating to the manuscript as a whole goes here. Information relating to parts of the manuscript goes in msPart below -->
+               <msContents>
+                  <!-- intellectual content of the ms. -->
+                  <textLang mainLang=""><!-- provide language information here if there is only one language in the manuscript --></textLang>
+                  <msItem xml:id="" n="">
+                     <!-- use as many of the following elements as are relevant -->
+                     <locus from="" to=""><!-- insert --></locus>
+                     <author key=""><!-- insert --></author>
+                     <title key=""><!-- insert --></title>
+                     <rubric><!-- insert --></rubric>
+                     <incipit><!-- insert --></incipit>
+                     <explicit><!-- insert --></explicit>
+                     <finalRubric><!-- insert --></finalRubric>
+                     <colophon><!-- insert --></colophon>
+                     <filiation><!-- insert --></filiation>
+                     <note><!-- insert --></note>
+                     <bibl><!-- insert --></bibl>
+                     <textLang mainLang="" otherLangs=""><!-- insert for each msItem if the manuscript contains multiple languages --></textLang>
+                  </msItem>
+                  <!-- insert further msItem elements as appropriate -->
+               </msContents>
+               <physDesc>
+                  <p><!-- any introductory material may be inserted here --></p>
+                  <objectDesc form=""><!-- use standard attribute values, e.g. codex, roll, sheet -->
+                     <supportDesc material=""><!-- use standard attribute values, e.g. perg, chart, mixed -->
+                        <support><!-- insert prose details --></support>
+                        <extent><!--insert details, e.g 233 leaves (iv+229)-->
+                        <dimensions unit="" type=""><!-- use standard attribute values, e.g. leaf, written -->                           <height quantity=""><!-- insert --></height>
+                           <width quantity=""><!-- insert --></width>
+                        </dimensions>
+                           <!-- use additional dimensions elements if necessary -->
+                        </extent>
+                        <foliation> <!-- insert if necessary --></foliation>
+                        <collation> <!-- insert if necessary --></collation>
+                        <condition> <!-- insert if necessary --></condition>
+                     </supportDesc>
+                     <layoutDesc>
+                        <layout columns="" writtenLines=""><!-- insert --></layout>
+                        <!-- use additional layout elements if necessary -->
+                     </layoutDesc>
+                  </objectDesc>
+                  
+                  <handDesc hands="">
+                     <handNote><!-- insert --></handNote>
+                     <!-- use additional handNote elements if necessary -->
+                  </handDesc>
+                  <musicNotation>
+                     <p><!-- insert if relevant --></p>
+                     <!-- use additional p elements if necessary -->
+                  </musicNotation>
+                  <decoDesc>
+                     <decoNote><!-- insert if relevant --></decoNote>
+                     <!-- use additional decoNote elements if necessary -->
+                  </decoDesc>
+                  <bindingDesc>
+                     <binding notAfter="" notBefore="">
+                        <p> <!-- insert relevant information --></p>
+                        <decoNote><!-- insert --></decoNote>
+                     </binding>
+                  </bindingDesc>
+               </physDesc>
+               <history>
+                  <origin>
+                     <origPlace>
+                        <country><!-- insert --></country>,
+                        <region><!-- insert --></region>,
+                        <settlement><!-- insert --></settlement>,
+                        <orgName><!-- insert --></orgName>
+                     </origPlace>
+                     <origDate notAfter="" notBefore="" calendar="Gregorian"><!-- insert --></origDate>
+                     <!-- use additional origPlace and origDate elements if necessary -->
+                  </origin>
+                  <provenance notBefore="" notAfter=""><!-- insert --></provenance>
+                  <!-- use additional provenance elements if necessary -->
+                  <acquisition><!-- insert --></acquisition>
+               </history>
+               <additional>
+                  <adminInfo>
+                     <recordHist>
+                        <source>
+                           <!-- insert prose here -->
+                           <bibl><!-- insert if necesary --></bibl>
+                           <!-- links to digitized catalogues may also be provide here, e.g.: -->
+                           <!--<listBibl>
+                              <bibl type="SC" facs="aas0046.gif">Summary Catalogue, Vol. 3, p.  31</bibl>
+                           </listBibl>-->
+                        </source>
+                     </recordHist><availability status=""><p><!-- insert --></p></availability> 
+                  </adminInfo>
+                  <listBibl>
+                     <!-- a number of listBibl elements can be nested inside an outer listBibl if required -->
+                     <head><!-- use to provide a heading if required --></head>
+                     <bibl><!-- insert bibliography, links to online resource, etc.--></bibl>
+                     
+                  </listBibl>
+               </additional>
+              
+           <!-- use the following if the ms is comprised of multiple parts -->
+               <msPart xml:id="">
+                  <msIdentifier>
+                     <altIdentifier>
+                        <idno><!-- insert --></idno>
+                     </altIdentifier>
+                  </msIdentifier>
+                  <!-- add relevant elements for contents, physical description, history, as above -->
+                  <msContents>
+                     <!-- insert --></msContents>
+                  <physDesc>
+                     <!-- insert -->
+                  </physDesc>
+            <history>
+               <!-- insert -->
+            </history>
+               </msPart>
+               <!-- add additional msPart elements as necessary -->
+              
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+      <revisionDesc>
+         <change when=""><!-- insert relevant text, e.g. 'First online publication' --></change>
+      </revisionDesc>
+   </teiHeader>
+   <text>
+      <body>
+         <p><!--Body paragraph provided for validation and future transcription--></p>
+      </body>
+   </text>
+</TEI>
