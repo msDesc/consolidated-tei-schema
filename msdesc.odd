@@ -3353,7 +3353,7 @@
                     <!-- add new attribute value "offsite" for the availability element -->
                     <elementSpec ident="availability" module="header" mode="change">
                         <attList>
-                            <attDef ident="status" mode="change">
+                            <attDef ident="status" mode="replace">
                                 <desc>Specifies the availability of a manuscript. This attribute should not be used to specify the availability of manuscript metadata: use the <gi>licence</gi> element for that purpose.</desc>
                                 <valList type="closed">
                                     <valItem ident="free">
