@@ -3355,6 +3355,9 @@
                         <attList>
                             <attDef ident="status" mode="replace">
                                 <desc>Specifies the availability of a manuscript. This attribute should not be used to specify the availability of manuscript metadata: use the <gi>licence</gi> element for that purpose.</desc>
+                                <datatype maxOccurs="unbounded">
+                                    <dataRef key="teidata.word"/>
+                                </datatype>
                                 <valList type="closed">
                                     <valItem ident="free">
                                         <desc>The item is available.</desc>
