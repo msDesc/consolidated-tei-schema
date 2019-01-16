@@ -3371,6 +3371,9 @@
                                     <valItem ident="offsite">
                                         <desc>The item is stored offsite, and will take at least twenty-four hours to produce.</desc>
                                     </valItem>
+                                    <valItem ident="unknown">
+                                        <desc>Availability of the item is unknown.</desc>
+                                    </valItem>
                                 </valList>
                             </attDef>
                         </attList>
