@@ -2155,10 +2155,18 @@
 
                         <div xml:id="additions">
                             <head>Additions</head>
-                            <p>Marginalia, notes, and other additions of interest should be recorded
+                            <p>Marginalia, notes, and other additions of interest should usually be recorded
                                 in the <gi>additions</gi> element, inside one or more <gi>p</gi>
                                 elements. Use <gi>locus</gi> to specify the location of these
                                 features.</p>
+                            <p>If the language of the marginalia is significant (e.g., Latin marginalia in a Greek manuscript), 
+                            the marginalia will need to be recorded as an additional text using <gi>msItem</gi> in <gi>msContents</gi>.</p>
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                <msItem xml:id="MS_Auct_T_2_6-item2">
+                                    <note type="additions" subtype="gloss">Marginal and interlinear Latin glosses.</note>
+                                    <textLang mainLang="la">Latin</textLang>
+                                </msItem>
+                            </egXML>
                             <!-- todo: more extensive annotations -->
                         </div>
 
@@ -2310,6 +2318,14 @@
                                     the attribute <att>cert</att> with value <val>high</val>, and
                                     the nature of the evidence may be specified with the
                                         <att>evidence</att> attribute.</p>
+                                <p>In retroconversion, authoritative sources may differ regarding the date (or origin) of a manuscript. 
+                                    This can also be recorded using multiple <gi>origDate</gi> elements. 
+                                    (The <att>resp</att> attribute may be used on the element to indicate responsibility in a machine-readable way).
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <origDate calendar="Gregorian" notAfter="1300" notBefore="1290">13th century, end (Hutter)</origDate> or 
+                                    <origDate calendar="Gregorian" notAfter="1325" notBefore="1300">14th century, first quarter (Palau)</origDate>
+                                </egXML>
+                                </p>
                                 <p>For manuscripts with significant later additions, textual or
                                     decorative, use additional <gi>origDate</gi> elements with
                                         <att>type</att> of <val>additions</val></p>
