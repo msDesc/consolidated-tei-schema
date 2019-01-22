@@ -2491,6 +2491,14 @@
                                         </bibl>
                                     </surrogates></egXML>
                             </p>
+                            <p>Note, when linking to Digital Bodleian, do not use the "permalink" in the 
+                                right-hand panel. This is a link to a specific page. Instead, click the 
+                                "iiif" button, copy the long string of letters, numbers and hyphens between 
+                                "manifest/" and ".json" from your browser's location bar, and paste it after 
+                                "https://digital.bodleian.ox.ac.uk/inquire/p/" into the target attribute in 
+                                your TEI file, as in the above example. That ensures the TEI record is 
+                                associated with the entire manuscript in Digtal Bodleian, and allows it to 
+                                reciprocate the link back to the catalogue web site automatically.</p>
                         </div>
 
                         <div xml:id="bibliography">
