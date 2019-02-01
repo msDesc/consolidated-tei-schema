@@ -44,6 +44,12 @@
                         <!--was created by Patrik Granholm and Eva Nyström, and is released under a <ref target="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International license</ref>.--></p>
                 </div>
                 <!-- todo: general intro, principles, differences from usual TEI, camelCase for attributes -->
+                <div type="introduction">
+                    <head>Introduction</head>
+                    <p>These draft guidelines are currently based on two main sources - the encoding guidelines for the Fihrist project [<ref target="https://github.com/fihristorg/fihrist-mss/raw/master/archive/old_manual.pdf">pdf</ref>], and encoding guideliens for medieval manuscripts jointly created by Cambridge University Library (James Freeman, with Suzanne Paul) and the Bodleian Library (Matthew Holford). The medieval guidelines in turn draw in places on the guidelines created by Patrick Granholm and Eva Nyström for <ref
+                        target="https://www.manuscripta.se/"><title>manuscripta.se</title></ref>.</p>
+                </div>
+                
                 <div xml:id="phraselevel">
                     <head>General principles</head>
                     <div xml:id="foreign">
@@ -1378,14 +1384,18 @@
                                                 with parchment bifolia for the outer and inner
                                                 leaves of the quire.</support></egXML>
                                     </p>
+                                    <p>If different materials are used (paper and parchment, different kinds of parchment, or different paper stocks, for example), 
+                                    these may be described in separate <gi>material</gi> elements.</p>
 
-                                    <!-- todo: paperDesc element? -->
+                                    
                                     <div xml:id="paper">
                                         <head>Description of paper</head>
                                         <p>The level of detail in which paper is described will
                                             vary: in retroconversion, according to the detail of
                                             existing descriptions; in cataloguing afresh, according
                                             to the resources available</p>
+                                        <p>The paper should be described inside the <gi>support</gi> element.
+                                        If there are multiple paper stocks, each should be described in its own <gi>material</gi> element.</p>
                                         <p>The folding of the paper should be recorded using a
                                                 <gi>measure</gi> element with the <att>type</att>
                                             attribute (value: <val>folding</val>)</p>
@@ -1399,7 +1409,7 @@
                                             of <val>laidLinesIn20mm</val>, <att>unit</att> of
                                                 <val>lines</val>, and <att>quantity</att> of the
                                             relevant number.</p>
-                                        <!-- todo: folding -->
+                                        <!-- or: distance required for x number of laidlines. Which is preferable? -->
                                         <div xml:id="watermarks">
                                             <head>Watermarks</head>
                                             <p>Describe each watermark in the <gi>watermark</gi>
