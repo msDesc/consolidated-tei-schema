@@ -1545,10 +1545,10 @@
                                         <p>
                                             <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                                 <extent> [...] <seg type="leaf">
-                                                  <num type="laterEndleaf" quantity="2">ii</num> +
-                                                  <num type="endleaf" quantity="1">1</num> + <num
-                                                  type="leaf" quantity="320">320</num> + <num
-                                                  type="laterEndleaf" quantity="2">ii</num>
+                                                  <num type="laterEndleaf" value="2">ii</num> +
+                                                    <num type="endleaf" value="1">1</num> + <num
+                                                        type="leaf" value="320">320</num> + <num
+                                                      type="laterEndleaf" value="2">ii</num>
                                                   </seg>
                                                 </extent>
                                             </egXML>
@@ -1561,8 +1561,8 @@
                                             distinguished), but any rear endleaves are included in
                                             with the main block. In such cases mark up as follows:
                                                 <egXML xmlns="http://www.tei-c.org/ns/Examples"><extent>
-                                                  <num type="endleaf" quantity="2">ii</num> + <num
-                                                  type="leaf" quantity="73">73</num>
+                                                    <num type="endleaf" value="2">ii</num> + <num
+                                                        type="leaf" value="73">73</num>
                                                 </extent>
                                             </egXML>
                                         </p>
@@ -1728,9 +1728,9 @@
                                             xmlns="http://www.tei-c.org/ns/Examples">
                                             <extent>
                                                 <seg type="leaf">
-                                                  <num type="later_endleaf" quantity="4">iv</num> +
-                                                  <num type="leaf" quantity="288">288</num> + <num
-                                                  type="later_endleaf" quantity="2">ii</num>
+                                                    <num type="later_endleaf" value="4">iv</num> +
+                                                    <num type="leaf" value="288">288</num> + <num
+                                                        type="later_endleaf" value="2">ii</num>
                                                 </seg>
                                                 <seg type="dimensions">
                                                   <dimensions type="leaf" unit="mm">
