@@ -1924,8 +1924,11 @@
                                 separate <gi>handNote</gi> element in the <gi>handDesc</gi> element.
                                 The <gi>handDesc</gi> element itself has an attribute
                                     <att>hands</att> which can be used to record the number of hands
-                                identified. This is optional but recommended. </p>
+                                identified. This is optional but recommended. The value of the attribute should be the number
+                            of hands involved in the original production of the manuscripts and should not include later additions or annotations.</p>
+                            
                             <!-- todo: several hands -->
+                            
                             <p> The <gi>handNote</gi> element may have an <att>xml:id</att>
                                 attribute with the values <val>hand-1</val>, <val>hand-2</val> etc,
                                 numbered in the order of appearance in the manuscript. If the same
@@ -1937,7 +1940,7 @@
                                 the scribe is identifiable, either from the writing or a
                                 subscription, give the name in a <gi>persName</gi> element using the
                                     <att>key</att> attribute pointing to the persons authority file,
-                                and the <att>role</att> attribute with value <val>scribe</val>.
+                                and the <att>role</att> attribute with value <val>scr</val>.
                                 <!-- todo: new example -->
                             </p>
                             <p>The <att>scope</att> attribute can be used to indicate the extent of
@@ -3412,6 +3415,10 @@
                             </attDef>
                         </attList>
                     </elementSpec>
+                    
+                    
+                    
+                    
 
                     <!-- ********************** -->
                     <!-- Schematron constraints -->
