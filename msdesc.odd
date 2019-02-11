@@ -46,7 +46,7 @@
                 <!-- todo: general intro, principles, differences from usual TEI, camelCase for attributes -->
                 <div type="introduction">
                     <head>Introduction</head>
-                    <p>These draft guidelines are currently based on two main sources - the encoding guidelines for the Fihrist project [<ref target="https://github.com/fihristorg/fihrist-mss/raw/master/archive/old_manual.pdf">pdf</ref>], and encoding guideliens for medieval manuscripts jointly created by Cambridge University Library (James Freeman, with Suzanne Paul) and the Bodleian Library (Matthew Holford). The medieval guidelines in turn draw in places on the guidelines created by Patrick Granholm and Eva Nyström for <ref
+                    <p>These draft guidelines are currently based on two main sources - the encoding guidelines for the Fihrist project [<ref target="https://github.com/fihristorg/fihrist-mss/raw/master/archive/old_manual.pdf">pdf</ref>], and encoding guidelines for medieval manuscripts jointly created by Cambridge University Library (James Freeman, with Suzanne Paul) and the Bodleian Library (Matthew Holford). The medieval guidelines in turn draw in places on the guidelines created by Patrick Granholm and Eva Nyström for <ref
                         target="https://www.manuscripta.se/"><title>manuscripta.se</title></ref>.</p>
                 </div>
                 
@@ -207,21 +207,20 @@
                             supplied text, etc., using symbols such as [], \/, should be replaced
                             with the relevant elements from the TEI transcription module.</p>
 
-                        <!-- TODO: add detailed guidance -->
 
                         <!-- TODO: punctuation -->
 
                         <p>Indicate damage using the <gi>damage</gi> element.</p>
 
                         <p>Errors in the manuscript may be indicated using the <gi>sic</gi> and
-                                <gi>corr</gi> elements. <gi>sic</gi> by itself simply signals the
+                            <gi>corr</gi> and <gi>choice</gi> elements. <gi>sic</gi> by itself simply signals the
                             presence of an error, <gi>corr</gi> provides the correction. <egXML
                                 xmlns="http://www.tei-c.org/ns/Examples">
                                 <!-- MS. Add. C. 145 --> Explicit <sic>loica</sic> magistri pauli de
                                 Venetijs </egXML>
                             <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                 <!-- MS. Add. C. 145 --> Explicit
-                                        <choice><sic>loica</sic><corr>logica</corr></choice>
+                                <choice><sic>loica</sic><corr>logica</corr></choice>
                                 magistri pauli de Venetijs </egXML>
                         </p>
 
@@ -234,14 +233,39 @@
                                 <specDesc key="sic"/>
                             </specList>
                         </p>
-                        <p>Additions should be recorded using the <gi>add</gi> element, with the
-                                <att>place</att> attribute (sample values: <val>above</val>,
-                                <val>below</val>, or <val>margin</val>), and deletions with the
-                                <gi>del</gi> element. <specList>
-                                <specDesc key="add" atts="place"/>
-                                <specDesc key="del"/>
+                        
+                        <p>Deletions by the scribe or later annotators should be recorded using the <gi>del</gi> element. The <att>rend</att> attribute may be used to indicate the manner of erasure: suggested values include <val>strikethrough</val> (the text has a line through it), <val>erasure</val> (the text has been scraped off), <val>expunction</val>. 
+                            <specList>
+                                <specDesc key="del" atts="rend"/>
                             </specList>
                         </p>
+                        
+                        
+                        <p>Additions by the scribe or later annotators should be recorded using the <gi>add</gi> element, with the
+                            <att>place</att> attribute. The values of the place attribute should be one of the values specified in the <ref target="http://www.stoa.org/epidoc/gl/latest/ref-add.html">EpiDoc guidelines</ref>, e.g:
+                            <list>
+                                <item><val>above</val>: written above the line</item>
+                                <item><val>below</val>: written below the line</item>
+                                <item><val>top</val>: written in the top margin</item>
+                                <item><val>bottom</val>: written in the top margin</item>
+                                <item><val>margin</val>: written in an unspecified margin</item>
+                                <item><val>unspecified</val>: written in an unspecified location</item>
+                            </list>
+                            
+                            <specList>
+                                <specDesc key="add" atts="place"/>
+                            </specList>
+                        </p>
+                        
+                        <p>Corrections by the scribe or later annotators should be recorded using a combination of the <gi>add</gi> and <gi>del</gi> elements with the <gi>subst</gi> or <gi>mod</gi> element.
+                        
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <incipit>Theodocius dicit De coniugationibus apud grecos iii sunt coniugationes uerborum qu<subst><del>a</del><add>o</add></subst>rum prima positione</incipit>
+                        </egXML>
+                        </p>
+                        
+                        
+                        
                         <p>Gaps due to damage, and illegible characters, should be marked with
                                 <gi>gap</gi> with <att>reason</att> of <val>damage</val> and
                                 <val>illegible</val> respectively. The extent of a gap should be
@@ -257,6 +281,29 @@
                         <p>Questionable or partly legible readings should be marked with
                                 <gi>unclear</gi> (generates a ‘(?)’ after the text in html)</p>
                         <p>Line breaks should be indicated with empty <gi>lb</gi> elements. </p>
+                    </div>
+                    <div xml:id="quotesFromMS">
+                        <head>Quotations from the manuscript</head>
+                        <p>Quotations from the manuscript, outside of elements such as <gi>incipit</gi>, <gi>explicit</gi> and so on, should be enclosed in the <gi>q</gi> element. This may have attribute <att>type</att> with sample values:
+                            <list>
+                                <item><val>pressmark</val>: the quotation is a pressmark, shelfmark or similar</item>
+                                <item><val>exLibris</val>: the quotation is an ex libris inscription</item>
+                                <item><val>inscription</val>: the quotation is the inscription of a signer or reader</item>
+                                <!-- todo: more? -->
+                            </list></p>
+                    </div>
+                    <div xml:id="refsToMSS">
+                        <head>References to manuscripts</head>
+                        <p>References in the description to other manuscripts should be enclosed in <gi>bibl</gi> tags with <att>type</att> of value <val>MS</val>. The <att>subtype</att> may be used to indicate if the manuscript is held by the same institution that holds the manuscript being catalogued (value <val>interal</val>) or by another institution (value <val>external)</val>. In the former case, the shelfmark should not include the location or institution name; in the latter case, location and institution should be included.</p>
+                        <p>
+                            The <gi>ref</gi> element may be used to provide a link to an online catalogue or digital fascimile.
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                Eberbach, Cistercian abbey (?): ‘modern’ chapter numbers added in boxes in the margin, as in <bibl type="MS" subtype="internal">MS. Laud Lat. 107</bibl>.
+                            </egXML>
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                This scribe was also responsible for most of the Simeon manuscript (<bibl type="MS" subtype="external"><ref target="http://www.bl.uk/manuscripts/FullDisplay.aspx?ref=Add_MS_22283">London, British Library, Add. MS. 22283</ref></bibl>) but has not yet been identified in any other manuscripts or documents.
+                            </egXML>
+                        </p>
                     </div>
 
 
@@ -686,15 +733,21 @@
                             <p>If the unit contains multiple works, in different languages or
                                 scripts, the <gi>textLang</gi> element should be used in the
                                     <gi>msItem</gi> instead, q.v.</p>
-                            <p>Languages should be described and encoded as accurately as possible,
-                                e.g Middle English (enm) rather than English, Anglo-Norman (xno)
-                                rather than French.</p>
+                            <p>According to the conventions of the catalogue, languages may be encoded at a high or low level of granularity - for example, Middle English may be encoded as "enm" or as "en", Anglo-Norman French may be encoded as "fr" or "xno"..</p>
                             <!-- todo: check! -->
                         </div>
                         <div xml:id="msitem">
                             <head>Manuscript Item</head>
-                            <p>Each item in the manuscript should be descibed in a distinct
-                                    <gi>msItem</gi></p>
+                            <p>The <gi>msItem</gi> element may be used:
+                            <list>
+                                <item>To describe an item of intellectual content (including blank leaves if necessary)</item>
+                                <item>To provide various note about the manuscript's contents (e.g. to compare items and their order with the contents of other manuscripts), or to provide a note of content now missing that was formerly present.)</item>
+                            </list>
+                            </p>
+                            
+                            <!-- todo: expand on the following -->
+                            <p>As a general rule, each distinct item in the manuscript should be descibed in a distinct
+                                    <gi>msItem</gi> tag</p>
 
                             <p>The items should be numbered with the <att>n</att> attribute. (This
                                 is particularly useful when the <gi>msItem</gi> element is nested,
@@ -1857,7 +1910,8 @@
                                 ruled space (but see also under Extent); number of columns and
                                 number of written and/or ruled lines; how and according to what
                                 pattern ruling was executed; whether the writing is ‘above’ or
-                                ‘below’ top line; and evidence for pricking of the page.</p>
+                                ‘below’ top line; and evidence for pricking of the page. This section comprises one or more <gi>layout</gi> elements inside the <gi>layoutDesc</gi> element.</p>
+                            <p>If desired, the <gi>seg</gi> element may be used to divide the content of a <gi>layout</gi> element, using attribute <att>type</att> to label the sections, suggested values <val>ruling</val>, <val>pricking</val>.</p>
                             <p>Give the number of columns and ruled lines in the <gi>layout</gi>
                                 element using the <att>columns</att> and <att>ruledLines</att> or
                                     <att>writtenLines</att> attribute. If the number of written or
@@ -1873,6 +1927,14 @@
                                             <width quantity="160">160</width>
                                         </dimensions>
                                     </layout>
+                                    <layoutDesc>
+                                        <layout columns="1" ruledLines="28">28 lines ruled in pale brown ink,
+                                            with single vertical bounding lines, extending the full height of the page,
+                                            ruled on the flesh side of the leaves with an instrument which produced a
+                                            scored line, but also often left a brown 'crayon' trace. <seg type="pricking"><hi rend="smallcaps">PRICKINGS</hi> are often visible in the
+                                            upper and lower margins, and in the outer margin c.7 mm. below the bottom ruled
+                                            line.</seg></layout>
+                                    </layoutDesc>
                                 </egXML></p>
                             <p>In most descriptions, you need only provide a count of the number of
                                 written lines. If there is a discernible difference between the
@@ -2016,6 +2078,11 @@
                                     <specDesc key="locusGrp" atts="from to scheme"/>
                                     <specDesc key="term" atts="type"/>
                                 </specList>
+                            </p>
+                            <p>Punctuation should be described in the <gi>handNote</gi> element. Use the <gi>term</gi> element with attribute <att>type</att> of value <val>punctuation</val> to mark up particular types of punctuation, if desired.
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                <handNote>Written in gothic <term type="script">textura quadrata</term>. Punctuation by <term type="punctuation">point</term> and <term type="punctuation">double point</term>.</handNote>
+                            </egXML>
                             </p>
                         </div>
 
@@ -2164,6 +2231,7 @@
                                     </decoDesc>
                                 </egXML>
                             </p>
+                            <p>Aspects of the manuscript relating to the presentation of the text - notably rubrication - should also be included in the <gi>decoDesc</gi> element (rather than in the <gi>layout</gi> element.</p>
                         </div>
 
                         <div xml:id="additions">
@@ -2390,6 +2458,7 @@
                                     target="http://www.loc.gov/marc//relators/relaterm.html">Library
                                     of Congress relator code</ref>, usually "fmo" for former
                                 owner).</p>
+                            <p>Pressmarks and shelfmarks should be recorded in a <gi>q</gi> element with attribute <att>type</att>, value <val>pressmark</val>; see <ptr target="#quotesFromMS"/>.</p>
                             <!-- todo: add details re EVIDENCE and TYPE? -->
 
                         </div>
