@@ -3485,6 +3485,24 @@
                         </attList>
                     </elementSpec>
                     
+                    <!-- add a new element 'countermark'. Model should be same as for 'watermark'  -->
+                    <elementSpec ident="countermark" mode="add" ns="https://github.com/bodleian/consolidated-tei-schema">
+                        <desc>Contains a description of a countermark</desc>
+                        <classes>
+                            <memberOf key="model.pPart.msDesc"/>
+                            <memberOf key="att.global"/>
+                            <memberOf key="att.global.rendition"/>
+                            <memberOf key="att.global.linking"/>
+                            <memberOf key="att.global.analytic"/>
+                            <memberOf key="att.global.change"/>
+                            <memberOf key="att.global.responsibility"/>
+                            <memberOf key="att.global.source"/>
+                        </classes>
+                        <content>
+                            <macroRef key="macro.phraseSeq"/>
+                        </content>
+                    </elementSpec>
+                    
                     
                     
                     
