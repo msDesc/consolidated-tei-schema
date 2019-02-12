@@ -3404,6 +3404,14 @@
                             </attDef>
                         </attList>
                     </elementSpec>
+                    
+                    <!-- make the signatures element member of att.typed
+                    (this is to allow distinction between quire signatures (or numbers) and leaf/bifolium signatures) -->
+                    <elementSpec ident="signatures" module="msdescription" mode="change">
+                        <classes mode="change">
+                            <memberOf key="att.typed"/>
+                        </classes>
+                    </elementSpec>
 
 
                     <!-- add new attributes "topLine" and "rulingMedium" to layout -->
@@ -3487,7 +3495,7 @@
                     
                     <!-- add a new element 'countermark'. Model should be same as for 'watermark'  -->
                     <elementSpec ident="countermark" mode="add" ns="https://github.com/bodleian/consolidated-tei-schema">
-                        <desc>Contains a description of a countermark</desc>
+                        <desc>Contains a description of a countermark. Note: This is a customization which is not currently part of the TEI P5 standard.</desc>
                         <classes>
                             <memberOf key="model.pPart.msDesc"/>
                             <memberOf key="att.global"/>
@@ -3502,6 +3510,7 @@
                             <macroRef key="macro.phraseSeq"/>
                         </content>
                     </elementSpec>
+                    
                     
                     
                     
