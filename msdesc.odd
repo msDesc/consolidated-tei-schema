@@ -1390,9 +1390,23 @@
                             <p>The physical form of the carrier should be set in the <att>form</att>
                                 attribute of the <gi>objectDesc</gi> element. This should refer to
                                 the form of the object in its original state, before any mutilation,
-                                rebinding etc. (values: <val>codex</val>, <val>roll</val>,
-                                    <val>sheet</val>, <val>faltbuch</val>, <val>other</val>,
-                                    <val>unknown</val>) <egXML
+                                rebinding etc. The following values are recommended:
+                                <list>
+                                    <item><val>codex</val>: multiple gatherings of leaves, held within a binding of some kind, and used by turning the leaves.</item>
+                                    <item><val>roll</val>: a parchment membrane, or two or more such membranes, either sewn together edge-to-edge to form a continuous surface for writing, or laid together in a pile and sewn together at the head, and used by unrolling the membranes.</item>
+                                    <item><val>sheet</val>:  a single sheet of parchment or paper, not intended to form part of a codex, either kept flat or folded (rather than rolled) for storage.</item>
+                                    <item><val>faltbuch</val></item>
+                                    
+                                    <item><val>other</val></item>
+                                    <item><val>unknown</val></item>
+                                </list>
+                                The following may also be used:
+                                <list>
+                                    <item><val>roll-codex</val></item>
+                                    <item><val>booklet</val>: a gathering of two or more bifolia, with a binding/covering, that appears to be complete in terms of its original textual content</item>
+                                    <item><val>quire</val>: a complete gathering of two or more bifolia, without a binding/covering.</item>
+                                </list>
+                               <egXML
                                     xmlns="http://www.tei-c.org/ns/Examples">
                                     <physDesc>
                                         <objectDesc form="codex">
@@ -1431,11 +1445,18 @@
                                     <head>Support</head>
                                     <p>Provides a prose description of the material. For parchment,
                                         this may include comment on the quality of the parchment and
-                                        its disposition (HSOS etc., HFHF, etc.). For mixed material,
+                                        its disposition. For mixed material,
                                         the nature of the combination should be described. <egXML
                                             xmlns="http://www.tei-c.org/ns/Examples"><support>Paper,
                                                 with parchment bifolia for the outer and inner
                                                 leaves of the quire.</support></egXML>
+                                    </p>
+                                    <p>If the disposition of hair and flesh sides of parchment is recorded, this should be done consistently using the letters H (for hair) and F (for flesh) inside a <gi>term</gi> element with attribute <att>type</att> of value <val>disposition</val>. For example HFFH indicates that hair and flesh sides face one another, with the hair side on the outside ofthe quire. Formulae such as 'HSOS' (hair side outside) should be altered in retroconversion. If the disposition of parchment varies between quires or otherwise between sections of the manuscript, it should be described in the <gi>layout</gi> element, rather than in <gi>support</gi>.
+                                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                            <support>Parchment (<term type="disposition">FHHF</term>)</support>
+                                            <support>Parchment (<term type="disposition">HFHF</term>)</support>
+                                        </egXML>
+                                    
                                     </p>
                                     <p>If different materials are used (paper and parchment, different kinds of parchment, or different paper stocks, for example), 
                                     these may be described in separate <gi>material</gi> elements.</p>
@@ -1479,8 +1500,8 @@
                                                 of <val>watermark</val>.</p>
                                             <p>References to printed repertories should be given in
                                                 the format specified above at Repertories.</p>
+                                            <p>Countermarks should be described using the <gi>countermark</gi> element. Note that this customization is not currently part of the TEI P5 standard.</p>
                                             <!-- todo: references to online repertories -->
-                                            <!-- todo: countermarks -->
                                             <!-- todo: useful to have a new attribute for a watermark to record whether / how closely it has been matched in a repertory? -->
                                         </div>
                                         <div>
@@ -1512,7 +1533,7 @@
                                         original state, record this information within
                                             <gi>objectType</gi>, using the following terms: <list>
                                             <item>roll-codex = a codex in which formerly joined
-                                                membranes have separated and rebound to resemble a
+                                                membranes have been separated and rebound to resemble a
                                                 codex, perhaps in concertina form</item>
                                             <item>fragment = one or more remnants from a manuscript,
                                                 whose survival in a form different to their original
@@ -1595,6 +1616,7 @@
                                                   <att>type</att>=<val>membrane</val></item>
                                             </list>
                                         </p>
+                                        <p>The terms ‘medieval’ and ‘post-medieval’ have been avoided in order that it might be possible to apply the same vocabulary and encoding practice to the task of cataloguing early modern manuscripts.</p>
                                         <p>
                                             <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                                 <extent> [...] <seg type="leaf">
@@ -1659,6 +1681,11 @@
                                         10mm between the leaves), use <att>min</att> and
                                             <att>max</att>: <egXML
                                             xmlns="http://www.tei-c.org/ns/Examples">
+                                                
+                                                <dimensions type="fragment" unit="mm">
+                                                    <height quantity="176">176</height>
+                                                    <width quantity="125">125</width>
+                                                </dimensions>    
                                             <dimensions type="leaf" unit="mm">
                                                 <height min="290" max="315">290-315</height>
                                                 <width min="160" max="180">160-180</width>
@@ -1823,10 +1850,10 @@
                                 <head>Foliation</head>
                                 <p>The <gi>foliation</gi> element is used to provide information
                                     about the systems used to number the folios or pages in the
-                                    manuscript. Where multiple systems have been used these can be
+                                    manuscript. It should record where and in what medium the numbers  are written, and when this was done, and the sequence of those numbers. Where multiple systems have been used these can be
                                     referred to elsewhere if <att>xml:id</att> attributes are used.
-                                    For example:</p>
-                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    For example:
+                                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                     <foliation xml:id="original">
                                         <p>Original foliation in red Arab numerals in the outer
                                             margin of each recto</p>
@@ -1835,7 +1862,13 @@
                                         <p>Additional pagination in pencil in <locus from="1b"
                                                 to="67a">ff. 1b-67a</locus></p>
                                     </foliation>
-                                </egXML>
+                                </egXML></p>
+                               <p>The dating attributes <att>notBefore</att>, <att>notAfter</att> and (less probably) <att>when</att> may be used if desired to (note: this is a customization and not currently part of the TEI P5 standard).
+                                   <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                       <foliation notBefore="1400" notAfter="1500">Fifteenth-century foliation in roman numerals.</foliation>
+                                   </egXML>
+                               </p>
+                                
                             </div>
                             <div xml:id="collation">
                                 <head>Collation</head>
@@ -1843,7 +1876,7 @@
                                     element.</p>
                                 <p>The <att>mainStructures</att> attribute (a customization not currently part of the TEI P5 standard) 
                                     may be used to record the
-                                    most frequently-occuring quire structure(s). The value of the
+                                    most frequently occuring quire structure(s). The value of the
                                     attribute should be the number of leaves in the most
                                     frequently-occuring structure(s). A single value indicates that
                                     the given quire structure occurs in approximately 80% or more of
@@ -1859,8 +1892,35 @@
                                                 XVII(13)</formula></collation>
                                     </egXML>
                                 </p>
+                                <p>The <gi>formula</gi> element should be used for brief collation formulae. For more detailed formulae, use the <gi>list</gi> element with attribute <att>type</att> of value <val>collationFormula</val>.
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <collation>
+                                        
+                                            <list>
+                                                <item>2 modern paper endleaves</item>
+                                                <item>1 medieval endleaf</item>
+                                                <item>Quire 1<hi rend="superscript">6</hi> (fols 1-6)</item>
+                                                    <item>Quire 2<hi rend="superscript">8</hi> (fols 7-14)</item>
+                                                        <item>Quire 3<hi rend="superscript">10</hi> (fols 15-24)</item>
+                                                            <item>Quire 4<hi rend="superscript">12</hi> (fols 25-36)</item>
+                                                                <item>2 modern paper endleaves</item>
+                                            </list>
+                                        
+                                    </collation> 
+                                    <!-- todo: this should be regarded as a temporary solution?  -->
+                                </egXML>
+                                
+                                </p>
                                 <p>Record quire or leaf signatures in the <gi>signatures</gi>
-                                    element.</p>
+                                    element. Use the attribute <att>type</att> to distinguish leaf and quire signatures. (NB this is a customization and not currently part of the TEI standard.)
+                                <list>
+                                    <item><val>leaf</val>: the description refers to leaf or bifolium signatures (usually located in the lower right-hand corner of the recto side of the leaves in the first half of a quire, usually in alphanumerical sequence).</item>
+                                    <item><val>quire</val>: the descripion refers to quire signatures or numbers, usually on the verso of the last leaf of the quire, or sometimes the recto of the first leaf, which assign a sequence of numbers, letters or a combination thereof to the sequence of quires.</item>
+                                </list>
+                                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                        <signatures type="leaf">Bifolium signatures, a-k, accompanied by Roman numerals, on Quires 1-10; none thereafter.</signatures> <signatures type="quire">Quires numbered 1-12 in a sixteenth-century hand.</signatures>
+                                    </egXML>
+                                </p>
                                 <p>Record the catchwords in the <gi>catchwords</gi> element.</p>
                                 <p>For <ref target="#msPart">multi-part manuscripts</ref>, the
                                     collation of each part should be recorded separately. In
@@ -1955,7 +2015,7 @@
                                     target="http://www.palaeographia.org/muzerelle/index.htm"
                                     >http://www.palaeographia.org/muzerelle/index.htm</ref>]. In the
                                 latter case the formula should be enclosed in a <gi>formula</gi>
-                                element with <att>type</att> of <val>Muzerelle</val></p>
+                                element with attribute <att>notation</att> of value <val>Muzerelle</val></p>
                             <p>
                                 <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                     <layoutDesc>
@@ -1969,8 +2029,14 @@
                                             <note>Main text always 24 lines per page. In the
                                                 commentary surrounding the main text there around
                                                 twice as many lines per page.</note>
-                                        </layout><!-- todo: example with ruling type described -->
+                                        </layout>
                                     </layoutDesc>
+                                    
+                                    <layout writtenLines="25" columns="1" topLine="above" rulingMedium="leadpoint">25 long lines. <seg type="pricking">Pricked in the outer margins.</seg> Ruled in leadpoint; ruling often very faint, with double vertical bounding lines extending the full height of the page, and the first, third, twenty-third and twenty-fifth horizontal lines extending the full width of the page (Muzerelle, <ref target="http://www.palaeographia.org/muzerelle/mastara.htm">Mastara</ref>, formula <formula notation="Muzerelle">2-2/0/101-101/J</formula>). Written above top line. Written space <dimensions unit="mm" type="written">
+                                        <height max="125" min="115">c. 115-125</height>
+                                        <width min="75" max="85">75-85</width>
+                                    </dimensions> </layout>
+                                    
                                 </egXML>
                             </p>
                             <p>If the layout varies between different sections of the manuscript,
@@ -3412,7 +3478,14 @@
                             <memberOf key="att.typed"/>
                         </classes>
                     </elementSpec>
-
+                    
+                    
+                    <!-- make the foliation element a member of att.datable (this is to enable identification of medieval foliation, if desired -->
+                    <elementSpec ident="foliation" module="msdescription" mode="change">
+                        <classes mode="change">
+                            <memberOf key="att.datable"/>
+                        </classes>
+                    </elementSpec>
 
                     <!-- add new attributes "topLine" and "rulingMedium" to layout -->
                     <elementSpec ident="layout" module="msdescription" mode="change">
