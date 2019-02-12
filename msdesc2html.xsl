@@ -870,7 +870,7 @@
         </xsl:for-each>
     </xsl:template>
 
-    <!-- lb to br -->
+    <!-- lb to br: overridden in medieval-mss, to output | instead -->
     <xsl:template match="lb">
         <br/>
     </xsl:template>
