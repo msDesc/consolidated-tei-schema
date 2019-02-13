@@ -2126,7 +2126,11 @@
             <xsl:apply-templates/>
         </a>
     </xsl:template>
-
+    
+    <xsl:template match="term">
+        <xsl:apply-templates/>
+    </xsl:template>
+    
     <xsl:template match="@xml:*"></xsl:template>
 
     <!-- catch all fallback: this is there to warn me of elements I don't have templates for and should never fire otherwise-->
