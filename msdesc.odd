@@ -46,7 +46,7 @@
                 <!-- todo: general intro, principles, differences from usual TEI, camelCase for attributes -->
                 <div type="introduction">
                     <head>Introduction</head>
-                    <p>These draft guidelines are currently based on two main sources - the encoding guidelines for the Fihrist project [<ref target="https://github.com/fihristorg/fihrist-mss/raw/master/archive/old_manual.pdf">pdf</ref>], and encoding guidelines for medieval manuscripts jointly created by Cambridge University Library (James Freeman, with Suzanne Paul) and the Bodleian Library (Matthew Holford). The medieval guidelines in turn draw in places on the guidelines created by Patrick Granholm and Eva Nyström for <ref
+                    <p>These draft guidelines are currently based on two main sources - the encoding guidelines for the Fihrist project [<ref target="https://github.com/fihristorg/fihrist-mss/raw/master/archive/old_manual.pdf">pdf</ref>], and encoding guidelines for medieval manuscripts jointly created by Cambridge University Library (James Freeman, with Suzanne Paul) and the Bodleian Library (Matthew Holford) with contributions by Andrew Dunning (formerly British Library). The medieval guidelines in turn draw in places on the guidelines created by Patrick Granholm and Eva Nyström for <ref
                         target="https://www.manuscripta.se/"><title>manuscripta.se</title></ref>.</p>
                 </div>
                 
@@ -57,7 +57,7 @@
                         <p>Phrases or words in other languages than English may be tagged by adding
                             the <att>xml:lang</att> attribute to the element enclosing the text, or
                             where no other element is available with a <gi>foreign</gi> element and
-                            a <att>xml:lang</att> attribute. <!--<egXML xmlns="http://www.tei-c.org/ns/Examples"> The total amount paid for the two volumes was 84 <foreign xml:lang="sv">Daler kopparmynt</foreign>. </egXML>-->
+                            a <att>xml:lang</att> attribute. By default this text displays in italic when rendered in the online catalogue. <!--<egXML xmlns="http://www.tei-c.org/ns/Examples"> The total amount paid for the two volumes was 84 <foreign xml:lang="sv">Daler kopparmynt</foreign>. </egXML>-->
                             <specList>
                                 <specDesc key="foreign" atts="xml:lang"/>
                             </specList>
@@ -68,7 +68,7 @@
                         <p>References to a specific location or range within a manuscripts should be
                             given in a <gi>locus</gi> element. The <att>from</att> and <att>to</att>
                             attributes are optional but recommended, as they enable links to images
-                            to be generated and processing of the length of manuscript items.</p>
+                            to be generated and allow calculation of the length of manuscript items.</p>
                         <p>If <att>from</att> and <att>to</att> attributes are used to refer to a
                             specific folio or page they should be used with identical values. The
                             foliation scheme should be specified in the <att>scheme</att> attribute
@@ -117,7 +117,8 @@
                                     Curteys</persName> of Winchester College and New College, Oxford
                             </egXML>
                         </p>
-                        <p>Use "fmo" where their is evidence that a person owned an item. Use "sgn" where the person is only associated with the item by a signature or an inscription which does not necessarily imply ownership. Use "dnr" (donor) where the person gave the manuscript to an institution but evidence of ownership before the gift is lacking; i.e. to describe manuscripts apparently bought or made with the intention of being directly presented.</p>
+                        <p>Use "fmo" where there is evidence that a person owned an item. Use "sgn" where the person is only associated with the item by a signature or an inscription which does not necessarily imply ownership. <!--Use "dnr" (donor) where the person gave the manuscript to an institution but evidence of ownership before the gift is lacking; i.e. to describe manuscripts apparently bought or made with the intention of being directly presented.--></p>
+                        <!-- TODO: query whether this is actually a useful and maintainable distinction -->
                     </div>
                     <div xml:id="orgnames">
                         <head>Corporate / organization names</head>
@@ -187,14 +188,13 @@
                     <div xml:id="attributeValues">
                         <head>Attribute values</head>
                         <p>Attribute values forming more than one word in natural language should be
-                            given in camelCase, e.g. formerOwner.</p>
+                            given in camelCase.</p>
                     </div>
 
 
 
 
                     <div xml:id="transcription">
-                        <!-- TODO -->
 
                         <head>Transcription</head>
                         <p>Transcriptions from the manuscript in the <gi>rubric</gi>,
@@ -202,8 +202,9 @@
                             provenance section, should be made diplomatically. Expand standard
                             abbreviations silently. If the abbreviation can be expanded with some
                             but not complete confidence, enclose the expansion in the <gi>ex</gi>
-                            element. Denote uncertain or ambiguous abbreviations with ’ [U0146]</p>
+                            element. Denote uncertain or ambiguous abbreviations with the character ’ [U0146], e.g. Westm’</p>
                         <p>Use capital letters only when they appear in the manuscript.</p>
+                     
                         <p>Transcription of special characters: e-caudata should be transcribed
                             using U+0119: Latin Small Letter E With Ogonek</p>
                         <p>The relevant elements from the TEI transcription module should be used
@@ -218,7 +219,8 @@
                             with the relevant elements from the TEI transcription module.</p>
 
 
-                        <!-- TODO: punctuation -->
+                        <p>Manuscript punctuation may be simplified by replacing the punctus versus and punctus elevatus with a point (.).</p>
+                        <!-- todo: check? -->
 
                         <p>Indicate damage using the <gi>damage</gi> element.</p>
 
@@ -589,8 +591,8 @@
                         as a physical object, its constituent parts, and intellectual works
                         represented within.</p>
                     <p>All manuscript descriptions must be informed by attention to codicological
-                        units. In other words, whether the manuscripts was created in one place,
-                        over one period of time, or is a composite of parts from multiple source,
+                        units. In other words, whether the manuscript was created in one place,
+                        over one period of time, or is a composite of parts from multiple sources,
                         assembled at a later date.</p>
                     <p>If the manuscript forms a single codicological unit, its intellectual
                         content, physical description, and history should be described directly
@@ -642,7 +644,7 @@
                                 (<att>type</att> attribute with value <val>former</val>). If the
                             manuscript has a reference number in another catalogue or reference
                             work, this should be given inside an <gi>altIdentifier</gi> element in
-                            an <gi>idno</gi> element. The following values are currently used: <list>
+                            an <gi>idno</gi> element. The following values are currently used in the medieval catalogue: <list>
                                 <item><val>SCN</val> - Summary catalogue number</item>
                                 <item><val>TM</val> - identifier in Trismegistos</item>
                                 <item><val>PR</val> - papyrological reference</item>
@@ -661,8 +663,10 @@
                                         <idno type="SCN">36946</idno>
                                     </altIdentifier>
                                     <altIdentifier type="external">
-                                        <idno type="PR">P. Oxy. VII 1032, (back) P. Oxy. VII
-                                            1049</idno>
+                                        <idno type="PR">P. Oxy. VII 1032</idno>
+                                    </altIdentifier>
+                                    <altIdentifier type="external">
+                                        <idno type="PR">P. Oxy. VII 1049</idno>
                                     </altIdentifier>
                                     <altIdentifier type="external">
                                         <idno type="TM">20328</idno>
@@ -2186,6 +2190,7 @@
 
                         <div xml:id="decodesc">
                             <head>Description of the Decoration</head>
+                            <p>The <gi>decoDesc</gi> element contains a description of the decoration in the manuscript or codicological unit, together with other ‘decorative’ aspects of the presentation of the text such as rubrication,  It can only contain the elements <gi>p</gi>, <gi>summary</gi>, and <gi>decoNote</gi>.</p>
                             <p>Within the tag <gi>decoDesc</gi>, use <gi>decoNote</gi> to provide a
                                 hierarchical breakdown of the decoration in the manuscript, in the
                                 order given in the following table, with the appropriate values of
@@ -2203,11 +2208,6 @@
                                         <cell>Borders, in the following order: historiated,
                                             other</cell>
                                         <cell>border</cell>
-                                    </row>
-                                    <row>
-                                        <cell>Miniatures, listed in the following order: full-page,
-                                            half-page, small, column</cell>
-                                        <cell>miniature</cell>
                                     </row>
                                     <row>
                                         <cell>Diagram</cell>
@@ -2254,10 +2254,6 @@
                                         <cell>cadel</cell>
                                     </row>
                                     <row>
-                                        <cell>fore-edge painting or decoration</cell>
-                                        <cell>foreedge</cell>
-                                    </row>
-                                    <row>
                                         <cell>instructions</cell>
                                         <cell>instructions</cell>
                                     </row>
@@ -2296,7 +2292,7 @@
                                 <item>vignette</item>
                             </list>
                             <p>Artists should be identified using the <gi>persName</gi> element with
-                                    <att>role</att> = <val>artist</val> and <att>key</att> referring
+                                    <att>role</att> = <val>art</val> and <att>key</att> referring
                                 to the persons authority file.</p>
                             <p>
                                 <egXML xmlns="http://www.tei-c.org/ns/Examples">
@@ -2308,13 +2304,41 @@
                                                 terminating in gold disks and ivy leaves.</p>
                                             <p>The second miniature is signed ‘Willelmus de monte
                                                 acuto me fecit’ by the artist <persName
-                                                  key="person_1234" role="artist">William Montague
+                                                  key="person_1234" role="art">William Montague
                                                   (fl. 1390s?) (<locus from="37r" to="37r"
                                                   >37r</locus>).</persName></p>
                                         </decoNote>
                                     </decoDesc>
                                 </egXML>
                             </p>
+                            <p>To provide a more structured entry in the case of detailed descriptions of decoration, use the <gi>list</gi>, <gi>head</gi>, and <gi>item</gi> elements.</p>
+                            <!-- todo: numbered lists? -->
+                            <p>
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                <!-- abbreviated from MS. Buchanan e. 10 -->
+                                <decoNote type="histInit">
+                                    <list>
+                                        <head>Two five-line historiated initials:</head>
+                                        <item>(fol. 19v) Obsecro te. Virgin and Child enthroned; the
+                                            Virgin holding a red fruit(?).</item>
+                                        <item> (fol. 23r) O intemerata. Pietà. </item>
+                                    </list>
+                                </decoNote>
+                                <decoNote type="decInit">Four- or three-line initials in blue and red, enclosing foliage,
+                                    on a gold ground, at the start of each text with a large miniature; two-line
+                                    initals in gold, on a blue and red ground with white tracery, to psalms,
+                                    capitula, lessons, etc. and the KL monograms in the calendar; similar one-line
+                                    initials to verses and other minor divisions; similar line-fillers
+                                    throughout.</decoNote>
+                            </egXML>
+                            </p>
+                            <p>The subjects of miniatures can be classified using the <gi>term</gi> element with attribute <att>type</att> of value <val>iconography</val>. The <att>ref</att> attribute can be used to point to a thesaurus, such as <ref target="http://www.iconclass.nl/home">Iconclass</ref>.
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples"> <decoNote type="histInit"> 
+                                    <list>
+                                        <head>One six-line historiated initial: </head>
+                                        <item>(fol. 49r) Hours of the Virgin, Lauds. <term type="iconography" ref="http://www.iconclass.org/rkd/73A6">Visitation</term>. </item>
+                                    </list>
+                                </decoNote></egXML></p>
                             <p>Aspects of the manuscript relating to the presentation of the text - notably rubrication - should also be included in the <gi>decoDesc</gi> element (rather than in the <gi>layout</gi> element.</p>
                         </div>
 
@@ -2342,38 +2366,72 @@
                                     <gi>bindingDesc</gi> element. The standard dating attributes
                                 should be used on the <gi>binding</gi> element if information about
                                 the date of the binding is available.</p>
+                            <p>The following order may be followed in the description: <list><item>covering material and coverage (full, half, quarter; textile; limp vellum; treasure)</item>
+                                <item>chemise (alum-tawed, textile)</item>
+                                <item>board material (wooden boards, pasteboard)</item>
+                                <item>tooling patterns (blind, gold)</item>
+                                <item>spine covering <!--(note if rebacked)--> and tooling, incl. labels</item>
+                                <item>metalwork fittings (plates, plaques, enamels, bosses, cornerpieces, strap and pin, clasps, chain staples).</item>
+                                <item>inlaid/inset plaques</item>
+                                <item>labels (esp. horn-plaques)</item></list>
+                            </p>
+                            <!-- todo: should some of this actually go in decoDesc, not p?  -->
                             <p>Key elements of the description may be marked with the <gi>term</gi>
                                 with relevant <att>type</att> attribute and with attribute
                                     <att>ref</att> referring to the appropriate URI in the Ligatus
                                 thesaurus.</p>
-                            <p>The first paragraph should contain a brief description of the binding
-                                type, the structure, cover material, etc. Give the height, width and
-                                depth of the binding in mm (with 5 mm precision) in the
+                            <p>Give the height, width and
+                                depth of the binding may be given in mm (with 5 mm precision) in the
                                     <gi>dimensions</gi> element (<att>type</att> attribute with
-                                value <val>binding</val>). A description of decorative features on
+                                value <val>binding</val>).</p><p> A description of decorative features on
                                 the binding can be recorded in one or more <gi>decoNote</gi>
                                 elements (note that this needs to be outside the <gi>p</gi> element
-                                as a child of <gi>binding</gi>) The overall condition and
-                                restaurations to the binding can be recorded in the
-                                    <gi>condition</gi> element (this also needs to be outside the
-                                    <gi>p</gi> element as a child of <gi>binding</gi>). </p>
+                                as a child of <gi>binding</gi>)</p><p>Use the <gi>condition</gi> element to record repairs to the binding, such as rebacking.</p>
+                            <p>Fore-edge painting or decoration should be described inside a <gi>decoDesc</gi> element, in a <gi>decoNote</gi> element with attribute <att>type</att> of value <val>foreedge</val>.</p>
                             <p> Bookmarks and other page markers should be described in a separate
                                 paragraph in the binding section, using where possible the
                                 vocabulary of the Ligatus thesaurus, and linking to that vocabulary
-                                using the <gi>term</gi> element with attribute of <att>type</att> =
+                                using the <gi>term</gi> element with attribute <att>type</att> of value  
                                     <val>bookmark</val> and relevant <att>ref</att> attribute.
+                            </p>
+                            <p>
                                     <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                     <bindingDesc>
-                                        <binding notBefore="1600" notAfter="1699">
+                                        <binding notBefore="1600" notAfter="1700">
                                             <p>Light brown <term type="material"
                                                   ref="http://w3id.org/lob/concept/1238"
                                                   >calfskin</term> over paste-laminate boards,
                                                 leather label on spine with title and shelfmark
                                                 tooled in gold, gauffered fore-edges. 17th
                                                 century.</p>
+                                            <condition>Rebacked.</condition>
                                             <p><term type="bookmark"
                                                   ref="http://www.ligatus.org.uk/lob/concept/2945"
                                                   >Leaf tab markers</term>.</p>
+                                        </binding>
+                                    </bindingDesc>
+                                </egXML>
+                            </p>
+                            <p>Evidence of former bindings, or the reuse of earlier binding material in a modern binding, should be recorded in a separate <gi>binding</gi> element.</p>
+                            <p>Note that all the above may require restructuring of an original description during retroconversion.</p>
+                            <p>
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <bindingDesc>
+                                        <binding notAfter="1900" notBefore="1600">
+                                            <p>Sewing not visible;
+                                                tightly rebound between 19th-century pasteboards, reusing earlier panels (see below); the centre of each cover inlaid with a
+                                                17th-century oval medallion of red leather tooled in gilt (perhaps replacing
+                                                the identifying mark of a previous owner); the spine similarly tooled, without
+                                                raised bands or title-piece (similar in design to <hi rend="italic">ibid</hi>. pl. XIXa); coloured endbands; the edges of the
+                                                leaves and boards gilt. Boxed.</p>
+                                        </binding>
+                                        <binding notAfter="1590" notBefore="1580">
+                                               <p>The binding re-uses panels of
+                                                16th-century brown leather with gilt tooling <foreign rend="italic">à la
+                                                    fanfare</foreign>, Paris c. 1580-90, in the style associated with Clovis Eve (of
+                                                the bindings ill. in Hobson, 
+                                                <title>Les reliures à la fanfare</title>, the boards are
+                                                closest in general design to pl. XXI b).</p>
                                         </binding>
                                     </bindingDesc>
                                 </egXML>
@@ -2523,6 +2581,9 @@
                                     later additions, textual or decorative, use additional
                                         <gi>origPlace</gi> elements with <att>type</att> of
                                         <val>additions</val>.</p>
+                               <p> <specList>
+                                    <specDesc key="origin"/>
+                                </specList></p>
                             </div>
                             <!-- TODO: examples -->
                         </div>
@@ -2544,7 +2605,10 @@
                                 owner).</p>
                             <p>Pressmarks and shelfmarks should be recorded in a <gi>q</gi> element with attribute <att>type</att>, value <val>pressmark</val>; see <ptr target="#quotesFromMS"/>.</p>
                             <!-- todo: add details re EVIDENCE and TYPE? -->
-
+                            <p><specList>
+                                <specDesc key="provenance"/>
+                            </specList>
+</p>
                         </div>
                         <div xml:id="acquisition">
                             <head>Acquisition</head>
@@ -2562,14 +2626,10 @@
                                         >Douce</persName>, Feb. 1833.</provenance>
                                 <acquisition when="1834">Bequeathed by Douce to the Bodleian in
                                     1834.</acquisition>
-                            </egXML>
-                            <div>
-                                <p><specList>
-                                        <specDesc key="origin"/>
-                                        <specDesc key="provenance"/>
+                            </egXML> <p><specList>
                                         <specDesc key="acquisition"/>
                                     </specList></p>
-                            </div>
+                           
                         </div>
 
 
@@ -2620,8 +2680,7 @@
                             <head>Availability</head>
                             <p>The <gi>availability</gi> element can be used to supply information
                                 about the availability of a manuscript, using the <att>status</att>
-                                attribute. Valid values for status are <val>free</val>,
-                                    <val>unknown</val> and <val>restricted</val>. It may also
+                                attribute. Valid values for status are <val>free</val>, <val>unknown</val>, <val>restricted</val>, <val>offsite</val>, <val>exhibition</val>. It may also
                                 contain information about the images or text, such as any
                                 restrictions on their use or distribution, their copyright status,
                                 etc. </p>
@@ -2629,11 +2688,14 @@
                         <div xml:id="custodial_history">
                             <head>Custodial History</head>
                             <p>The <gi>custodialHist</gi> element can be used to describe a
-                                manuscript's custodial history (e.g. being rebound after
-                                acquisition) either as prose tagged with <gi>p</gi> elements, or as
-                                a series of dated custodial events, using the <gi>custEvent</gi>
-                                element.</p>
+                                manuscript's custodial history (e.g. conservation, exhibitions) either as prose tagged with <gi>p</gi> elements, or as
+                                a series of custodial events, using the <gi>custEvent</gi>
+                                element with attributes <att>type</att>, <att>when</att>, etc.</p>
                         </div>
+                        <!--<div xml:id="additional_note">
+                            <head>Note</head>
+                            <p>The <gi>note</gi> element 9with attribute <att>type</att> if required) may be used here to record miscelleous information.</p>
+                        </div>-->
                         <!-- todo: note -->
 
                         <div xml:id="surrogates">
@@ -2684,6 +2746,7 @@
                                     <additional>
                                         <listBibl type="WRAPPER">
                                             <listBibl>
+                                                <head>Printed descriptions:</head>
                                                 <bibl><title>The Douce Legacy</title> (1984), no.
                                                   65</bibl>
                                                 <bibl>A. G. Watson, <title>Catalogue of Dated and
@@ -2706,10 +2769,13 @@
                                 </egXML>
                                 <specList>
                                     <specDesc key="additional"/>
+                                    <specDesc key="recordHist"/>
+                                    <specDesc key="source"/>
+                                    <specDesc key="availability"/>
+                                    <specDesc key="custodialHist"/>
+                                    <specDesc key="surrogates"/>
                                     <specDesc key="listBibl"/>
                                     <specDesc key="bibl"/>
-                                    <specDesc key="ref" atts="target"/>
-                                    <specDesc key="citedRange" atts="from to unit"/>
                                 </specList>
                             </p>
                         </div>
@@ -2754,7 +2820,7 @@
                             palimpsest, as a replacement for that text). In those cases, use of
                             multiple <gi>origDate</gi> and/or <gi>origPlace</gi> elements is
                             recommended; see above.</p>
-                        <p>Each codicological unit should be described in a separate <gi>msPart</gi>
+                        <p>For composite manuscripts, each codicological unit should be described in a separate <gi>msPart</gi>
                             element using the following elements: <specList>
                                 <specDesc key="msIdentifier"/>
                                 <specDesc key="msContents"/>
@@ -2762,6 +2828,7 @@
                                 <specDesc key="history"/>
                             </specList>
                         </p>
+                        <p>Endleaves should be described using one or more <gi>msPart</gi> elements following the <gi>msDesc</gi> element which contains the description of the main manuscript.</p>
                         <!--<p>The nature of the codicological unit should be specified using <att>type</att> on the <gi>msPart</gi> with the following values:
                         <list>
                             <item><val>codex</val></item>
@@ -2778,7 +2845,7 @@
                         <p>The element <gi>msFrag</gi> should not be used for this purpose. This
                             element is used for describing manuscripts that have been 'virtually
                             reconstructed' and is not currently used in this project.</p>
-                        <p>Each codicological unit should be numbered using arabic numerals (or
+                        <p>Each codicological unit should be labelled using arabic numerals (or
                             according to the convention of the existing catalogue in the case of
                             retroconversion) inside the <gi>idno</gi> in the <gi>altIdentifier</gi>
                             element inside the <gi>msIdentifier</gi> element. The folios comprising
@@ -2794,6 +2861,114 @@
                                 </msPart>
                             </egXML>
                         </p>
+                        <div xml:id="mssEndleaves">
+                            <head>Endleaf</head>
+                            <p>Example: MS. Auct. D. 2. 14 (abbreviated)</p>
+                            <p>
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <msDesc xml:id="MS_Auct_D_2_14" xml:lang="en">
+                                        <msIdentifier>
+                                           <!-- ...  -->
+                                        </msIdentifier>
+                                        <head>Gospels; Italy, 7th century</head>
+                                        <msContents>
+                                            <msItem xml:id="MS_Auct_D_2_14-item1" n="1" class="#biblia">
+                                                <title type="desc" key="work_12098">Gospels</title>
+                                                <msItem resp="#VD">
+                                                    <note>9-12th cent. marginal additions for liturgical pericopes (fols. 6v, 7, 8-30, etc.).</note>
+                                                </msItem>
+                                                <msItem resp="#VD">
+                                                    <locus>(fol. 149va)</locus>
+                                                    <note>Liturgical addition in honour of St. Chad (Lichfield ?)</note>
+                                                </msItem>
+                                                <msItem>
+                                                    <locus>(fol. 173v)</locus>
+                                                    <note>11th cent. addition: [ps] Fundamenta eius in montibus [v] Diliget
+                                                        dominus. Dominus vobiscum. [oratio] Domine Ihesu Christe qui introitum portarum
+                                                        … said after the lustration of holy water.</note>
+                                                </msItem>
+                                                <textLang mainLang="la">Latin</textLang>
+                                            </msItem>
+                                        </msContents>
+                                        <physDesc resp="#VD">
+                                            <objectDesc form="codex">
+                                                <supportDesc material="perg">
+                                                    <support>parchment</support>
+                                                    <extent>iii + 173 + iii fols. (fol. 173 is an endleaf originally from another manuscript: see below)
+                                                        <dimensions unit="mm" type="leaf">
+                                                            <height>248</height>
+                                                            <width>190</width>
+                                                        </dimensions>
+                                                        <dimensions type="written" unit="mm">
+                                                            <height>210</height>
+                                                            <width>157</width>
+                                                        </dimensions>
+                                                    </extent>
+                                                </supportDesc>
+                                                <layoutDesc>
+                                                    <layout columns="2" writtenLines="29">2 col. of 29 lines.</layout>
+                                                </layoutDesc>
+                                            </objectDesc>
+                                            <handDesc>
+                                                <handNote>Uncial script.</handNote>
+                                            </handDesc>
+                                            <musicNotation>
+                                                <p>Neums (11th cent.) added to the Genealogy of Christ by
+                                                    St. Luke (fol. 79) </p>
+                                            </musicNotation>
+                                            <decoDesc resp="#PA">
+                                                <decoNote>Initial. (P&amp;A ii. 1a)</decoNote>
+                                            </decoDesc>
+                                        </physDesc>
+                                        <history>
+                                            <origin><origPlace resp="#PA">
+                                                <country key="place_1000080">Italy</country>
+                                            </origPlace>
+                                                <origDate calendar="Gregorian" notAfter="0700" notBefore="0600" resp="#PA #VD">7th century</origDate>
+                                                
+                                            </origin>
+                                            <provenance resp="#PA">Textual relation with Cambridge, Corpus Christi College MS. 286 (Italy, 6th century, 'St Augustine's Gospels').</provenance>
+                                            <provenance resp="#PA">In <placeName key="place_7002445">England</placeName> by late 8th century (fol. 149va).</provenance>
+                                            <provenance resp="#PA #SC" when="1602">Owned by Sir <persName role="fmo" key="person_37261411">Robert Cotton</persName> in 1602.</provenance>
+                                            <acquisition when="1603">Given by him to the Library in 1603.</acquisition>
+                                            
+                                        </history>
+                                        
+                                        <additional>
+                                            <!-- ... -->
+                                        </additional>
+                                        
+                                        <msPart type="endleaf">
+                                            <msIdentifier> 
+                                                <altIdentifier>
+                                                    <idno type="part">MS. Auct. D. 2. 14 - endleaf, fol. 173</idno>
+                                                </altIdentifier></msIdentifier>
+                                            <msContents>
+                                                <msItem>
+                                                    <locus>(fol. 173r)</locus>
+                                                    <title type="desc">Booklist and list of names</title>
+                                                    <note>N. R. Ker, <title>Catalogue of Manuscripts Containing Anglo-Saxon</title> (1957), p. 350 (no. 290).</note>
+                                                    <textLang mainLang="en">Old English</textLang>
+                                                </msItem>
+                                                <msItem>
+                                                    <locus>(fol. 173v)</locus>
+                                                    <title>Ad introitum porte</title>
+                                                    <textLang mainLang="la">Latin</textLang>
+                                                </msItem>
+                                            </msContents>
+                                            <history>
+                                                <origin>
+                                                    <origPlace><country key="place_7002445">England</country>, <orgName key="org_150107857">Bury St Edmunds</orgName> (?)</origPlace><origDate calendar="Gregorian" notAfter="1200" notBefore="1150">11th century, second half</origDate>
+                                                </origin>
+                                                <provenance>'Bealdewuine abb.', fol. 173r, probably Baldwin, abbot of Bury St Edmunds (d. 1098).</provenance>
+                                            </history>
+                                            
+                                        </msPart>
+                                    </msDesc>
+                                    
+                                </egXML>
+                            </p>
+                        </div>
                         <div xml:id="mssReplacementLeaves">
                             <head>Manuscripts with replacement leaves</head>
                             <p>Example: MS. Holkham Gr. 15 (simplified)</p>
@@ -3569,8 +3744,9 @@
                                     <valItem ident="free">
                                         <desc>The item is available.</desc>
                                     </valItem>
+                                    <!-- nb: not necessarily permanently restricted -->
                                     <valItem ident="restricted">
-                                        <desc>Access to the item is permanently restricted for conservation or other reasons.</desc>
+                                        <desc>Access to the item is restricted for conservation or other reasons.</desc>
                                     </valItem>
                                     <valItem ident="exhibition">
                                         <desc>The item is on exhibition at the owning library or another institution, and is likely to be temporarily unavailable.</desc>
