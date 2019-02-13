@@ -407,7 +407,7 @@
     <xsl:function name="bod:standardText">
         <xsl:param name="textval" as="xs:string"/>
         <xsl:choose>
-            <xsl:when test="$textval = ('Physical Description', 'Contents', 'History', 'Record Sources', 'Language(s):', 'Support:', 'Origin:', 'Form:')">
+            <xsl:when test="$textval = ('Physical Description', 'Contents', 'History', 'Record Sources', 'Language(s):', 'Support:', 'Origin:', 'Form:', 'Additional Information')">
                 <xsl:processing-instruction name="ni"/>
                 <xsl:value-of select="$textval"/>
                 <xsl:processing-instruction name="ni"/>
@@ -888,18 +888,29 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <div class="msDesc" id="{$id}">
-            <xsl:if test="@xml:lang">
-                <xsl:attribute name="lang">
-                    <xsl:value-of select="@xml:lang"/>
-                </xsl:attribute>
-            </xsl:if>
+        <div class="msDesc" id="{ $id }" lang="{ (@xml:lang, 'en')[1] }">
+            
+            <!-- Identifiers -->
             <xsl:if test="msIdentifier/collection or msIdentifier/altIdentifier[child::idno[not(@subtype)]]">
                 <div class="msIdentifier">
                     <xsl:apply-templates select="msIdentifier"/>
                 </div>
             </xsl:if>
-            <xsl:apply-templates select="*[not(self::msIdentifier)]"/>
+            
+            <!-- The majority of content - works, parts, physical description, history, etc -->
+            <xsl:apply-templates select="*[not(self::msIdentifier or self::additional)]"/>
+            
+            <!-- Move additional to the end. This will be after any parts, because is 
+                 desirable because TEI P5 insists msPart, if present, are the last children
+                 of msDesc. This is currently the only except to displaying in document order -->
+            <xsl:if test="additional and msPart">
+                <h2>
+                    <xsl:copy-of select="bod:standardText('Additional Information')"/>
+                </h2>
+            </xsl:if>
+            <xsl:apply-templates select="additional"/>
+            
+            <!-- This named template may be used in some catalogues -->
             <xsl:call-template name="AdditionalContent"/>
         </div>
     </xsl:template>
