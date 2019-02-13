@@ -149,6 +149,16 @@
                             Again, for indexing to function correctly these MUST be linked to the
                             places authority file using the <att>key</att> attribute. </p>
                         <!-- TODO: add example or xref-->
+                        <p>To accommodate geodata in legacy data, or for use by other systems, <gi>geo</gi> 
+                            elements are permitted. But they are not displayed in catalogue web sites. For
+                            example, from the International Dunhuang Project:</p>
+                        <egXML
+                            xmlns="http://www.tei-c.org/ns/Examples">
+                            <origPlace>DHMG.(Dunhuang Mogao) DHMG.17.
+                                <geo n="min">94.80388888888889198 40.03638888888888658</geo>
+                                <geo n="max">95.9375 40.04833333333333201</geo>
+                            </origPlace>
+                        </egXML>
                     </div>
                     <div xml:id="hyperlinks">
                         <head>Hyperlinks</head>
@@ -1783,6 +1793,15 @@
                                                 to="67a">ff. 1b-67a</locus></p>
                                     </foliation>
                                 </egXML>
+                                <p>The <gi>fw</gi> element can be used to describe running heads. For example:</p>
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <foliation>
+                                        <p>
+                                            <fw place="left" type="pag" xml:lang="bo">Has pagination in Tibetan</fw>
+                                            <fw type="sig" place="left" xml:lang="bo">ཁི</fw>
+                                        </p>
+                                    </foliation>
+                                </egXML>
                             </div>
                             <div xml:id="collation">
                                 <head>Collation</head>
@@ -2913,6 +2932,7 @@
                         country 
                         district 
                         forename 
+                        geo
                         geogFeat 
                         geogName 
                         orgName 
@@ -2935,7 +2955,8 @@
                         am 
                         damage 
                         ex 
-                        facsimile 
+                        facsimile
+                        fw
                         subst 
                         supplied surface surfaceGrp 
                         zone
