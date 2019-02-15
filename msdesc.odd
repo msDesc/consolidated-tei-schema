@@ -44,6 +44,12 @@
                         <!--was created by Patrik Granholm and Eva Nyström, and is released under a <ref target="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International license</ref>.--></p>
                 </div>
                 <!-- todo: general intro, principles, differences from usual TEI, camelCase for attributes -->
+                <div type="introduction">
+                    <head>Introduction</head>
+                    <p>These draft guidelines are currently based on two main sources - the encoding guidelines for the Fihrist project [<ref target="https://github.com/fihristorg/fihrist-mss/raw/master/archive/old_manual.pdf">pdf</ref>], and encoding guidelines for medieval manuscripts jointly created by Cambridge University Library (James Freeman, with Suzanne Paul) and the Bodleian Library (Matthew Holford) with contributions by Andrew Dunning (formerly British Library). The medieval guidelines in turn draw in places on the guidelines created by Patrick Granholm and Eva Nyström for <ref
+                        target="https://www.manuscripta.se/"><title>manuscripta.se</title></ref>.</p>
+                </div>
+                
                 <div xml:id="phraselevel">
                     <head>General principles</head>
                     <div xml:id="foreign">
@@ -51,7 +57,7 @@
                         <p>Phrases or words in other languages than English may be tagged by adding
                             the <att>xml:lang</att> attribute to the element enclosing the text, or
                             where no other element is available with a <gi>foreign</gi> element and
-                            a <att>xml:lang</att> attribute. <!--<egXML xmlns="http://www.tei-c.org/ns/Examples"> The total amount paid for the two volumes was 84 <foreign xml:lang="sv">Daler kopparmynt</foreign>. </egXML>-->
+                            a <att>xml:lang</att> attribute. By default this text displays in italic when rendered in the online catalogue. <!--<egXML xmlns="http://www.tei-c.org/ns/Examples"> The total amount paid for the two volumes was 84 <foreign xml:lang="sv">Daler kopparmynt</foreign>. </egXML>-->
                             <specList>
                                 <specDesc key="foreign" atts="xml:lang"/>
                             </specList>
@@ -62,7 +68,7 @@
                         <p>References to a specific location or range within a manuscripts should be
                             given in a <gi>locus</gi> element. The <att>from</att> and <att>to</att>
                             attributes are optional but recommended, as they enable links to images
-                            to be generated and processing of the length of manuscript items.</p>
+                            to be generated and allow calculation of the length of manuscript items.</p>
                         <p>If <att>from</att> and <att>to</att> attributes are used to refer to a
                             specific folio or page they should be used with identical values. The
                             foliation scheme should be specified in the <att>scheme</att> attribute
@@ -103,15 +109,16 @@
                             the <att>role</att> attribute. Values should correspond to the Library
                             of Congress relator term list (<ref
                                 target="http://www.loc.gov/marc//relators/relaterm.html"
-                                >http://www.loc.gov/marc//relators/relaterm.html</ref>), converted
-                            to camelCase where necessary. The most commonly occurring roles are:
-                            "author", "scribe", "artist", "formerOwner", "signer", "patron". If
+                                >http://www.loc.gov/marc//relators/relaterm.html</ref>). The most commonly occurring roles are:
+                            "aut" (author), "scr" (scribe), "art" (artist; NB this is preferred to illustrator), "fmo" (former owner),"sgn" (signer), "pat" (patron). If
                             necessary, multiple roles can be separated with whitespace. <egXML
                                 xmlns="http://www.tei-c.org/ns/Examples"> Common-place book of
                                     <persName role="scribe formerOwner" key="person_697">John
                                     Curteys</persName> of Winchester College and New College, Oxford
                             </egXML>
                         </p>
+                        <p>Use "fmo" where there is evidence that a person owned an item. Use "sgn" where the person is only associated with the item by a signature or an inscription which does not necessarily imply ownership. <!--Use "dnr" (donor) where the person gave the manuscript to an institution but evidence of ownership before the gift is lacking; i.e. to describe manuscripts apparently bought or made with the intention of being directly presented.--></p>
+                        <!-- TODO: query whether this is actually a useful and maintainable distinction -->
                     </div>
                     <div xml:id="orgnames">
                         <head>Corporate / organization names</head>
@@ -121,8 +128,7 @@
                             organization referred to should be indicated using the <att>role</att>
                             attribute. Values should correspond to the Library of Congress relator
                             term list (<ref target="http://www.loc.gov/marc//relators/relaterm.html"
-                                >http://www.loc.gov/marc//relators/relaterm.html</ref>), converted
-                            to camelCase where necessary. Separate multiple roles with whitespace.
+                                >http://www.loc.gov/marc//relators/relaterm.html</ref>). Separate multiple roles with whitespace.
                             <!-- todo: example -->
                         </p>
                     </div>
@@ -144,6 +150,16 @@
                             Again, for indexing to function correctly these MUST be linked to the
                             places authority file using the <att>key</att> attribute. </p>
                         <!-- TODO: add example or xref-->
+                        <p>To accommodate geodata in legacy data, or for use by other systems, <gi>geo</gi> 
+                            elements are permitted. But they are not displayed in catalogue web sites. For
+                            example, from the International Dunhuang Project:</p>
+                        <egXML
+                            xmlns="http://www.tei-c.org/ns/Examples">
+                            <origPlace>DHMG.(Dunhuang Mogao) DHMG.17.
+                                <geo n="min">94.80388888888889198 40.03638888888888658</geo>
+                                <geo n="max">95.9375 40.04833333333333201</geo>
+                            </origPlace>
+                        </egXML>
                     </div>
                     <div xml:id="hyperlinks">
                         <head>Hyperlinks</head>
@@ -172,14 +188,13 @@
                     <div xml:id="attributeValues">
                         <head>Attribute values</head>
                         <p>Attribute values forming more than one word in natural language should be
-                            given in camelCase, e.g. formerOwner.</p>
+                            given in camelCase.</p>
                     </div>
 
 
 
 
                     <div xml:id="transcription">
-                        <!-- TODO -->
 
                         <head>Transcription</head>
                         <p>Transcriptions from the manuscript in the <gi>rubric</gi>,
@@ -187,8 +202,9 @@
                             provenance section, should be made diplomatically. Expand standard
                             abbreviations silently. If the abbreviation can be expanded with some
                             but not complete confidence, enclose the expansion in the <gi>ex</gi>
-                            element. Denote uncertain or ambiguous abbreviations with ’ [U0146]</p>
+                            element. Denote uncertain or ambiguous abbreviations with the character ’ [U0146], e.g. Westm’</p>
                         <p>Use capital letters only when they appear in the manuscript.</p>
+                     
                         <p>Transcription of special characters: e-caudata should be transcribed
                             using U+0119: Latin Small Letter E With Ogonek</p>
                         <p>The relevant elements from the TEI transcription module should be used
@@ -202,21 +218,21 @@
                             supplied text, etc., using symbols such as [], \/, should be replaced
                             with the relevant elements from the TEI transcription module.</p>
 
-                        <!-- TODO: add detailed guidance -->
 
-                        <!-- TODO: punctuation -->
+                        <p>Manuscript punctuation may be simplified by replacing the punctus versus and punctus elevatus with a point (.).</p>
+                        <!-- todo: check? -->
 
                         <p>Indicate damage using the <gi>damage</gi> element.</p>
 
                         <p>Errors in the manuscript may be indicated using the <gi>sic</gi> and
-                                <gi>corr</gi> elements. <gi>sic</gi> by itself simply signals the
+                            <gi>corr</gi> and <gi>choice</gi> elements. <gi>sic</gi> by itself simply signals the
                             presence of an error, <gi>corr</gi> provides the correction. <egXML
                                 xmlns="http://www.tei-c.org/ns/Examples">
                                 <!-- MS. Add. C. 145 --> Explicit <sic>loica</sic> magistri pauli de
                                 Venetijs </egXML>
                             <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                 <!-- MS. Add. C. 145 --> Explicit
-                                        <choice><sic>loica</sic><corr>logica</corr></choice>
+                                <choice><sic>loica</sic><corr>logica</corr></choice>
                                 magistri pauli de Venetijs </egXML>
                         </p>
 
@@ -229,14 +245,39 @@
                                 <specDesc key="sic"/>
                             </specList>
                         </p>
-                        <p>Additions should be recorded using the <gi>add</gi> element, with the
-                                <att>place</att> attribute (sample values: <val>above</val>,
-                                <val>below</val>, or <val>margin</val>), and deletions with the
-                                <gi>del</gi> element. <specList>
-                                <specDesc key="add" atts="place"/>
-                                <specDesc key="del"/>
+                        
+                        <p>Deletions by the scribe or later annotators should be recorded using the <gi>del</gi> element. The <att>rend</att> attribute may be used to indicate the manner of erasure: suggested values include <val>strikethrough</val> (the text has a line through it), <val>erasure</val> (the text has been scraped off), <val>expunction</val>. 
+                            <specList>
+                                <specDesc key="del" atts="rend"/>
                             </specList>
                         </p>
+                        
+                        
+                        <p>Additions by the scribe or later annotators should be recorded using the <gi>add</gi> element, with the
+                            <att>place</att> attribute. The values of the place attribute should be one of the values specified in the <ref target="http://www.stoa.org/epidoc/gl/latest/ref-add.html">EpiDoc guidelines</ref>, e.g:
+                            <list>
+                                <item><val>above</val>: written above the line</item>
+                                <item><val>below</val>: written below the line</item>
+                                <item><val>top</val>: written in the top margin</item>
+                                <item><val>bottom</val>: written in the top margin</item>
+                                <item><val>margin</val>: written in an unspecified margin</item>
+                                <item><val>unspecified</val>: written in an unspecified location</item>
+                            </list>
+                            
+                            <specList>
+                                <specDesc key="add" atts="place"/>
+                            </specList>
+                        </p>
+                        
+                        <p>Corrections by the scribe or later annotators should be recorded using a combination of the <gi>add</gi> and <gi>del</gi> elements with the <gi>subst</gi> or <gi>mod</gi> element.
+                        
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <incipit>Theodocius dicit De coniugationibus apud grecos iii sunt coniugationes uerborum qu<subst><del>a</del><add>o</add></subst>rum prima positione</incipit>
+                        </egXML>
+                        </p>
+                        
+                        
+                        
                         <p>Gaps due to damage, and illegible characters, should be marked with
                                 <gi>gap</gi> with <att>reason</att> of <val>damage</val> and
                                 <val>illegible</val> respectively. The extent of a gap should be
@@ -252,6 +293,29 @@
                         <p>Questionable or partly legible readings should be marked with
                                 <gi>unclear</gi> (generates a ‘(?)’ after the text in html)</p>
                         <p>Line breaks should be indicated with empty <gi>lb</gi> elements. </p>
+                    </div>
+                    <div xml:id="quotesFromMS">
+                        <head>Quotations from the manuscript</head>
+                        <p>Quotations from the manuscript, outside of elements such as <gi>incipit</gi>, <gi>explicit</gi> and so on, should be enclosed in the <gi>q</gi> element. This may have attribute <att>type</att> with sample values:
+                            <list>
+                                <item><val>pressmark</val>: the quotation is a pressmark, shelfmark or similar</item>
+                                <item><val>exLibris</val>: the quotation is an ex libris inscription</item>
+                                <item><val>inscription</val>: the quotation is the inscription of a signer or reader</item>
+                                <!-- todo: more? -->
+                            </list></p>
+                    </div>
+                    <div xml:id="refsToMSS">
+                        <head>References to manuscripts</head>
+                        <p>References in the description to other manuscripts should be enclosed in <gi>bibl</gi> tags with <att>type</att> of value <val>MS</val>. The <att>subtype</att> may be used to indicate if the manuscript is held by the same institution that holds the manuscript being catalogued (value <val>interal</val>) or by another institution (value <val>external)</val>. In the former case, the shelfmark should not include the location or institution name; in the latter case, location and institution should be included.</p>
+                        <p>
+                            The <gi>ref</gi> element may be used to provide a link to an online catalogue or digital fascimile.
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                Eberbach, Cistercian abbey (?): ‘modern’ chapter numbers added in boxes in the margin, as in <bibl type="MS" subtype="internal">MS. Laud Lat. 107</bibl>.
+                            </egXML>
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                This scribe was also responsible for most of the Simeon manuscript (<bibl type="MS" subtype="external"><ref target="http://www.bl.uk/manuscripts/FullDisplay.aspx?ref=Add_MS_22283">London, British Library, Add. MS. 22283</ref></bibl>) but has not yet been identified in any other manuscripts or documents.
+                            </egXML>
+                        </p>
                     </div>
 
 
@@ -527,8 +591,8 @@
                         as a physical object, its constituent parts, and intellectual works
                         represented within.</p>
                     <p>All manuscript descriptions must be informed by attention to codicological
-                        units. In other words, whether the manuscripts was created in one place,
-                        over one period of time, or is a composite of parts from multiple source,
+                        units. In other words, whether the manuscript was created in one place,
+                        over one period of time, or is a composite of parts from multiple sources,
                         assembled at a later date.</p>
                     <p>If the manuscript forms a single codicological unit, its intellectual
                         content, physical description, and history should be described directly
@@ -580,7 +644,7 @@
                                 (<att>type</att> attribute with value <val>former</val>). If the
                             manuscript has a reference number in another catalogue or reference
                             work, this should be given inside an <gi>altIdentifier</gi> element in
-                            an <gi>idno</gi> element. The following values are currently used: <list>
+                            an <gi>idno</gi> element. The following values are currently used in the medieval catalogue: <list>
                                 <item><val>SCN</val> - Summary catalogue number</item>
                                 <item><val>TM</val> - identifier in Trismegistos</item>
                                 <item><val>PR</val> - papyrological reference</item>
@@ -599,8 +663,10 @@
                                         <idno type="SCN">36946</idno>
                                     </altIdentifier>
                                     <altIdentifier type="external">
-                                        <idno type="PR">P. Oxy. VII 1032, (back) P. Oxy. VII
-                                            1049</idno>
+                                        <idno type="PR">P. Oxy. VII 1032</idno>
+                                    </altIdentifier>
+                                    <altIdentifier type="external">
+                                        <idno type="PR">P. Oxy. VII 1049</idno>
                                     </altIdentifier>
                                     <altIdentifier type="external">
                                         <idno type="TM">20328</idno>
@@ -681,15 +747,21 @@
                             <p>If the unit contains multiple works, in different languages or
                                 scripts, the <gi>textLang</gi> element should be used in the
                                     <gi>msItem</gi> instead, q.v.</p>
-                            <p>Languages should be described and encoded as accurately as possible,
-                                e.g Middle English (enm) rather than English, Anglo-Norman (xno)
-                                rather than French.</p>
+                            <p>According to the conventions of the catalogue, languages may be encoded at a high or low level of granularity - for example, Middle English may be encoded as "enm" or as "en", Anglo-Norman French may be encoded as "fr" or "xno"..</p>
                             <!-- todo: check! -->
                         </div>
                         <div xml:id="msitem">
                             <head>Manuscript Item</head>
-                            <p>Each item in the manuscript should be descibed in a distinct
-                                    <gi>msItem</gi></p>
+                            <p>The <gi>msItem</gi> element may be used:
+                            <list>
+                                <item>To describe an item of intellectual content (including blank leaves if necessary)</item>
+                                <item>To provide various note about the manuscript's contents (e.g. to compare items and their order with the contents of other manuscripts), or to provide a note of content now missing that was formerly present.)</item>
+                            </list>
+                            </p>
+                            
+                            <!-- todo: expand on the following -->
+                            <p>As a general rule, each distinct item in the manuscript should be descibed in a distinct
+                                    <gi>msItem</gi> tag</p>
 
                             <p>The items should be numbered with the <att>n</att> attribute. (This
                                 is particularly useful when the <gi>msItem</gi> element is nested,
@@ -1063,7 +1135,7 @@
                                     reference works. <!-- TODO: list these somewhere? --></p>
                             </div>
                             <div xml:id="msitemEditor">
-                                <head>Editor</head>
+                                <head>Editor / translator / etc.</head>
                                 <p>For secondary statements of responsibility, use the
                                         <gi>editor</gi> element, distinguished with a
                                         <att>role</att> attribute containing a three-letter code (or
@@ -1086,6 +1158,15 @@
                                     authority file, so that they are indexed on the web site.)
                                     Further details about their role in the creation of the work can
                                     be explained in a separate <gi>note</gi>. </p>
+                                <p>Alternatively (this is current practice in the medieval catalogue) information about translators, etc., may be provided in the <gi>note</gi> element as follows:
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <author key="person_95155322">
+                                        Origen
+                                    </author>
+                                    <title key="work_3395">Homilies on Joshua</title> 
+                                    <note>(Latin tr. by <persName key="person_77679446" role="trl">Rufinus</persName>)</note>
+                                </egXML>
+                                </p>
                             </div>
                             <div xml:id="msitemTitle">
                                 <head>Title</head>
@@ -1323,9 +1404,23 @@
                             <p>The physical form of the carrier should be set in the <att>form</att>
                                 attribute of the <gi>objectDesc</gi> element. This should refer to
                                 the form of the object in its original state, before any mutilation,
-                                rebinding etc. (values: <val>codex</val>, <val>roll</val>,
-                                    <val>sheet</val>, <val>faltbuch</val>, <val>other</val>,
-                                    <val>unknown</val>) <egXML
+                                rebinding etc. The following values are recommended:
+                                <list>
+                                    <item><val>codex</val>: multiple gatherings of leaves, held within a binding of some kind, and used by turning the leaves.</item>
+                                    <item><val>roll</val>: a parchment membrane, or two or more such membranes, either sewn together edge-to-edge to form a continuous surface for writing, or laid together in a pile and sewn together at the head, and used by unrolling the membranes.</item>
+                                    <item><val>sheet</val>:  a single sheet of parchment or paper, not intended to form part of a codex, either kept flat or folded (rather than rolled) for storage.</item>
+                                    <item><val>faltbuch</val></item>
+                                    
+                                    <item><val>other</val></item>
+                                    <item><val>unknown</val></item>
+                                </list>
+                                The following may also be used:
+                                <list>
+                                    <item><val>roll-codex</val></item>
+                                    <item><val>booklet</val>: a gathering of two or more bifolia, with a binding/covering, that appears to be complete in terms of its original textual content</item>
+                                    <item><val>quire</val>: a complete gathering of two or more bifolia, without a binding/covering.</item>
+                                </list>
+                               <egXML
                                     xmlns="http://www.tei-c.org/ns/Examples">
                                     <physDesc>
                                         <objectDesc form="codex">
@@ -1364,20 +1459,31 @@
                                     <head>Support</head>
                                     <p>Provides a prose description of the material. For parchment,
                                         this may include comment on the quality of the parchment and
-                                        its disposition (HSOS etc., HFHF, etc.). For mixed material,
+                                        its disposition. For mixed material,
                                         the nature of the combination should be described. <egXML
                                             xmlns="http://www.tei-c.org/ns/Examples"><support>Paper,
                                                 with parchment bifolia for the outer and inner
                                                 leaves of the quire.</support></egXML>
                                     </p>
+                                    <p>If the disposition of hair and flesh sides of parchment is recorded, this should be done consistently using the letters H (for hair) and F (for flesh) inside a <gi>term</gi> element with attribute <att>type</att> of value <val>disposition</val>. For example HFFH indicates that hair and flesh sides face one another, with the hair side on the outside ofthe quire. Formulae such as 'HSOS' (hair side outside) should be altered in retroconversion. If the disposition of parchment varies between quires or otherwise between sections of the manuscript, it should be described in the <gi>layout</gi> element, rather than in <gi>support</gi>.
+                                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                            <support>Parchment (<term type="disposition">FHHF</term>)</support>
+                                            <support>Parchment (<term type="disposition">HFHF</term>)</support>
+                                        </egXML>
+                                    
+                                    </p>
+                                    <p>If different materials are used (paper and parchment, different kinds of parchment, or different paper stocks, for example), 
+                                    these may be described in separate <gi>material</gi> elements.</p>
 
-                                    <!-- todo: paperDesc element? -->
+                                    
                                     <div xml:id="paper">
                                         <head>Description of paper</head>
                                         <p>The level of detail in which paper is described will
                                             vary: in retroconversion, according to the detail of
                                             existing descriptions; in cataloguing afresh, according
                                             to the resources available</p>
+                                        <p>The paper should be described inside the <gi>support</gi> element.
+                                        If there are multiple paper stocks, each should be described in its own <gi>material</gi> element.</p>
                                         <p>The folding of the paper should be recorded using a
                                                 <gi>measure</gi> element with the <att>type</att>
                                             attribute (value: <val>folding</val>)</p>
@@ -1391,7 +1497,7 @@
                                             of <val>laidLinesIn20mm</val>, <att>unit</att> of
                                                 <val>lines</val>, and <att>quantity</att> of the
                                             relevant number.</p>
-                                        <!-- todo: folding -->
+                                        <!-- or: distance required for x number of laidlines. Which is preferable? -->
                                         <div xml:id="watermarks">
                                             <head>Watermarks</head>
                                             <p>Describe each watermark in the <gi>watermark</gi>
@@ -1408,8 +1514,8 @@
                                                 of <val>watermark</val>.</p>
                                             <p>References to printed repertories should be given in
                                                 the format specified above at Repertories.</p>
+                                            <p>Countermarks should be described using the <gi>countermark</gi> element. Note that this customization is not currently part of the TEI P5 standard.</p>
                                             <!-- todo: references to online repertories -->
-                                            <!-- todo: countermarks -->
                                             <!-- todo: useful to have a new attribute for a watermark to record whether / how closely it has been matched in a repertory? -->
                                         </div>
                                         <div>
@@ -1441,7 +1547,7 @@
                                         original state, record this information within
                                             <gi>objectType</gi>, using the following terms: <list>
                                             <item>roll-codex = a codex in which formerly joined
-                                                membranes have separated and rebound to resemble a
+                                                membranes have been separated and rebound to resemble a
                                                 codex, perhaps in concertina form</item>
                                             <item>fragment = one or more remnants from a manuscript,
                                                 whose survival in a form different to their original
@@ -1524,13 +1630,14 @@
                                                   <att>type</att>=<val>membrane</val></item>
                                             </list>
                                         </p>
+                                        <p>The terms ‘medieval’ and ‘post-medieval’ have been avoided in order that it might be possible to apply the same vocabulary and encoding practice to the task of cataloguing early modern manuscripts.</p>
                                         <p>
                                             <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                                 <extent> [...] <seg type="leaf">
-                                                  <num type="laterEndleaf" quantity="2">ii</num> +
-                                                  <num type="endleaf" quantity="1">1</num> + <num
-                                                  type="leaf" quantity="320">320</num> + <num
-                                                  type="laterEndleaf" quantity="2">ii</num>
+                                                  <num type="laterEndleaf" value="2">ii</num> +
+                                                    <num type="endleaf" value="1">1</num> + <num
+                                                        type="leaf" value="320">320</num> + <num
+                                                      type="laterEndleaf" value="2">ii</num>
                                                   </seg>
                                                 </extent>
                                             </egXML>
@@ -1543,8 +1650,8 @@
                                             distinguished), but any rear endleaves are included in
                                             with the main block. In such cases mark up as follows:
                                                 <egXML xmlns="http://www.tei-c.org/ns/Examples"><extent>
-                                                  <num type="endleaf" quantity="2">ii</num> + <num
-                                                  type="leaf" quantity="73">73</num>
+                                                    <num type="endleaf" value="2">ii</num> + <num
+                                                        type="leaf" value="73">73</num>
                                                 </extent>
                                             </egXML>
                                         </p>
@@ -1588,6 +1695,11 @@
                                         10mm between the leaves), use <att>min</att> and
                                             <att>max</att>: <egXML
                                             xmlns="http://www.tei-c.org/ns/Examples">
+                                                
+                                                <dimensions type="fragment" unit="mm">
+                                                    <height quantity="176">176</height>
+                                                    <width quantity="125">125</width>
+                                                </dimensions>    
                                             <dimensions type="leaf" unit="mm">
                                                 <height min="290" max="315">290-315</height>
                                                 <width min="160" max="180">160-180</width>
@@ -1710,9 +1822,9 @@
                                             xmlns="http://www.tei-c.org/ns/Examples">
                                             <extent>
                                                 <seg type="leaf">
-                                                  <num type="later_endleaf" quantity="4">iv</num> +
-                                                  <num type="leaf" quantity="288">288</num> + <num
-                                                  type="later_endleaf" quantity="2">ii</num>
+                                                    <num type="later_endleaf" value="4">iv</num> +
+                                                    <num type="leaf" value="288">288</num> + <num
+                                                        type="later_endleaf" value="2">ii</num>
                                                 </seg>
                                                 <seg type="dimensions">
                                                   <dimensions type="leaf" unit="mm">
@@ -1750,19 +1862,33 @@
 
                             <div xml:id="foliation">
                                 <head>Foliation</head>
-                                <p>The <gi>foliation</gi> element is used to provide information
-                                    about the systems used to number the folios or pages in the
-                                    manuscript. Where multiple systems have been used these can be
-                                    referred to elsewhere if <att>xml:id</att> attributes are used.
-                                    For example:</p>
+                                <p>The <gi>foliation</gi> element is used to provide information about the systems used to
+                                    number the folios or pages in the manuscript. It should record where and in what medium the
+                                    numbers are written, and when this was done, and the sequence of those numbers. Where
+                                    multiple systems have been used these can be referred to elsewhere if <att>xml:id</att>
+                                    attributes are used. For example:</p>
                                 <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                     <foliation xml:id="original">
-                                        <p>Original foliation in red Arab numerals in the outer
-                                            margin of each recto</p>
+                                        <p>Original foliation in red Arab numerals in the outer margin of each recto</p>
                                     </foliation>
                                     <foliation xml:id="modern">
-                                        <p>Additional pagination in pencil in <locus from="1b"
-                                                to="67a">ff. 1b-67a</locus></p>
+                                        <p>Additional pagination in pencil in <locus from="1b" to="67a">ff. 1b-67a</locus></p>
+                                    </foliation>
+                                </egXML>
+                                <p>The dating attributes <att>notBefore</att>, <att>notAfter</att> and (less probably)
+                                    <att>when</att> may be used if desired to (note: this is a customization and not
+                                    currently part of the TEI P5 standard). <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                        <foliation notBefore="1400" notAfter="1500">Fifteenth-century foliation in roman
+                                            numerals.</foliation>
+                                    </egXML>
+                                </p>
+                                <p>The <gi>fw</gi> element can be used to describe running heads. For example:</p>
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <foliation>
+                                        <p>
+                                            <fw place="left" type="pag" xml:lang="bo">Has pagination in Tibetan</fw>
+                                            <fw type="sig" place="left" xml:lang="bo">ཁི</fw>
+                                        </p>
                                     </foliation>
                                 </egXML>
                             </div>
@@ -1772,7 +1898,7 @@
                                     element.</p>
                                 <p>The <att>mainStructures</att> attribute (a customization not currently part of the TEI P5 standard) 
                                     may be used to record the
-                                    most frequently-occuring quire structure(s). The value of the
+                                    most frequently occuring quire structure(s). The value of the
                                     attribute should be the number of leaves in the most
                                     frequently-occuring structure(s). A single value indicates that
                                     the given quire structure occurs in approximately 80% or more of
@@ -1788,8 +1914,35 @@
                                                 XVII(13)</formula></collation>
                                     </egXML>
                                 </p>
+                                <p>The <gi>formula</gi> element should be used for brief collation formulae. For more detailed formulae, use the <gi>list</gi> element with attribute <att>type</att> of value <val>collationFormula</val>.
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <collation>
+                                        
+                                            <list>
+                                                <item>2 modern paper endleaves</item>
+                                                <item>1 medieval endleaf</item>
+                                                <item>Quire 1<hi rend="superscript">6</hi> (fols 1-6)</item>
+                                                    <item>Quire 2<hi rend="superscript">8</hi> (fols 7-14)</item>
+                                                        <item>Quire 3<hi rend="superscript">10</hi> (fols 15-24)</item>
+                                                            <item>Quire 4<hi rend="superscript">12</hi> (fols 25-36)</item>
+                                                                <item>2 modern paper endleaves</item>
+                                            </list>
+                                        
+                                    </collation> 
+                                    <!-- todo: this should be regarded as a temporary solution?  -->
+                                </egXML>
+                                
+                                </p>
                                 <p>Record quire or leaf signatures in the <gi>signatures</gi>
-                                    element.</p>
+                                    element. Use the attribute <att>type</att> to distinguish leaf and quire signatures. (NB this is a customization and not currently part of the TEI standard.)
+                                <list>
+                                    <item><val>leaf</val>: the description refers to leaf or bifolium signatures (usually located in the lower right-hand corner of the recto side of the leaves in the first half of a quire, usually in alphanumerical sequence).</item>
+                                    <item><val>quire</val>: the descripion refers to quire signatures or numbers, usually on the verso of the last leaf of the quire, or sometimes the recto of the first leaf, which assign a sequence of numbers, letters or a combination thereof to the sequence of quires.</item>
+                                </list>
+                                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                        <signatures type="leaf">Bifolium signatures, a-k, accompanied by Roman numerals, on Quires 1-10; none thereafter.</signatures> <signatures type="quire">Quires numbered 1-12 in a sixteenth-century hand.</signatures>
+                                    </egXML>
+                                </p>
                                 <p>Record the catchwords in the <gi>catchwords</gi> element.</p>
                                 <p>For <ref target="#msPart">multi-part manuscripts</ref>, the
                                     collation of each part should be recorded separately. In
@@ -1839,7 +1992,8 @@
                                 ruled space (but see also under Extent); number of columns and
                                 number of written and/or ruled lines; how and according to what
                                 pattern ruling was executed; whether the writing is ‘above’ or
-                                ‘below’ top line; and evidence for pricking of the page.</p>
+                                ‘below’ top line; and evidence for pricking of the page. This section comprises one or more <gi>layout</gi> elements inside the <gi>layoutDesc</gi> element.</p>
+                            <p>If desired, the <gi>seg</gi> element may be used to divide the content of a <gi>layout</gi> element, using attribute <att>type</att> to label the sections, suggested values <val>ruling</val>, <val>pricking</val>.</p>
                             <p>Give the number of columns and ruled lines in the <gi>layout</gi>
                                 element using the <att>columns</att> and <att>ruledLines</att> or
                                     <att>writtenLines</att> attribute. If the number of written or
@@ -1855,6 +2009,14 @@
                                             <width quantity="160">160</width>
                                         </dimensions>
                                     </layout>
+                                    <layoutDesc>
+                                        <layout columns="1" ruledLines="28">28 lines ruled in pale brown ink,
+                                            with single vertical bounding lines, extending the full height of the page,
+                                            ruled on the flesh side of the leaves with an instrument which produced a
+                                            scored line, but also often left a brown 'crayon' trace. <seg type="pricking"><hi rend="smallcaps">PRICKINGS</hi> are often visible in the
+                                            upper and lower margins, and in the outer margin c.7 mm. below the bottom ruled
+                                            line.</seg></layout>
+                                    </layoutDesc>
                                 </egXML></p>
                             <p>In most descriptions, you need only provide a count of the number of
                                 written lines. If there is a discernible difference between the
@@ -1875,7 +2037,7 @@
                                     target="http://www.palaeographia.org/muzerelle/index.htm"
                                     >http://www.palaeographia.org/muzerelle/index.htm</ref>]. In the
                                 latter case the formula should be enclosed in a <gi>formula</gi>
-                                element with <att>type</att> of <val>Muzerelle</val></p>
+                                element with attribute <att>notation</att> of value <val>Muzerelle</val></p>
                             <p>
                                 <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                     <layoutDesc>
@@ -1889,8 +2051,14 @@
                                             <note>Main text always 24 lines per page. In the
                                                 commentary surrounding the main text there around
                                                 twice as many lines per page.</note>
-                                        </layout><!-- todo: example with ruling type described -->
+                                        </layout>
                                     </layoutDesc>
+                                    
+                                    <layout writtenLines="25" columns="1" topLine="above" rulingMedium="leadpoint">25 long lines. <seg type="pricking">Pricked in the outer margins.</seg> Ruled in leadpoint; ruling often very faint, with double vertical bounding lines extending the full height of the page, and the first, third, twenty-third and twenty-fifth horizontal lines extending the full width of the page (Muzerelle, <ref target="http://www.palaeographia.org/muzerelle/mastara.htm">Mastara</ref>, formula <formula notation="Muzerelle">2-2/0/101-101/J</formula>). Written above top line. Written space <dimensions unit="mm" type="written">
+                                        <height max="125" min="115">c. 115-125</height>
+                                        <width min="75" max="85">75-85</width>
+                                    </dimensions> </layout>
+                                    
                                 </egXML>
                             </p>
                             <p>If the layout varies between different sections of the manuscript,
@@ -1906,8 +2074,11 @@
                                 separate <gi>handNote</gi> element in the <gi>handDesc</gi> element.
                                 The <gi>handDesc</gi> element itself has an attribute
                                     <att>hands</att> which can be used to record the number of hands
-                                identified. This is optional but recommended. </p>
+                                identified. This is optional but recommended. The value of the attribute should be the number
+                            of hands involved in the original production of the manuscripts and should not include later additions or annotations.</p>
+                            
                             <!-- todo: several hands -->
+                            
                             <p> The <gi>handNote</gi> element may have an <att>xml:id</att>
                                 attribute with the values <val>hand-1</val>, <val>hand-2</val> etc,
                                 numbered in the order of appearance in the manuscript. If the same
@@ -1919,7 +2090,7 @@
                                 the scribe is identifiable, either from the writing or a
                                 subscription, give the name in a <gi>persName</gi> element using the
                                     <att>key</att> attribute pointing to the persons authority file,
-                                and the <att>role</att> attribute with value <val>scribe</val>.
+                                and the <att>role</att> attribute with value <val>scr</val>.
                                 <!-- todo: new example -->
                             </p>
                             <p>The <att>scope</att> attribute can be used to indicate the extent of
@@ -1996,6 +2167,11 @@
                                     <specDesc key="term" atts="type"/>
                                 </specList>
                             </p>
+                            <p>Punctuation should be described in the <gi>handNote</gi> element. Use the <gi>term</gi> element with attribute <att>type</att> of value <val>punctuation</val> to mark up particular types of punctuation, if desired.
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                <handNote>Written in gothic <term type="script">textura quadrata</term>. Punctuation by <term type="punctuation">point</term> and <term type="punctuation">double point</term>.</handNote>
+                            </egXML>
+                            </p>
                         </div>
 
                         <div xml:id="musicnotation">
@@ -2014,6 +2190,7 @@
 
                         <div xml:id="decodesc">
                             <head>Description of the Decoration</head>
+                            <p>The <gi>decoDesc</gi> element contains a description of the decoration in the manuscript or codicological unit, together with other ‘decorative’ aspects of the presentation of the text such as rubrication,  It can only contain the elements <gi>p</gi>, <gi>summary</gi>, and <gi>decoNote</gi>.</p>
                             <p>Within the tag <gi>decoDesc</gi>, use <gi>decoNote</gi> to provide a
                                 hierarchical breakdown of the decoration in the manuscript, in the
                                 order given in the following table, with the appropriate values of
@@ -2031,11 +2208,6 @@
                                         <cell>Borders, in the following order: historiated,
                                             other</cell>
                                         <cell>border</cell>
-                                    </row>
-                                    <row>
-                                        <cell>Miniatures, listed in the following order: full-page,
-                                            half-page, small, column</cell>
-                                        <cell>miniature</cell>
                                     </row>
                                     <row>
                                         <cell>Diagram</cell>
@@ -2082,10 +2254,6 @@
                                         <cell>cadel</cell>
                                     </row>
                                     <row>
-                                        <cell>fore-edge painting or decoration</cell>
-                                        <cell>foreedge</cell>
-                                    </row>
-                                    <row>
                                         <cell>instructions</cell>
                                         <cell>instructions</cell>
                                     </row>
@@ -2124,7 +2292,7 @@
                                 <item>vignette</item>
                             </list>
                             <p>Artists should be identified using the <gi>persName</gi> element with
-                                    <att>role</att> = <val>artist</val> and <att>key</att> referring
+                                    <att>role</att> = <val>art</val> and <att>key</att> referring
                                 to the persons authority file.</p>
                             <p>
                                 <egXML xmlns="http://www.tei-c.org/ns/Examples">
@@ -2136,21 +2304,58 @@
                                                 terminating in gold disks and ivy leaves.</p>
                                             <p>The second miniature is signed ‘Willelmus de monte
                                                 acuto me fecit’ by the artist <persName
-                                                  key="person_1234" role="artist">William Montague
+                                                  key="person_1234" role="art">William Montague
                                                   (fl. 1390s?) (<locus from="37r" to="37r"
                                                   >37r</locus>).</persName></p>
                                         </decoNote>
                                     </decoDesc>
                                 </egXML>
                             </p>
+                            <p>To provide a more structured entry in the case of detailed descriptions of decoration, use the <gi>list</gi>, <gi>head</gi>, and <gi>item</gi> elements.</p>
+                            <!-- todo: numbered lists? -->
+                            <p>
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                <!-- abbreviated from MS. Buchanan e. 10 -->
+                                <decoNote type="histInit">
+                                    <list>
+                                        <head>Two five-line historiated initials:</head>
+                                        <item>(fol. 19v) Obsecro te. Virgin and Child enthroned; the
+                                            Virgin holding a red fruit(?).</item>
+                                        <item> (fol. 23r) O intemerata. Pietà. </item>
+                                    </list>
+                                </decoNote>
+                                <decoNote type="decInit">Four- or three-line initials in blue and red, enclosing foliage,
+                                    on a gold ground, at the start of each text with a large miniature; two-line
+                                    initals in gold, on a blue and red ground with white tracery, to psalms,
+                                    capitula, lessons, etc. and the KL monograms in the calendar; similar one-line
+                                    initials to verses and other minor divisions; similar line-fillers
+                                    throughout.</decoNote>
+                            </egXML>
+                            </p>
+                            <p>The subjects of miniatures can be classified using the <gi>term</gi> element with attribute <att>type</att> of value <val>iconography</val>. The <att>ref</att> attribute can be used to point to a thesaurus, such as <ref target="http://www.iconclass.nl/home">Iconclass</ref>.
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples"> <decoNote type="histInit"> 
+                                    <list>
+                                        <head>One six-line historiated initial: </head>
+                                        <item>(fol. 49r) Hours of the Virgin, Lauds. <term type="iconography" ref="http://www.iconclass.org/rkd/73A6">Visitation</term>. </item>
+                                    </list>
+                                </decoNote></egXML></p>
+                            <p>Aspects of the manuscript relating to the presentation of the text - notably rubrication - should also be included in the <gi>decoDesc</gi> element (rather than in the <gi>layout</gi> element.</p>
                         </div>
 
                         <div xml:id="additions">
                             <head>Additions</head>
-                            <p>Marginalia, notes, and other additions of interest should be recorded
+                            <p>Marginalia, notes, and other additions of interest should usually be recorded
                                 in the <gi>additions</gi> element, inside one or more <gi>p</gi>
                                 elements. Use <gi>locus</gi> to specify the location of these
                                 features.</p>
+                            <p>If the language of the marginalia is significant (e.g., Latin marginalia in a Greek manuscript), 
+                            the marginalia will need to be recorded as an additional text using <gi>msItem</gi> in <gi>msContents</gi>.</p>
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                <msItem xml:id="MS_Auct_T_2_6-item2">
+                                    <note type="additions" subtype="gloss">Marginal and interlinear Latin glosses.</note>
+                                    <textLang mainLang="la">Latin</textLang>
+                                </msItem>
+                            </egXML>
                             <!-- todo: more extensive annotations -->
                         </div>
 
@@ -2161,38 +2366,72 @@
                                     <gi>bindingDesc</gi> element. The standard dating attributes
                                 should be used on the <gi>binding</gi> element if information about
                                 the date of the binding is available.</p>
+                            <p>The following order may be followed in the description: <list><item>covering material and coverage (full, half, quarter; textile; limp vellum; treasure)</item>
+                                <item>chemise (alum-tawed, textile)</item>
+                                <item>board material (wooden boards, pasteboard)</item>
+                                <item>tooling patterns (blind, gold)</item>
+                                <item>spine covering <!--(note if rebacked)--> and tooling, incl. labels</item>
+                                <item>metalwork fittings (plates, plaques, enamels, bosses, cornerpieces, strap and pin, clasps, chain staples).</item>
+                                <item>inlaid/inset plaques</item>
+                                <item>labels (esp. horn-plaques)</item></list>
+                            </p>
+                            <!-- todo: should some of this actually go in decoDesc, not p?  -->
                             <p>Key elements of the description may be marked with the <gi>term</gi>
                                 with relevant <att>type</att> attribute and with attribute
                                     <att>ref</att> referring to the appropriate URI in the Ligatus
                                 thesaurus.</p>
-                            <p>The first paragraph should contain a brief description of the binding
-                                type, the structure, cover material, etc. Give the height, width and
-                                depth of the binding in mm (with 5 mm precision) in the
+                            <p>Give the height, width and
+                                depth of the binding may be given in mm (with 5 mm precision) in the
                                     <gi>dimensions</gi> element (<att>type</att> attribute with
-                                value <val>binding</val>). A description of decorative features on
+                                value <val>binding</val>).</p><p> A description of decorative features on
                                 the binding can be recorded in one or more <gi>decoNote</gi>
                                 elements (note that this needs to be outside the <gi>p</gi> element
-                                as a child of <gi>binding</gi>) The overall condition and
-                                restaurations to the binding can be recorded in the
-                                    <gi>condition</gi> element (this also needs to be outside the
-                                    <gi>p</gi> element as a child of <gi>binding</gi>). </p>
+                                as a child of <gi>binding</gi>)</p><p>Use the <gi>condition</gi> element to record repairs to the binding, such as rebacking.</p>
+                            <p>Fore-edge painting or decoration should be described inside a <gi>decoDesc</gi> element, in a <gi>decoNote</gi> element with attribute <att>type</att> of value <val>foreedge</val>.</p>
                             <p> Bookmarks and other page markers should be described in a separate
                                 paragraph in the binding section, using where possible the
                                 vocabulary of the Ligatus thesaurus, and linking to that vocabulary
-                                using the <gi>term</gi> element with attribute of <att>type</att> =
+                                using the <gi>term</gi> element with attribute <att>type</att> of value  
                                     <val>bookmark</val> and relevant <att>ref</att> attribute.
+                            </p>
+                            <p>
                                     <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                     <bindingDesc>
-                                        <binding notBefore="1600" notAfter="1699">
+                                        <binding notBefore="1600" notAfter="1700">
                                             <p>Light brown <term type="material"
                                                   ref="http://w3id.org/lob/concept/1238"
                                                   >calfskin</term> over paste-laminate boards,
                                                 leather label on spine with title and shelfmark
                                                 tooled in gold, gauffered fore-edges. 17th
                                                 century.</p>
+                                            <condition>Rebacked.</condition>
                                             <p><term type="bookmark"
                                                   ref="http://www.ligatus.org.uk/lob/concept/2945"
                                                   >Leaf tab markers</term>.</p>
+                                        </binding>
+                                    </bindingDesc>
+                                </egXML>
+                            </p>
+                            <p>Evidence of former bindings, or the reuse of earlier binding material in a modern binding, should be recorded in a separate <gi>binding</gi> element.</p>
+                            <p>Note that all the above may require restructuring of an original description during retroconversion.</p>
+                            <p>
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <bindingDesc>
+                                        <binding notAfter="1900" notBefore="1600">
+                                            <p>Sewing not visible;
+                                                tightly rebound between 19th-century pasteboards, reusing earlier panels (see below); the centre of each cover inlaid with a
+                                                17th-century oval medallion of red leather tooled in gilt (perhaps replacing
+                                                the identifying mark of a previous owner); the spine similarly tooled, without
+                                                raised bands or title-piece (similar in design to <hi rend="italic">ibid</hi>. pl. XIXa); coloured endbands; the edges of the
+                                                leaves and boards gilt. Boxed.</p>
+                                        </binding>
+                                        <binding notAfter="1590" notBefore="1580">
+                                               <p>The binding re-uses panels of
+                                                16th-century brown leather with gilt tooling <foreign rend="italic">à la
+                                                    fanfare</foreign>, Paris c. 1580-90, in the style associated with Clovis Eve (of
+                                                the bindings ill. in Hobson, 
+                                                <title>Les reliures à la fanfare</title>, the boards are
+                                                closest in general design to pl. XXI b).</p>
                                         </binding>
                                     </bindingDesc>
                                 </egXML>
@@ -2302,6 +2541,14 @@
                                     the attribute <att>cert</att> with value <val>high</val>, and
                                     the nature of the evidence may be specified with the
                                         <att>evidence</att> attribute.</p>
+                                <p>In retroconversion, authoritative sources may differ regarding the date (or origin) of a manuscript. 
+                                    This can also be recorded using multiple <gi>origDate</gi> elements. 
+                                    (The <att>resp</att> attribute may be used on the element to indicate responsibility in a machine-readable way).
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <origDate calendar="Gregorian" notAfter="1300" notBefore="1290">13th century, end (Hutter)</origDate> or 
+                                    <origDate calendar="Gregorian" notAfter="1325" notBefore="1300">14th century, first quarter (Palau)</origDate>
+                                </egXML>
+                                </p>
                                 <p>For manuscripts with significant later additions, textual or
                                     decorative, use additional <gi>origDate</gi> elements with
                                         <att>type</att> of <val>additions</val></p>
@@ -2334,6 +2581,9 @@
                                     later additions, textual or decorative, use additional
                                         <gi>origPlace</gi> elements with <att>type</att> of
                                         <val>additions</val>.</p>
+                               <p> <specList>
+                                    <specDesc key="origin"/>
+                                </specList></p>
                             </div>
                             <!-- TODO: examples -->
                         </div>
@@ -2353,8 +2603,12 @@
                                     target="http://www.loc.gov/marc//relators/relaterm.html">Library
                                     of Congress relator code</ref>, usually "fmo" for former
                                 owner).</p>
+                            <p>Pressmarks and shelfmarks should be recorded in a <gi>q</gi> element with attribute <att>type</att>, value <val>pressmark</val>; see <ptr target="#quotesFromMS"/>.</p>
                             <!-- todo: add details re EVIDENCE and TYPE? -->
-
+                            <p><specList>
+                                <specDesc key="provenance"/>
+                            </specList>
+</p>
                         </div>
                         <div xml:id="acquisition">
                             <head>Acquisition</head>
@@ -2372,14 +2626,10 @@
                                         >Douce</persName>, Feb. 1833.</provenance>
                                 <acquisition when="1834">Bequeathed by Douce to the Bodleian in
                                     1834.</acquisition>
-                            </egXML>
-                            <div>
-                                <p><specList>
-                                        <specDesc key="origin"/>
-                                        <specDesc key="provenance"/>
+                            </egXML> <p><specList>
                                         <specDesc key="acquisition"/>
                                     </specList></p>
-                            </div>
+                           
                         </div>
 
 
@@ -2430,8 +2680,7 @@
                             <head>Availability</head>
                             <p>The <gi>availability</gi> element can be used to supply information
                                 about the availability of a manuscript, using the <att>status</att>
-                                attribute. Valid values for status are <val>free</val>,
-                                    <val>unknown</val> and <val>restricted</val>. It may also
+                                attribute. Valid values for status are <val>free</val>, <val>unknown</val>, <val>restricted</val>, <val>offsite</val>, <val>exhibition</val>. It may also
                                 contain information about the images or text, such as any
                                 restrictions on their use or distribution, their copyright status,
                                 etc. </p>
@@ -2439,11 +2688,14 @@
                         <div xml:id="custodial_history">
                             <head>Custodial History</head>
                             <p>The <gi>custodialHist</gi> element can be used to describe a
-                                manuscript's custodial history (e.g. being rebound after
-                                acquisition) either as prose tagged with <gi>p</gi> elements, or as
-                                a series of dated custodial events, using the <gi>custEvent</gi>
-                                element.</p>
+                                manuscript's custodial history (e.g. conservation, exhibitions) either as prose tagged with <gi>p</gi> elements, or as
+                                a series of custodial events, using the <gi>custEvent</gi>
+                                element with attributes <att>type</att>, <att>when</att>, etc.</p>
                         </div>
+                        <!--<div xml:id="additional_note">
+                            <head>Note</head>
+                            <p>The <gi>note</gi> element 9with attribute <att>type</att> if required) may be used here to record miscelleous information.</p>
+                        </div>-->
                         <!-- todo: note -->
 
                         <div xml:id="surrogates">
@@ -2467,6 +2719,14 @@
                                         </bibl>
                                     </surrogates></egXML>
                             </p>
+                            <p>Note, when linking to Digital Bodleian, do not use the "permalink" in the 
+                                right-hand panel. This is a link to a specific page. Instead, click the 
+                                "iiif" button, copy the long string of letters, numbers and hyphens between 
+                                "manifest/" and ".json" from your browser's location bar, and paste it after 
+                                "https://digital.bodleian.ox.ac.uk/inquire/p/" into the target attribute in 
+                                your TEI file, as in the above example. That ensures the TEI record is 
+                                associated with the entire manuscript in Digtal Bodleian, and allows it to 
+                                reciprocate the link back to the catalogue web site automatically.</p>
                         </div>
 
                         <div xml:id="bibliography">
@@ -2486,6 +2746,7 @@
                                     <additional>
                                         <listBibl type="WRAPPER">
                                             <listBibl>
+                                                <head>Printed descriptions:</head>
                                                 <bibl><title>The Douce Legacy</title> (1984), no.
                                                   65</bibl>
                                                 <bibl>A. G. Watson, <title>Catalogue of Dated and
@@ -2508,10 +2769,13 @@
                                 </egXML>
                                 <specList>
                                     <specDesc key="additional"/>
+                                    <specDesc key="recordHist"/>
+                                    <specDesc key="source"/>
+                                    <specDesc key="availability"/>
+                                    <specDesc key="custodialHist"/>
+                                    <specDesc key="surrogates"/>
                                     <specDesc key="listBibl"/>
                                     <specDesc key="bibl"/>
-                                    <specDesc key="ref" atts="target"/>
-                                    <specDesc key="citedRange" atts="from to unit"/>
                                 </specList>
                             </p>
                         </div>
@@ -2556,7 +2820,7 @@
                             palimpsest, as a replacement for that text). In those cases, use of
                             multiple <gi>origDate</gi> and/or <gi>origPlace</gi> elements is
                             recommended; see above.</p>
-                        <p>Each codicological unit should be described in a separate <gi>msPart</gi>
+                        <p>For composite manuscripts, each codicological unit should be described in a separate <gi>msPart</gi>
                             element using the following elements: <specList>
                                 <specDesc key="msIdentifier"/>
                                 <specDesc key="msContents"/>
@@ -2564,6 +2828,7 @@
                                 <specDesc key="history"/>
                             </specList>
                         </p>
+                        <p>Endleaves should be described using one or more <gi>msPart</gi> elements following the <gi>msDesc</gi> element which contains the description of the main manuscript.</p>
                         <!--<p>The nature of the codicological unit should be specified using <att>type</att> on the <gi>msPart</gi> with the following values:
                         <list>
                             <item><val>codex</val></item>
@@ -2580,7 +2845,7 @@
                         <p>The element <gi>msFrag</gi> should not be used for this purpose. This
                             element is used for describing manuscripts that have been 'virtually
                             reconstructed' and is not currently used in this project.</p>
-                        <p>Each codicological unit should be numbered using arabic numerals (or
+                        <p>Each codicological unit should be labelled using arabic numerals (or
                             according to the convention of the existing catalogue in the case of
                             retroconversion) inside the <gi>idno</gi> in the <gi>altIdentifier</gi>
                             element inside the <gi>msIdentifier</gi> element. The folios comprising
@@ -2596,6 +2861,114 @@
                                 </msPart>
                             </egXML>
                         </p>
+                        <div xml:id="mssEndleaves">
+                            <head>Endleaf</head>
+                            <p>Example: MS. Auct. D. 2. 14 (abbreviated)</p>
+                            <p>
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <msDesc xml:id="MS_Auct_D_2_14" xml:lang="en">
+                                        <msIdentifier>
+                                           <!-- ...  -->
+                                        </msIdentifier>
+                                        <head>Gospels; Italy, 7th century</head>
+                                        <msContents>
+                                            <msItem xml:id="MS_Auct_D_2_14-item1" n="1" class="#biblia">
+                                                <title type="desc" key="work_12098">Gospels</title>
+                                                <msItem resp="#VD">
+                                                    <note>9-12th cent. marginal additions for liturgical pericopes (fols. 6v, 7, 8-30, etc.).</note>
+                                                </msItem>
+                                                <msItem resp="#VD">
+                                                    <locus>(fol. 149va)</locus>
+                                                    <note>Liturgical addition in honour of St. Chad (Lichfield ?)</note>
+                                                </msItem>
+                                                <msItem>
+                                                    <locus>(fol. 173v)</locus>
+                                                    <note>11th cent. addition: [ps] Fundamenta eius in montibus [v] Diliget
+                                                        dominus. Dominus vobiscum. [oratio] Domine Ihesu Christe qui introitum portarum
+                                                        … said after the lustration of holy water.</note>
+                                                </msItem>
+                                                <textLang mainLang="la">Latin</textLang>
+                                            </msItem>
+                                        </msContents>
+                                        <physDesc resp="#VD">
+                                            <objectDesc form="codex">
+                                                <supportDesc material="perg">
+                                                    <support>parchment</support>
+                                                    <extent>iii + 173 + iii fols. (fol. 173 is an endleaf originally from another manuscript: see below)
+                                                        <dimensions unit="mm" type="leaf">
+                                                            <height>248</height>
+                                                            <width>190</width>
+                                                        </dimensions>
+                                                        <dimensions type="written" unit="mm">
+                                                            <height>210</height>
+                                                            <width>157</width>
+                                                        </dimensions>
+                                                    </extent>
+                                                </supportDesc>
+                                                <layoutDesc>
+                                                    <layout columns="2" writtenLines="29">2 col. of 29 lines.</layout>
+                                                </layoutDesc>
+                                            </objectDesc>
+                                            <handDesc>
+                                                <handNote>Uncial script.</handNote>
+                                            </handDesc>
+                                            <musicNotation>
+                                                <p>Neums (11th cent.) added to the Genealogy of Christ by
+                                                    St. Luke (fol. 79) </p>
+                                            </musicNotation>
+                                            <decoDesc resp="#PA">
+                                                <decoNote>Initial. (P&amp;A ii. 1a)</decoNote>
+                                            </decoDesc>
+                                        </physDesc>
+                                        <history>
+                                            <origin><origPlace resp="#PA">
+                                                <country key="place_1000080">Italy</country>
+                                            </origPlace>
+                                                <origDate calendar="Gregorian" notAfter="0700" notBefore="0600" resp="#PA #VD">7th century</origDate>
+                                                
+                                            </origin>
+                                            <provenance resp="#PA">Textual relation with Cambridge, Corpus Christi College MS. 286 (Italy, 6th century, 'St Augustine's Gospels').</provenance>
+                                            <provenance resp="#PA">In <placeName key="place_7002445">England</placeName> by late 8th century (fol. 149va).</provenance>
+                                            <provenance resp="#PA #SC" when="1602">Owned by Sir <persName role="fmo" key="person_37261411">Robert Cotton</persName> in 1602.</provenance>
+                                            <acquisition when="1603">Given by him to the Library in 1603.</acquisition>
+                                            
+                                        </history>
+                                        
+                                        <additional>
+                                            <!-- ... -->
+                                        </additional>
+                                        
+                                        <msPart type="endleaf">
+                                            <msIdentifier> 
+                                                <altIdentifier>
+                                                    <idno type="part">MS. Auct. D. 2. 14 - endleaf, fol. 173</idno>
+                                                </altIdentifier></msIdentifier>
+                                            <msContents>
+                                                <msItem>
+                                                    <locus>(fol. 173r)</locus>
+                                                    <title type="desc">Booklist and list of names</title>
+                                                    <note>N. R. Ker, <title>Catalogue of Manuscripts Containing Anglo-Saxon</title> (1957), p. 350 (no. 290).</note>
+                                                    <textLang mainLang="en">Old English</textLang>
+                                                </msItem>
+                                                <msItem>
+                                                    <locus>(fol. 173v)</locus>
+                                                    <title>Ad introitum porte</title>
+                                                    <textLang mainLang="la">Latin</textLang>
+                                                </msItem>
+                                            </msContents>
+                                            <history>
+                                                <origin>
+                                                    <origPlace><country key="place_7002445">England</country>, <orgName key="org_150107857">Bury St Edmunds</orgName> (?)</origPlace><origDate calendar="Gregorian" notAfter="1200" notBefore="1150">11th century, second half</origDate>
+                                                </origin>
+                                                <provenance>'Bealdewuine abb.', fol. 173r, probably Baldwin, abbot of Bury St Edmunds (d. 1098).</provenance>
+                                            </history>
+                                            
+                                        </msPart>
+                                    </msDesc>
+                                    
+                                </egXML>
+                            </p>
+                        </div>
                         <div xml:id="mssReplacementLeaves">
                             <head>Manuscripts with replacement leaves</head>
                             <p>Example: MS. Holkham Gr. 15 (simplified)</p>
@@ -2868,6 +3241,7 @@
                         country 
                         district 
                         forename 
+                        geo
                         geogFeat 
                         geogName 
                         orgName 
@@ -2890,7 +3264,8 @@
                         am 
                         damage 
                         ex 
-                        facsimile 
+                        facsimile
+                        fw
                         subst 
                         supplied surface surfaceGrp 
                         zone
@@ -3269,13 +3644,13 @@
                     </elementSpec>
 
 
-                    <!-- allow accMat to contain msPart -->
-                    <elementSpec ident="accMat" module="msdescription" mode="change">
+                    <!-- allow accMat to contain msPart (commented out 15.1.19 -->
+                    <!--<elementSpec ident="accMat" module="msdescription" mode="change">
                         <content>
                             <macroRef key="macro.specialPara"/>
                             <elementRef key="msPart" minOccurs="0"/>
                         </content>
-                    </elementSpec>
+                    </elementSpec>-->
 
                     <!-- add new attribute "mainStructures" to collation -->
                     <elementSpec ident="collation" module="msdescription" mode="change">
@@ -3291,7 +3666,22 @@
                             </attDef>
                         </attList>
                     </elementSpec>
-
+                    
+                    <!-- make the signatures element member of att.typed
+                    (this is to allow distinction between quire signatures (or numbers) and leaf/bifolium signatures) -->
+                    <elementSpec ident="signatures" module="msdescription" mode="change">
+                        <classes mode="change">
+                            <memberOf key="att.typed"/>
+                        </classes>
+                    </elementSpec>
+                    
+                    
+                    <!-- make the foliation element a member of att.datable (this is to enable identification of medieval foliation, if desired -->
+                    <elementSpec ident="foliation" module="msdescription" mode="change">
+                        <classes mode="change">
+                            <memberOf key="att.datable"/>
+                        </classes>
+                    </elementSpec>
 
                     <!-- add new attributes "topLine" and "rulingMedium" to layout -->
                     <elementSpec ident="layout" module="msdescription" mode="change">
@@ -3342,6 +3732,59 @@
                             </attDef>
                         </attList>
                     </elementSpec>
+                    
+                    <!-- add new attribute value "offsite" for the availability element -->
+                    <elementSpec ident="availability" module="header" mode="change">
+                        <attList>
+                            <attDef ident="status" mode="replace">
+                                <desc>Specifies the availability of a manuscript. This attribute should not be used to specify the availability of manuscript metadata: use the <gi>licence</gi> element for that purpose.</desc>
+                                <datatype maxOccurs="unbounded">
+                                    <dataRef key="teidata.word"/>
+                                </datatype>
+                                <valList type="closed">
+                                    <valItem ident="free">
+                                        <desc>The item is available.</desc>
+                                    </valItem>
+                                    <!-- nb: not necessarily permanently restricted -->
+                                    <valItem ident="restricted">
+                                        <desc>Access to the item is restricted for conservation or other reasons.</desc>
+                                    </valItem>
+                                    <valItem ident="exhibition">
+                                        <desc>The item is on exhibition at the owning library or another institution, and is likely to be temporarily unavailable.</desc>
+                                    </valItem>
+                                    <valItem ident="offsite">
+                                        <desc>The item is stored offsite, and will take at least twenty-four hours to produce.</desc>
+                                    </valItem>
+                                    <valItem ident="unknown">
+                                        <desc>Availability of the item is unknown.</desc>
+                                    </valItem>
+                                </valList>
+                            </attDef>
+                        </attList>
+                    </elementSpec>
+                    
+                    <!-- add a new element 'countermark'. Model should be same as for 'watermark'  -->
+                    <elementSpec ident="countermark" mode="add" ns="https://github.com/bodleian/consolidated-tei-schema">
+                        <desc>Contains a description of a countermark. Note: This is a customization which is not currently part of the TEI P5 standard.</desc>
+                        <classes>
+                            <memberOf key="model.pPart.msDesc"/>
+                            <memberOf key="att.global"/>
+                            <memberOf key="att.global.rendition"/>
+                            <memberOf key="att.global.linking"/>
+                            <memberOf key="att.global.analytic"/>
+                            <memberOf key="att.global.change"/>
+                            <memberOf key="att.global.responsibility"/>
+                            <memberOf key="att.global.source"/>
+                        </classes>
+                        <content>
+                            <macroRef key="macro.phraseSeq"/>
+                        </content>
+                    </elementSpec>
+                    
+                    
+                    
+                    
+                    
 
                     <!-- ********************** -->
                     <!-- Schematron constraints -->
