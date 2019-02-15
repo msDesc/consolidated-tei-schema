@@ -44,8 +44,8 @@
                         <!--was created by Patrik Granholm and Eva Nyström, and is released under a <ref target="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International license</ref>.--></p>
                 </div>
                 <!-- todo: general intro, principles, differences from usual TEI, camelCase for attributes -->
-                <div type="introduction">
-                    <head>Introduction</head>
+                <div type="acknowledgements">
+                    <head>Acknowledgements</head>
                     <p>These draft guidelines are currently based on two main sources - the encoding guidelines for the Fihrist project [<ref target="https://github.com/fihristorg/fihrist-mss/raw/master/archive/old_manual.pdf">pdf</ref>], and encoding guidelines for medieval manuscripts jointly created by Cambridge University Library (James Freeman, with Suzanne Paul) and the Bodleian Library (Matthew Holford) with contributions by Andrew Dunning (formerly British Library). The medieval guidelines in turn draw in places on the guidelines created by Patrick Granholm and Eva Nyström for <ref
                         target="https://www.manuscripta.se/"><title>manuscripta.se</title></ref>.</p>
                 </div>
