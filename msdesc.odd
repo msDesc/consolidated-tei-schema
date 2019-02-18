@@ -2230,16 +2230,20 @@
                                         <cell>carpetPage</cell>
                                     </row>
                                     <row>
-                                        <cell>Historiated initials</cell>
+                                        <cell>Historiated initials(i.e., containing an identifiable narrative scene) (Brown: historiated initial)</cell>
                                         <cell>histInit</cell>
                                     </row>
                                     <row>
-                                        <cell>decorated initials</cell>
+                                        <cell>decorated initials (Brown: decorated initial, anthropomorphic initial, zoomorphoric initial, gymnastic initial, inhabited initial).</cell>
                                         <cell>decInit</cell>
                                     </row>
                                     <row>
                                         <cell>coloured initials</cell>
                                         <cell>colInit</cell>
+                                    </row>
+                                    <row>
+                                        <cell>initials with penwork flourishing (Reallexikon zur Deutschen Kunstgeschichte: <ref target="http://www.rdklabor.de/w/?oldid=89543">fleuronné</ref>) (Brown: pen-flourished initial, littera florissa). Also use for so-called arabesque initials.</cell>
+                                        <cell>flourInit</cell>
                                     </row>
                                     <row>
                                         <cell>plain initials</cell>
@@ -2339,7 +2343,7 @@
                                         <item>(fol. 49r) Hours of the Virgin, Lauds. <term type="iconography" ref="http://www.iconclass.org/rkd/73A6">Visitation</term>. </item>
                                     </list>
                                 </decoNote></egXML></p>
-                            <p>Aspects of the manuscript relating to the presentation of the text - notably rubrication - should also be included in the <gi>decoDesc</gi> element (rather than in the <gi>layout</gi> element.</p>
+                            <p>Aspects of the manuscript relating to the presentation of the text - notably rubrication - should also be included in the <gi>decoDesc</gi> element (rather than in the <gi>layout</gi> element, using <gi>decoNote</gi> with attribute <att>type</att> of value <val>rubrication</val>.</p>
                         </div>
 
                         <div xml:id="additions">
