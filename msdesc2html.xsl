@@ -1959,34 +1959,34 @@
 
     <xsl:template match="additional/surrogates">
         <div class="surrogates">
-            <xsl:if test="bibl[@type = ('digital-fascimile','digital-facsimile')]">
+            <xsl:if test=".//bibl[@type = ('digital-fascimile','digital-facsimile')]">
                 <h3 class="msDesc-heading3">
                     <xsl:copy-of select="bod:standardText('Digital Images')"/>
                 </h3>
                 <p>
-                    <xsl:for-each select="bibl[@type = ('digital-fascimile','digital-facsimile')]">
+                    <xsl:for-each select=".//bibl[@type = ('digital-fascimile','digital-facsimile')]">
                         <xsl:apply-templates select="."/>
                         <br/>
                     </xsl:for-each>
                 </p>
             </xsl:if>
-            <xsl:if test="bibl[idno/@type = 'microfilm']">
+            <xsl:if test=".//bibl[@type = 'microfilm'] or .//bibl[idno/@type = 'microfilm']">
                 <h3 class="msDesc-heading3">
                     <xsl:copy-of select="bod:standardText('Microfilm')"/>
                 </h3>
                 <p>
-                    <xsl:for-each select="bibl[idno/@type = 'microfilm']">
+                    <xsl:for-each select=".//bibl[@type = 'microfilm' or idno/@type = 'microfilm']">
                         <xsl:apply-templates select="."/>
                         <br/>
                     </xsl:for-each>
                 </p>
             </xsl:if>
-            <xsl:if test="bibl[not(@type = ('digital-fascimile','digital-facsimile') or idno/@type = 'microfilm')]">
+            <xsl:if test="bibl[not(@type = ('digital-fascimile','digital-facsimile', 'microfilm') or idno/@type = 'microfilm')]">
                 <h3 class="msDesc-heading3">
                     <xsl:copy-of select="bod:standardText('Surrogates')"/>
                 </h3>
                 <p>
-                    <xsl:for-each select="bibl[not(@type = ('digital-fascimile','digital-facsimile') or idno/@type = 'microfilm')]">
+                    <xsl:for-each select="bibl[not(@type = ('digital-fascimile','digital-facsimile', 'microfilm') or idno/@type = 'microfilm')]">
                         <xsl:apply-templates select="."/>
                         <br/>
                     </xsl:for-each>
