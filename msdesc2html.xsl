@@ -1994,6 +1994,12 @@
             </xsl:if>
         </div>
     </xsl:template>
+    
+    <xsl:template match="surrogates//bibl">
+        <span class="{name()}">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
 
     <xsl:template match="surrogates//bibl/@*"/>
     
