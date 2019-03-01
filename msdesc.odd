@@ -3785,8 +3785,29 @@
                     </elementSpec>
                     
                     
-                    
-                    
+                    <elementSpec ident="supportDesc" module="msdescription" mode="change">
+                        <attList>
+                            <attDef ident="material" mode="change">
+                                <valList mode="replace" type="semi">
+                                    <valItem ident="perg">
+                                        <desc>The object is composed of parchment</desc>
+                                    </valItem>
+                                    <valItem ident="chart">
+                                        <desc>The object is composed of paper</desc>
+                                    </valItem>
+                                    <valItem ident="mixed">
+                                        <desc>The object is composed of a combination of paper and parchment. The nature of the combination should be specified in the <gi>support</gi> element.</desc>
+                                    </valItem>
+                                    <valItem ident="other">
+                                        <desc>The object is composed of another material (e.g. wood).</desc>
+                                    </valItem>
+                                    <valItem ident="unknown">
+                                        <desc>The material of which is object is composed is not known.</desc>
+                                    </valItem>
+                                </valList>
+                            </attDef>
+                        </attList>
+                    </elementSpec>
                     
 
                     <!-- ********************** -->
