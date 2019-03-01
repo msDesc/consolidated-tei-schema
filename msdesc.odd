@@ -3785,6 +3785,7 @@
                     </elementSpec>
                     
                     
+                    <!-- use ENRICH values for supportDesc/@material -->
                     <elementSpec ident="supportDesc" module="msdescription" mode="change">
                         <attList>
                             <attDef ident="material" mode="change">
@@ -4017,6 +4018,22 @@
                                         role="error">
                                         The origDate element must have two or more attributes - calendar and at least one of
                                         when, notBefore, notAfter, from and/or to - and must contain some text describing the date.
+                                    </sch:assert>
+                                </sch:rule>
+                            </constraint>
+                        </constraintSpec>
+                    </elementSpec>
+                    
+                    <!-- dimensions must have unit attribute -->
+                    <elementSpec ident="dimensions" module="msdescription" mode="change">
+                        <constraintSpec ident="dimensions-unit.check" scheme="schematron">
+                            <constraint>
+                                <sch:rule
+                                    context="//tei:dimensions">
+                                    <sch:assert 
+                                        test="@unit" 
+                                        role="error">
+                                        The unit of measurement must be specified in the unit attribute on the dimensions element
                                     </sch:assert>
                                 </sch:rule>
                             </constraint>
