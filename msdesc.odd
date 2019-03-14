@@ -45,8 +45,8 @@
                         <!--was created by Patrik Granholm and Eva Nyström, and is released under a <ref target="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International license</ref>.--></p>
                 </div>
                 <!-- todo: general intro, principles, differences from usual TEI, camelCase for attributes -->
-                <div type="introduction">
-                    <head>Introduction</head>
+                <div xml:id="acknowledgements">
+                    <head>Acknowledgements</head>
                     <p>These draft guidelines are currently based on two main sources - the encoding
                         guidelines for the Fihrist project [<ref
                             target="https://github.com/fihristorg/fihrist-mss/raw/master/archive/old_manual.pdf"
@@ -3037,7 +3037,7 @@
                                 enclose a statement such as "No date" or "n.d." with
                                     <gi>origDate</gi> tags.</p>
                             <!-- todo: calendars -->
-                            <div type="origDate">
+                            <div xml:id="origDate">
                                 <head>origDate</head>
                                 <p>Dating attributes from the set <att>notBefore</att>,
                                         <att>notAfter</att>, <att>from</att>, <att>to</att> and
