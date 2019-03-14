@@ -1764,11 +1764,12 @@
                                     </specList>
                                 </p>
                                 <p>The support material for the codicological unit(s) should be
-                                    recorded in the <att>material</att> attribute of
-                                        <gi>supportDesc</gi> (values: <val>chart</val>,
-                                        <val>perg</val>, <val>mixed</val>, <val>papyrus</val>, or
-                                        <val>other</val>). Further description of the support should
-                                    be added in the <gi>support</gi> element.</p>
+                                    recorded in the <att>material</att> attribute of <gi>supportDesc</gi>. 
+                                    Allowed values are: <val>chart</val> (for all kinds of paper),
+                                    <val>perg</val> (for parchment and vellum), <val>papyrus</val>, 
+                                    <val>palm</val> (palm leaf), <val>mixed</val>, <val>unknown</val>, 
+                                    or <val>other</val>. Further description of the support should be added 
+                                    in the <gi>support</gi> element.</p>
                                 <div xml:id="support">
                                     <head>Support</head>
                                     <p>Provides a prose description of the material. For parchment,
@@ -4425,13 +4426,24 @@
                     <!-- use ENRICH values for supportDesc/@material and make the attribute required -->
                     <elementSpec ident="supportDesc" module="msdescription" mode="change">
                         <attList>
-                            <attDef ident="material" mode="change" usage="req">
-                                <valList mode="replace" type="semi">
+                            <attDef ident="material" mode="replace" usage="req">
+                                <desc>The material composing the majority of the support</desc>
+                                <datatype maxOccurs="1">
+                                    <dataRef key="teidata.word"/>
+                                </datatype>
+                                <valList type="closed">
                                     <valItem ident="perg">
-                                        <desc>The object is composed of parchment</desc>
+                                        <desc>The object is composed of parchment or vellum</desc>
                                     </valItem>
                                     <valItem ident="chart">
-                                        <desc>The object is composed of paper</desc>
+                                        <desc>The object is composed of any kind of paper. Give more details, 
+                                            if any, in a child <gi>support</gi> element.</desc>
+                                    </valItem>
+                                    <valItem ident="papyrus">
+                                        <desc>The object is composed of papyrus.</desc>
+                                    </valItem>
+                                    <valItem ident="palm">
+                                        <desc>The object is composed of palm leaves.</desc>
                                     </valItem>
                                     <valItem ident="mixed">
                                         <desc>The object is composed of a combination of paper and
@@ -4635,20 +4647,6 @@
                                         639 code for the language, then optionally further codes for
                                         the script (ISO 15924), region, transliteration, etc.
                                     </sch:assert>
-                                </sch:rule>
-                            </constraint>
-                        </constraintSpec>
-                    </elementSpec>
-
-                    <!-- support must be recorded in @support attribute -->
-                    <elementSpec ident="supportDesc" module="msdescription" mode="change">
-                        <constraintSpec ident="supportDesc.check" scheme="schematron">
-                            <constraint>
-                                <sch:rule context="//tei:supportDesc">
-                                    <sch:assert test="@material" role="warn"> The writing support of
-                                        a manuscript should be specified in the material attribute
-                                        on the element supportDesc. </sch:assert>
-                                    <!-- a more detailed rule could be added here, to check correct attribute values -->
                                 </sch:rule>
                             </constraint>
                         </constraintSpec>
