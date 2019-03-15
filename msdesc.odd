@@ -1768,8 +1768,19 @@
                                     Allowed values are: <val>chart</val> (for all kinds of paper),
                                     <val>perg</val> (for parchment and vellum), <val>papyrus</val>, 
                                     <val>palm</val> (palm leaf), <val>mixed</val>, <val>unknown</val>, 
-                                    or <val>other</val>. Further description of the support should be added 
-                                    in the <gi>support</gi> element.</p>
+                                    or <val>other</val>. The name of the material for display purposes,
+                                    and further description of the support, should be added 
+                                    in the <gi>support</gi> element. For example:</p>
+                                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                        <supportDesc material="chart">
+                                            <support>Paper</support>
+                                        </supportDesc>
+                                    </egXML>
+                                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                        <supportDesc material="perg">
+                                            <support>Exceptionally thick, stiff parchment</support>
+                                        </supportDesc>
+                                    </egXML>
                                 <div xml:id="support">
                                     <head>Support</head>
                                     <p>Provides a prose description of the material. For parchment,
@@ -4505,7 +4516,7 @@
                     <!-- ********************** -->
 
 
-                    <!-- msDesc[1]/@xml:id must match filename -->
+                    <!-- The TEI element must have xml:id in the form manuscript_\d+ (except in Genizah) -->
                     <elementSpec ident="msDesc" module="msdescription" mode="change">
                         <constraintSpec scheme="schematron" ident="msDesc-xmlid">
                             <constraint>
@@ -4701,27 +4712,8 @@
                     <!-- TODO: objectDesc must have @form attribute -->
 
 
-                    <!-- the TEI element must have xml:id in the form manuscript_\d+ -->
-                    <elementSpec ident="TEI" module="textstructure" mode="change">
-                        <constraintSpec ident="TEI.xmlid.check" scheme="isoschematron">
-                            <constraint>
-                                <sch:rule context="tei:TEI">
-                                    <sch:assert test="@key[matches(., 'manuscript_\d+')]"
-                                        role="error">The TEI element must have an xml:id matching
-                                        the pattern 'manuscript_\d+'.</sch:assert>
-                                </sch:rule>
-                            </constraint>
-                        </constraintSpec>
-                    </elementSpec>
-
-
                 </schemaSpec>
-
-
-
-
             </div>
         </body>
     </text>
-
 </TEI>
