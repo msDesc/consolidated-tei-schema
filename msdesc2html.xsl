@@ -1000,6 +1000,9 @@
     <xsl:template match="physDesc">
         <h3>
             <xsl:copy-of select="bod:standardText('Physical Description')"/>
+            <xsl:if test="parent::msPart and (parent::msPart/preceding-sibling::msPart or parent::msPart/following-sibling::msPart)">
+                <xsl:text> of this Part</xsl:text>
+            </xsl:if>
         </h3>
         <div class="{name()}">
             <xsl:apply-templates/>
@@ -1014,6 +1017,18 @@
     
     <xsl:template match="msPart|msFrag">
         <div class="{name()}" id="{(@xml:id, generate-id())[1]}">
+            <xsl:choose>
+                <xsl:when test="not(preceding-sibling::msPart) and following-sibling::msPart">
+                    <xsl:attribute name="style">
+                        <xsl:text>margin-top:1rem; border-bottom-color:#C0C0C0; border-top:1px #C0C0C0 solid;</xsl:text>
+                    </xsl:attribute>
+                </xsl:when>
+                <xsl:when test="following-sibling::msPart or preceding-sibling::msPart">
+                    <xsl:attribute name="style">
+                        <xsl:text>border-bottom-color:#C0C0C0;</xsl:text>
+                    </xsl:attribute>
+                </xsl:when>
+            </xsl:choose>
             <h2>
                 <xsl:apply-templates select="msIdentifier/altIdentifier"/>
             </h2>
@@ -1048,6 +1063,9 @@
     <xsl:template match="history">
         <h3 class="msDesc-heading3">
             <xsl:copy-of select="bod:standardText('History')"/>
+            <xsl:if test="parent::msPart and (parent::msPart/preceding-sibling::msPart or parent::msPart/following-sibling::msPart)">
+                <xsl:text> of this Part</xsl:text>
+            </xsl:if>
         </h3>
         <!-- if Origin make it a paragraph -->
         <div class="{name()}">
@@ -1176,9 +1194,11 @@
     </xsl:template>
 
     <xsl:template match="msContents/msItem" priority="10">
-        <div class="msItem">
-            <xsl:if test="@xml:id">
-                <xsl:attribute name="id" select="@xml:id"/>
+        <div class="msItem" id="{(@xml:id, generate-id())[1]}">
+            <xsl:if test="ancestor::msPart and not(following-sibling::msItem) and not(preceding-sibling::msItem)">
+                <xsl:attribute name="style">
+                    <xsl:text>border-bottom-color:#FFFFFF; margin-bottom:0px; padding-bottom:0px;</xsl:text>
+                </xsl:attribute>
             </xsl:if>
             <xsl:if test="string-length(@n) gt 0 and not(@n = 'toc') and count(parent::msContents/msItem[@n]) gt 1 and not(child::*[1][self::locus])">
                 <!-- Display optional numbering on msItems, on its own line (except when the first-child is a locus, then it'll be inline) -->
@@ -1193,10 +1213,19 @@
     </xsl:template>
         
     <xsl:template match="msItem/msItem">
-        <div class="nestedmsItem">
-            <xsl:if test="@xml:id">
-                <xsl:attribute name="id" select="@xml:id"/>
-            </xsl:if>
+        <div class="nestedmsItem" id="{(@xml:id, generate-id())[1]}">
+            <xsl:choose>
+                <xsl:when test="not(following-sibling::msItem)">
+                    <xsl:attribute name="style">
+                        <xsl:text>border-bottom-color:#FFFFFF; margin-bottom:0px;</xsl:text>
+                    </xsl:attribute>
+                </xsl:when>
+                <xsl:when test="not(preceding-sibling::msItem)">
+                    <xsl:attribute name="style">
+                        <xsl:text>margin-top:1rem;</xsl:text>
+                    </xsl:attribute>
+                </xsl:when>
+            </xsl:choose>
             <xsl:if test="string-length(@n) gt 0 and not(@n = 'toc') and count(parent::msItem/msItem[@n]) gt 1 and not(child::*[1][self::locus])">
                 <!-- Display optional numbering on msItems, on its own line (except when the first-child is a locus, then it'll be inline) -->
                 <div class="item-number">
@@ -1949,6 +1978,9 @@
     <xsl:template match="additional/listBibl">
         <h3 class="msDesc-heading3">
             <xsl:copy-of select="bod:standardText('Bibliography')"/>
+            <xsl:if test="ancestor::msPart and (ancestor::msPart[1]/preceding-sibling::msPart or ancestor::msPart[1]/following-sibling::msPart)">
+                <xsl:text> of this Part</xsl:text>
+            </xsl:if>
         </h3>
         <div class="listBibl">
             <ul class="listBibl">
@@ -1962,6 +1994,9 @@
             <xsl:if test=".//bibl[@type = ('digital-fascimile','digital-facsimile')]">
                 <h3 class="msDesc-heading3">
                     <xsl:copy-of select="bod:standardText('Digital Images')"/>
+                    <xsl:if test="ancestor::msPart and (ancestor::msPart[1]/preceding-sibling::msPart or ancestor::msPart[1]/following-sibling::msPart)">
+                        <xsl:text> of this Part</xsl:text>
+                    </xsl:if>
                 </h3>
                 <p>
                     <xsl:for-each select=".//bibl[@type = ('digital-fascimile','digital-facsimile')]">
@@ -1973,6 +2008,9 @@
             <xsl:if test=".//bibl[@type = 'microfilm'] or .//bibl[idno/@type = 'microfilm']">
                 <h3 class="msDesc-heading3">
                     <xsl:copy-of select="bod:standardText('Microfilm')"/>
+                    <xsl:if test="ancestor::msPart and (ancestor::msPart[1]/preceding-sibling::msPart or ancestor::msPart[1]/following-sibling::msPart)">
+                        <xsl:text> of this Part</xsl:text>
+                    </xsl:if>
                 </h3>
                 <p>
                     <xsl:for-each select=".//bibl[@type = 'microfilm' or idno/@type = 'microfilm']">
@@ -1984,6 +2022,9 @@
             <xsl:if test="bibl[not(@type = ('digital-fascimile','digital-facsimile', 'microfilm') or idno/@type = 'microfilm')]">
                 <h3 class="msDesc-heading3">
                     <xsl:copy-of select="bod:standardText('Surrogates')"/>
+                    <xsl:if test="ancestor::msPart and (ancestor::msPart[1]/preceding-sibling::msPart or ancestor::msPart[1]/following-sibling::msPart)">
+                        <xsl:text> of this Part</xsl:text>
+                    </xsl:if>
                 </h3>
                 <p>
                     <xsl:for-each select="bibl[not(@type = ('digital-fascimile','digital-facsimile', 'microfilm') or idno/@type = 'microfilm')]">
@@ -2022,6 +2063,9 @@
     <xsl:template match="adminInfo//source">
         <h3>
             <xsl:copy-of select="bod:standardText('Record Sources')"/>
+            <xsl:if test="ancestor::msPart and (ancestor::msPart[1]/preceding-sibling::msPart or ancestor::msPart[1]/following-sibling::msPart)">
+                <xsl:text> of this Part</xsl:text>
+            </xsl:if>
         </h3>
         <div class="{name()}">
             <xsl:apply-templates/>
@@ -2031,6 +2075,9 @@
     <xsl:template match="adminInfo/availability">
         <h3>
             <xsl:copy-of select="bod:standardText('Availability')"/>
+            <xsl:if test="ancestor::msPart and (ancestor::msPart[1]/preceding-sibling::msPart or ancestor::msPart[1]/following-sibling::msPart)">
+                <xsl:text> of this Part</xsl:text>
+            </xsl:if>
         </h3>
         <div class="{name()}">
             <xsl:processing-instruction name="ni"/>
