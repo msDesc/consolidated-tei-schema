@@ -4443,7 +4443,7 @@
                                 <datatype maxOccurs="1">
                                     <dataRef key="teidata.word"/>
                                 </datatype>
-                                <valList type="closed">
+                                <valList type="semi">
                                     <valItem ident="perg">
                                         <desc>The object is composed of parchment or vellum</desc>
                                     </valItem>
