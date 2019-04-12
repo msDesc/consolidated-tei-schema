@@ -4,7 +4,7 @@
   <xs:import namespace="http://www.w3.org/2001/XInclude" schemaLocation="xinclude.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2019-02-15T15:43:28Z. .
+    Schema generated from ODD source 2019-04-12T16:59:47Z. .
     TEI Edition: Version 3.5.0. Last updated on
     	29th January 2019, revision 3c0c64ec4
     TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.5.0/
@@ -5978,27 +5978,45 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
         </xs:sequence>
       </xs:choice>
       <xs:attributeGroup ref="tei:att.global.attributes"/>
-      <xs:attribute name="material">
+      <xs:attribute name="material" use="required">
         <xs:annotation>
-          <xs:documentation>a short project-defined name for the material composing the majority of the support
-Suggested values include: 1] paper; 2] parch (parchment) ; 3] mixed</xs:documentation>
+          <xs:documentation>The material composing the majority of the support
+Suggested values include: 1] perg; 2] chart; 3] papyrus; 4] palm; 5] mixed; 6] other; 7] unknown</xs:documentation>
         </xs:annotation>
         <xs:simpleType>
           <xs:union>
             <xs:simpleType>
               <xs:restriction base="xs:token">
-                <xs:enumeration value="paper">
+                <xs:enumeration value="perg">
                   <xs:annotation>
-                    <xs:documentation/>
+                    <xs:documentation>The object is composed of parchment or vellum</xs:documentation>
                   </xs:annotation>
                 </xs:enumeration>
               </xs:restriction>
             </xs:simpleType>
             <xs:simpleType>
               <xs:restriction base="xs:token">
-                <xs:enumeration value="parch">
+                <xs:enumeration value="chart">
                   <xs:annotation>
-                    <xs:documentation>(parchment) </xs:documentation>
+                    <xs:documentation>The object is composed of any kind of paper. Give more details, if any, in a child support element.</xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="papyrus">
+                  <xs:annotation>
+                    <xs:documentation>The object is composed of papyrus.</xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="palm">
+                  <xs:annotation>
+                    <xs:documentation>The object is composed of palm leaves.</xs:documentation>
                   </xs:annotation>
                 </xs:enumeration>
               </xs:restriction>
@@ -6007,7 +6025,25 @@ Suggested values include: 1] paper; 2] parch (parchment) ; 3] mixed</xs:document
               <xs:restriction base="xs:token">
                 <xs:enumeration value="mixed">
                   <xs:annotation>
-                    <xs:documentation/>
+                    <xs:documentation>The object is composed of a combination of paper and parchment. The nature of the combination should be specified in the support element.</xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="other">
+                  <xs:annotation>
+                    <xs:documentation>The object is composed of another material (e.g. wood).</xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="unknown">
+                  <xs:annotation>
+                    <xs:documentation>The material of which is object is composed is not known.</xs:documentation>
                   </xs:annotation>
                 </xs:enumeration>
               </xs:restriction>
@@ -6134,7 +6170,7 @@ Suggested values include: 1] paper; 2] parch (parchment) ; 3] mixed</xs:document
           <xs:attribute name="rulingMedium">
             <xs:annotation>
               <xs:documentation>Specifies the medium used to carry out the ruling. Note: This is a customization which is not currently part of the TEI P5 standard.
-Suggested values include: 1] ink; 2] leadpoint; 3] hardpoint; 4] crayon; 5] board</xs:documentation>
+Suggested values include: 1] ink; 2] leadpoint; 3] hardpoint; 4] crayon; 5] mixed; 6] board</xs:documentation>
             </xs:annotation>
             <xs:simpleType>
               <xs:union>
@@ -6170,6 +6206,15 @@ Suggested values include: 1] ink; 2] leadpoint; 3] hardpoint; 4] crayon; 5] boar
                     <xs:enumeration value="crayon">
                       <xs:annotation>
                         <xs:documentation>The ruling is carried out using ‘crayon’.</xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="mixed">
+                      <xs:annotation>
+                        <xs:documentation>The ruling is carried out using several methods.</xs:documentation>
                       </xs:annotation>
                     </xs:enumeration>
                   </xs:restriction>

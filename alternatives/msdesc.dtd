@@ -1,6 +1,6 @@
 
 <!--
-DTD generated from ODD source 2019-02-15T15:45:11Z. .[https://creativecommons.org/licenses/by/4.0/] Creative Commons Attribution 4.0 International
+DTD generated from ODD source 2019-04-12T16:59:12Z. .[https://creativecommons.org/licenses/by/4.0/] Creative Commons Attribution 4.0 International
 TEI Edition: Version 3.5.0. Last updated on
 	29th January 2019, revision 3c0c64ec4
 TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.5.0/
@@ -2201,7 +2201,7 @@ reason CDATA  #IMPLIED >
 <!ATTLIST supportDesc xmlns CDATA "http://www.tei-c.org/ns/1.0">
 <!ATTLIST supportDesc
  %att.global.attributes;
-material %teidata.enumerated;  #IMPLIED >
+material %teidata.word;  #REQUIRED >
 <!--doc:defines a written surface as a two-dimensional coordinate space, optionally grouping one or more graphic representations of that space, zones of interest within that space, and transcriptions of the writing within them. [11.1. Digital Facsimiles 11.2.2. Embedded Transcription] -->
 <!ELEMENT surface (((%model.global;|%model.labelLike;|%model.graphicLike;)*,((zone|line|path|surface|surfaceGrp),(%model.global;)*)*))>
 <!ATTLIST surface xmlns CDATA "http://www.tei-c.org/ns/1.0">
