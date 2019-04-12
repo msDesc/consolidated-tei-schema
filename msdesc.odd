@@ -4517,22 +4517,26 @@
                     <!-- ********************** -->
 
 
-                    <!-- The TEI element must have xml:id in the form manuscript_\d+ (except in Genizah) -->
-                    <elementSpec ident="msDesc" module="msdescription" mode="change">
-                        <constraintSpec scheme="schematron" ident="msDesc-xmlid">
+                    <!-- The TEI element must have xml:id in the form "manuscript_1234" (except in Genizah where it must be "volume_5678") -->
+                    <elementSpec ident="TEI" module="textstructure" mode="change">
+                        <constraintSpec scheme="schematron" ident="TEI.xmlid.check">
                             <constraint>
                                 <sch:rule
-                                    context="/tei:TEI[not(contains(base-uri(.), 'genizah-mss'))]">
-                                    <sch:assert test="matches(@xml:id, '^manuscript_\d+$')"
-                                        role="fatal"> The root TEI element must have an @xml:id
-                                        beginning with "manuscript_" then a number (which must be
-                                        unique across the entire collection). </sch:assert>
-                                </sch:rule>
-                                <sch:rule context="/tei:TEI[contains(base-uri(.), 'genizah-mss')]">
-                                    <sch:assert test="matches(@xml:id, '^volume_\d+$')" role="fatal"
-                                        > The root TEI element must have an @xml:id beginning with
-                                        "volume_" then a number (which must be unique across the
-                                        entire collection). </sch:assert>
+                                    context="tei:TEI">
+                                    <sch:assert 
+                                        test="matches(@xml:id, '^manuscript_\d+$') or contains(base-uri(.), 'genizah-mss')" 
+                                        role="fatal">
+                                        The root TEI element must have an @xml:id beginning with 
+                                        "manuscript_" then a number (which must also be unique 
+                                        across the entire catalogue).
+                                    </sch:assert>
+                                    <sch:assert 
+                                        test="matches(@xml:id, '^volume_\d+$') or not(contains(base-uri(.), 'genizah-mss'))" 
+                                        role="fatal">
+                                        The root TEI element must have an @xml:id beginning with
+                                        "volume_" then a number (which must also be unique 
+                                        across the entire catalogue).
+                                    </sch:assert>
                                 </sch:rule>
                             </constraint>
                         </constraintSpec>
