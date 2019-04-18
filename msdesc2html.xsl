@@ -99,12 +99,32 @@
         <xsl:param name="role" as="xs:string"/>
         <!-- Lookup the values used in role attributes of people (or organizations) and map 
             those values to labels for display in facets on the web site -->
-        <xsl:value-of select="
-            if (string-length($role) eq 3) then
-                bod:roleLookupMarcCode($role)
-            else
-                bod:roleNormalizeLabel($role)
-        "/>
+        <xsl:variable name="rolelabels" as="xs:string*">
+            <xsl:for-each select="distinct-values(tokenize(normalize-space($role), ' '))">
+                <xsl:choose>
+                    <xsl:when test="string-length(.) eq 3">
+                        <xsl:value-of select="bod:roleLookupMarcCode(.)"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="bod:roleNormalizeLabel(.)"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:variable name="label">
+            <xsl:for-each select="$rolelabels[string-length(.) gt 0]">
+                <xsl:value-of select="."/>
+                <xsl:choose>
+                    <xsl:when test="position() eq last() - 1">
+                        <xsl:text> and </xsl:text>
+                    </xsl:when>
+                    <xsl:when test="position() ne last()">
+                        <xsl:text>, </xsl:text>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:value-of select="string-join($label, '')"/>
     </xsl:function>
     
     <xsl:function name="bod:roleNormalizeLabel" as="xs:string">
@@ -119,7 +139,7 @@
         </xsl:choose>
     </xsl:function>
     
-    <xsl:function name="bod:roleLookupMarcCode" as="xs:string">
+    <xsl:function name="bod:roleLookupMarcCode" as="xs:string?">
         <xsl:param name="rolecode" as="xs:string"/>
         <!-- This is the MARC Code List for Relators standard, copy taken 
              on 2018-06-22 from http://id.loc.gov/vocabulary/relators.tsv -->
@@ -393,15 +413,10 @@
             <map code="wpr">Writer of preface</map>
             <map code="wst">Writer of supplementary textual content</map>
         </xsl:variable>
-        <xsl:variable name="matchinglabel" as="xs:string" select="$rolesmapping//text()[../@code = lower-case($rolecode)]"/>
-        <xsl:choose>
-            <xsl:when test="exists($matchinglabel)">
-                <xsl:value-of select="$matchinglabel"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="concat('Unknown role code: ', $rolecode)"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:variable name="matchinglabel" as="xs:string?" select="$rolesmapping//text()[../@code = lower-case($rolecode)]"/>
+        <xsl:if test="exists($matchinglabel)">
+            <xsl:value-of select="$matchinglabel"/>
+        </xsl:if>        
     </xsl:function>
     
     <xsl:function name="bod:standardText">
@@ -2181,7 +2196,7 @@
     </xsl:template>
     
     <xsl:template match="geo"><!-- Do not display geographical coordinates --></xsl:template>
-
+    
     <xsl:template match="custodialHist">
         <h3>
             <xsl:copy-of select="bod:standardText('Custodial History')"/>
