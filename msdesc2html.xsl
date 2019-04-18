@@ -2182,6 +2182,27 @@
     
     <xsl:template match="geo"><!-- Do not display geographical coordinates --></xsl:template>
 
+    <xsl:template match="custodialHist">
+        <h3>
+            <xsl:copy-of select="bod:standardText('Custodial History')"/>
+        </h3>
+        <div class="{name()}">
+            <xsl:apply-templates/>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="custEvent">
+        <div class="{name()}">
+            <xsl:apply-templates/>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="custEvent/label">
+        <h4>
+            <xsl:apply-templates/>
+        </h4>
+    </xsl:template>
+
     <xsl:template match="@xml:*"></xsl:template>
 
     <!-- catch all fallback: this is there to warn me of elements I don't have templates for and should never fire otherwise-->
