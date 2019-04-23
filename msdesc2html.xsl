@@ -2167,6 +2167,13 @@
         </ul>
     </xsl:template>
     
+    <xsl:template match="list/list">
+        <xsl:apply-templates select="head"/>
+        <ul class="{name()}"> 
+            <xsl:apply-templates select="(*|text())[not(self::head)]"/>
+        </ul>
+    </xsl:template>
+    
     <xsl:template match="list/label[following-sibling::item]">
         <li>
             <b>
