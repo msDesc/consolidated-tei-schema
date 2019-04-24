@@ -1089,6 +1089,7 @@
         </h3>
         <!-- if Origin make it a paragraph -->
         <div class="{name()}">
+            <xsl:apply-templates select="summary"/>
             <xsl:if test="origin">
                 <div class="origin">
                     <span class="tei-label">
@@ -1190,6 +1191,12 @@
         <span class="summary-p">
             <xsl:apply-templates/>
         </span>
+    </xsl:template>
+
+    <xsl:template match="summary">
+        <div class="{name()}">
+            <xsl:apply-templates/>
+        </div>
     </xsl:template>
 
     <xsl:template match="msContents/textLang">
