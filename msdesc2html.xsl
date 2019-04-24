@@ -676,6 +676,12 @@
         </span>
     </xsl:template>
 
+    <xsl:template match="adminInfo/note">
+        <div class="{name()}" style="margin-top:1rem;">
+            <xsl:apply-templates/>
+        </div>
+    </xsl:template>
+
     <xsl:template match="foreign">
         <xsl:text> </xsl:text>
         <span class="{name()} {@rend}">
