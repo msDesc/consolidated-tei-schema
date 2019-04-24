@@ -1102,7 +1102,14 @@
             <xsl:if test="provenance or acquisition">
                 <div class="provenance">
                     <h4>
+                        <xsl:choose>
+                            <xsl:when test="not(acquisition) and ancestor::msPart">
+                                <xsl:copy-of select="bod:standardText('Provenance')"/>
+                            </xsl:when>
+                            <xsl:otherwise>
                         <xsl:copy-of select="bod:standardText('Provenance and Acquisition')"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </h4>
                     <xsl:apply-templates select="provenance | acquisition"/>
                 </div>
