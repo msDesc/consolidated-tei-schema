@@ -531,6 +531,7 @@
                                         <div class="content tei-body" id="{/TEI/@xml:id}">
                                             <xsl:call-template name="Header"/>
                                             <xsl:apply-templates select="/TEI/teiHeader/fileDesc/sourceDesc/msDesc"/>
+                                            <xsl:call-template name="AbbreviationsKey"/>
                                             <xsl:call-template name="Footer"/>
                                         </div>
                                     </body>
@@ -541,6 +542,7 @@
                                     <div class="content tei-body" id="{/TEI/@xml:id}">
                                         <xsl:call-template name="Header"/>
                                         <xsl:apply-templates select="/TEI/teiHeader/fileDesc/sourceDesc/msDesc"/>
+                                        <xsl:call-template name="AbbreviationsKey"/>
                                         <xsl:call-template name="Footer"/>
                                     </div>
                                 </div>
@@ -591,7 +593,30 @@
     <xsl:template name="AdditionalContent"></xsl:template>
     <xsl:template name="MsItemFooter"></xsl:template>
 
-
+    <xsl:template name="AbbreviationsKey">
+        <xsl:variable name="abbrmapping" as="element()*">
+            <xsl:for-each select="//choice[abbr and expan]/abbr">
+                <map code="{ normalize-space(./string()) }">
+                    <xsl:apply-templates select="parent::choice/expan[1]"/>
+                </map>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:if test="count($abbrmapping) gt 0">
+            <h3>Key to Abbreviations</h3>
+            <ul>
+                <xsl:for-each select="distinct-values($abbrmapping/@code[string-length(.) gt 0])">
+                    <xsl:sort select="."/>
+                    <li>
+                        <u>
+                            <xsl:value-of select="."/>
+                        </u>
+                        <xsl:text>: </xsl:text>
+                        <xsl:copy-of select="$abbrmapping[@code = current()][1]"/>
+                    </li>
+                </xsl:for-each>
+            </ul>
+        </xsl:if>
+    </xsl:template>
 
     <!-- Actual TEI-to-HTML templates below -->
 
@@ -675,7 +700,7 @@
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
+    
     <xsl:template match="adminInfo/note">
         <div class="{name()}" style="margin-top:1rem;">
             <xsl:apply-templates/>
@@ -731,15 +756,23 @@
     </xsl:template>
     
     <xsl:template match="choice[abbr and expan]">
-        <span class="expan" title="{abbr}">
-            <xsl:apply-templates select="expan"/>
-        </span>
+        <abbr title="{expan/string()}" style="cursor:default;">
+            <xsl:apply-templates select="*[not(self::expan)]"/>
+        </abbr>
     </xsl:template>
-
-    <xsl:template match="abbr">
-        <span class="{name()}">
+    
+    <xsl:template match="choice[expan]/abbr">
+        <xsl:apply-templates/>
+    </xsl:template>
+    
+    <xsl:template match="abbr[not(parent::choice)]">
+        <xsl:variable name="expansion" as="xs:string*" select="(//choice[abbr[normalize-space(string()) = normalize-space(string(current()))]]/expan/string())[1]"/>
+        <abbr style="cursor:default;">
+            <xsl:if test="$expansion">
+                <xsl:attribute name="title" select="$expansion"/>
+            </xsl:if>
             <xsl:apply-templates/>
-        </span>
+        </abbr>
     </xsl:template>
 
     <xsl:template match="unclear">
@@ -1107,7 +1140,7 @@
                                 <xsl:copy-of select="bod:standardText('Provenance')"/>
                             </xsl:when>
                             <xsl:otherwise>
-                        <xsl:copy-of select="bod:standardText('Provenance and Acquisition')"/>
+                                <xsl:copy-of select="bod:standardText('Provenance and Acquisition')"/>
                             </xsl:otherwise>
                         </xsl:choose>
                     </h4>
@@ -1199,7 +1232,7 @@
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
+    
     <xsl:template match="summary">
         <div class="{name()}">
             <xsl:apply-templates/>
@@ -2179,7 +2212,7 @@
     </xsl:template>
     
     <xsl:template match="list">
-        <span class="head">
+        <span class="head"> 
             <xsl:apply-templates select="head"/>
         </span>
         <ul class="{name()}"> 
