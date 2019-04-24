@@ -117,7 +117,7 @@
                     </div>
                     <div xml:id="personalnames">
                         <head>Personal Names</head>
-                        <p>Persons, if not in an <gi>author</gi> element, should be tagged using the
+                        <p>Persons, if not in an <gi>author</gi> or <gi>editor</gi> element, should be tagged using the
                                 <gi>persName</gi> element. For indexing to function correctly this
                             MUST be linked to the persons authority file using the <att>key</att>
                             attribute. The role of the person referred to should be indicated using
@@ -132,6 +132,16 @@
                                 xmlns="http://www.tei-c.org/ns/Examples"> Common-place book of
                                     <persName role="scr fmo" key="person_697">John
                                     Curteys</persName> of Winchester College and New College, Oxford
+                            </egXML>
+                        </p>
+                        <p>To record alternative names for a person in such contexts, use nested <gi>persName</gi>
+                        elements, for example:
+                            <egXML
+                                xmlns="http://www.tei-c.org/ns/Examples">
+                                <persName key="person_f6124" role="scr">
+                                    <persName xml:lang="fa-Latn-x-lc">ʿAbd al-Raḥmān</persName>
+                                    (<persName xml:lang="fa">عبد الرحمان</persName>)
+                                </persName>
                             </egXML>
                         </p>
                         <p>Use "fmo" where there is evidence that a person owned an item. Use "sgn"
