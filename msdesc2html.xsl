@@ -1390,7 +1390,7 @@
                     <xsl:text> </xsl:text>
                 </span>
                 <xsl:if test="@type">
-                    <span class="type">(<xsl:value-of select="@type"/>)</span>
+                    <span class="type">(<xsl:value-of select="@type"/>) </span>
                 </xsl:if>
                 <span>
                     <xsl:copy-of select="bod:direction(.)"/>
@@ -1411,7 +1411,7 @@
                     <xsl:text> </xsl:text>
                 </span>
                 <xsl:if test="@type">
-                    <span class="type">(<xsl:value-of select="@type"/>)</span>
+                    <span class="type">(<xsl:value-of select="@type"/>) </span>
                 </xsl:if>
                 <span>
                     <xsl:copy-of select="bod:direction(.)"/>
