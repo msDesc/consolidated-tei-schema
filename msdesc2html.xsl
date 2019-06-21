@@ -725,9 +725,9 @@
     <xsl:template match="sic[not(child::* or text())]">
         <!-- For self-closing sic tags just output a "[sic]" marker -->
         <xsl:text>[</xsl:text>
-        <span class="italic">
+        <i>
             <xsl:text>sic</xsl:text>
-        </span>
+        </i>
         <xsl:text>]</xsl:text>
     </xsl:template>
 
@@ -742,16 +742,21 @@
     <xsl:template match="choice[sic and corr]">
         <span class="sicAndCorr">
             <xsl:apply-templates select="sic"/>
-            [
-            <span class="italic">sic for</span>
-            <xsl:apply-templates select="corr"/>]
+            <xsl:text> [</xsl:text>
+            <i>
+                <xsl:text>sic for </xsl:text>
+            </i>
+            <xsl:apply-templates select="corr"/>
+            <xsl:text>]</xsl:text>
         </span>
     </xsl:template>
     
     <xsl:template match="choice[sic and not(corr)]">
         <span class="sicAndNotCorr">
             <xsl:apply-templates select="sic"/>
-            [<span class="italic">sic</span>]
+            <xsl:text>[</xsl:text>
+            <i>sic</i>
+            <xsl:text>]</xsl:text>
         </span>
     </xsl:template>
     
