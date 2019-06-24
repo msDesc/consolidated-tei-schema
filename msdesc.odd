@@ -4447,6 +4447,12 @@
 
                     <!-- use ENRICH values for supportDesc/@material and make the attribute required -->
                     <elementSpec ident="supportDesc" module="msdescription" mode="change">
+                        <constraintSpec ident="textLang.check" scheme="schematron">
+                            <constraint>
+                                <sch:rule context="//tei:physDesc">
+                                    <sch:assert test="descendant::tei:supportDesc[@material] or every $msPart in descendant::tei:msPart satisfies $msPart::descendant::tei:supportDesc[@material]" role="warn"> The material (parchment, paper, etc.) of a manuscript should be recorded in the material attribute on the supportDesc element.</sch:assert>
+                                </sch:rule>
+                            </constraint></constraintSpec>
                         <attList>
                             <attDef ident="material" mode="replace" usage="req">
                                 <desc>The material composing the majority of the support</desc>
@@ -4483,12 +4489,13 @@
                                 </valList>
                             </attDef>
                         </attList>
+                       
                     </elementSpec>
 
-                    <!-- suggest values for @form on objectDesc and make the attribute required -->
+                    <!-- suggest values for @form on objectDesc and make the attribute required. Other projects should add other values. -->
                     <elementSpec ident="supportDesc" module="msdescription" mode="change">
                         <attList>
-                            <attDef ident="material" mode="change" usage="req">
+                            <attDef ident="form" mode="change" usage="opt">
                                 <valList mode="replace" type="semi">
                                     <valItem ident="codex">
                                         <desc>Multiple gatherings of leaves, held within a binding
@@ -4644,12 +4651,12 @@
                         </constraintSpec>
                     </elementSpec>
 
-                    <!-- a manuscript must have one or more languages  -->
+                    <!-- a manuscript must have one or more languages, except for the 'parent' manuscript in a composite manuscript  -->
                     <elementSpec ident="textLang" module="core" mode="change">
                         <constraintSpec ident="textLang.check" scheme="schematron">
                             <constraint>
                                 <sch:rule context="//tei:msContents">
-                                    <sch:assert test="descendant::tei:textLang" role="warn"> A
+                                    <sch:assert test="descendant::tei:textLang or every $msPart in descendant::tei:msPart satisfies $msPart::descendant::tei:textLang" role="warn"> A
                                         manuscript should have one or more languages recorded in a
                                         textLang element. For manuscripts with no linguistic content
                                         use code 'zxx'. If the language is undetermined use the code
@@ -4790,9 +4797,10 @@
                         </constraintSpec>
                     </elementSpec>
 
-                    <!-- TODO: the initial title in titleStmt should match the shelfmark -->
+                    <!-- TODO?: the initial title in titleStmt should match the shelfmark -->
 
-                    <!-- TODO: objectDesc must have @form attribute -->
+                    <!-- objectDesc must have @form attribute -->
+                   <!-- already covered at 4488 above -->
 
 
                 </schemaSpec>
