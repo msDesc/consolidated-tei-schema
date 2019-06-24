@@ -4761,6 +4761,22 @@
                         
                     </classSpec>
                     
+                    <!-- Warn about a common typo -->
+                    <elementSpec ident="surrogates" module="msdescription" mode="change">
+                        <constraintSpec ident="facsimile.warn" scheme="schematron">
+                            <constraint>
+                                <sch:rule 
+                                    context="//tei:surrogates/tei:bibl">
+                                    <sch:assert 
+                                        test="contains(@type, 'fascimile')"
+                                        role="warn">
+                                        The type attribute of "<sch:value-of select="@type"/>" contains a typo (fascimile should be facsimile).
+                                    </sch:assert>
+                                </sch:rule>
+                            </constraint>
+                        </constraintSpec>
+                    </elementSpec>
+                    
                     <!-- dimensions must have unit attribute -->
                     <elementSpec ident="dimensions" module="msdescription" mode="change">
                         <constraintSpec ident="dimensions-unit.check" scheme="schematron">
