@@ -4744,7 +4744,20 @@
                             </constraint>
                         </constraintSpec>
                         
-                        
+                        <!-- Warn about empty or self-closing elements with a @key -->
+                        <constraintSpec ident="selfclosing.warn" scheme="schematron">
+                            <constraint>
+                                <sch:rule 
+                                    context="tei:*[@key]">
+                                    <sch:assert 
+                                        test="string-length(normalize-space(string())) gt 1"
+                                        role="warn">
+                                        Elements with key attributes should have some content (because they will be displayed 
+                                        as links, and links need text for readers to click on.)
+                                    </sch:assert>
+                                </sch:rule>
+                            </constraint>
+                        </constraintSpec>
                         
                     </classSpec>
                     
