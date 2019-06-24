@@ -4712,9 +4712,10 @@
                         </constraintSpec>
                     </elementSpec>
 
-                    <!-- Inform people when they use the rend attribute in ways that the web sites will ignore, 
-                         and rendition/style attributes which it always ignores  -->
                     <classSpec ident="att.global.rendition" type="atts" mode="change" module="tei">
+                        
+                        <!-- Inform people when they use the rend attribute in ways that the web sites will ignore, 
+                         and rendition/style attributes which it always ignores  -->
                         <constraintSpec ident="rend.info" scheme="schematron">
                             <constraint>
                                 <sch:rule 
@@ -4742,6 +4743,9 @@
                                 </sch:rule>
                             </constraint>
                         </constraintSpec>
+                        
+                        
+                        
                     </classSpec>
                     
                     <!-- dimensions must have unit attribute -->
