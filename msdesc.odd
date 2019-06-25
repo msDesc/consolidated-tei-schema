@@ -4697,16 +4697,19 @@
                                 <sch:rule context="//tei:textLang">
                                     <sch:assert
                                         test="@mainLang and string-length(normalize-space(string())) gt 0"
-                                        role="error"> The predominant language must be recorded in
+                                        role="error">
+                                        The predominant language must be recorded in
                                         using a code in a mainLang attribute (and an otherLang
                                         attribute if there are other languages) and described as
-                                        text within the textLang element. </sch:assert>
+                                        text within the textLang element.
+                                    </sch:assert>
                                 </sch:rule>
                                 <sch:rule
                                     context="//tei:textLang/@mainLang | //tei:textLang/@otherLangs | //@xml:lang">
                                     <sch:assert
                                         test="every $code in tokenize(., ' ') satisfies matches($code, '^[a-z]{2,3}(-|$)')"
-                                        role="error"> Codes in <sch:value-of select="name(.)"/>
+                                        role="error">
+                                        Codes in <sch:value-of select="name(.)"/>
                                         attributes must conform to BCP 47
                                         (https://tools.ietf.org/html/bcp47), starting with an ISO
                                         639 code for the language, then optionally further codes for
@@ -4830,9 +4833,6 @@
                     </elementSpec>
 
                     <!-- TODO?: the initial title in titleStmt should match the shelfmark -->
-
-                    <!-- objectDesc must have @form attribute -->
-                   <!-- already covered at 4488 above -->
 
 
                 </schemaSpec>
