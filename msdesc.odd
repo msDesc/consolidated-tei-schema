@@ -4495,8 +4495,12 @@
                     <!-- suggest values for @form on objectDesc and make the attribute required. Other projects should add other values. -->
                     <elementSpec ident="objectDesc" module="msdescription" mode="change">
                         <attList>
-                            <attDef ident="form" mode="change" usage="opt">
-                                <valList mode="replace" type="semi">
+                            <attDef ident="form" mode="replace" usage="req">
+                                <desc>The original physical form of the carrier</desc>
+                                <datatype maxOccurs="1">
+                                    <dataRef key="teidata.enumerated"/>
+                                </datatype>
+                                <valList type="semi">
                                     <valItem ident="codex">
                                         <desc>Multiple gatherings of leaves, held within a binding
                                             of some kind, and used by turning the leaves</desc>
