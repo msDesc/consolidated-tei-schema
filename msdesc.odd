@@ -4449,10 +4449,29 @@
                     <elementSpec ident="supportDesc" module="msdescription" mode="change">
                         <constraintSpec ident="textLang.check" scheme="schematron">
                             <constraint>
-                                <sch:rule context="//tei:physDesc">
-                                    <sch:assert test="descendant::tei:supportDesc[@material] or every $msPart in descendant::tei:msPart satisfies $msPart::descendant::tei:supportDesc[@material]" role="warn"> The material (parchment, paper, etc.) of a manuscript should be recorded in the material attribute on the supportDesc element.</sch:assert>
+                                <sch:rule 
+                                    context="//tei:sourceDesc/tei:msDesc[not(tei:msPart)]">
+                                    <sch:assert 
+                                        test="tei:physDesc/tei:objectDesc/tei:supportDesc" 
+                                        role="warn">
+                                        The material (parchment, paper, etc.) of a manuscript should be recorded 
+                                        in the supportDesc element.
+                                    </sch:assert>
                                 </sch:rule>
-                            </constraint></constraintSpec>
+                                <sch:rule 
+                                    context="//tei:sourceDesc/tei:msDesc/tei:msPart">
+                                    <sch:assert 
+                                        test="
+                                            tei:physDesc/tei:objectDesc/tei:supportDesc
+                                            or ancestor::tei:msDesc/tei:physDesc/tei:objectDesc/tei:supportDesc
+                                            " 
+                                        role="warn">
+                                        The material (parchment, paper, etc.) of each part should be recorded in 
+                                        the supportDesc element, unless it has been described for the entire manuscript.
+                                    </sch:assert>
+                                </sch:rule>
+                            </constraint>
+                        </constraintSpec>
                         <attList>
                             <attDef ident="material" mode="replace" usage="req">
                                 <desc>The material composing the majority of the support</desc>
@@ -4489,7 +4508,6 @@
                                 </valList>
                             </attDef>
                         </attList>
-                       
                     </elementSpec>
 
                     <!-- suggest values for @form on objectDesc and make the attribute required. Other projects should add other values. -->
