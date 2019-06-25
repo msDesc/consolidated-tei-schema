@@ -4493,7 +4493,7 @@
                     </elementSpec>
 
                     <!-- suggest values for @form on objectDesc and make the attribute required. Other projects should add other values. -->
-                    <elementSpec ident="supportDesc" module="msdescription" mode="change">
+                    <elementSpec ident="objectDesc" module="msdescription" mode="change">
                         <attList>
                             <attDef ident="form" mode="change" usage="opt">
                                 <valList mode="replace" type="semi">
