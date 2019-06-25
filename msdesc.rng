@@ -5,7 +5,7 @@
          xmlns:teix="http://www.tei-c.org/ns/Examples"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2019-04-12T16:57:50Z. .
+Schema generated from ODD source 2019-06-25T11:30:45Z. .
 TEI Edition: Version 3.5.0. Last updated on
 	29th January 2019, revision 3c0c64ec4
 TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.5.0/
@@ -823,6 +823,17 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</a:documentati
                                     </sch:assert>
       </sch:rule>
    </pattern>
+   <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+            id="msdesc-att.global.rendition-selfclosing.warn-constraint-rule-7">
+      <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                context="tei:*[@key]">
+         <sch:assert role="warn" test="string-length(normalize-space(string())) gt 1">
+                                        Elements with key attributes should have some content (because they will be displayed 
+                                        as links, and links need text for readers to click on.)
+                                    </sch:assert>
+      </sch:rule>
+   </pattern>
    <define name="att.global.source.attributes">
       <ref name="att.global.source.attribute.source"/>
    </define>
@@ -1242,7 +1253,7 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="msdesc-att.typed-subtypeTyped-constraint-rule-7">
+            id="msdesc-att.typed-subtypeTyped-constraint-rule-8">
       <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns="http://www.tei-c.org/ns/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -1270,7 +1281,7 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="msdesc-att.pointing-targetLang-targetLang-constraint-rule-8">
+            id="msdesc-att.pointing-targetLang-targetLang-constraint-rule-9">
       <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns="http://www.tei-c.org/ns/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -1375,7 +1386,7 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="msdesc-att.spanning-spanTo-spanTo-2-constraint-rule-9">
+            id="msdesc-att.spanning-spanTo-spanTo-2-constraint-rule-10">
       <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns="http://www.tei-c.org/ns/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -3083,7 +3094,7 @@ Suggested values include: 1] spoken; 2] thought; 3] written; 4] soCalled; 5] for
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(description) contains a brief description of the object documented by its parent element, typically a documentation element or an entity. [22.4.1. Description of Components]</a:documentation>
          <ref name="macro.limitedContent"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-desc-deprecationInfo-only-in-deprecated-constraint-rule-11">
+                  id="msdesc-desc-deprecationInfo-only-in-deprecated-constraint-rule-12">
             <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -3581,7 +3592,7 @@ Sample values include: 1] suspension; 2] contraction; 3] brevigraph; 4] superscr
       
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-list-gloss-list-must-have-labels-constraint-rule-12">
+                  id="msdesc-list-gloss-list-must-have-labels-constraint-rule-13">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="tei:list[@type='gloss']">
@@ -3752,7 +3763,7 @@ Elements 7.2.5. Speech Contents]</a:documentation>
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">in a bibliographic reference, contains the name(s) of an author, personal or corporate, of a work; for example in the same form as that provided by a recognized bibliographic name authority. [3.11.2.2. Titles, Authors, and Editors 2.2.1. The Title Statement]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-author-author.key.check-constraint-rule-13">
+                  id="msdesc-author-author.key.check-constraint-rule-14">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="//tei:msItem//tei:author[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
@@ -4021,7 +4032,7 @@ relatedItem element must be empty</sch:report>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-relatedItem-targetorcontent1-constraint-assert-10">
+                  id="msdesc-relatedItem-targetorcontent1-constraint-assert-11">
             <rule context="tei:relatedItem">
                <sch:assert xmlns:rng="http://relaxng.org/ns/structure/1.0"
                            xmlns="http://www.tei-c.org/ns/1.0"
@@ -4110,7 +4121,7 @@ relatedItem element must be empty</sch:report>
             </zeroOrMore>
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-lg-atleast1oflggapl-constraint-assert-11">
+                  id="msdesc-lg-atleast1oflggapl-constraint-assert-12">
             <rule context="tei:lg">
                <sch:assert xmlns="http://www.tei-c.org/ns/1.0"
                            xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -4139,36 +4150,40 @@ relatedItem element must be empty</sch:report>
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(text language) describes the languages and writing systems identified within the bibliographic work being described, rather than its description. [3.11.2.4. Imprint, Size of a Document, and Reprint Information 10.6.6. Languages and Writing Systems]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-textLang-textLang.check-constraint-rule-14">
-            <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
-                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                      context="//tei:msContents">
-               <sch:assert role="warn" test="descendant::tei:textLang"> A
-                                        manuscript should have one or more languages recorded in a
-                                        textLang element. For manuscripts with no linguistic content
-                                        use code 'zxx'. If the language is undetermined use the code
-                                        'und'. </sch:assert>
-            </sch:rule>
-         </pattern>
-         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   id="msdesc-textLang-textLang.check-constraint-rule-15">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                      context="//tei:textLang">
-               <sch:assert role="error"
-                           test="@mainLang and string-length(normalize-space(string())) gt 0"> The predominant language must be recorded in
-                                        using a code in a mainLang attribute (and an otherLang
-                                        attribute if there are other languages) and described as
-                                        text within the textLang element. </sch:assert>
+                      context="//tei:msItem">
+               <sch:assert role="warn"
+                           test="                                             tei:textLang                                             or ancestor::tei:msContents/tei:textLang                                             or ancestor::tei:msItem/tei:textLang                                             or (                                                 tei:msItem                                                  and (every $i in tei:msItem satisfies $i/descendant-or-self::tei:textLang)                                             )                                             ">
+                                        The language of each item should be recorded in a textLang element,
+                                        unless it has been described for the entire manuscript or part. Use
+                                        'und' for undetermined or 'zxx' if there is no linguistic content.
+                                    </sch:assert>
             </sch:rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   id="msdesc-textLang-textLang.check-constraint-rule-16">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      context="//tei:textLang">
+               <sch:assert role="error"
+                           test="@mainLang and string-length(normalize-space(string())) gt 0">
+                                        The predominant language must be recorded in
+                                        using a code in a mainLang attribute (and an otherLang
+                                        attribute if there are other languages) and described as
+                                        text within the textLang element.
+                                    </sch:assert>
+            </sch:rule>
+         </pattern>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="msdesc-textLang-textLang.check-constraint-rule-17">
+            <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="//tei:textLang/@mainLang | //tei:textLang/@otherLangs | //@xml:lang">
                <sch:assert role="error"
-                           test="every $code in tokenize(., ' ') satisfies matches($code, '^[a-z]{2,3}(-|$)')"> Codes in <sch:value-of select="name(.)"/>
+                           test="every $code in tokenize(., ' ') satisfies matches($code, '^[a-z]{2,3}(-|$)')">
+                                        Codes in <sch:value-of select="name(.)"/>
                                         attributes must conform to BCP 47
                                         (https://tools.ietf.org/html/bcp47), starting with an ISO
                                         639 code for the language, then optionally further codes for
@@ -4959,7 +4974,7 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">describes the system used to ensure correct ordering of the quires or similar making up a codex, incunable, or other object typically by means of annotations at the foot of the page. [10.3.7. Catchwords, Signatures, Secundo Folio]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-catchwords-catchword_in_msDesc-constraint-assert-15">
+                  id="msdesc-catchwords-catchword_in_msDesc-constraint-assert-16">
             <rule context="tei:catchwords">
                <sch:assert xmlns:rng="http://relaxng.org/ns/structure/1.0"
                            xmlns="http://www.tei-c.org/ns/1.0"
@@ -4981,7 +4996,7 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
             </choice>
          </zeroOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-dimensions-dimensions-unit.check-constraint-rule-17">
+                  id="msdesc-dimensions-dimensions-unit.check-constraint-rule-18">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="//tei:dimensions">
@@ -5174,7 +5189,7 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
             </choice>
          </zeroOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-origDate-origDate.check-constraint-rule-18">
+                  id="msdesc-origDate-origDate.check-constraint-rule-19">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="//tei:origDate">
@@ -5210,7 +5225,7 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(second folio) marks the word or words taken from a fixed point in a codex (typically the beginning of the second leaf) in order to provide a unique identifier for it.  [10.3.7. Catchwords, Signatures, Secundo Folio]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-secFol-secFol_in_msDesc-constraint-assert-18">
+                  id="msdesc-secFol-secFol_in_msDesc-constraint-assert-19">
             <rule context="tei:secFol">
                <sch:assert xmlns:rng="http://relaxng.org/ns/structure/1.0"
                            xmlns="http://www.tei-c.org/ns/1.0"
@@ -5227,7 +5242,7 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains discussion of the leaf or quire signatures found within a codex or similar object. [10.3.7. Catchwords, Signatures, Secundo Folio]</a:documentation>
          <ref name="macro.specialPara"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-signatures-signatures_in_msDesc-constraint-assert-19">
+                  id="msdesc-signatures-signatures_in_msDesc-constraint-assert-20">
             <rule context="tei:signatures">
                <sch:assert xmlns:rng="http://relaxng.org/ns/structure/1.0"
                            xmlns="http://www.tei-c.org/ns/1.0"
@@ -5711,33 +5726,40 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
       <element name="objectDesc">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains a description of the physical components making up the object which is being described. [10.7.1. Object Description]</a:documentation>
          <choice>
-      
             <oneOrMore>
                <ref name="model.pLike"/>
             </oneOrMore>
-      
             <group>
-        
                <optional>
                   <ref name="supportDesc"/>
                </optional>
-        
-        
                <optional>
                   <ref name="layoutDesc"/>
                </optional>
-        
             </group>
          </choice>
          <ref name="att.global.attributes"/>
-         <optional>
-            <attribute name="form">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">a short project-specific name identifying the physical form of the carrier, for example as a codex, roll, fragment, partial leaf, cutting etc.</a:documentation>
+         <attribute name="form">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The original physical form of the carrier
+Suggested values include: 1] codex; 2] roll; 3] sheet; 4] faltbuch; 5] other; 6] unknown</a:documentation>
+            <choice>
+               <value>codex</value>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Multiple gatherings of leaves, held within a binding of some kind, and used by turning the leaves</a:documentation>
+               <value>roll</value>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">a parchment membrane, or two or more such membranes, either sewn together edge-to-edge to form a continuous surface for writing, or laid together in a pile and sewn together at the head, and used by unrolling the membranes</a:documentation>
+               <value>sheet</value>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">a single sheet of parchment or paper, not intended to form part of a codex, either kept flat or folded (rather than rolled) for storage</a:documentation>
+               <value>faltbuch</value>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">a codex whose leaves are opened by unfolding rather than turning; an ‘almanac’</a:documentation>
+               <value>other</value>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Some other unspecified format</a:documentation>
+               <value>unknown</value>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The format of the object is not known</a:documentation>
                <data type="token">
                   <param name="pattern">(\p{L}|\p{N}|\p{P}|\p{S})+</param>
                </data>
-            </attribute>
-         </optional>
+            </choice>
+         </attribute>
          <empty/>
       </element>
    </define>
@@ -5766,6 +5788,29 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
                </optional>
             </group>
          </choice>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="msdesc-supportDesc-textLang.check-constraint-rule-20">
+            <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      context="//tei:sourceDesc/tei:msDesc[not(tei:msPart)]">
+               <sch:assert role="warn" test="tei:physDesc/tei:objectDesc/tei:supportDesc">
+                                        The material (parchment, paper, etc.) of a manuscript should be recorded 
+                                        in the supportDesc element.
+                                    </sch:assert>
+            </sch:rule>
+         </pattern>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="msdesc-supportDesc-textLang.check-constraint-rule-21">
+            <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      context="//tei:sourceDesc/tei:msDesc/tei:msPart">
+               <sch:assert role="warn"
+                           test="                                             tei:physDesc/tei:objectDesc/tei:supportDesc                                             or ancestor::tei:msDesc/tei:physDesc/tei:objectDesc/tei:supportDesc                                             ">
+                                        The material (parchment, paper, etc.) of each part should be recorded in 
+                                        the supportDesc element, unless it has been described for the entire manuscript.
+                                    </sch:assert>
+            </sch:rule>
+         </pattern>
          <ref name="att.global.attributes"/>
          <attribute name="material">
             <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The material composing the majority of the support
@@ -6157,7 +6202,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
             </choice>
          </oneOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-binding-binding.check-constraint-rule-19">
+                  id="msdesc-binding-binding.check-constraint-rule-22">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="//tei:binding">
@@ -6437,6 +6482,16 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
       <element name="surrogates">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains information about any representations of the manuscript or other object being described which may exist in the holding institution or elsewhere. [10.9. Additional Information]</a:documentation>
          <ref name="macro.specialPara"/>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="msdesc-surrogates-facsimile.warn-constraint-rule-23">
+            <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      context="//tei:surrogates/tei:bibl">
+               <sch:report role="warn" test="contains(@type, 'fascimile')">
+                                        The type attribute of "<sch:value-of select="@type"/>" contains a typo (fascimile should be facsimile).
+                                    </sch:report>
+            </sch:rule>
+         </pattern>
          <ref name="att.global.attributes"/>
          <empty/>
       </element>
@@ -6772,7 +6827,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(organization name) contains an organizational name. [13.2.2. Organizational Names]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-orgName-orgName.key.check-constraint-rule-20">
+                  id="msdesc-orgName-orgName.key.check-constraint-rule-24">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="//tei:msDesc//tei:orgName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
@@ -6794,7 +6849,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(personal name) contains a proper noun or proper-noun phrase referring to a person, possibly including one or more of the person's forenames, surnames, honorifics, added names, etc. [13.2.1. Personal Names]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-persName-persName.key.check-constraint-rule-21">
+                  id="msdesc-persName-persName.key.check-constraint-rule-25">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="//tei:msDesc//tei:persName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
@@ -6847,7 +6902,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains an absolute or relative place name. [13.2.3. Place Names]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-placeName-placeName.key.check-constraint-rule-22">
+                  id="msdesc-placeName-placeName.key.check-constraint-rule-26">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="//tei:msDesc//tei:placeName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
@@ -6870,7 +6925,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains the name of a geo-political unit, such as a nation, country, colony, or commonwealth, larger than or administratively superior to a region and smaller than a bloc. [13.2.3. Place Names]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-country-country.key.check-constraint-rule-23">
+                  id="msdesc-country-country.key.check-constraint-rule-27">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="//tei:origin//tei:country[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
@@ -6903,7 +6958,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains the name of a settlement such as a city, town, or village identified as a single geo-political or administrative unit. [13.2.3. Place Names]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-settlement-settlement.key.check-constraint-rule-24">
+                  id="msdesc-settlement-settlement.key.check-constraint-rule-28">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="//tei:origin//tei:settlement[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
@@ -6975,7 +7030,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
             </oneOrMore>
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-TEI-TEI.xmlid.check-constraint-rule-25">
+                  id="msdesc-TEI-TEI.xmlid.check-constraint-rule-29">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="tei:TEI">
@@ -7294,7 +7349,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
             </optional>
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-div-abstractModel-structure-l-constraint-report-16">
+                  id="msdesc-div-abstractModel-structure-l-constraint-report-17">
             <rule context="tei:div">
                <report xmlns:sch="http://purl.oclc.org/dsdl/schematron" test="ancestor::tei:l">
         Abstract model violation: Lines may not contain higher-level structural elements such as div.
@@ -7302,7 +7357,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-div-abstractModel-structure-p-constraint-report-17">
+                  id="msdesc-div-abstractModel-structure-p-constraint-report-18">
             <rule context="tei:div">
                <report xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                        test="ancestor::tei:p or ancestor::tei:ab and not(ancestor::tei:floatingText)">
@@ -7631,7 +7686,7 @@ Sample values include: 1] header; 2] footer; 3] pageNum (page number) ; 4] lineN
             </choice>
          </oneOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="msdesc-subst-substContents1-constraint-assert-28">
+                  id="msdesc-subst-substContents1-constraint-assert-31">
             <rule context="tei:subst">
                <assert xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                        test="child::tei:add and child::tei:del">
