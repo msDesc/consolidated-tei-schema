@@ -4677,12 +4677,22 @@
                     <elementSpec ident="textLang" module="core" mode="change">
                         <constraintSpec ident="textLang.check" scheme="schematron">
                             <constraint>
-                                <sch:rule context="//tei:msContents">
-                                    <sch:assert test="descendant::tei:textLang or every $msPart in descendant::tei:msPart satisfies $msPart::descendant::tei:textLang" role="warn"> A
-                                        manuscript should have one or more languages recorded in a
-                                        textLang element. For manuscripts with no linguistic content
-                                        use code 'zxx'. If the language is undetermined use the code
-                                        'und'. </sch:assert>
+                                <sch:rule context="//tei:msItem">
+                                    <sch:assert 
+                                        test="
+                                            tei:textLang
+                                            or ancestor::tei:msContents/tei:textLang
+                                            or ancestor::tei:msItem/tei:textLang
+                                            or (
+                                                tei:msItem 
+                                                and (every $i in tei:msItem satisfies $i/descendant-or-self::tei:textLang)
+                                            )
+                                            " 
+                                        role="warn">
+                                        The language of each item should be recorded in a textLang element,
+                                        unless it has been described for the entire manuscript or part. Use
+                                        'und' for undetermined or 'zxx' if there is no linguistic content.
+                                    </sch:assert>
                                 </sch:rule>
                                 <sch:rule context="//tei:textLang">
                                     <sch:assert
