@@ -4796,11 +4796,11 @@
                             <constraint>
                                 <sch:rule 
                                     context="//tei:surrogates/tei:bibl">
-                                    <sch:assert 
+                                    <sch:report 
                                         test="contains(@type, 'fascimile')"
                                         role="warn">
                                         The type attribute of "<sch:value-of select="@type"/>" contains a typo (fascimile should be facsimile).
-                                    </sch:assert>
+                                    </sch:report>
                                 </sch:rule>
                             </constraint>
                         </constraintSpec>
