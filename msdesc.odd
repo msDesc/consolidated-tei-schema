@@ -4450,30 +4450,32 @@
                         <constraintSpec ident="textLang.check" scheme="schematron">
                             <constraint>
                                 <sch:rule 
+                                    see="https://bodleian.github.io/consolidated-tei-schema/msdesc.html#supportdesc"
                                     context="//tei:sourceDesc/tei:msDesc[not(tei:msPart)]">
                                     <sch:assert 
-                                        test="tei:physDesc/tei:objectDesc/tei:supportDesc" 
+                                        test="tei:physDesc/tei:objectDesc/tei:supportDesc[@material]" 
                                         role="warn">
                                         The material (parchment, paper, etc.) of a manuscript should be recorded 
-                                        in the supportDesc element.
+                                        in the supportDesc element, with a material attribute.
                                     </sch:assert>
                                 </sch:rule>
                                 <sch:rule 
                                     context="//tei:sourceDesc/tei:msDesc/tei:msPart">
                                     <sch:assert 
                                         test="
-                                            tei:physDesc/tei:objectDesc/tei:supportDesc
-                                            or ancestor::tei:msDesc/tei:physDesc/tei:objectDesc/tei:supportDesc
+                                            tei:physDesc/tei:objectDesc/tei:supportDesc[@material]
+                                            or ancestor::tei:msDesc/tei:physDesc/tei:objectDesc/tei:supportDesc[@material]
                                             " 
                                         role="warn">
                                         The material (parchment, paper, etc.) of each part should be recorded in 
-                                        the supportDesc element, unless it has been described for the entire manuscript.
+                                        the supportDesc element, with a material attribute, unless it has been 
+                                        described for the entire manuscript.
                                     </sch:assert>
                                 </sch:rule>
                             </constraint>
                         </constraintSpec>
                         <attList>
-                            <attDef ident="material" mode="replace" usage="req">
+                            <attDef ident="material" mode="replace" usage="rec">
                                 <desc>The material composing the majority of the support</desc>
                                 <datatype maxOccurs="1">
                                     <dataRef key="teidata.word"/>
@@ -4512,8 +4514,35 @@
 
                     <!-- suggest values for @form on objectDesc and make the attribute required. Other projects should add other values. -->
                     <elementSpec ident="objectDesc" module="msdescription" mode="change">
+                        <constraintSpec ident="textLang.check" scheme="schematron">
+                            <constraint>
+                                <sch:rule 
+                                    see="https://bodleian.github.io/consolidated-tei-schema/msdesc.html#objectdescBook"
+                                    context="//tei:sourceDesc/tei:msDesc[not(tei:msPart)]">
+                                    <sch:assert 
+                                        test="tei:physDesc/tei:objectDesc[@form]" 
+                                        role="warn">
+                                        The physical form of the carrier should be recorded 
+                                        in the objectDesc element, with a form attribute.
+                                    </sch:assert>
+                                </sch:rule>
+                                <sch:rule 
+                                    context="//tei:sourceDesc/tei:msDesc/tei:msPart">
+                                    <sch:assert 
+                                        test="
+                                        tei:physDesc/tei:objectDesc[@form]
+                                        or ancestor::tei:msDesc/tei:physDesc/tei:objectDesc[@form]
+                                        " 
+                                        role="warn">
+                                        The physical form of the carrier should be recorded in 
+                                        the objectDesc element, with a form attribute, unless it 
+                                        has been described for the entire manuscript.
+                                    </sch:assert>
+                                </sch:rule>
+                            </constraint>
+                        </constraintSpec>
                         <attList>
-                            <attDef ident="form" mode="replace" usage="req">
+                            <attDef ident="form" mode="replace" usage="rec">
                                 <desc>The original physical form of the carrier</desc>
                                 <datatype maxOccurs="1">
                                     <dataRef key="teidata.enumerated"/>
