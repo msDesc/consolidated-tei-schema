@@ -9,9 +9,6 @@
     </xs:annotation>
   </xs:attribute>
   <xs:attribute name="lang">
-    <xs:annotation>
-      <xs:documentation>(language) indicates the language of the element content using a tag generated according to BCP 47.</xs:documentation>
-    </xs:annotation>
     <xs:simpleType>
       <xs:union memberTypes="xs:language">
         <xs:simpleType>

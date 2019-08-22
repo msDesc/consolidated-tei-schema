@@ -4,10 +4,10 @@
   <xs:import namespace="http://www.w3.org/2001/XInclude" schemaLocation="xinclude.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2019-04-12T16:59:47Z. .
-    TEI Edition: Version 3.5.0. Last updated on
-    	29th January 2019, revision 3c0c64ec4
-    TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.5.0/
+    Schema generated from ODD source 2019-08-22T16:35:57Z. .
+    TEI Edition: Version 3.6.0. Last updated on
+    	16th July 2019, revision 4d9d1971f
+    TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.6.0/
     
   -->
   <!-- [https://creativecommons.org/licenses/by/4.0/] Creative Commons Attribution 4.0 International -->
@@ -188,11 +188,7 @@
     </xs:attribute>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.ranging.attribute.confidence">
-    <xs:attribute name="confidence" type="xs:double">
-      <xs:annotation>
-        <xs:documentation>specifies the degree of statistical confidence (between zero and one) that a value falls within the range specified by min and max, or the proportion of observed values that fall within that range.</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
+    <xs:attribute name="confidence" type="xs:double"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.dimensions.attributes">
     <xs:attributeGroup ref="tei:att.ranging.attributes"/>
@@ -206,7 +202,7 @@
     <xs:attribute name="unit">
       <xs:annotation>
         <xs:documentation>names the unit used for the measurement
-Suggested values include: 1] cm (centimetres) ; 2] mm (millimetres) ; 3] in (inches) ; 4] lines; 5] chars (characters) </xs:documentation>
+Suggested values include: 1] cm (centimetres); 2] mm (millimetres); 3] in (inches); 4] line; 5] char (characters)</xs:documentation>
       </xs:annotation>
       <xs:simpleType>
         <xs:union>
@@ -239,7 +235,7 @@ Suggested values include: 1] cm (centimetres) ; 2] mm (millimetres) ; 3] in (inc
           </xs:simpleType>
           <xs:simpleType>
             <xs:restriction base="xs:token">
-              <xs:enumeration value="lines">
+              <xs:enumeration value="line">
                 <xs:annotation>
                   <xs:documentation>lines of text</xs:documentation>
                 </xs:annotation>
@@ -248,7 +244,7 @@ Suggested values include: 1] cm (centimetres) ; 2] mm (millimetres) ; 3] in (inc
           </xs:simpleType>
           <xs:simpleType>
             <xs:restriction base="xs:token">
-              <xs:enumeration value="chars">
+              <xs:enumeration value="char">
                 <xs:annotation>
                   <xs:documentation>(characters) characters of text</xs:documentation>
                 </xs:annotation>
@@ -335,11 +331,7 @@ Sample values include: 1] all; 2] most; 3] range</xs:documentation>
     <xs:attributeGroup ref="tei:att.written.attribute.hand"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.written.attribute.hand">
-    <xs:attribute name="hand" type="xs:anyURI">
-      <xs:annotation>
-        <xs:documentation>points to a handNote element describing the hand considered responsible for the content of the element concerned.</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
+    <xs:attribute name="hand" type="xs:anyURI"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.damaged.attributes">
     <xs:attributeGroup ref="tei:att.dimensions.attributes"/>
@@ -363,9 +355,6 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</xs:documentation>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.damaged.attribute.degree">
     <xs:attribute name="degree">
-      <xs:annotation>
-        <xs:documentation>provides a coded representation of the degree of damage, either as a number between 0 (undamaged) and 1 (very extensively damaged), or as one of the codes high, medium, low, or unknown. The damage element with the degree attribute should only be used where the text may be read with some confidence; text supplied from other sources should be tagged as supplied.</xs:documentation>
-      </xs:annotation>
       <xs:simpleType>
         <xs:union memberTypes="xs:double">
           <xs:simpleType>
@@ -422,11 +411,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</xs:documentation>
     <xs:attributeGroup ref="tei:att.cReferencing.attribute.cRef"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.cReferencing.attribute.cRef">
-    <xs:attribute name="cRef" type="xs:string">
-      <xs:annotation>
-        <xs:documentation>(canonical reference) specifies the destination of the pointer by supplying a canonical reference expressed using the scheme defined in a refsDecl element in the TEI header</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
+    <xs:attribute name="cRef" type="xs:string"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.datable.w3c.attributes">
     <xs:attributeGroup ref="tei:att.datable.w3c.attribute.when"/>
@@ -926,9 +911,6 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</xs:documentat
   </xs:attributeGroup>
   <xs:attributeGroup name="att.handFeatures.attribute.scribeRef">
     <xs:attribute name="scribeRef">
-      <xs:annotation>
-        <xs:documentation>points to a full description of the scribe concerned, typically supplied by a person element elsewhere in the description.</xs:documentation>
-      </xs:annotation>
       <xs:simpleType>
         <xs:restriction>
           <xs:simpleType>
@@ -956,9 +938,6 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</xs:documentat
   </xs:attributeGroup>
   <xs:attributeGroup name="att.handFeatures.attribute.scriptRef">
     <xs:attribute name="scriptRef">
-      <xs:annotation>
-        <xs:documentation>points to a full description of the script or writing style used by this hand, typically supplied by a scriptNote element elsewhere in the description.</xs:documentation>
-      </xs:annotation>
       <xs:simpleType>
         <xs:restriction>
           <xs:simpleType>
@@ -1098,6 +1077,7 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</xs:documentat
   </xs:attributeGroup>
   <xs:attributeGroup name="att.measurement.attributes">
     <xs:attributeGroup ref="tei:att.measurement.attribute.unit"/>
+    <xs:attributeGroup ref="tei:att.measurement.attribute.unitRef"/>
     <xs:attributeGroup ref="tei:att.measurement.attribute.quantity"/>
     <xs:attributeGroup ref="tei:att.measurement.attribute.commodity"/>
   </xs:attributeGroup>
@@ -1105,7 +1085,7 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</xs:documentat
     <xs:attribute name="unit">
       <xs:annotation>
         <xs:documentation>indicates the units used for the measurement, usually using the standard symbol for the desired units.
-Suggested values include: 1] m (metre) ; 2] kg (kilogram) ; 3] s (second) ; 4] Hz (hertz) ; 5] Pa (pascal) ; 6] Ω (ohm) ; 7] L (litre) ; 8] t (tonne) ; 9] ha (hectare) ; 10] Å (ångström) ; 11] mL (millilitre) ; 12] cm (centimetre) ; 13] dB (decibel) ; 14] kbit (kilobit) ; 15] Kibit (kibibit) ; 16] kB (kilobyte) ; 17] KiB (kibibyte) ; 18] MB (megabyte) ; 19] MiB (mebibyte) </xs:documentation>
+Suggested values include: 1] m (metre); 2] kg (kilogram); 3] s (second); 4] Hz (hertz); 5] Pa (pascal); 6] Ω (ohm); 7] L (litre); 8] t (tonne); 9] ha (hectare); 10] Å (ångström); 11] mL (millilitre); 12] cm (centimetre); 13] dB (decibel); 14] kbit (kilobit); 15] Kibit (kibibit); 16] kB (kilobyte); 17] KiB (kibibyte); 18] MB (megabyte); 19] MiB (mebibyte)</xs:documentation>
       </xs:annotation>
       <xs:simpleType>
         <xs:union>
@@ -1288,6 +1268,9 @@ Suggested values include: 1] m (metre) ; 2] kg (kilogram) ; 3] s (second) ; 4] H
         </xs:union>
       </xs:simpleType>
     </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.measurement.attribute.unitRef">
+    <xs:attribute name="unitRef" type="xs:anyURI"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.measurement.attribute.quantity">
     <xs:attribute name="quantity">
@@ -1536,9 +1519,6 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
   </xs:attributeGroup>
   <xs:attributeGroup name="att.pointing.attribute.targetLang">
     <xs:attribute name="targetLang">
-      <xs:annotation>
-        <xs:documentation>specifies the language of the content to be found at the destination referenced by target, using a language tag generated according to BCP 47.</xs:documentation>
-      </xs:annotation>
       <xs:simpleType>
         <xs:union memberTypes="xs:language">
           <xs:simpleType>
@@ -1843,9 +1823,6 @@ Suggested values include: 1] volume; 2] issue; 3] page; 4] line; 5] chapter; 6] 
   </xs:attributeGroup>
   <xs:attributeGroup name="att.citing.attribute.from">
     <xs:attribute name="from">
-      <xs:annotation>
-        <xs:documentation>specifies the starting point of the range of units indicated by the unit attribute.</xs:documentation>
-      </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:token">
           <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
@@ -1855,9 +1832,6 @@ Suggested values include: 1] volume; 2] issue; 3] page; 4] line; 5] chapter; 6] 
   </xs:attributeGroup>
   <xs:attributeGroup name="att.citing.attribute.to">
     <xs:attribute name="to">
-      <xs:annotation>
-        <xs:documentation>specifies the end-point of the range of units indicated by the unit attribute.</xs:documentation>
-      </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:token">
           <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
@@ -3862,6 +3836,7 @@ Sample values include: 1] suspension; 2] contraction; 3] brevigraph; 4] superscr
         <xs:choice minOccurs="0" maxOccurs="unbounded">
           <xs:group ref="tei:model.divTop"/>
           <xs:group ref="tei:model.global"/>
+          <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:desc"/>
         </xs:choice>
         <xs:choice>
           <xs:sequence maxOccurs="unbounded">
@@ -3888,11 +3863,7 @@ Suggested values include: 1] gloss; 2] index; 3] instructions; 4] litany; 5] syl
           <xs:union>
             <xs:simpleType>
               <xs:restriction base="xs:token">
-                <xs:enumeration value="gloss">
-                  <xs:annotation>
-                    <xs:documentation>each list item glosses some term or concept, which is given by a label element preceding the list item.</xs:documentation>
-                  </xs:annotation>
-                </xs:enumeration>
+                <xs:enumeration value="gloss"/>
               </xs:restriction>
             </xs:simpleType>
             <xs:simpleType>
@@ -4453,6 +4424,7 @@ Suggested values include: 1] MS; 2] QUARTO; 3] SC; 4] OC; 5] bible; 6] commentar
     <xs:complexType>
       <xs:sequence>
         <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:model.headLike"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:desc"/>
         <xs:choice maxOccurs="unbounded">
           <xs:group ref="tei:model.biblLike"/>
           <xs:group ref="tei:model.milestoneLike"/>
@@ -4782,7 +4754,7 @@ Suggested values include: 1] MS; 2] QUARTO; 3] SC; 4] OC; 5] bible; 6] commentar
   </xs:element>
   <xs:element name="idno">
     <xs:annotation>
-      <xs:documentation>(identifier) supplies any form of identifier used to identify some object, such as a bibliographic item, a person, a title, an organization, etc. in a standardized way. [2.2.4. Publication, Distribution, Licensing, etc. 2.2.5. The Series Statement 3.11.2.4. Imprint, Size of a Document, and Reprint Information]</xs:documentation>
+      <xs:documentation>(identifier) supplies any form of identifier used to identify some object, such as a bibliographic item, a person, a title, an organization, etc. in a standardized way. [13.3.1. Basic Principles 2.2.4. Publication, Distribution, Licensing, etc. 2.2.5. The Series Statement 3.11.2.4. Imprint, Size of a Document, and Reprint Information]</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
       <xs:sequence>
@@ -4801,11 +4773,7 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
           <xs:union>
             <xs:simpleType>
               <xs:restriction base="xs:token">
-                <xs:enumeration value="ISBN">
-                  <xs:annotation>
-                    <xs:documentation>International Standard Book Number: a 13- or (if assigned prior to 2007) 10-digit identifying number assigned by the publishing industry to a published book or similar item, registered with the International ISBN Agency.</xs:documentation>
-                  </xs:annotation>
-                </xs:enumeration>
+                <xs:enumeration value="ISBN"/>
               </xs:restriction>
             </xs:simpleType>
             <xs:simpleType>
@@ -4884,9 +4852,6 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
       <xs:attributeGroup ref="tei:att.global.attributes"/>
       <xs:attributeGroup ref="tei:att.declarable.attributes"/>
       <xs:attribute name="status">
-        <xs:annotation>
-          <xs:documentation>Specifies the availability of a manuscript. This attribute should not be used to specify the availability of manuscript metadata: use the licence element for that purpose.</xs:documentation>
-        </xs:annotation>
         <xs:simpleType>
           <xs:restriction>
             <xs:simpleType>
@@ -5037,9 +5002,6 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
     </xs:complexType>
   </xs:element>
   <xs:element name="catDesc">
-    <xs:annotation>
-      <xs:documentation>(category description) describes some category within a taxonomy or text typology, either in the form of a brief prose description or in terms of the situational parameters used by the TEI formal textDesc. [2.3.7. The Classification Declaration]</xs:documentation>
-    </xs:annotation>
     <xs:complexType mixed="true">
       <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:model.limitedPhrase"/>
       <xs:attributeGroup ref="tei:att.global.attributes"/>
@@ -5089,11 +5051,7 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
         <xs:element ref="tei:list"/>
       </xs:choice>
       <xs:attributeGroup ref="tei:att.global.attributes"/>
-      <xs:attribute name="scheme" type="xs:anyURI">
-        <xs:annotation>
-          <xs:documentation>identifies the controlled vocabulary within which the set of keywords concerned is defined, for example by a taxonomy element, or by some other resource.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
+      <xs:attribute name="scheme" type="xs:anyURI"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="revisionDesc">
@@ -5455,7 +5413,7 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
   </xs:element>
   <xs:element name="height">
     <xs:annotation>
-      <xs:documentation>contains a measurement measured along the axis at right angles to the bottom of the written surface, i.e. parallel to the spine for a codex or book. [10.3.4. Dimensions]</xs:documentation>
+      <xs:documentation>contains a measurement measured along the axis at a right angle to the bottom of the object. [10.3.4. Dimensions]</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
       <xs:attributeGroup ref="tei:att.global.attributes"/>
@@ -5463,9 +5421,6 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
     </xs:complexType>
   </xs:element>
   <xs:element name="depth">
-    <xs:annotation>
-      <xs:documentation>contains a measurement measured across the spine of a book or codex, or (for other text-bearing objects) perpendicular to the measurement given by the width element. [10.3.4. Dimensions]</xs:documentation>
-    </xs:annotation>
     <xs:complexType mixed="true">
       <xs:attributeGroup ref="tei:att.global.attributes"/>
       <xs:attributeGroup ref="tei:att.dimensions.attributes"/>
@@ -5473,7 +5428,7 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
   </xs:element>
   <xs:element name="width">
     <xs:annotation>
-      <xs:documentation>contains a measurement measured along the axis parallel to the bottom of the written surface, i.e. perpendicular to the spine of a book or codex. [10.3.4. Dimensions]</xs:documentation>
+      <xs:documentation>contains a measurement of an object along the axis parallel to its bottom, e.g. perpendicular to the spine of a book or codex. [10.3.4. Dimensions]</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
       <xs:attributeGroup ref="tei:att.global.attributes"/>
@@ -5501,11 +5456,7 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
       <xs:attributeGroup ref="tei:att.global.attributes"/>
       <xs:attributeGroup ref="tei:att.pointing.attributes"/>
       <xs:attributeGroup ref="tei:att.typed.attributes"/>
-      <xs:attribute name="scheme" type="xs:anyURI">
-        <xs:annotation>
-          <xs:documentation>identifies the foliation scheme in terms of which the location is being specified by pointing to some foliation element defining it, or to some other equivalent resource.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
+      <xs:attribute name="scheme" type="xs:anyURI"/>
       <xs:attribute name="from">
         <xs:annotation>
           <xs:documentation>specifies the starting point of the location in a normalized form, typically a page number.</xs:documentation>
@@ -5537,11 +5488,7 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
         <xs:element maxOccurs="unbounded" ref="tei:locus"/>
       </xs:sequence>
       <xs:attributeGroup ref="tei:att.global.attributes"/>
-      <xs:attribute name="scheme" type="xs:anyURI">
-        <xs:annotation>
-          <xs:documentation>identifies the foliation scheme in terms of which all the locations contained by the group are specified by pointing to some foliation element defining it, or to some other equivalent resource.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
+      <xs:attribute name="scheme" type="xs:anyURI"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="material">
@@ -5952,12 +5899,71 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
       <xs:attributeGroup ref="tei:att.global.attributes"/>
       <xs:attribute name="form">
         <xs:annotation>
-          <xs:documentation>a short project-specific name identifying the physical form of the carrier, for example as a codex, roll, fragment, partial leaf, cutting etc.</xs:documentation>
+          <xs:documentation>The original physical form of the carrier
+Suggested values include: 1] codex; 2] roll; 3] sheet; 4] faltbuch; 5] other; 6] unknown</xs:documentation>
         </xs:annotation>
         <xs:simpleType>
-          <xs:restriction base="xs:token">
-            <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
-          </xs:restriction>
+          <xs:union>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="codex">
+                  <xs:annotation>
+                    <xs:documentation>Multiple gatherings of leaves, held within a binding of some kind, and used by turning the leaves</xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="roll">
+                  <xs:annotation>
+                    <xs:documentation>a parchment membrane, or two or more such membranes, either sewn together edge-to-edge to form a continuous surface for writing, or laid together in a pile and sewn together at the head, and used by unrolling the membranes</xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="sheet">
+                  <xs:annotation>
+                    <xs:documentation>a single sheet of parchment or paper, not intended to form part of a codex, either kept flat or folded (rather than rolled) for storage</xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="faltbuch">
+                  <xs:annotation>
+                    <xs:documentation>a codex whose leaves are opened by unfolding rather than turning; an ‘almanac’</xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="other">
+                  <xs:annotation>
+                    <xs:documentation>Some other unspecified format</xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="unknown">
+                  <xs:annotation>
+                    <xs:documentation>The format of the object is not known</xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:union>
         </xs:simpleType>
       </xs:attribute>
     </xs:complexType>
@@ -5978,7 +5984,7 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
         </xs:sequence>
       </xs:choice>
       <xs:attributeGroup ref="tei:att.global.attributes"/>
-      <xs:attribute name="material" use="required">
+      <xs:attribute name="material">
         <xs:annotation>
           <xs:documentation>The material composing the majority of the support
 Suggested values include: 1] perg; 2] chart; 3] papyrus; 4] palm; 5] mixed; 6] other; 7] unknown</xs:documentation>
@@ -5996,11 +6002,7 @@ Suggested values include: 1] perg; 2] chart; 3] papyrus; 4] palm; 5] mixed; 6] o
             </xs:simpleType>
             <xs:simpleType>
               <xs:restriction base="xs:token">
-                <xs:enumeration value="chart">
-                  <xs:annotation>
-                    <xs:documentation>The object is composed of any kind of paper. Give more details, if any, in a child support element.</xs:documentation>
-                  </xs:annotation>
-                </xs:enumeration>
+                <xs:enumeration value="chart"/>
               </xs:restriction>
             </xs:simpleType>
             <xs:simpleType>
@@ -6023,11 +6025,7 @@ Suggested values include: 1] perg; 2] chart; 3] papyrus; 4] palm; 5] mixed; 6] o
             </xs:simpleType>
             <xs:simpleType>
               <xs:restriction base="xs:token">
-                <xs:enumeration value="mixed">
-                  <xs:annotation>
-                    <xs:documentation>The object is composed of a combination of paper and parchment. The nature of the combination should be specified in the support element.</xs:documentation>
-                  </xs:annotation>
-                </xs:enumeration>
+                <xs:enumeration value="mixed"/>
               </xs:restriction>
             </xs:simpleType>
             <xs:simpleType>
@@ -6388,9 +6386,6 @@ Suggested values include: 1] ink; 2] leadpoint; 3] hardpoint; 4] crayon; 5] mixe
     </xs:complexType>
   </xs:element>
   <xs:element name="decoDesc">
-    <xs:annotation>
-      <xs:documentation>(decoration description) contains a description of the decoration of a manuscript or other object, either as in paragraphs, or as one or more decoNote elements. [10.7.3. Bindings, Seals, and Additional Material]</xs:documentation>
-    </xs:annotation>
     <xs:complexType>
       <xs:choice>
         <xs:group maxOccurs="unbounded" ref="tei:model.pLike"/>
@@ -6524,9 +6519,6 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
     </xs:complexType>
   </xs:element>
   <xs:element name="bindingDesc">
-    <xs:annotation>
-      <xs:documentation>(binding description) describes the present and former bindings of a manuscript or other object, either as a series of paragraphs or as a series of distinct binding elements, one for each binding of the manuscript. [10.7.3.1. Binding Descriptions]</xs:documentation>
-    </xs:annotation>
     <xs:complexType>
       <xs:choice>
         <xs:choice maxOccurs="unbounded">
@@ -6577,9 +6569,6 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
     </xs:complexType>
   </xs:element>
   <xs:element name="sealDesc">
-    <xs:annotation>
-      <xs:documentation>(seal description) describes the seals or similar items related to the object described, either as a series of paragraphs or as a series of seal elements. [10.7.3.2. Seals]</xs:documentation>
-    </xs:annotation>
     <xs:complexType>
       <xs:choice>
         <xs:group maxOccurs="unbounded" ref="tei:model.pLike"/>
@@ -6820,7 +6809,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
   </xs:element>
   <xs:element name="msFrag">
     <xs:annotation>
-      <xs:documentation>(manuscript fragment) contains information about a fragment of a scattered manuscript now held as a single unit or bound into a larger manuscript. [10.11. Manuscript Fragments]</xs:documentation>
+      <xs:documentation>(manuscript fragment) contains information about a fragment described in relation to a prior context, typically as a description of a virtual reconstruction of a manuscript or other object whose fragments were catalogued separately [10.11. Manuscript Fragments]</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
@@ -6965,11 +6954,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
     </xs:attribute>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.datable.custom.attribute.datingMethod">
-    <xs:attribute name="datingMethod" type="xs:anyURI">
-      <xs:annotation>
-        <xs:documentation>supplies a pointer to a calendar element or other means of interpreting the values of the custom dating attributes.</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
+    <xs:attribute name="datingMethod" type="xs:anyURI"/>
   </xs:attributeGroup>
   <xs:group name="model.persNamePart">
     <xs:choice>
@@ -7293,9 +7278,6 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
     </xs:complexType>
   </xs:element>
   <xs:element name="TEI">
-    <xs:annotation>
-      <xs:documentation>(TEI document) contains a single TEI-conformant document, combining a single TEI header with one or more members of the model.resourceLike class. Multiple TEI elements may be combined to form a teiCorpus element. [4. Default Text Structure 15.1. Varieties of Composite Text]</xs:documentation>
-    </xs:annotation>
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="tei:teiHeader"/>
@@ -7423,9 +7405,6 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
   </xs:attributeGroup>
   <xs:attributeGroup name="att.global.change.attribute.change">
     <xs:attribute name="change">
-      <xs:annotation>
-        <xs:documentation>points to one or more change elements documenting a state or revision campaign to which the element bearing this attribute and its children have been assigned by the encoder.</xs:documentation>
-      </xs:annotation>
       <xs:simpleType>
         <xs:restriction>
           <xs:simpleType>
@@ -7528,22 +7507,22 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
                 <xs:union>
                   <xs:simpleType>
                     <xs:restriction base="xs:token">
-                      <xs:pattern value="(\-?[0-9]+\.?[0-9]*,\-?[0-9]+\.?[0-9]*)"/>
+                      <xs:pattern value="(-?[0-9]+(\.[0-9]+)?,-?[0-9]+(\.[0-9]+)?)"/>
                     </xs:restriction>
                   </xs:simpleType>
                   <xs:simpleType>
                     <xs:restriction base="xs:token">
-                      <xs:pattern value="(\-?[0-9]+\.?[0-9]*,\-?[0-9]+\.?[0-9]*)"/>
+                      <xs:pattern value="(-?[0-9]+(\.[0-9]+)?,-?[0-9]+(\.[0-9]+)?)"/>
                     </xs:restriction>
                   </xs:simpleType>
                   <xs:simpleType>
                     <xs:restriction base="xs:token">
-                      <xs:pattern value="(\-?[0-9]+\.?[0-9]*,\-?[0-9]+\.?[0-9]*)"/>
+                      <xs:pattern value="(-?[0-9]+(\.[0-9]+)?,-?[0-9]+(\.[0-9]+)?)"/>
                     </xs:restriction>
                   </xs:simpleType>
                   <xs:simpleType>
                     <xs:restriction base="xs:token">
-                      <xs:pattern value="(\-?[0-9]+\.?[0-9]*,\-?[0-9]+\.?[0-9]*)"/>
+                      <xs:pattern value="(-?[0-9]+(\.[0-9]+)?,-?[0-9]+(\.[0-9]+)?)"/>
                     </xs:restriction>
                   </xs:simpleType>
                 </xs:union>
@@ -7627,9 +7606,6 @@ Sample values include: 1] glued; 2] pinned; 3] sewn</xs:documentation>
     </xs:complexType>
   </xs:element>
   <xs:element name="zone">
-    <xs:annotation>
-      <xs:documentation>defines any two-dimensional area within a surface element. [11.1. Digital Facsimiles 11.2.2. Embedded Transcription]</xs:documentation>
-    </xs:annotation>
     <xs:complexType mixed="true">
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:group ref="tei:model.graphicLike"/>
@@ -7641,11 +7617,7 @@ Sample values include: 1] glued; 2] pinned; 3] sewn</xs:documentation>
       <xs:attributeGroup ref="tei:att.coordinated.attributes"/>
       <xs:attributeGroup ref="tei:att.typed.attributes"/>
       <xs:attributeGroup ref="tei:att.written.attributes"/>
-      <xs:attribute name="rotate" default="0" type="xs:nonNegativeInteger">
-        <xs:annotation>
-          <xs:documentation>indicates the amount by which this zone has been rotated clockwise, with respect to the normal orientation of the parent surface element as implied by the dimensions given in the msDesc element or by the coordinates of the surface itself. The orientation is expressed in arc degrees.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
+      <xs:attribute name="rotate" default="0" type="xs:nonNegativeInteger"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="damage">
@@ -7685,7 +7657,7 @@ Sample values include: 1] glued; 2] pinned; 3] sewn</xs:documentation>
           <xs:attribute name="type">
             <xs:annotation>
               <xs:documentation>classifies the material encoded according to some useful typology.
-Sample values include: 1] header; 2] footer; 3] pageNum (page number) ; 4] lineNum (line number) ; 5] sig (signature) ; 6] catch (catchword) </xs:documentation>
+Sample values include: 1] header; 2] footer; 3] pageNum (page number); 4] lineNum (line number); 5] sig (signature); 6] catch (catchword)</xs:documentation>
             </xs:annotation>
             <xs:simpleType>
               <xs:restriction base="xs:token">
