@@ -117,7 +117,7 @@
                     </div>
                     <div xml:id="personalnames">
                         <head>Personal Names</head>
-                        <p>Persons, if not in an <gi>author</gi> element, should be tagged using the
+                        <p>Persons, if not in an <gi>author</gi> or <gi>editor</gi> element, should be tagged using the
                                 <gi>persName</gi> element. For indexing to function correctly this
                             MUST be linked to the persons authority file using the <att>key</att>
                             attribute. The role of the person referred to should be indicated using
@@ -132,6 +132,16 @@
                                 xmlns="http://www.tei-c.org/ns/Examples"> Common-place book of
                                     <persName role="scr fmo" key="person_697">John
                                     Curteys</persName> of Winchester College and New College, Oxford
+                            </egXML>
+                        </p>
+                        <p>To record alternative names for a person in such contexts, use nested <gi>persName</gi>
+                        elements, for example:
+                            <egXML
+                                xmlns="http://www.tei-c.org/ns/Examples">
+                                <persName key="person_f6124" role="scr">
+                                    <persName xml:lang="fa-Latn-x-lc">ʿAbd al-Raḥmān</persName>
+                                    (<persName xml:lang="fa">عبد الرحمان</persName>)
+                                </persName>
                             </egXML>
                         </p>
                         <p>Use "fmo" where there is evidence that a person owned an item. Use "sgn"
@@ -4437,8 +4447,35 @@
 
                     <!-- use ENRICH values for supportDesc/@material and make the attribute required -->
                     <elementSpec ident="supportDesc" module="msdescription" mode="change">
+                        <constraintSpec ident="textLang.check" scheme="schematron">
+                            <constraint>
+                                <sch:rule 
+                                    see="https://bodleian.github.io/consolidated-tei-schema/msdesc.html#supportdesc"
+                                    context="//tei:sourceDesc/tei:msDesc[not(tei:msPart)]">
+                                    <sch:assert 
+                                        test="tei:physDesc/tei:objectDesc/tei:supportDesc[@material]" 
+                                        role="warn">
+                                        The material (parchment, paper, etc.) of a manuscript should be recorded 
+                                        in the supportDesc element, with a material attribute.
+                                    </sch:assert>
+                                </sch:rule>
+                                <sch:rule 
+                                    context="//tei:sourceDesc/tei:msDesc/tei:msPart">
+                                    <sch:assert 
+                                        test="
+                                            tei:physDesc/tei:objectDesc/tei:supportDesc[@material]
+                                            or ancestor::tei:msDesc/tei:physDesc/tei:objectDesc/tei:supportDesc[@material]
+                                            " 
+                                        role="warn">
+                                        The material (parchment, paper, etc.) of each part should be recorded in 
+                                        the supportDesc element, with a material attribute, unless it has been 
+                                        described for the entire manuscript.
+                                    </sch:assert>
+                                </sch:rule>
+                            </constraint>
+                        </constraintSpec>
                         <attList>
-                            <attDef ident="material" mode="replace" usage="req">
+                            <attDef ident="material" mode="replace" usage="rec">
                                 <desc>The material composing the majority of the support</desc>
                                 <datatype maxOccurs="1">
                                     <dataRef key="teidata.word"/>
@@ -4475,11 +4512,42 @@
                         </attList>
                     </elementSpec>
 
-                    <!-- suggest values for @form on objectDesc and make the attribute required -->
-                    <elementSpec ident="supportDesc" module="msdescription" mode="change">
+                    <!-- suggest values for @form on objectDesc and make the attribute required. Other projects should add other values. -->
+                    <elementSpec ident="objectDesc" module="msdescription" mode="change">
+                        <constraintSpec ident="textLang.check" scheme="schematron">
+                            <constraint>
+                                <sch:rule 
+                                    see="https://bodleian.github.io/consolidated-tei-schema/msdesc.html#objectdescBook"
+                                    context="//tei:sourceDesc/tei:msDesc[not(tei:msPart)]">
+                                    <sch:assert 
+                                        test="tei:physDesc/tei:objectDesc[@form]" 
+                                        role="warn">
+                                        The physical form of the carrier should be recorded 
+                                        in the objectDesc element, with a form attribute.
+                                    </sch:assert>
+                                </sch:rule>
+                                <sch:rule 
+                                    context="//tei:sourceDesc/tei:msDesc/tei:msPart">
+                                    <sch:assert 
+                                        test="
+                                        tei:physDesc/tei:objectDesc[@form]
+                                        or ancestor::tei:msDesc/tei:physDesc/tei:objectDesc[@form]
+                                        " 
+                                        role="warn">
+                                        The physical form of the carrier should be recorded in 
+                                        the objectDesc element, with a form attribute, unless it 
+                                        has been described for the entire manuscript.
+                                    </sch:assert>
+                                </sch:rule>
+                            </constraint>
+                        </constraintSpec>
                         <attList>
-                            <attDef ident="material" mode="change" usage="req">
-                                <valList mode="replace" type="semi">
+                            <attDef ident="form" mode="replace" usage="rec">
+                                <desc>The original physical form of the carrier</desc>
+                                <datatype maxOccurs="1">
+                                    <dataRef key="teidata.enumerated"/>
+                                </datatype>
+                                <valList type="semi">
                                     <valItem ident="codex">
                                         <desc>Multiple gatherings of leaves, held within a binding
                                             of some kind, and used by turning the leaves</desc>
@@ -4634,30 +4702,43 @@
                         </constraintSpec>
                     </elementSpec>
 
-                    <!-- a manuscript must have one or more languages  -->
+                    <!-- a manuscript must have one or more languages, except for the 'parent' manuscript in a composite manuscript  -->
                     <elementSpec ident="textLang" module="core" mode="change">
                         <constraintSpec ident="textLang.check" scheme="schematron">
                             <constraint>
-                                <sch:rule context="//tei:msContents">
-                                    <sch:assert test="descendant::tei:textLang" role="warn"> A
-                                        manuscript should have one or more languages recorded in a
-                                        textLang element. For manuscripts with no linguistic content
-                                        use code 'zxx'. If the language is undetermined use the code
-                                        'und'. </sch:assert>
+                                <sch:rule context="//tei:msItem">
+                                    <sch:assert 
+                                        test="
+                                            tei:textLang
+                                            or ancestor::tei:msContents/tei:textLang
+                                            or ancestor::tei:msItem/tei:textLang
+                                            or (
+                                                tei:msItem 
+                                                and (every $i in tei:msItem satisfies $i/descendant-or-self::tei:textLang)
+                                            )
+                                            " 
+                                        role="warn">
+                                        The language of each item should be recorded in a textLang element,
+                                        unless it has been described for the entire manuscript or part. Use
+                                        'und' for undetermined or 'zxx' if there is no linguistic content.
+                                    </sch:assert>
                                 </sch:rule>
                                 <sch:rule context="//tei:textLang">
                                     <sch:assert
                                         test="@mainLang and string-length(normalize-space(string())) gt 0"
-                                        role="error"> The predominant language must be recorded in
+                                        role="error">
+                                        The predominant language must be recorded in
                                         using a code in a mainLang attribute (and an otherLang
                                         attribute if there are other languages) and described as
-                                        text within the textLang element. </sch:assert>
+                                        text within the textLang element.
+                                    </sch:assert>
                                 </sch:rule>
                                 <sch:rule
                                     context="//tei:textLang/@mainLang | //tei:textLang/@otherLangs | //@xml:lang">
                                     <sch:assert
                                         test="every $code in tokenize(., ' ') satisfies matches($code, '^[a-z]{2,3}(-|$)')"
-                                        role="error"> Codes in <sch:value-of select="name(.)"/>
+                                        role="error">
+                                        Codes in <sch:value-of select="name(.)"/>
                                         attributes must conform to BCP 47
                                         (https://tools.ietf.org/html/bcp47), starting with an ISO
                                         639 code for the language, then optionally further codes for
@@ -4702,9 +4783,10 @@
                         </constraintSpec>
                     </elementSpec>
 
-                    <!-- Inform people when they use the rend attribute in ways that the web sites will ignore, 
-                         and rendition/style attributes which it always ignores  -->
                     <classSpec ident="att.global.rendition" type="atts" mode="change" module="tei">
+                        
+                        <!-- Inform people when they use the rend attribute in ways that the web sites will ignore, 
+                         and rendition/style attributes which it always ignores  -->
                         <constraintSpec ident="rend.info" scheme="schematron">
                             <constraint>
                                 <sch:rule 
@@ -4732,7 +4814,39 @@
                                 </sch:rule>
                             </constraint>
                         </constraintSpec>
+                        
+                        <!-- Warn about empty or self-closing elements with a @key -->
+                        <constraintSpec ident="selfclosing.warn" scheme="schematron">
+                            <constraint>
+                                <sch:rule 
+                                    context="tei:*[@key]">
+                                    <sch:assert 
+                                        test="string-length(normalize-space(string())) gt 1"
+                                        role="warn">
+                                        Elements with key attributes should have some content (because they will be displayed 
+                                        as links, and links need text for readers to click on.)
+                                    </sch:assert>
+                                </sch:rule>
+                            </constraint>
+                        </constraintSpec>
+                        
                     </classSpec>
+                    
+                    <!-- Warn about a common typo -->
+                    <elementSpec ident="surrogates" module="msdescription" mode="change">
+                        <constraintSpec ident="facsimile.warn" scheme="schematron">
+                            <constraint>
+                                <sch:rule 
+                                    context="//tei:surrogates/tei:bibl">
+                                    <sch:report 
+                                        test="contains(@type, 'fascimile')"
+                                        role="warn">
+                                        The type attribute of "<sch:value-of select="@type"/>" contains a typo (fascimile should be facsimile).
+                                    </sch:report>
+                                </sch:rule>
+                            </constraint>
+                        </constraintSpec>
+                    </elementSpec>
                     
                     <!-- dimensions must have unit attribute -->
                     <elementSpec ident="dimensions" module="msdescription" mode="change">
@@ -4747,9 +4861,7 @@
                         </constraintSpec>
                     </elementSpec>
 
-                    <!-- TODO: the initial title in titleStmt should match the shelfmark -->
-
-                    <!-- TODO: objectDesc must have @form attribute -->
+                    <!-- TODO?: the initial title in titleStmt should match the shelfmark -->
 
 
                 </schemaSpec>
