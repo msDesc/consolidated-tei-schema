@@ -5768,7 +5768,7 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="//tei:sourceDesc/tei:msDesc[not(tei:msPart)]"
-                      see="https://bodleian.github.io/consolidated-tei-schema/msdesc.html#objectdescBook">
+                      see="https://msdesc.github.io/consolidated-tei-schema/msdesc.html#objectdescBook">
                <sch:assert role="warn" test="tei:physDesc/tei:objectDesc[@form]">
                                         The physical form of the carrier should be recorded 
                                         in the objectDesc element, with a form attribute.
@@ -5845,7 +5845,7 @@ Suggested values include: 1] codex; 2] roll; 3] sheet; 4] faltbuch; 5] other; 6]
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="//tei:sourceDesc/tei:msDesc[not(tei:msPart)]"
-                      see="https://bodleian.github.io/consolidated-tei-schema/msdesc.html#supportdesc">
+                      see="https://msdesc.github.io/consolidated-tei-schema/msdesc.html#supportdesc">
                <sch:assert role="warn"
                            test="tei:physDesc/tei:objectDesc/tei:supportDesc[@material]">
                                         The material (parchment, paper, etc.) of a manuscript should be recorded 

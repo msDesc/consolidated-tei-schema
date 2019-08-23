@@ -1296,7 +1296,7 @@ mainStructures CDATA  #IMPLIED >
  %att.typed.attributes; >
 <!--doc:Contains a description of a countermark. Note: This is a customization which is not currently part of the TEI P5 standard. -->
 <!ELEMENT countermark %macro.phraseSeq;>
-<!ATTLIST countermark xmlns CDATA "https://github.com/bodleian/consolidated-tei-schema">
+<!ATTLIST countermark xmlns CDATA "https://github.com/msdesc/consolidated-tei-schema">
 <!ATTLIST countermark
  %att.global.attributes;
  %att.global.rendition.attributes;

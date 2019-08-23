@@ -4426,7 +4426,7 @@
 
                     <!-- add a new element 'countermark'. Model should be same as for 'watermark'  -->
                     <elementSpec ident="countermark" mode="add"
-                        ns="https://github.com/bodleian/consolidated-tei-schema">
+                        ns="https://github.com/msdesc/consolidated-tei-schema">
                         <desc>Contains a description of a countermark. Note: This is a customization
                             which is not currently part of the TEI P5 standard.</desc>
                         <classes>
@@ -4450,7 +4450,7 @@
                         <constraintSpec ident="textLang.check" scheme="schematron">
                             <constraint>
                                 <sch:rule 
-                                    see="https://bodleian.github.io/consolidated-tei-schema/msdesc.html#supportdesc"
+                                    see="https://msdesc.github.io/consolidated-tei-schema/msdesc.html#supportdesc"
                                     context="//tei:sourceDesc/tei:msDesc[not(tei:msPart)]">
                                     <sch:assert 
                                         test="tei:physDesc/tei:objectDesc/tei:supportDesc[@material]" 
@@ -4517,7 +4517,7 @@
                         <constraintSpec ident="textLang.check" scheme="schematron">
                             <constraint>
                                 <sch:rule 
-                                    see="https://bodleian.github.io/consolidated-tei-schema/msdesc.html#objectdescBook"
+                                    see="https://msdesc.github.io/consolidated-tei-schema/msdesc.html#objectdescBook"
                                     context="//tei:sourceDesc/tei:msDesc[not(tei:msPart)]">
                                     <sch:assert 
                                         test="tei:physDesc/tei:objectDesc[@form]" 

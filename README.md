@@ -2,6 +2,6 @@ This repository is primarily the location of the schema used by various manuscri
 
 The schema is a customized version of the TEI (Text Encoding Initiative) P5 standard. The master copy is [msdesc.odd](/msdesc.odd), written in TEI's own [ODD](http://www.tei-c.org/guidelines/customization/getting-started-with-p5-odds/) schema language. That has been converted into schema formats which XML editors and validating parsers can understand. The [msdesc.rng](/msdesc.rng) RELAX NG file is the definitive version, but [alternatives](/alternatives/) are also provided.
 
-Also provided is documentation, including details of the customization and guidelines for people using it to encode manuscript descriptions. [HTML](https://bodleian.github.io/consolidated-tei-schema/msdesc.html) and [PDF](https://bodleian.github.io/consolidated-tei-schema/msdesc.pdf) versions are available (generated from the ODD file.)
+Also provided is documentation, including details of the customization and guidelines for people using it to encode manuscript descriptions. [HTML](https://msdesc.github.io/consolidated-tei-schema/msdesc.html) and [PDF](https://msdesc.github.io/consolidated-tei-schema/msdesc.pdf) versions are available (generated from the ODD file.)
 
 Also in this repository are library files used by XSL and XQuery scripts in the catalogue repositories to process the TEI (e.g. converting into HTML, generating indexes for [Blacklight](http://projectblacklight.org/)-based web sites.
