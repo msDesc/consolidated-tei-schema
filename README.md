@@ -4,4 +4,6 @@ The schema is a customized version of the TEI (Text Encoding Initiative) P5 stan
 
 Also provided is documentation, including details of the customization and guidelines for people using it to encode manuscript descriptions. [HTML](https://msdesc.github.io/consolidated-tei-schema/msdesc.html) and [PDF](https://msdesc.github.io/consolidated-tei-schema/msdesc.pdf) versions are available (generated from the ODD file.)
 
+The repository also contains templates that may be used as starting points by cataloguers. [template.xml](/template.xml) is for manuscripts comprising a single codicological unit, and [template-msPart.xml](/template-msPart.xml) is for manuscripts comprising more than one codicological unit.
+
 Also in this repository are library files used by XSL and XQuery scripts in the catalogue repositories to process the TEI (e.g. converting into HTML, generating indexes for [Blacklight](http://projectblacklight.org/)-based web sites.
