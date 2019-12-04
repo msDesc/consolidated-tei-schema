@@ -1,11 +1,13 @@
 module namespace lang="http://www.bodleian.ox.ac.uk/bdlss/lang";
 
+declare variable $lang:disablelogging as xs:boolean external := false();
+
 (: The only function that should be called is lang:languageCodeLookup() :)
 
 declare function lang:languageCodeLookup($lang as xs:string) as xs:string
 {
     (: Lookup the code and map those values to labels for display in filters on the web site :)
-    if (string-length($lang) eq 2) then
+    let $language as xs:string := if (string-length($lang) eq 2) then
         lang:_twoCharLookup($lang)
     else if (string-length($lang) eq 3) then
         lang:_threeCharLookup($lang)
@@ -18,7 +20,8 @@ declare function lang:languageCodeLookup($lang as xs:string) as xs:string
             (: Try to match the first part of a language and script combination :)
             if (substring($lang, 3, 1) eq '-') then lang:_twoCharLookup(substring($lang, 1, 2))
             else if (substring($lang, 4, 1) eq '-') then lang:_threeCharLookup(substring($lang, 1, 3))
-            else concat('Unknown language: ', $lang)
+            else lang:logging('warn', 'Unknown language', $lang)
+    return if ($language ne '') then $language else concat('Unknown language: ', $lang)
 };
 
 (: The following functions map codes to labels. They diverge slightly from the standards. 
@@ -217,7 +220,7 @@ declare function lang:_twoCharLookup($lang as xs:string) as xs:string
         case 'za' return "Zhuang"
         case 'zh' return "Chinese"
         case 'zu' return "Zulu"
-        default return concat('Unknown language: ', $lang)
+        default return lang:logging('warn', 'Unknown language', $lang)
 };
 
 declare function lang:_threeCharLookup($lang as xs:string) as xs:string
@@ -8180,5 +8183,13 @@ declare function lang:_threeCharLookupMore($lang as xs:string) as xs:string
         case 'zyn' return "Yongnan Zhuang"
         case 'zyp' return "Zyphe Chin"
         case 'zzj' return "Zuojiang Zhuang"
-        default return concat('Unknown language: ', $lang)
+        default return lang:logging('warn', 'Unknown language', $lang)
+};
+
+declare function lang:logging($level, $msg, $values)
+{
+    if (not($lang:disablelogging)) then
+        (: Trick XQuery into doing trace() to output message to STDERR but not insert it into the XML :)
+        substring(trace('', concat(upper-case($level), '	', $msg, '	', string-join($values, '	'), '	')), 0, 0)
+    else ()
 };

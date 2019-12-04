@@ -183,7 +183,9 @@ declare function bod:personRoleLookup($role as xs:string) as xs:string
             "Commissioner, dedicatee, or patron"
         else if ($lcrole eq 'bsl') then
             "Stationer or bookseller"
-        else bod:roleLookupMarcCode($lcrole)
+        else
+            let $relator as xs:string := bod:roleLookupMarcCode($lcrole)
+            return if ($relator ne '') then $relator else concat('Unknown role code: ', $lcrole)
     else
         (: Anything else, assume it is a label :)
         functx:capitalize-first($role)
@@ -461,7 +463,7 @@ declare function bod:roleLookupMarcCode($rolecode as xs:string) as xs:string
         case 'wit' return "Witness"
         case 'wpr' return "Writer of preface"
         case 'wst' return "Writer of supplementary textual content"
-        default return concat('Unknown role code: ', $rolecode)
+        default return bod:logging('warn', 'Unknown role code', $rolecode)
 };
 
 
