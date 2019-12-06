@@ -604,6 +604,7 @@ declare function bod:lookupAuthorityName($name as xs:string) as xs:string
         case 'SUDOC' return "SUDOC: Système Universitaire de Documentation (authority record)"
         case 'GND' return "GND: Gemeinsame Normdatei (authority record)"
         case 'TGN' return "Getty Thesaurus of Geographic Names® Online (authority record)"
+        case 'ISNI' return "ISNI: International Standard Name Identifier (authority record)"
         default return $name
 };
 
