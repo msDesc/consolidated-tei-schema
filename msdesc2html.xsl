@@ -422,7 +422,18 @@
     <xsl:function name="bod:standardText">
         <xsl:param name="textval" as="xs:string"/>
         <xsl:choose>
-            <xsl:when test="$textval = ('Physical Description', 'Contents', 'History', 'Record Sources', 'Language(s):', 'Support:', 'Origin:', 'Form:', 'Additional Information')">
+            <xsl:when test="$textval = (
+                    'Physical Description', 
+                    'Contents', 
+                    'History', 
+                    'Record Sources', 
+                    'Language(s):', 
+                    'Support:', 
+                    'Origin:', 
+                    'Form:', 
+                    'Additional Information',
+                    'Funding of Cataloguing'
+                    )">
                 <xsl:processing-instruction name="ni"/>
                 <xsl:value-of select="$textval"/>
                 <xsl:processing-instruction name="ni"/>
@@ -531,6 +542,7 @@
                                         <div class="content tei-body" id="{/TEI/@xml:id}">
                                             <xsl:call-template name="Header"/>
                                             <xsl:apply-templates select="/TEI/teiHeader/fileDesc/sourceDesc/msDesc"/>
+                                            <xsl:call-template name="Funding"/>
                                             <xsl:call-template name="AbbreviationsKey"/>
                                             <xsl:call-template name="Footer"/>
                                         </div>
@@ -542,6 +554,7 @@
                                     <div class="content tei-body" id="{/TEI/@xml:id}">
                                         <xsl:call-template name="Header"/>
                                         <xsl:apply-templates select="/TEI/teiHeader/fileDesc/sourceDesc/msDesc"/>
+                                        <xsl:call-template name="Funding"/>
                                         <xsl:call-template name="AbbreviationsKey"/>
                                         <xsl:call-template name="Footer"/>
                                     </div>
@@ -617,6 +630,51 @@
             </ul>
         </xsl:if>
     </xsl:template>
+    
+    
+    
+    <!-- Named template for displaying funders (of the cataloguing, funders of acquisition 
+         are in history section) -->
+    <xsl:template name="Funding">
+        <xsl:if test="//teiHeader/fileDesc//funder">
+            <div class="funding">
+                
+                <!-- Logos, if any, displayed floating on the right -->
+                <xsl:if test="//teiHeader/fileDesc//funder//orgName//graphic/@url">
+                    <div style="float:right; padding-left:2em; max-width:50%; text-align:right;">
+                        <xsl:for-each select="//teiHeader/fileDesc//funder//orgName[.//graphic/@url]">
+                            <xsl:variable name="logourl" select="(.//graphic/@url)[1]"/>
+                            <xsl:variable name="linkurl" select="(.//ref/@target)[1]"/>
+                            <xsl:choose>
+                                <xsl:when test="$linkurl">
+                                    <a href="{ $linkurl }" target="_blank">
+                                        <img src="{ $logourl }" width="200" style="display:inline-block; margin-right:1em; vertical-align:middle;"/>
+                                    </a>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <img src="{ $logourl }" width="200" style="display:inline-block; margin-right:1em; vertical-align:middle;"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:for-each>
+                    </div>
+                </xsl:if>
+                
+                <!-- Display funder(s) text -->
+                <h3>
+                    <xsl:copy-of select="bod:standardText('Funding of Cataloguing')"/>
+                </h3>
+                <xsl:for-each select="//teiHeader/fileDesc//funder">
+                    <p>
+                        <xsl:apply-templates/>
+                    </p>
+                </xsl:for-each>
+                
+            </div>
+        </xsl:if>
+    </xsl:template>
+    
+    
+    
 
     <!-- Actual TEI-to-HTML templates below -->
 
@@ -1150,6 +1208,7 @@
                         </xsl:choose>
                     </h4>
                     <xsl:apply-templates select="provenance | acquisition"/>
+                    
                 </div>
             </xsl:if>
         </div>
@@ -2261,6 +2320,8 @@
     </xsl:template>
     
     <xsl:template match="geo"><!-- Do not display geographical coordinates --></xsl:template>
+    
+    <xsl:template match="graphic"><!-- Do not display graphics (except funders, which are handled elsewhere) --></xsl:template>
     
     <xsl:template match="custodialHist">
         <h3>
