@@ -1197,6 +1197,28 @@
             </xsl:if>
             <xsl:if test="provenance or acquisition">
                 <div class="provenance">
+                    
+                    <!-- Acquisition funder logos, if any, displayed floating on the right -->
+                    <xsl:if test="acquisition//orgName[@role=('spn','fnd')]//graphic/@url">
+                        <div style="float:right; padding-left:2em; max-width:50%; text-align:right;">
+                            <xsl:for-each select="acquisition//orgName[@role=('spn','fnd') and .//graphic/@url]">
+                                <xsl:variable name="logourl" select="(.//graphic/@url)[1]"/>
+                                <xsl:variable name="linkurl" select="(.//ref/@target)[1]"/>
+                                <xsl:choose>
+                                    <xsl:when test="$linkurl">
+                                        <a href="{ $linkurl }" target="_blank">
+                                            <img src="{ $logourl }" width="200" style="display:inline-block; margin-right:1em; vertical-align:middle;"/>
+                                        </a>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <img src="{ $logourl }" width="200" style="display:inline-block; margin-right:1em; vertical-align:middle;"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:for-each>
+                        </div>
+                    </xsl:if>
+                    
+                    <!-- Provenance and acquisition text -->
                     <h4>
                         <xsl:choose>
                             <xsl:when test="not(acquisition) and ancestor::msPart">
