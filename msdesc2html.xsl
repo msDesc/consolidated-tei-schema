@@ -774,9 +774,20 @@
         <xsl:text> </xsl:text>
     </xsl:template>
 
-    <xsl:template match="sic[child::* or text()]">
+    <xsl:template match="sic[parent::choice and (child::* or text())]">
         <span class="{name()}">
             <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    
+    <xsl:template match="sic[not(parent::choice) and (child::* or text())]">
+        <span class="{name()}">
+            <xsl:apply-templates/>
+            <xsl:text>[</xsl:text>
+            <i>
+                <xsl:text>sic</xsl:text>
+            </i>
+            <xsl:text>]</xsl:text>
         </span>
     </xsl:template>
     
