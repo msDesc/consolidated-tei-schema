@@ -491,29 +491,43 @@
                                     target="#personalnames"/>) and the role of the person
                                 responsible in <gi>resp</gi> elements. If known, the date should be
                                 given in the <att>when</att> attribute of <gi>resp</gi>
-                                <!-- TODO: new example -->
-                                <!-- todo: fix values for resp? -->
-                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                                    <titleStmt>
-                                        <title>MS. Laud Misc. 108</title>
-                                        <title type="collection">MSS. Laud Misc. (Laud
-                                            miscellaneous)</title>
-                                        <respStmt xml:id="MLH">
-                                            <resp when="2018">Cataloguer</resp>
-                                            <resp when="2018">Encoding and markup</resp>
-                                            <persName>Matthew Holford</persName>
-                                        </respStmt>
-                                    </titleStmt>
-                                </egXML>
-                                <!-- <specList>
-                                    <specDesc key="titleStmt"/>
-                                    <specDesc key="title"/>
-                                    <specDesc key="funder"/>
-                                    <specDesc key="respStmt" atts="xml:id"/>
-                                    <specDesc key="persName" atts="ref"/>
-                                    <specDesc key="resp" atts="key"/>
-                                </specList>-->
                             </p>
+                            <!-- TODO: new example -->
+                            <!-- todo: fix values for resp? -->
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                <titleStmt>
+                                    <title>MS. Laud Misc. 108</title>
+                                    <title type="collection">MSS. Laud Misc. (Laud
+                                        miscellaneous)</title>
+                                    <respStmt xml:id="MLH">
+                                        <resp when="2018">Cataloguer</resp>
+                                        <resp when="2018">Encoding and markup</resp>
+                                        <persName>Matthew Holford</persName>
+                                    </respStmt>
+                                </titleStmt>
+                            </egXML>
+                            <p>The <gi>titleStmt</gi> is also the place to record any funding bodies which 
+                                contributed to the cost of cataloguing. The <gi>funder</gi> element can 
+                                contain a plain text statement or <gi>orgName</gi> elements. The websites  
+                                of sponsors, and their logos, can be included. For example:</p>
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                <funder>
+                                    <orgName>
+                                        <ref target="https://www.yee.org.tr/">Yunus Emre Institute</ref>
+                                        <graphic url="https://www.yee.org.tr/sites/default/files/kurumsal/yunus_emre_enstitasa_logo-01.png"/>
+                                    </orgName>
+                                </funder>
+                            </egXML>
+                            <p>Contributions to the cost of purchasing the manuscript should be recorded 
+                                as part of the <ref target="#acquisition">Acquisition</ref> section of its history.</p>
+                            <!-- <specList>
+                                <specDesc key="titleStmt"/>
+                                <specDesc key="title"/>
+                                <specDesc key="funder"/>
+                                <specDesc key="respStmt" atts="xml:id"/>
+                                <specDesc key="persName" atts="ref"/>
+                                <specDesc key="resp" atts="key"/>
+                            </specList>-->
                         </div>
                         <div xml:id="responsibility">
                             <head>Responsibility</head>
@@ -3264,19 +3278,37 @@
                                 using <gi>orgName</gi> or <gi>persName</gi> elements.</p>
                             <!-- todo? markup of booksellers and auction houses  -->
                             <p>Note the usage of the different dating attributes in the following
-                                example. <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                                    <provenance notAfter="1833"><persName role="fmo"
-                                            key="person_2854">William Wilson</persName>, F.S.A.
-                                        (-1832?), of the Minories, his sale, Christie's, 31 Jan.-1
-                                        Feb. 1833, lot 56 on 1 Feb.; bought by Thorpe for £53.
-                                        11s.</provenance>
-                                    <provenance from="1833" to="1834">Purchased from Thorpe by
-                                            <persName key="person_69848690" role="fmo"
-                                            >Douce</persName>, Feb. 1833.</provenance>
-                                    <acquisition when="1834">Bequeathed by Douce to the Bodleian in
-                                        1834.</acquisition>
-                                </egXML></p>
-
+                                example.</p>
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                <provenance notAfter="1833"><persName role="fmo"
+                                        key="person_2854">William Wilson</persName>, F.S.A.
+                                    (-1832?), of the Minories, his sale, Christie's, 31 Jan.-1
+                                    Feb. 1833, lot 56 on 1 Feb.; bought by Thorpe for £53.
+                                    11s.</provenance>
+                                <provenance from="1833" to="1834">Purchased from Thorpe by
+                                        <persName key="person_69848690" role="fmo"
+                                        >Douce</persName>, Feb. 1833.</provenance>
+                                <acquisition when="1834">Bequeathed by Douce to the Bodleian in
+                                    1834.</acquisition>
+                            </egXML>
+                            <p>The <gi>acquisition</gi> element is also the place to record any funding 
+                                bodies which contributed to the cost of purchasing the manuscript. Each 
+                                should be tagged as <gi>orgName</gi> elements with a <att>role</att> 
+                                attribute of either "spn" or "fnd". The websites of sponsors, and their 
+                                logos, can be included. For example:</p>
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                <acquisition>
+                                    Purchased with the support of
+                                    <orgName role="spn"><ref target="https://visit.bodleian.ox.ac.uk/friends-of-the-bodleian">Friends of the Bodleian</ref></orgName>, 
+                                    and the 
+                                    <orgName role="spn">
+                                        <ref target="https://www.vam.ac.uk/purchasegrantfund">V&amp;A Purchase Grant Fund</ref>
+                                        <graphic url="https://www.fihrist.org.uk/images/logos/vampgf250.png"/>
+                                    </orgName>, and a private donor.
+                                </acquisition>
+                            </egXML>
+                            <p>Contributions to the cost of cataloguing the manuscript should be recorded 
+                                in the <ref target="#titlestatement">Title Statement</ref>.</p>
                         </div>
 
 
