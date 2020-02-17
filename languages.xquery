@@ -8183,6 +8183,8 @@ declare function lang:_threeCharLookupMore($lang as xs:string) as xs:string
         case 'zyn' return "Yongnan Zhuang"
         case 'zyp' return "Zyphe Chin"
         case 'zzj' return "Zuojiang Zhuang"
+        (: This next is a non-ISO code used exclusively by the Hebrew catalogue :)
+        case 'jpt' return "Judeo-Portuguese"
         default return lang:logging('warn', 'Unknown language', $lang)
 };
 
