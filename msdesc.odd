@@ -518,6 +518,10 @@
                                     </orgName>
                                 </funder>
                             </egXML>
+                            <p>Ideally the @url attribute of the <gi>graphic</gi> element should point to an 
+                                image hosted by the funding organization. The <gi>graphic</gi> element cannot 
+                                be a child of the <gi>funder</gi> element, but must be enclosed in a <gi>persName</gi> 
+                                or <gi>orgName</gi> element.</p>
                             <p>Contributions to the cost of purchasing the manuscript should be recorded 
                                 as part of the <ref target="#acquisition">Acquisition</ref> section of its history.</p>
                             <!-- <specList>
@@ -3307,6 +3311,10 @@
                                     </orgName>, and a private donor.
                                 </acquisition>
                             </egXML>
+                            <p>Ideally the @url attribute of the <gi>graphic</gi> element should point to an 
+                                image hosted by the funding organization. The <gi>graphic</gi> element cannot 
+                                be a child of the <gi>funder</gi> element, but must be enclosed in a <gi>persName</gi> 
+                                or <gi>orgName</gi> element.</p>
                             <p>Contributions to the cost of cataloguing the manuscript should be recorded 
                                 in the <ref target="#titlestatement">Title Statement</ref>.</p>
                         </div>
