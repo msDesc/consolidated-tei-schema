@@ -6,9 +6,11 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title>TEI P5 Customization and Encoding Guidelines - Bodleian Library UNFINISHED
-                    DRAFT - IN PROGRESS</title>
+                <title>TEI P5 Customization and Encoding Guidelines for Manuscript Description</title>
             </titleStmt>
+            <editionStmt>
+                <edition>1.0 (April 2020)</edition>
+            </editionStmt>
             <publicationStmt>
                 <publisher>Bodleian Library, Oxford</publisher>
                 <availability status="free">
@@ -31,10 +33,14 @@
                 <p>Born digital</p>
             </sourceDesc>
         </fileDesc>
+        <revisionDesc>
+            <change when="2020-04-03" who="#MLH">Add opener; new attribute for handNote: @execution; add medieval attribute values for handNote and decoNote; make layout part of att.typed; add guidance on extracts; add guidance on collation vocabulary; use measure rather than num for better TEI compliance.</change>
+        </revisionDesc>
     </teiHeader>
     <text>
 
         <body>
+            <opener>These guidelines represent a community effort to develop uniform good practice in the cataloguing manuscripts using TEI. They are currently used by cataloguers at a number of institutions including the British Library, the Bodleian Libraries, Cambridge University Library, the John Rylands Library, and the Wellcome Trust. They remain under development and contributions are welcome via pull requests or issues.</opener>
             <divGen type="toc" xml:id="toc"/>
             <div xml:id="documentation">
                 <head>Encoding guidelines</head>
@@ -125,7 +131,7 @@
                             of Congress relator term list (<ref
                                 target="http://www.loc.gov/marc//relators/relaterm.html"
                                 >http://www.loc.gov/marc//relators/relaterm.html</ref>). The most
-                            commonly occurring roles are: "aut" (author), "scr" (scribe), "art"
+                            commonly occurring roles are: "aut" (author), "bnd" (binder), "scr" (scribe), "art"
                             (artist; NB this is preferred to illustrator), "fmo" (former
                             owner),"sgn" (signer), "pat" (patron). If necessary, multiple roles can
                             be separated with whitespace. <egXML
@@ -1097,6 +1103,19 @@
                                     </egXML>
                                 </p>
                             </div>
+                            <div xml:id="extractsAndParts">
+                                <head>Extracts and parts of works</head>
+                                <p>If only an extract of a work is present this should be encoded using the <gi>bibl</gi> element. Within this, the <gi>citedRange</gi>
+                                    element may be used to provide a machine-reading encoding of which parts of the work are given.
+                                    
+                                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                        <author key="person_59077661">Thomas à Kempis</author>
+                                        <title key="work_4859">Imitatio Christi</title>
+                                        <bibl>(book <citedRange unit="book" from="1" to="1">i</citedRange>)</bibl>
+                                    </egXML>
+                                    <!-- todo: more logical to have citedRange in msItem?  -->
+                                </p>
+                            </div>
                             <div xml:id="generalContentNotes">
                                 <head>General notes on the content</head>
                                 <p>These may be placed at the beginning or end of the
@@ -1109,7 +1128,7 @@
                                     </egXML>
                                 </p>
                             </div>
-                            <!-- todo: incomplete texts (use @defective). extracts. (machine readable encoding?)-->
+                            <!-- todo: incomplete texts (use @defective). (machine readable encoding?)-->
                             <div xml:id="addedTexts">
                                 <head>Added texts</head>
                                 <!-- todo: it might be useful to have a rule of thumb about what counts as significant? anything that should be 'discoverable'? -->
@@ -1873,14 +1892,14 @@
                                             be described in its own <gi>material</gi> element.</p>
                                         <p>The folding of the paper should be recorded using a
                                                 <gi>measure</gi> element with the <att>type</att>
-                                            attribute (value: <val>folding</val>) whose values will
+                                            attribute (value: <val>folding</val>) and <att>quantity</att> attribute whose values will
                                             be <val>folio</val>, <val>quarto</val>, etc.</p>
                                         <p>The original size of the sheet may be given using
                                                 <gi>dimensions</gi> with attribute <att>type</att>
                                             of value <val>paperSheet</val></p>
                                         <p>The number of chainlines per leaf should be recorded
-                                            using a <gi>num</gi> element with <att>type</att> of
-                                            value <val>chainlinesLeaf</val>.</p>
+                                            using a <gi>measure</gi> element with <att>type</att> of
+                                            value <val>chainlinesLeaf</val> and an appropriate value of <att>quantity</att>.</p>
                                         <p>The distance between chainlines may be recorded using
                                                 <gi>dimensions</gi> with <att>type</att> of
                                                 <val>chainLines</val>, containing a <gi>width</gi>
@@ -2007,7 +2026,7 @@
                                             <item>a description of the present state of the item (if
                                                 different from <gi>objectDesc</gi>), using
                                                   <gi>objectType</gi></item>
-                                            <item>the number of leaves, using <gi>num</gi></item>
+                                            <item>the number of leaves, using <gi>measure</gi></item>
                                             <item>measurements of the leaves, using
                                                   <gi>dimensions</gi></item>
                                         </list>
@@ -2081,7 +2100,7 @@
                                             current guide recommends that these endleaves be
                                             distinguished both from others that were clearly added
                                             later and from the ‘core’ leaves in a volume.</p>
-                                        <p>Use <gi>num</gi> to encode each group of leaves
+                                        <p>Use <gi>measure</gi> to encode each group of leaves
                                             separately, with the attribute <att>value</att> to
                                             provide the number of leaves within that group.</p>
                                         <p>Use the following conventions: <list>
@@ -2109,10 +2128,10 @@
                                         <p>
                                             <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                                 <extent> [...] <seg type="leaf">
-                                                  <num type="laterEndleaf" value="2">ii</num> + <num
-                                                  type="endleaf" value="1">1</num> + <num
-                                                  type="leaf" value="320">320</num> + <num
-                                                  type="laterEndleaf" value="2">ii</num>
+                                                    <measure type="laterEndleaf" quantity="2">ii</measure> + <measure
+                                                        type="endleaf" quantity="1">1</measure> + <measure
+                                                            type="leaf" quantity="320">320</measure> + <measure
+                                                                type="laterEndleaf" quantity="2">ii</measure>
                                                   </seg>
                                                 </extent>
                                             </egXML>
@@ -2417,9 +2436,19 @@
                                                 <item>2 modern paper endleaves</item>
                                             </list>
                                         </collation>
-                                        <!-- todo: this should be regarded as a temporary solution?  -->
+                                        <!-- todo: this should be regarded as a temporary solution?
+                                        toDO: visColl? -->
                                     </egXML>
                                 </p>
+                                <p>The following terminology is recommended:
+                                    <table><row><cell>Not present</cell><cell> when a leaf has been removed or lost, without affecting the contents of the volume, but for reasons that cannot presently be established.</cell></row><row>
+                                    <cell>Excised </cell><cell> when a leaf has clearly been cut out deliberately (esp. if blank).</cell></row><row>
+                                    <cell>Missing </cell><cell> when a leaf has been lost, perhaps but not necessarily accidentally, causing the text or decorative scheme to become imperfect.</cell></row><row>
+                                    <cell>Cancelled </cell><cell> when a leaf has been removed but there is no evident interruption to the text or decorative scheme (e.g. leaf with an error, removed during copying).</cell></row><row>
+                                    <cell>Inserted </cell><cell> when an extra leaf is contemporary with the production of the manuscript (e.g. a miniature on a single leaf in a Book of Hours).</cell></row><row>
+                                   <cell> Added </cell><cell> when an extra leaf is a later insertion.</cell></row></table>
+                                </p>
+                                
                                 <p>Record quire or leaf signatures in the <gi>signatures</gi>
                                     element. Use the attribute <att>type</att> to distinguish leaf
                                     and quire signatures. (NB this is a customization and not
@@ -2445,14 +2474,15 @@
                                 </p>
                                 <p>Record the catchwords in the <gi>catchwords</gi> element.</p>
                                 <p>For <ref target="#msPart">multi-part manuscripts</ref>, the
-                                    collation of each part should be recorded separately. In
+                                    collation of each part should be recorded at the level of the msPart; it may
+                                    also be recorded at the level of the manuscript as a whole if this aids clarity. In
                                     retroconversion this is likely to involve reorganization of the
                                     formula.</p>
                                 <!-- todo: examples; leaf vs. quire signatures? -->
                             </div>
                             <div xml:id="condition">
                                 <head>Condition</head>
-                                <p>Provide a brief description of the overall condition of the
+                                <p>This element is used to provide a brief description of the overall condition of the
                                     manuscript: detached, loose, torn, mutilated or otherwise
                                     damaged leaves; flaking ink or pigments or ‘bleed-through’;
                                     deliberate damage inflicted upon decorative elements;
@@ -4100,6 +4130,66 @@
                                         <desc>The decoration note concerns the rubrication or other
                                             highlighting</desc>
                                     </valItem>
+                                    
+                                    <!-- add value lists for medieval -->
+                                    <valItem ident="bas-de-page">
+                                        <desc>The decoration note concerns bas-de-page scenes </desc>
+                                        </valItem>
+                                    <valItem ident="map">
+                                        <desc>The decoration note concerns a map or maps</desc>
+                                    </valItem>
+                                    <valItem ident="headpiece">
+                                        <desc>The decoration note concerns a headpiece</desc>
+                                    </valItem>
+                                    
+                                    <valItem ident="headpiece">
+                                        <desc>The decoration note concerns a headpiece</desc>
+                                    </valItem>
+                                    <valItem ident="canonTable">
+                                        <desc>The decoration note concerns canon table(s)</desc>
+                                    </valItem>
+                                    <valItem ident="carpetPage">
+                                        <desc>The decoration note concerns so-called carpet page(s)</desc>
+                                    </valItem>
+                                    
+                                    <valItem ident="histInit">
+                                        <desc>The decoration note concerns historiated initials</desc>
+                                    </valItem>
+                                    <valItem ident="decInit">
+                                        <desc>The decoration note concerns decorated (but not historiated) initials</desc>
+                                    </valItem>
+                                    
+                                    <valItem ident="flourInit">
+                                        <desc>The decoration note concerns pen-work flourishing of letters and/or borders</desc>
+                                    </valItem>
+                                    
+                                    <valItem ident="colInit">
+                                        <desc>The decoration note concerns coloured (but not decorated or flourished) initials</desc>
+                                    </valItem>
+                                    
+                                    <valItem ident="plainInit">
+                                        <desc>The decoration note concerns plain initials (in the ink of the text)</desc>
+                                    </valItem>
+                                    
+                                    <valItem ident="chrysography">
+                                        <desc>The decoration note concerns chrysography (writing in gold)</desc>
+                                    </valItem>
+                                    <valItem ident="lineFill">
+                                        <desc>The decoration note concerns line fillers</desc>
+                                    </valItem>
+                                    <valItem ident="cadel">
+                                        <desc>The decoration note concerns cadels</desc>
+                                    </valItem>
+                                    <valItem ident="instructions">
+                                        <desc>The decoration note concerns intructions for decoration</desc>
+                                    </valItem>
+                                    <valItem ident="unfilled">
+                                        <desc>The decoration note concerns space for decoration left unfilled</desc>
+                                    </valItem>
+                                    <valItem ident="none">
+                                        <desc>The decoration note records the absence of any decoration</desc>
+                                    </valItem>
+                                    
                                     <valItem ident="other">
                                         <desc>The decoration note concerns other/unspecified aspects
                                             (you may also provide a custom value)</desc>
@@ -4108,6 +4198,102 @@
                             </attDef>
                         </attList>
                     </elementSpec>
+                    
+                    
+                    <!-- suggested attribute values for script -->
+                    <elementSpec ident="handNote" module="msdescription" mode="change">
+                        <attList>
+                            <attDef ident="execution" mode="add">
+                                <desc>Specifies the execution of the script according to a widely-used schema. The default value is assumed to be libraria. Note: This is a customization which is not
+                                    currently part of the TEI P5 standard.</desc>
+                                <valList type="closed">
+                                    <valItem ident="formata">
+                                        <desc>Execution is calligraphic.</desc>
+                                    </valItem>
+                                    <valItem ident="libraria">
+                                        <desc>A normal level of execution.</desc>
+                                    </valItem>
+                                    <valItem ident="currens">
+                                        <desc>Execution is informal.</desc>
+                                    </valItem>
+                                    
+                                </valList>
+                            </attDef>
+                            <attDef ident="type" mode="change">
+                                <valList mode="replace" type="semi">
+                                    <valItem ident="capitalsSquare">
+                                        <desc>The script of the hand is square capitals</desc>
+                                    </valItem>
+                                    <valItem ident="capitalsRustic">
+                                        <desc>The script of the hand is rustic capitals</desc>
+                                    </valItem>
+                                    <valItem ident="uncial">
+                                        <desc>The script of the hand is uncial</desc>
+                                    </valItem>
+                                    
+                                    <valItem ident="halfUncial">
+                                        <desc>The script of the hand is half uncial</desc>
+                                    </valItem>
+                                    <valItem ident="minusculeInsular">
+                                        <desc>The script of the hand is insular minuscule</desc>
+                                    </valItem>
+                                    <valItem ident="minusculeVernacular">
+                                        <desc>The script of the hand is English vernacular minuscule ('Anglo-Saxon minuscule')</desc>
+                                    </valItem>
+                                    <valItem ident="minusculeCaroline">
+                                        <desc>The script of the hand is Caroline minuscule (English and continental variants of the script)</desc>
+                                    </valItem>
+                                    
+                                    <valItem ident="minuscule">
+                                        <desc>The script of the hand is an unspecifiec minuscule (not Caroline, insular, or English vernacular)</desc>
+                                    </valItem>
+                                    <valItem ident="protogothic">
+                                        <desc>The script of the hand is protogothic (Romanesque, praegothica)</desc>
+                                    </valItem>
+                                    <valItem ident="textualisNorthern">
+                                        <desc>The script of the hand is Northern textualis</desc>
+                                    </valItem>
+                                    
+                                    <valItem ident="textualisSouthern">
+                                        <desc>The script of the hand is Southern textualis</desc>
+                                    </valItem>
+                                    <valItem ident="semitextualis">
+                                        <desc>The script of the hand is semi textualis</desc>
+                                    </valItem>
+                                    <valItem ident="cursivaAntiquior">
+                                        <desc>The script of the hand is cursiva antiquior (anglicana, 'Ältere gotische Kursive')</desc>
+                                    </valItem>
+                                    <valItem ident="cursiva">
+                                        <desc>The script of the hand is cursiva (‘cancelleresca’, ‘bastarda’, ‘lettre
+                                            batarde’, ‘secretary’, etc.)</desc>
+                                    </valItem>
+                                    <valItem ident="hybrida">
+                                        <desc>The script of the hand is cursiva (‘semihybrida’, ‘loopless bastarda’,
+                                            ‘fractura’, ‘mercantesca’, etc.)</desc>
+                                    </valItem>
+                                    <valItem ident="gothicoAntiqua">
+                                        <desc>The script of the hand is gothico-antiqua (‘fere-humanistica’,
+                                            ‘gothico-humanistica’)</desc>
+                                    </valItem>
+                                    <valItem ident="humanistica">
+                                        <desc>The script of the hand is humanistic (unspecified)</desc>
+                                    </valItem>
+                                    <valItem ident="humanisticaTextualis">
+                                        <desc>The script of the hand is humanistic textualis (unspecified)</desc>
+                                    </valItem>
+                                    <valItem ident="humanisticaSemitextualis">
+                                        <desc>The script of the hand is humanistic semitextualis</desc>
+                                    </valItem>
+                                    <valItem ident="humanisticaCursiva">
+                                        <desc>The script of the hand is humanistic cursive</desc>
+                                    </valItem>
+                                
+                                </valList>
+                            </attDef>
+                        </attList>
+                    </elementSpec>
+                    
+                    
                     <!-- dimensions/@type
             
             original: binding, book, folia, leaf, leaves, line-height, membrane, 'number of photograph', printed, ruled, ruledColumn, ruling, unknown, written
@@ -4371,8 +4557,12 @@
                         </classes>
                     </elementSpec>
 
-                    <!-- add new attributes "topLine" and "rulingMedium" to layout -->
+                    <!-- add new attributes "topLine" and "rulingMedium" to layout
+                        make layout part of att.typed  -->
                     <elementSpec ident="layout" module="msdescription" mode="change">
+                        <classes mode="change">
+                            <memberOf key="att.typed"/>
+                        </classes>
                         <attList>
                             <attDef ident="topLine" mode="add">
                                 <desc>Specifies the whether the writing is above top line, below top
@@ -4618,6 +4808,7 @@
                             </attDef>
                         </attList>
                     </elementSpec>
+                    
 
 
                     <!-- ********************** -->
@@ -4872,6 +5063,9 @@
                         
                     </classSpec>
                     
+                    
+                  
+                    
                     <!-- Warn about a common typo -->
                     <elementSpec ident="surrogates" module="msdescription" mode="change">
                         <constraintSpec ident="facsimile.warn" scheme="schematron">
@@ -4908,4 +5102,5 @@
             </div>
         </body>
     </text>
+    
 </TEI>
