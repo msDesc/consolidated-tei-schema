@@ -34,7 +34,7 @@
             </sourceDesc>
         </fileDesc>
         <revisionDesc>
-            <change when="2020-04-03" who="#MLH">Add opener; new attribute for handNote: @execution; add medieval attribute values for handNote and decoNote; make layout part of att.typed; add guidance on extracts; add guidance on collation vocabulary; use measure rather than num for better TEI compliance.</change>
+            <change when="2020-04-03" who="#MLH">Add opener; new attribute for handNote: @execution; add attribute values for handNote and decoNote; make layout part of att.typed; add guidance on extracts; add guidance on collation vocabulary; use measure rather than num for better TEI compliance.</change>
         </revisionDesc>
     </teiHeader>
     <text>
