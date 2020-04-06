@@ -3905,18 +3905,18 @@
                     <!-- core module -->
                     <moduleRef key="core"
                         include="
-                        abbr add address addrLine author 
-                        bibl biblScope 
+                        abbr add address addrLine author analytic
+                        bibl biblScope biblStruct
                         choice citedRange cit corr 
                         date del desc 
                         editor email expan 
                         foreign 
                         gap graphic 
                         head hi 
-                        item 
+                        imprint item 
                         l label lb 
                         lg list listBibl 
-                        measure 
+                        measure monogr
                         name note num 
                         orig 
                         p pb postCode publisher pubPlace 
