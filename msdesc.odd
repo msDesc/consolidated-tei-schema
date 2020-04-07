@@ -2620,6 +2620,38 @@
                             <p>If the layout varies between different sections of the manuscript,
                                 use separate <gi>layout</gi> elements to record this.</p>
                             <!-- check / todo: treat commentary and main text in separate layout elements? -->
+                            <div xml:id="complexLayout"><head>Complex or unusual layouts</head>
+                                <p>Complex or unusual layouts may be encoded using the <att>type</att> and <att>subtype</att> attributes on <gi>layout</gi>. (Note that this
+                                    customization is not currently part of the TEI P5
+                                    standard.) For example: </p>
+                            <p>To encode the layout of glossed manuscripts in <foreign>textus inclusus</foreign> format.
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <layout type="text" columns="2" writtenLines="34 35">Text in 2 cols. of c. 34/35 lines, main text block <dimensions type="written" unit="mm">
+                                        <height>162</height>
+                                        <width>96</width>
+                                    </dimensions></layout>
+                                    <layout type="gloss" columns="2" writtenLines="66 76">Gloss in 2 cols. of c. 66-76 lines, text block including gloss <dimensions type="written" unit="mm">
+                                        <height>265</height>
+                                        <width>166</width>
+                                    </dimensions></layout>
+                                </egXML>
+                            </p></div>
+                            <div xml:id="layoutOfFragments"><head>Layout of fragments</head>
+                            <p>The <att>type</att> and <att>subtype</att> attributes should be used to encode the layout of fragments if the written area of a page is not fully preserved.  </p>
+                                <p>If neither the full height or width of the written space is preserved:
+                                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                        <layout type="text" columns="2" writtenLines="34 35">Text in 2 cols. of c. 34/35 lines, main text block <dimensions type="written" unit="mm">
+                                            <height>162</height>
+                                            <width>96</width>
+                                        </dimensions></layout>
+                                        <layout type="gloss" columns="2" writtenLines="66 76">Gloss in 2 cols. of c. 66-76 lines, text block including gloss <dimensions type="written" unit="mm">
+                                            <height>265</height>
+                                            <width>166</width>
+                                        </dimensions></layout>
+                                    </egXML>
+                                </p>
+                                <p>For processing purposes</p>
+                            </div>
                         </div>
 
 
