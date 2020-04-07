@@ -21,7 +21,7 @@
             <notesStmt>
                 <note>Medieval manuscript guidelines written by James Freeman and Matthew Holford
                     and encoded by Matthew Holford</note>
-                <note>Medieval manuscript guidelines owe a debt and incorporate some material from
+                <note>Medieval manuscript guidelines owe a debt to and incorporate some material from
                     those created by Patrick Granholm and Eva Nyström for <ref
                         target="https://www.manuscripta.se/"><title>Manuscripta</title></ref> and
                     licenced CC BY 4.0</note>
@@ -2638,19 +2638,31 @@
                             </p></div>
                             <div xml:id="layoutOfFragments"><head>Layout of fragments</head>
                             <p>The <att>type</att> and <att>subtype</att> attributes should be used to encode the layout of fragments if the written area of a page is not fully preserved.  </p>
+                                <p>To encode the existing form of a fragment, use <att>type</att> with <val>fragment</val></p>
                                 <p>If neither the full height or width of the written space is preserved:
                                     <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                                        <layout type="text" columns="2" writtenLines="34 35">Text in 2 cols. of c. 34/35 lines, main text block <dimensions type="written" unit="mm">
-                                            <height>162</height>
-                                            <width>96</width>
-                                        </dimensions></layout>
-                                        <layout type="gloss" columns="2" writtenLines="66 76">Gloss in 2 cols. of c. 66-76 lines, text block including gloss <dimensions type="written" unit="mm">
-                                            <height>265</height>
-                                            <width>166</width>
-                                        </dimensions></layout>
+                                        <layout type="fragment" columns="1" writtenLines="12">Lower outer quarter of the leaf: 1 col., 12 lines.</layout>
                                     </egXML>
                                 </p>
-                                <p>For processing purposes</p>
+                                <p>If the full height of the written area is preserved: 
+                                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                        <layout type="fragment" subtype="fullHeight" columns="1" writtenLines="55">(at least) 1 col., 55 lines</layout>
+                                    </egXML></p>
+                                <p>If the full width of the written area is preserved: 
+                                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                        <layout type="fragment" subtype="fullWidth" columns="2" writtenLines="46">2 cols., at least 46 lines</layout>
+                                    </egXML></p>
+                                
+                                <p>For processing purposes this encoding should be interpreted as, respectively: at least one column, at least 12 lines; at least one column, 55 lines; two columns, at least 46 lines.</p>
+                                <p>If the original layout can be reconstructed with some confidence, use <att>type</att> with <val>reconstruction</val> and a relevant value for the <att>cert</att> attribute.
+                                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                        <layout type="reconstruction" columns="2" writtenLines="44" cert="high">2 cols., originally 44 lines (42 lines extant at fullest extent, one fragmentary line at the bottom, one line missing at the top), written space <dimensions unit="mm" type="written">
+                                            <height quantity="240" precision="low">c. 240</height>
+                                            <width quantity="150" precision="low">c. 150</width>
+                                        </dimensions></layout>
+                                    </egXML>
+                                    <!--  todo: further examples -->
+                                </p>
                             </div>
                         </div>
 
@@ -2725,6 +2737,13 @@
                             <p>The classification for early scripts is based on Brown (1990) with
                                 modifications, for Gothic scripts on Derolez (2003), for humanistic
                                 scripts on Derolez (2011). </p>
+                            <p>The attribute <att>execution</att> can be used to describe the formality of the script's execution, according to the classifications developed by Lieftinck, Gumbert, and Derolez. Note that this
+                                customization is not currently part of the TEI P5
+                                standard.<list>
+                                <item><val>formata</val>: execution is calligraphic</item>
+                                    <item><val>libraria</val>: a normal level of execution</item>
+                                    <item><val>currens</val>: execution is informal</item>
+                            </list></p>
                             <p>In Islamicate manuscripts suggested <att>script</att> values are:</p>
                             <list>
                                 <item><val>muhaqqaq</val></item>
@@ -4251,7 +4270,7 @@
                                     
                                 </valList>
                             </attDef>
-                            <attDef ident="type" mode="change">
+                            <attDef ident="script" mode="change">
                                 <valList mode="replace" type="semi">
                                     <valItem ident="capitalsSquare">
                                         <desc>The script of the hand is square capitals</desc>
