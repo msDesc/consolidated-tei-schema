@@ -40,7 +40,7 @@
     <text>
 
         <body>
-            <opener>These guidelines represent a community effort to develop uniform good practice in the cataloguing manuscripts using TEI. They are currently used by cataloguers at a number of institutions including the British Library, the Bodleian Libraries, Cambridge University Library, the John Rylands Library, and the Wellcome Trust. They remain under development and contributions are welcome via pull requests or issues.</opener>
+            <opener>These guidelines represent a community effort to develop uniform good practice in the cataloguing manuscripts using TEI. They are currently used by cataloguers at a number of institutions including the British Library, the Bodleian Libraries, Cambridge University Library, the John Rylands Library, and the Wellcome Trust. They remain under development and contributions are welcome via pull requests or issues submitted to the <ref target="https://github.com/msDesc/consolidated-tei-schema">GitHub repository</ref>.</opener>
             <divGen type="toc" xml:id="toc"/>
             <div xml:id="documentation">
                 <head>Encoding guidelines</head>
