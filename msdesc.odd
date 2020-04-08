@@ -4255,9 +4255,13 @@
                     <elementSpec ident="handNote" module="msdescription" mode="change">
                         <attList>
                             <attDef ident="execution" mode="add">
-                                <desc>Specifies the execution of the script according to a widely-used schema. The default value is assumed to be libraria. Note: This is a customization which is not
+                                <desc>Specifies the execution of the script according to a widely-used schema, where applicable. 
+                                    The default value is assumed to be libraria. Note: This is a customization which is not
                                     currently part of the TEI P5 standard.</desc>
-                                <valList type="closed">
+                                <datatype maxOccurs="1">
+                                    <dataRef key="teidata.word"/>
+                                </datatype>
+                                <valList type="semi">
                                     <valItem ident="formata">
                                         <desc>Execution is calligraphic.</desc>
                                     </valItem>
