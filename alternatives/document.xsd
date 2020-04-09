@@ -4,10 +4,10 @@
   <xs:import namespace="http://www.w3.org/2001/XInclude" schemaLocation="xinclude.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2019-08-22T16:35:57Z. .
-    TEI Edition: Version 3.6.0. Last updated on
-    	16th July 2019, revision 4d9d1971f
-    TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.6.0/
+    Schema generated from ODD source 2020-04-09T16:45:54Z. .
+    TEI Edition: Version 4.0.0. Last updated on
+    	13th February 2020, revision ccd19b0ba
+    TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 4.0.0/
     
   -->
   <!-- [https://creativecommons.org/licenses/by/4.0/] Creative Commons Attribution 4.0 International -->
@@ -253,7 +253,7 @@ Suggested values include: 1] cm (centimetres); 2] mm (millimetres); 3] in (inche
           </xs:simpleType>
           <xs:simpleType>
             <xs:restriction base="xs:token">
-              <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+              <xs:pattern value="[^\p{C}\p{Z}]+"/>
             </xs:restriction>
           </xs:simpleType>
         </xs:union>
@@ -322,7 +322,7 @@ Sample values include: 1] all; 2] most; 3] range</xs:documentation>
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:token">
-          <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+          <xs:pattern value="[^\p{C}\p{Z}]+"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -348,7 +348,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</xs:documentation>
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:token">
-          <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+          <xs:pattern value="[^\p{C}\p{Z}]+"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -402,7 +402,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</xs:documentation>
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:token">
-          <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+          <xs:pattern value="[^\p{C}\p{Z}]+"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -655,7 +655,7 @@ Sample values include: 1] approved; 2] candidate; 3] cleared; 4] deprecated; 5] 
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:token">
-          <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+          <xs:pattern value="[^\p{C}\p{Z}]+"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -759,7 +759,7 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</xs:documentat
                   </xs:simpleType>
                   <xs:simpleType>
                     <xs:restriction base="xs:token">
-                      <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                      <xs:pattern value="[^\p{C}\p{Z}]+"/>
                     </xs:restriction>
                   </xs:simpleType>
                 </xs:union>
@@ -812,7 +812,7 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</xs:documentat
             <xs:list>
               <xs:simpleType>
                 <xs:restriction base="xs:token">
-                  <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                  <xs:pattern value="[^\p{C}\p{Z}]+"/>
                 </xs:restriction>
               </xs:simpleType>
             </xs:list>
@@ -959,7 +959,7 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</xs:documentat
             <xs:list>
               <xs:simpleType>
                 <xs:restriction base="xs:token">
-                  <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                  <xs:pattern value="[^\p{C}\p{Z}]+"/>
                 </xs:restriction>
               </xs:simpleType>
             </xs:list>
@@ -1009,7 +1009,7 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</xs:documentat
             <xs:list>
               <xs:simpleType>
                 <xs:restriction base="xs:token">
-                  <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                  <xs:pattern value="[^\p{C}\p{Z}]+"/>
                 </xs:restriction>
               </xs:simpleType>
             </xs:list>
@@ -1085,7 +1085,7 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</xs:documentat
     <xs:attribute name="unit">
       <xs:annotation>
         <xs:documentation>indicates the units used for the measurement, usually using the standard symbol for the desired units.
-Suggested values include: 1] m (metre); 2] kg (kilogram); 3] s (second); 4] Hz (hertz); 5] Pa (pascal); 6] Ω (ohm); 7] L (litre); 8] t (tonne); 9] ha (hectare); 10] Å (ångström); 11] mL (millilitre); 12] cm (centimetre); 13] dB (decibel); 14] kbit (kilobit); 15] Kibit (kibibit); 16] kB (kilobyte); 17] KiB (kibibyte); 18] MB (megabyte); 19] MiB (mebibyte)</xs:documentation>
+Suggested values include: 1] m (metre); 2] kg (kilogram); 3] s (second); 4] Hz (hertz); 5] Pa (pascal); 6] Ω (ohm); 7] L (litre); 8] t (tonne); 9] ha (hectare); 10] Å (ångström); 11] mL (millilitre); 12] cm (centimetre); 13] dB (decibel); 14] kbit (kilobit); 15] Kibit (kibibit); 16] kB (kilobyte); 17] KiB (kibibyte); 18] MB (megabyte); 19] MiB (mebibyte)</xs:documentation>
       </xs:annotation>
       <xs:simpleType>
         <xs:union>
@@ -1136,7 +1136,7 @@ Suggested values include: 1] m (metre); 2] kg (kilogram); 3] s (second); 4] Hz (
           </xs:simpleType>
           <xs:simpleType>
             <xs:restriction base="xs:token">
-              <xs:enumeration value="Ω">
+              <xs:enumeration value="Ω">
                 <xs:annotation>
                   <xs:documentation>(ohm) SI unit of electric resistance</xs:documentation>
                 </xs:annotation>
@@ -1172,7 +1172,7 @@ Suggested values include: 1] m (metre); 2] kg (kilogram); 3] s (second); 4] Hz (
           </xs:simpleType>
           <xs:simpleType>
             <xs:restriction base="xs:token">
-              <xs:enumeration value="Å">
+              <xs:enumeration value="Å">
                 <xs:annotation>
                   <xs:documentation>(ångström) 10⁻¹⁰ m</xs:documentation>
                 </xs:annotation>
@@ -1262,7 +1262,7 @@ Suggested values include: 1] m (metre); 2] kg (kilogram); 3] s (second); 4] Hz (
           </xs:simpleType>
           <xs:simpleType>
             <xs:restriction base="xs:token">
-              <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+              <xs:pattern value="[^\p{C}\p{Z}]+"/>
             </xs:restriction>
           </xs:simpleType>
         </xs:union>
@@ -1299,7 +1299,7 @@ Suggested values include: 1] m (metre); 2] kg (kilogram); 3] s (second); 4] Hz (
             <xs:list>
               <xs:simpleType>
                 <xs:restriction base="xs:token">
-                  <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                  <xs:pattern value="[^\p{C}\p{Z}]+"/>
                 </xs:restriction>
               </xs:simpleType>
             </xs:list>
@@ -1325,7 +1325,7 @@ Suggested values include: 1] m (metre); 2] kg (kilogram); 3] s (second); 4] Hz (
             <xs:list>
               <xs:simpleType>
                 <xs:restriction base="xs:token">
-                  <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                  <xs:pattern value="[^\p{C}\p{Z}]+"/>
                 </xs:restriction>
               </xs:simpleType>
             </xs:list>
@@ -1360,7 +1360,7 @@ Suggested values include: 1] m (metre); 2] kg (kilogram); 3] s (second); 4] Hz (
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:token">
-          <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+          <xs:pattern value="[^\p{C}\p{Z}]+"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -1472,7 +1472,7 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
                   </xs:simpleType>
                   <xs:simpleType>
                     <xs:restriction base="xs:token">
-                      <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                      <xs:pattern value="[^\p{C}\p{Z}]+"/>
                     </xs:restriction>
                   </xs:simpleType>
                 </xs:union>
@@ -1495,7 +1495,7 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:token">
-          <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+          <xs:pattern value="[^\p{C}\p{Z}]+"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -1507,7 +1507,7 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:token">
-          <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+          <xs:pattern value="[^\p{C}\p{Z}]+"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -1587,7 +1587,7 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:token">
-          <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+          <xs:pattern value="[^\p{C}\p{Z}]+"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -1602,7 +1602,7 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:token">
-          <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+          <xs:pattern value="[^\p{C}\p{Z}]+"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -1622,7 +1622,7 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
             <xs:list>
               <xs:simpleType>
                 <xs:restriction base="xs:token">
-                  <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                  <xs:pattern value="[^\p{C}\p{Z}]+"/>
                 </xs:restriction>
               </xs:simpleType>
             </xs:list>
@@ -1690,7 +1690,7 @@ Sample values include: 1] duplicate; 2] duplicate-partial; 3] excessStart; 4] ex
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:token">
-          <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+          <xs:pattern value="[^\p{C}\p{Z}]+"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -1702,7 +1702,7 @@ Sample values include: 1] duplicate; 2] duplicate-partial; 3] excessStart; 4] ex
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:token">
-          <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+          <xs:pattern value="[^\p{C}\p{Z}]+"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -1814,7 +1814,7 @@ Suggested values include: 1] volume; 2] issue; 3] page; 4] line; 5] chapter; 6] 
           </xs:simpleType>
           <xs:simpleType>
             <xs:restriction base="xs:token">
-              <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+              <xs:pattern value="[^\p{C}\p{Z}]+"/>
             </xs:restriction>
           </xs:simpleType>
         </xs:union>
@@ -1825,7 +1825,7 @@ Suggested values include: 1] volume; 2] issue; 3] page; 4] line; 5] chapter; 6] 
     <xs:attribute name="from">
       <xs:simpleType>
         <xs:restriction base="xs:token">
-          <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+          <xs:pattern value="[^\p{C}\p{Z}]+"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -1834,7 +1834,7 @@ Suggested values include: 1] volume; 2] issue; 3] page; 4] line; 5] chapter; 6] 
     <xs:attribute name="to">
       <xs:simpleType>
         <xs:restriction base="xs:token">
-          <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+          <xs:pattern value="[^\p{C}\p{Z}]+"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -2291,6 +2291,7 @@ Suggested values include: 1] volume; 2] issue; 3] page; 4] line; 5] chapter; 6] 
   <xs:group name="model.biblLike">
     <xs:choice>
       <xs:element ref="tei:bibl"/>
+      <xs:element ref="tei:biblStruct"/>
       <xs:element ref="tei:listBibl"/>
       <xs:element ref="tei:msDesc"/>
     </xs:choice>
@@ -2298,6 +2299,7 @@ Suggested values include: 1] volume; 2] issue; 3] page; 4] line; 5] chapter; 6] 
   <xs:group name="model.biblLike_alternation">
     <xs:choice>
       <xs:element ref="tei:bibl"/>
+      <xs:element ref="tei:biblStruct"/>
       <xs:element ref="tei:listBibl"/>
       <xs:element ref="tei:msDesc"/>
     </xs:choice>
@@ -2305,6 +2307,7 @@ Suggested values include: 1] volume; 2] issue; 3] page; 4] line; 5] chapter; 6] 
   <xs:group name="model.biblLike_sequence">
     <xs:sequence>
       <xs:element ref="tei:bibl"/>
+      <xs:element ref="tei:biblStruct"/>
       <xs:element ref="tei:listBibl"/>
       <xs:element ref="tei:msDesc"/>
     </xs:sequence>
@@ -2312,6 +2315,7 @@ Suggested values include: 1] volume; 2] issue; 3] page; 4] line; 5] chapter; 6] 
   <xs:group name="model.biblLike_sequenceOptional">
     <xs:sequence>
       <xs:element minOccurs="0" ref="tei:bibl"/>
+      <xs:element minOccurs="0" ref="tei:biblStruct"/>
       <xs:element minOccurs="0" ref="tei:listBibl"/>
       <xs:element minOccurs="0" ref="tei:msDesc"/>
     </xs:sequence>
@@ -2319,6 +2323,7 @@ Suggested values include: 1] volume; 2] issue; 3] page; 4] line; 5] chapter; 6] 
   <xs:group name="model.biblLike_sequenceOptionalRepeatable">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:bibl"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:biblStruct"/>
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:listBibl"/>
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:msDesc"/>
     </xs:sequence>
@@ -2326,6 +2331,7 @@ Suggested values include: 1] volume; 2] issue; 3] page; 4] line; 5] chapter; 6] 
   <xs:group name="model.biblLike_sequenceRepeatable">
     <xs:sequence>
       <xs:element maxOccurs="unbounded" ref="tei:bibl"/>
+      <xs:element maxOccurs="unbounded" ref="tei:biblStruct"/>
       <xs:element maxOccurs="unbounded" ref="tei:listBibl"/>
       <xs:element maxOccurs="unbounded" ref="tei:msDesc"/>
     </xs:sequence>
@@ -2875,6 +2881,9 @@ Suggested values include: 1] volume; 2] issue; 3] page; 4] line; 5] chapter; 6] 
       <xs:element ref="tei:extent"/>
       <xs:element ref="tei:availability"/>
       <xs:element ref="tei:msIdentifier"/>
+      <xs:element ref="tei:explicit"/>
+      <xs:element ref="tei:incipit"/>
+      <xs:element ref="tei:decoNote"/>
     </xs:choice>
   </xs:group>
   <xs:group name="model.addrPart">
@@ -2952,7 +2961,7 @@ Suggested values include: 1] volume; 2] issue; 3] page; 4] line; 5] chapter; 6] 
       <xs:element ref="tei:textClass"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="model.resourceLike">
+  <xs:group name="model.resource">
     <xs:choice>
       <xs:element ref="tei:text"/>
       <xs:element ref="tei:facsimile"/>
@@ -3150,7 +3159,7 @@ Suggested values include: 1] spoken; 2] thought; 3] written; 4] soCalled; 5] for
                 </xs:simpleType>
                 <xs:simpleType>
                   <xs:restriction base="xs:token">
-                    <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                    <xs:pattern value="[^\p{C}\p{Z}]+"/>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:union>
@@ -3191,7 +3200,7 @@ Suggested values include: 1] spoken; 2] thought; 3] written; 4] soCalled; 5] for
             </xs:annotation>
             <xs:simpleType>
               <xs:restriction base="xs:token">
-                <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                <xs:pattern value="[^\p{C}\p{Z}]+"/>
               </xs:restriction>
             </xs:simpleType>
           </xs:attribute>
@@ -3369,7 +3378,7 @@ Suggested values include: 1] cancelled; 2] deleted; 3] editorial; 4] illegible; 
                     </xs:simpleType>
                     <xs:simpleType>
                       <xs:restriction base="xs:token">
-                        <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                        <xs:pattern value="[^\p{C}\p{Z}]+"/>
                       </xs:restriction>
                     </xs:simpleType>
                   </xs:union>
@@ -3387,7 +3396,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</xs:documentation>
         </xs:annotation>
         <xs:simpleType>
           <xs:restriction base="xs:token">
-            <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+            <xs:pattern value="[^\p{C}\p{Z}]+"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:attribute>
@@ -3492,7 +3501,7 @@ Suggested values include: 1] illegible; 2] inaudible; 3] faded; 4] background_no
                         </xs:simpleType>
                         <xs:simpleType>
                           <xs:restriction base="xs:token">
-                            <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                            <xs:pattern value="[^\p{C}\p{Z}]+"/>
                           </xs:restriction>
                         </xs:simpleType>
                       </xs:union>
@@ -3510,7 +3519,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</xs:documentation>
             </xs:annotation>
             <xs:simpleType>
               <xs:restriction base="xs:token">
-                <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                <xs:pattern value="[^\p{C}\p{Z}]+"/>
               </xs:restriction>
             </xs:simpleType>
           </xs:attribute>
@@ -3584,7 +3593,7 @@ Suggested values include: 1] person; 2] place; 3] org; 4] unknown; 5] other</xs:
                 </xs:simpleType>
                 <xs:simpleType>
                   <xs:restriction base="xs:token">
-                    <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                    <xs:pattern value="[^\p{C}\p{Z}]+"/>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:union>
@@ -3662,6 +3671,7 @@ Measures]</xs:documentation>
       <xs:complexContent>
         <xs:extension base="tei:macro.phraseSeq">
           <xs:attributeGroup ref="tei:att.global.attributes"/>
+          <xs:attributeGroup ref="tei:att.typed.attribute.subtype"/>
           <xs:attributeGroup ref="tei:att.ranging.attributes"/>
           <xs:attribute name="type">
             <xs:annotation>
@@ -3708,7 +3718,7 @@ Suggested values include: 1] cardinal; 2] ordinal; 3] fraction; 4] percentage</x
                 </xs:simpleType>
                 <xs:simpleType>
                   <xs:restriction base="xs:token">
-                    <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                    <xs:pattern value="[^\p{C}\p{Z}]+"/>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:union>
@@ -3741,6 +3751,7 @@ Measures]</xs:documentation>
       <xs:complexContent>
         <xs:extension base="tei:macro.phraseSeq">
           <xs:attributeGroup ref="tei:att.global.attributes"/>
+          <xs:attributeGroup ref="tei:att.typed.attribute.subtype"/>
           <xs:attributeGroup ref="tei:att.measurement.attributes"/>
           <xs:attribute name="type">
             <xs:annotation>
@@ -3748,7 +3759,7 @@ Measures]</xs:documentation>
             </xs:annotation>
             <xs:simpleType>
               <xs:restriction base="xs:token">
-                <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                <xs:pattern value="[^\p{C}\p{Z}]+"/>
               </xs:restriction>
             </xs:simpleType>
           </xs:attribute>
@@ -3789,7 +3800,7 @@ Sample values include: 1] suspension; 2] contraction; 3] brevigraph; 4] superscr
             </xs:annotation>
             <xs:simpleType>
               <xs:restriction base="xs:token">
-                <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                <xs:pattern value="[^\p{C}\p{Z}]+"/>
               </xs:restriction>
             </xs:simpleType>
           </xs:attribute>
@@ -3904,7 +3915,7 @@ Suggested values include: 1] gloss; 2] index; 3] instructions; 4] litany; 5] syl
             </xs:simpleType>
             <xs:simpleType>
               <xs:restriction base="xs:token">
-                <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                <xs:pattern value="[^\p{C}\p{Z}]+"/>
               </xs:restriction>
             </xs:simpleType>
           </xs:union>
@@ -4030,6 +4041,93 @@ Elements 7.2.5. Speech Contents]</xs:documentation>
       <xs:attributeGroup ref="tei:att.breaking.attributes"/>
     </xs:complexType>
   </xs:element>
+  <xs:element name="analytic">
+    <xs:annotation>
+      <xs:documentation>(analytic level) contains bibliographic elements describing an item (e.g. an article or poem) published within a monograph or journal and not as an independent publication. [3.11.2.1. Analytic, Monographic, and Series Levels]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="tei:author"/>
+        <xs:element ref="tei:editor"/>
+        <xs:element ref="tei:respStmt"/>
+        <xs:element ref="tei:title"/>
+        <xs:group ref="tei:model.ptrLike"/>
+        <xs:element ref="tei:date"/>
+        <xs:element ref="tei:textLang"/>
+        <xs:element ref="tei:idno"/>
+        <xs:element ref="tei:availability"/>
+      </xs:choice>
+      <xs:attributeGroup ref="tei:att.global.attributes"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="monogr">
+    <xs:annotation>
+      <xs:documentation>(monographic level) contains bibliographic elements describing an item (e.g. a book or journal) published as an independent item (i.e. as a separate physical object). [3.11.2.1. Analytic, Monographic, and Series Levels]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice minOccurs="0">
+          <xs:sequence>
+            <xs:choice>
+              <xs:element ref="tei:author"/>
+              <xs:element ref="tei:editor"/>
+              <xs:element ref="tei:respStmt"/>
+            </xs:choice>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:element ref="tei:author"/>
+              <xs:element ref="tei:editor"/>
+              <xs:element ref="tei:respStmt"/>
+            </xs:choice>
+            <xs:element maxOccurs="unbounded" ref="tei:title"/>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:group ref="tei:model.ptrLike"/>
+              <xs:element ref="tei:idno"/>
+              <xs:element ref="tei:textLang"/>
+              <xs:element ref="tei:editor"/>
+              <xs:element ref="tei:respStmt"/>
+            </xs:choice>
+          </xs:sequence>
+          <xs:sequence>
+            <xs:choice maxOccurs="unbounded">
+              <xs:element ref="tei:title"/>
+              <xs:group ref="tei:model.ptrLike"/>
+              <xs:element ref="tei:idno"/>
+            </xs:choice>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:element ref="tei:textLang"/>
+              <xs:element ref="tei:author"/>
+              <xs:element ref="tei:editor"/>
+              <xs:element ref="tei:respStmt"/>
+            </xs:choice>
+          </xs:sequence>
+          <xs:sequence>
+            <xs:element ref="tei:authority"/>
+            <xs:element ref="tei:idno"/>
+          </xs:sequence>
+        </xs:choice>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:availability"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:model.noteLike"/>
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="tei:edition"/>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element ref="tei:idno"/>
+            <xs:group ref="tei:model.ptrLike"/>
+            <xs:element ref="tei:editor"/>
+            <xs:element ref="tei:sponsor"/>
+            <xs:element ref="tei:funder"/>
+            <xs:element ref="tei:respStmt"/>
+          </xs:choice>
+        </xs:sequence>
+        <xs:element ref="tei:imprint"/>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="tei:imprint"/>
+          <xs:element ref="tei:extent"/>
+          <xs:element ref="tei:biblScope"/>
+        </xs:choice>
+      </xs:sequence>
+      <xs:attributeGroup ref="tei:att.global.attributes"/>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="series">
     <xs:annotation>
       <xs:documentation>(series information) contains information about the series in which a book or other bibliographic item has appeared. [3.11.2.1. Analytic, Monographic, and Series Levels]</xs:documentation>
@@ -4119,8 +4217,8 @@ Elements 7.2.5. Speech Contents]</xs:documentation>
       <xs:complexContent>
         <xs:extension base="tei:macro.paraContent">
           <xs:attributeGroup ref="tei:att.global.attributes"/>
-          <xs:attributeGroup ref="tei:att.canonical.attributes"/>
           <xs:attributeGroup ref="tei:att.typed.attribute.subtype"/>
+          <xs:attributeGroup ref="tei:att.canonical.attributes"/>
           <xs:attributeGroup ref="tei:att.datable.attributes"/>
           <xs:attribute name="type">
             <xs:annotation>
@@ -4185,7 +4283,7 @@ Suggested values include: 1] main; 2] sub; 3] alt; 4] short; 5] desc; 6] collect
                 </xs:simpleType>
                 <xs:simpleType>
                   <xs:restriction base="xs:token">
-                    <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                    <xs:pattern value="[^\p{C}\p{Z}]+"/>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:union>
@@ -4227,6 +4325,22 @@ Suggested values include: 1] main; 2] sub; 3] alt; 4] short; 5] desc; 6] collect
           </xs:attribute>
         </xs:extension>
       </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="imprint">
+    <xs:annotation>
+      <xs:documentation>groups information relating to the publication or distribution of a bibliographic item. [3.11.2.4. Imprint, Size of a Document, and Reprint Information]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence maxOccurs="unbounded">
+        <xs:choice>
+          <xs:group ref="tei:model.imprintPart"/>
+          <xs:group ref="tei:model.dateLike"/>
+        </xs:choice>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:respStmt"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:model.global"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="tei:att.global.attributes"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="publisher">
@@ -4409,12 +4523,37 @@ Suggested values include: 1] MS; 2] QUARTO; 3] SC; 4] OC; 5] bible; 6] commentar
             </xs:simpleType>
             <xs:simpleType>
               <xs:restriction base="xs:token">
-                <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                <xs:pattern value="[^\p{C}\p{Z}]+"/>
               </xs:restriction>
             </xs:simpleType>
           </xs:union>
         </xs:simpleType>
       </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="biblStruct">
+    <xs:annotation>
+      <xs:documentation>(structured bibliographic citation) contains a structured bibliographic citation, in which only bibliographic sub-elements appear and in a specified order. [3.11.1. Methods of Encoding Bibliographic References and Lists of References 2.2.7. The Source Description 15.3.2. Declarable Elements]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:analytic"/>
+        <xs:sequence maxOccurs="unbounded">
+          <xs:element ref="tei:monogr"/>
+          <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:series"/>
+        </xs:sequence>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:group ref="tei:model.noteLike"/>
+          <xs:group ref="tei:model.ptrLike"/>
+          <xs:element ref="tei:relatedItem"/>
+          <xs:element ref="tei:citedRange"/>
+        </xs:choice>
+      </xs:sequence>
+      <xs:attributeGroup ref="tei:att.global.attributes"/>
+      <xs:attributeGroup ref="tei:att.declarable.attributes"/>
+      <xs:attributeGroup ref="tei:att.typed.attributes"/>
+      <xs:attributeGroup ref="tei:att.sortable.attributes"/>
+      <xs:attributeGroup ref="tei:att.docStatus.attributes"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="listBibl">
@@ -4832,7 +4971,7 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
             </xs:simpleType>
             <xs:simpleType>
               <xs:restriction base="xs:token">
-                <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                <xs:pattern value="[^\p{C}\p{Z}]+"/>
               </xs:restriction>
             </xs:simpleType>
           </xs:union>
@@ -4909,7 +5048,7 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
   </xs:element>
   <xs:element name="sourceDesc">
     <xs:annotation>
-      <xs:documentation>(source description) describes the source from which an electronic text was derived or generated, typically a bibliographic description in the case of a digitized text, or a phrase such as "born digital" for a text which has no previous existence. [2.2.7. The Source Description]</xs:documentation>
+      <xs:documentation>(source description) describes the source(s) from which an electronic text was derived or generated, typically a bibliographic description in the case of a digitized text, or a phrase such as "born digital" for a text which has no previous existence. [2.2.7. The Source Description]</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:choice>
@@ -5005,6 +5144,7 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
     <xs:complexType mixed="true">
       <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:model.limitedPhrase"/>
       <xs:attributeGroup ref="tei:att.global.attributes"/>
+      <xs:attributeGroup ref="tei:att.canonical.attributes"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="profileDesc">
@@ -5024,7 +5164,252 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
       <xs:complexContent>
         <xs:extension base="tei:macro.specialPara">
           <xs:attributeGroup ref="tei:att.global.attributes"/>
-          <xs:attributeGroup ref="tei:att.handFeatures.attributes"/>
+          <xs:attributeGroup ref="tei:att.handFeatures.attribute.scribe"/>
+          <xs:attributeGroup ref="tei:att.handFeatures.attribute.scribeRef"/>
+          <xs:attributeGroup ref="tei:att.handFeatures.attribute.scriptRef"/>
+          <xs:attributeGroup ref="tei:att.handFeatures.attribute.medium"/>
+          <xs:attributeGroup ref="tei:att.handFeatures.attribute.scope"/>
+          <xs:attribute name="script">
+            <xs:annotation>
+              <xs:documentation>characterizes the particular script or writing style used by this hand, for example secretary, copperplate, Chancery, Italian, etc.
+Suggested values include: 1] capitalsSquare; 2] capitalsRustic; 3] uncial; 4] halfUncial; 5] minusculeInsular; 6] minusculeVernacular; 7] minusculeCaroline; 8] minuscule; 9] protogothic; 10] textualisNorthern; 11] textualisSouthern; 12] semitextualis; 13] cursivaAntiquior; 14] cursiva; 15] hybrida; 16] gothicoAntiqua; 17] humanistica; 18] humanisticaTextualis; 19] humanisticaSemitextualis; 20] humanisticaCursiva</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction>
+                <xs:simpleType>
+                  <xs:list>
+                    <xs:simpleType>
+                      <xs:union memberTypes="xs:Name">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:token">
+                            <xs:enumeration value="capitalsSquare">
+                              <xs:annotation>
+                                <xs:documentation>The script of the hand is square capitals</xs:documentation>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:token">
+                            <xs:enumeration value="capitalsRustic">
+                              <xs:annotation>
+                                <xs:documentation>The script of the hand is rustic capitals</xs:documentation>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:token">
+                            <xs:enumeration value="uncial">
+                              <xs:annotation>
+                                <xs:documentation>The script of the hand is uncial</xs:documentation>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:token">
+                            <xs:enumeration value="halfUncial">
+                              <xs:annotation>
+                                <xs:documentation>The script of the hand is half uncial</xs:documentation>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:token">
+                            <xs:enumeration value="minusculeInsular">
+                              <xs:annotation>
+                                <xs:documentation>The script of the hand is insular minuscule</xs:documentation>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:token">
+                            <xs:enumeration value="minusculeVernacular">
+                              <xs:annotation>
+                                <xs:documentation>The script of the hand is English vernacular minuscule ('Anglo-Saxon minuscule')</xs:documentation>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:token">
+                            <xs:enumeration value="minusculeCaroline">
+                              <xs:annotation>
+                                <xs:documentation>The script of the hand is Caroline minuscule (English and continental variants of the script)</xs:documentation>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:token">
+                            <xs:enumeration value="minuscule">
+                              <xs:annotation>
+                                <xs:documentation>The script of the hand is an unspecifiec minuscule (not Caroline, insular, or English vernacular)</xs:documentation>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:token">
+                            <xs:enumeration value="protogothic">
+                              <xs:annotation>
+                                <xs:documentation>The script of the hand is protogothic (Romanesque, praegothica)</xs:documentation>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:token">
+                            <xs:enumeration value="textualisNorthern">
+                              <xs:annotation>
+                                <xs:documentation>The script of the hand is Northern textualis</xs:documentation>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:token">
+                            <xs:enumeration value="textualisSouthern">
+                              <xs:annotation>
+                                <xs:documentation>The script of the hand is Southern textualis</xs:documentation>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:token">
+                            <xs:enumeration value="semitextualis">
+                              <xs:annotation>
+                                <xs:documentation>The script of the hand is semi textualis</xs:documentation>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:token">
+                            <xs:enumeration value="cursivaAntiquior">
+                              <xs:annotation>
+                                <xs:documentation>The script of the hand is cursiva antiquior (anglicana, 'Ältere gotische Kursive')</xs:documentation>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:token">
+                            <xs:enumeration value="cursiva">
+                              <xs:annotation>
+                                <xs:documentation>The script of the hand is cursiva (‘cancelleresca’, ‘bastarda’, ‘lettre batarde’, ‘secretary’, etc.)</xs:documentation>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:token">
+                            <xs:enumeration value="hybrida">
+                              <xs:annotation>
+                                <xs:documentation>The script of the hand is cursiva (‘semihybrida’, ‘loopless bastarda’, ‘fractura’, ‘mercantesca’, etc.)</xs:documentation>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:token">
+                            <xs:enumeration value="gothicoAntiqua">
+                              <xs:annotation>
+                                <xs:documentation>The script of the hand is gothico-antiqua (‘fere-humanistica’, ‘gothico-humanistica’)</xs:documentation>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:token">
+                            <xs:enumeration value="humanistica">
+                              <xs:annotation>
+                                <xs:documentation>The script of the hand is humanistic (unspecified)</xs:documentation>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:token">
+                            <xs:enumeration value="humanisticaTextualis">
+                              <xs:annotation>
+                                <xs:documentation>The script of the hand is humanistic textualis (unspecified)</xs:documentation>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:token">
+                            <xs:enumeration value="humanisticaSemitextualis">
+                              <xs:annotation>
+                                <xs:documentation>The script of the hand is humanistic semitextualis</xs:documentation>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:token">
+                            <xs:enumeration value="humanisticaCursiva">
+                              <xs:annotation>
+                                <xs:documentation>The script of the hand is humanistic cursive</xs:documentation>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:union>
+                    </xs:simpleType>
+                  </xs:list>
+                </xs:simpleType>
+                <xs:minLength value="1"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="execution">
+            <xs:annotation>
+              <xs:documentation>Specifies the execution of the script according to a widely-used schema, where applicable. The default value is assumed to be libraria. Note: This is a customization which is not currently part of the TEI P5 standard.
+Suggested values include: 1] formata; 2] libraria; 3] currens</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:union>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="formata">
+                      <xs:annotation>
+                        <xs:documentation>Execution is calligraphic.</xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="libraria">
+                      <xs:annotation>
+                        <xs:documentation>A normal level of execution.</xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="currens">
+                      <xs:annotation>
+                        <xs:documentation>Execution is informal.</xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:pattern value="[^\p{C}\p{Z}]+"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:union>
+            </xs:simpleType>
+          </xs:attribute>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -5271,7 +5656,7 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
   </xs:attributeGroup>
   <xs:element name="msDesc">
     <xs:annotation>
-      <xs:documentation>(manuscript description) contains a description of a single identifiable manuscript or other text-bearing object. [10.1. Overview]</xs:documentation>
+      <xs:documentation>(manuscript description) contains a description of a single identifiable manuscript or other text-bearing object such as early printed books. [10.1. Overview]</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
@@ -5321,82 +5706,15 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
       </xs:choice>
       <xs:attributeGroup ref="tei:att.global.attributes"/>
       <xs:attributeGroup ref="tei:att.dimensions.attributes"/>
+      <xs:attributeGroup ref="tei:att.typed.attribute.subtype"/>
       <xs:attribute name="type">
         <xs:annotation>
-          <xs:documentation>indicates which aspect of the object is being measured.
-Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] ruled; 6] written; 7] other</xs:documentation>
+          <xs:documentation>indicates which aspect of the object is being measured.</xs:documentation>
         </xs:annotation>
         <xs:simpleType>
-          <xs:union>
-            <xs:simpleType>
-              <xs:restriction base="xs:token">
-                <xs:enumeration value="binding">
-                  <xs:annotation>
-                    <xs:documentation>The dimensions concerns the binding(s)</xs:documentation>
-                  </xs:annotation>
-                </xs:enumeration>
-              </xs:restriction>
-            </xs:simpleType>
-            <xs:simpleType>
-              <xs:restriction base="xs:token">
-                <xs:enumeration value="folia">
-                  <xs:annotation>
-                    <xs:documentation>The dimensions concerns the folia as a whole</xs:documentation>
-                  </xs:annotation>
-                </xs:enumeration>
-              </xs:restriction>
-            </xs:simpleType>
-            <xs:simpleType>
-              <xs:restriction base="xs:token">
-                <xs:enumeration value="leaf">
-                  <xs:annotation>
-                    <xs:documentation>The dimensions concerns the leaf</xs:documentation>
-                  </xs:annotation>
-                </xs:enumeration>
-              </xs:restriction>
-            </xs:simpleType>
-            <xs:simpleType>
-              <xs:restriction base="xs:token">
-                <xs:enumeration value="line-height">
-                  <xs:annotation>
-                    <xs:documentation>The dimensions concerns the line-height</xs:documentation>
-                  </xs:annotation>
-                </xs:enumeration>
-              </xs:restriction>
-            </xs:simpleType>
-            <xs:simpleType>
-              <xs:restriction base="xs:token">
-                <xs:enumeration value="ruled">
-                  <xs:annotation>
-                    <xs:documentation>The dimensions concerns the ruling</xs:documentation>
-                  </xs:annotation>
-                </xs:enumeration>
-              </xs:restriction>
-            </xs:simpleType>
-            <xs:simpleType>
-              <xs:restriction base="xs:token">
-                <xs:enumeration value="written">
-                  <xs:annotation>
-                    <xs:documentation>The dimensions concerns the written area</xs:documentation>
-                  </xs:annotation>
-                </xs:enumeration>
-              </xs:restriction>
-            </xs:simpleType>
-            <xs:simpleType>
-              <xs:restriction base="xs:token">
-                <xs:enumeration value="other">
-                  <xs:annotation>
-                    <xs:documentation>The dimensions concerns other/unspecified aspects (you may also provide a custom value)</xs:documentation>
-                  </xs:annotation>
-                </xs:enumeration>
-              </xs:restriction>
-            </xs:simpleType>
-            <xs:simpleType>
-              <xs:restriction base="xs:token">
-                <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
-              </xs:restriction>
-            </xs:simpleType>
-          </xs:union>
+          <xs:restriction base="xs:token">
+            <xs:pattern value="[^\p{C}\p{Z}]+"/>
+          </xs:restriction>
         </xs:simpleType>
       </xs:attribute>
     </xs:complexType>
@@ -5463,7 +5781,7 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
         </xs:annotation>
         <xs:simpleType>
           <xs:restriction base="xs:token">
-            <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+            <xs:pattern value="[^\p{C}\p{Z}]+"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:attribute>
@@ -5473,7 +5791,7 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
         </xs:annotation>
         <xs:simpleType>
           <xs:restriction base="xs:token">
-            <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+            <xs:pattern value="[^\p{C}\p{Z}]+"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:attribute>
@@ -5630,28 +5948,40 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
     <xs:annotation>
       <xs:documentation>contains the name of an organization such as a university or library, with which a manuscript or other object is identified, generally its holding institution. [10.4. The Manuscript Identifier]</xs:documentation>
     </xs:annotation>
-    <xs:complexType mixed="true">
-      <xs:attributeGroup ref="tei:att.global.attributes"/>
-      <xs:attributeGroup ref="tei:att.naming.attributes"/>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tei:macro.phraseSeq.limited">
+          <xs:attributeGroup ref="tei:att.global.attributes"/>
+          <xs:attributeGroup ref="tei:att.naming.attributes"/>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:element name="repository">
     <xs:annotation>
       <xs:documentation>contains the name of a repository within which manuscripts or other objects are stored, possibly forming part of an institution. [10.4. The Manuscript Identifier]</xs:documentation>
     </xs:annotation>
-    <xs:complexType mixed="true">
-      <xs:attributeGroup ref="tei:att.global.attributes"/>
-      <xs:attributeGroup ref="tei:att.naming.attributes"/>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tei:macro.phraseSeq.limited">
+          <xs:attributeGroup ref="tei:att.global.attributes"/>
+          <xs:attributeGroup ref="tei:att.naming.attributes"/>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:element name="collection">
     <xs:annotation>
       <xs:documentation>contains the name of a collection of manuscripts or other objects, not necessarily located within a single repository. [10.4. The Manuscript Identifier]</xs:documentation>
     </xs:annotation>
-    <xs:complexType mixed="true">
-      <xs:attributeGroup ref="tei:att.global.attributes"/>
-      <xs:attributeGroup ref="tei:att.naming.attributes"/>
-      <xs:attributeGroup ref="tei:att.typed.attributes"/>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tei:macro.phraseSeq.limited">
+          <xs:attributeGroup ref="tei:att.global.attributes"/>
+          <xs:attributeGroup ref="tei:att.naming.attributes"/>
+          <xs:attributeGroup ref="tei:att.typed.attributes"/>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:element name="altIdentifier">
@@ -5825,7 +6155,10 @@ Suggested values include: 1] binding; 2] folia; 3] leaf; 4] line-height; 5] rule
             <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:colophon"/>
             <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:decoNote"/>
             <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:listBibl"/>
-            <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:bibl"/>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:element ref="tei:bibl"/>
+              <xs:element ref="tei:biblStruct"/>
+            </xs:choice>
             <xs:element minOccurs="0" ref="tei:filiation"/>
             <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:model.noteLike"/>
             <xs:element minOccurs="0" ref="tei:textLang"/>
@@ -5960,7 +6293,7 @@ Suggested values include: 1] codex; 2] roll; 3] sheet; 4] faltbuch; 5] other; 6]
             </xs:simpleType>
             <xs:simpleType>
               <xs:restriction base="xs:token">
-                <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                <xs:pattern value="[^\p{C}\p{Z}]+"/>
               </xs:restriction>
             </xs:simpleType>
           </xs:union>
@@ -6048,7 +6381,7 @@ Suggested values include: 1] perg; 2] chart; 3] papyrus; 4] palm; 5] mixed; 6] o
             </xs:simpleType>
             <xs:simpleType>
               <xs:restriction base="xs:token">
-                <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                <xs:pattern value="[^\p{C}\p{Z}]+"/>
               </xs:restriction>
             </xs:simpleType>
           </xs:union>
@@ -6140,6 +6473,7 @@ Suggested values include: 1] perg; 2] chart; 3] papyrus; 4] palm; 5] mixed; 6] o
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="tei:macro.specialPara">
+          <xs:attributeGroup ref="tei:att.typed.attributes"/>
           <xs:attributeGroup ref="tei:att.global.attributes"/>
           <xs:attribute name="topLine">
             <xs:annotation>
@@ -6228,7 +6562,7 @@ Suggested values include: 1] ink; 2] leadpoint; 3] hardpoint; 4] crayon; 5] mixe
                 </xs:simpleType>
                 <xs:simpleType>
                   <xs:restriction base="xs:token">
-                    <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                    <xs:pattern value="[^\p{C}\p{Z}]+"/>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:union>
@@ -6409,7 +6743,7 @@ Suggested values include: 1] ink; 2] leadpoint; 3] hardpoint; 4] crayon; 5] mixe
           <xs:attribute name="type">
             <xs:annotation>
               <xs:documentation>characterizes the element in some sense, using any convenient classification scheme or typology.
-Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5] marginal; 6] micrography; 7] miniature; 8] rubrication; 9] other</xs:documentation>
+Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5] marginal; 6] micrography; 7] miniature; 8] rubrication; 9] bas-de-page; 10] map; 11] headpiece; 12] headpiece; 13] canonTable; 14] carpetPage; 15] histInit; 16] decInit; 17] flourInit; 18] colInit; 19] plainInit; 20] chrysography; 21] lineFill; 22] cadel; 23] instructions; 24] unfilled; 25] none; 26] other</xs:documentation>
             </xs:annotation>
             <xs:simpleType>
               <xs:union>
@@ -6487,6 +6821,159 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
                 </xs:simpleType>
                 <xs:simpleType>
                   <xs:restriction base="xs:token">
+                    <xs:enumeration value="bas-de-page">
+                      <xs:annotation>
+                        <xs:documentation>The decoration note concerns bas-de-page scenes </xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="map">
+                      <xs:annotation>
+                        <xs:documentation>The decoration note concerns a map or maps</xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="headpiece">
+                      <xs:annotation>
+                        <xs:documentation>The decoration note concerns a headpiece</xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="headpiece">
+                      <xs:annotation>
+                        <xs:documentation>The decoration note concerns a headpiece</xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="canonTable">
+                      <xs:annotation>
+                        <xs:documentation>The decoration note concerns canon table(s)</xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="carpetPage">
+                      <xs:annotation>
+                        <xs:documentation>The decoration note concerns so-called carpet page(s)</xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="histInit">
+                      <xs:annotation>
+                        <xs:documentation>The decoration note concerns historiated initials</xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="decInit">
+                      <xs:annotation>
+                        <xs:documentation>The decoration note concerns decorated (but not historiated) initials</xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="flourInit">
+                      <xs:annotation>
+                        <xs:documentation>The decoration note concerns pen-work flourishing of letters and/or borders</xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="colInit">
+                      <xs:annotation>
+                        <xs:documentation>The decoration note concerns coloured (but not decorated or flourished) initials</xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="plainInit">
+                      <xs:annotation>
+                        <xs:documentation>The decoration note concerns plain initials (in the ink of the text)</xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="chrysography">
+                      <xs:annotation>
+                        <xs:documentation>The decoration note concerns chrysography (writing in gold)</xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="lineFill">
+                      <xs:annotation>
+                        <xs:documentation>The decoration note concerns line fillers</xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="cadel">
+                      <xs:annotation>
+                        <xs:documentation>The decoration note concerns cadels</xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="instructions">
+                      <xs:annotation>
+                        <xs:documentation>The decoration note concerns intructions for decoration</xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="unfilled">
+                      <xs:annotation>
+                        <xs:documentation>The decoration note concerns space for decoration left unfilled</xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="none">
+                      <xs:annotation>
+                        <xs:documentation>The decoration note records the absence of any decoration</xs:documentation>
+                      </xs:annotation>
+                    </xs:enumeration>
+                  </xs:restriction>
+                </xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
                     <xs:enumeration value="other">
                       <xs:annotation>
                         <xs:documentation>The decoration note concerns other/unspecified aspects (you may also provide a custom value)</xs:documentation>
@@ -6496,7 +6983,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
                 </xs:simpleType>
                 <xs:simpleType>
                   <xs:restriction base="xs:token">
-                    <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                    <xs:pattern value="[^\p{C}\p{Z}]+"/>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:union>
@@ -6852,7 +7339,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
             <xs:list>
               <xs:simpleType>
                 <xs:restriction base="xs:token">
-                  <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                  <xs:pattern value="[^\p{C}\p{Z}]+"/>
                 </xs:restriction>
               </xs:simpleType>
             </xs:list>
@@ -6873,7 +7360,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
             <xs:list>
               <xs:simpleType>
                 <xs:restriction base="xs:token">
-                  <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                  <xs:pattern value="[^\p{C}\p{Z}]+"/>
                 </xs:restriction>
               </xs:simpleType>
             </xs:list>
@@ -6894,7 +7381,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
             <xs:list>
               <xs:simpleType>
                 <xs:restriction base="xs:token">
-                  <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                  <xs:pattern value="[^\p{C}\p{Z}]+"/>
                 </xs:restriction>
               </xs:simpleType>
             </xs:list>
@@ -6915,7 +7402,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
             <xs:list>
               <xs:simpleType>
                 <xs:restriction base="xs:token">
-                  <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                  <xs:pattern value="[^\p{C}\p{Z}]+"/>
                 </xs:restriction>
               </xs:simpleType>
             </xs:list>
@@ -6936,7 +7423,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
             <xs:list>
               <xs:simpleType>
                 <xs:restriction base="xs:token">
-                  <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                  <xs:pattern value="[^\p{C}\p{Z}]+"/>
                 </xs:restriction>
               </xs:simpleType>
             </xs:list>
@@ -7281,7 +7768,13 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="tei:teiHeader"/>
-        <xs:group maxOccurs="unbounded" ref="tei:model.resourceLike"/>
+        <xs:choice>
+          <xs:sequence>
+            <xs:group maxOccurs="unbounded" ref="tei:model.resource"/>
+            <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:TEI"/>
+          </xs:sequence>
+          <xs:element maxOccurs="unbounded" ref="tei:TEI"/>
+        </xs:choice>
       </xs:sequence>
       <xs:attributeGroup ref="tei:att.global.attributes"/>
       <xs:attributeGroup ref="tei:att.typed.attributes"/>
@@ -7497,7 +7990,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
   <xs:attributeGroup name="att.coordinated.attribute.points">
     <xs:attribute name="points">
       <xs:annotation>
-        <xs:documentation>identifies a two dimensional area within the bounding box specified by the other attributes by means of a series of pairs of numbers, each of which gives the x,y coordinates of a point on a line enclosing the area.</xs:documentation>
+        <xs:documentation>identifies a two dimensional area by means of a series of pairs of numbers, each of which gives the x,y coordinates of a point on a line enclosing the area.</xs:documentation>
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction>
@@ -7579,7 +8072,7 @@ Sample values include: 1] glued; 2] pinned; 3] sewn</xs:documentation>
         </xs:annotation>
         <xs:simpleType>
           <xs:restriction base="xs:token">
-            <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+            <xs:pattern value="[^\p{C}\p{Z}]+"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:attribute>
@@ -7652,16 +8145,16 @@ Sample values include: 1] glued; 2] pinned; 3] sewn</xs:documentation>
       <xs:complexContent>
         <xs:extension base="tei:macro.phraseSeq">
           <xs:attributeGroup ref="tei:att.global.attributes"/>
+          <xs:attributeGroup ref="tei:att.typed.attribute.subtype"/>
           <xs:attributeGroup ref="tei:att.placement.attributes"/>
           <xs:attributeGroup ref="tei:att.written.attributes"/>
           <xs:attribute name="type">
             <xs:annotation>
-              <xs:documentation>classifies the material encoded according to some useful typology.
-Sample values include: 1] header; 2] footer; 3] pageNum (page number); 4] lineNum (line number); 5] sig (signature); 6] catch (catchword)</xs:documentation>
+              <xs:documentation>classifies the material encoded according to some useful typology.</xs:documentation>
             </xs:annotation>
             <xs:simpleType>
               <xs:restriction base="xs:token">
-                <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                <xs:pattern value="[^\p{C}\p{Z}]+"/>
               </xs:restriction>
             </xs:simpleType>
           </xs:attribute>
@@ -7715,7 +8208,7 @@ Sample values include: 1] header; 2] footer; 3] pageNum (page number); 4] lineNu
                   <xs:list>
                     <xs:simpleType>
                       <xs:restriction base="xs:token">
-                        <xs:pattern value="(\p{L}|\p{N}|\p{P}|\p{S})+"/>
+                        <xs:pattern value="[^\p{C}\p{Z}]+"/>
                       </xs:restriction>
                     </xs:simpleType>
                   </xs:list>
