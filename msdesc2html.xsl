@@ -1710,12 +1710,17 @@
 
     <xsl:template match="typeDesc">
         <div class="typeDesc">
-            <span class="tei-label">
-                <xsl:copy-of select="bod:standardText('Type(s):')"/>
-                <xsl:text> </xsl:text>
-            </span>
+            <h4>
+                <xsl:copy-of select="bod:standardText('Typography')"/>
+            </h4>
             <xsl:apply-templates/>
         </div>
+    </xsl:template>
+    
+    <xsl:template match="typeNote">
+        <p class="{name()}">
+            <xsl:apply-templates/>
+        </p>
     </xsl:template>
 
     <xsl:template match="sealDesc">
