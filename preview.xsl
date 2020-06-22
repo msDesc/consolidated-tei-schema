@@ -14,7 +14,7 @@
          and CSS styling like fonts and indenting. Use the preview stylesheet in the processing subfolders of their own 
          GitHub repositories if working on an Oxford-maintained catalogue. -->
     
-    <xsl:import href="https://raw.githubusercontent.com/bodleian/consolidated-tei-schema/master/msdesc2html.xsl"/>
+    <xsl:import href="https://raw.githubusercontent.com/msdesc/consolidated-tei-schema/master/msdesc2html.xsl"/>
 
     <xsl:template match="/">
         <xsl:variable name="title" as="xs:string" select="(/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:msIdentifier/tei:idno)[1]/text()"/>
