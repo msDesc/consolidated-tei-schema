@@ -187,7 +187,27 @@ declare function bod:personRoleLookup($role as xs:string) as xs:string
             let $relator as xs:string := bod:roleLookupMarcCode($lcrole)
             return if ($relator ne '') then $relator else concat('Unknown role code: ', $lcrole)
     else
-        (: Anything else, assume it is a label :)
+        (: Anything else, assume it is a label, and display as-is, except capitalized :)
+        functx:capitalize-first($role)
+};
+
+declare function bod:personRoleLookup2($role as xs:string) as xs:string
+{
+    (: Same as previous function but without merging and renaming of special cases, which originated with the Medieval catalogue :)
+    let $lcrole := lower-case($role)
+    return
+    if ($lcrole eq 'author') then
+        "Author"
+    else if ($lcrole eq 'editor') then
+        "Editor"
+    else if ($lcrole eq 'subject') then
+        "Subject of a work"
+    else if (string-length($role) eq 3) then
+        (: Expecting three-char MARC relator codes. Lookup label. :)
+        let $relator as xs:string := bod:roleLookupMarcCode($lcrole)
+        return if ($relator ne '') then $relator else concat('Unknown role code: ', $lcrole)
+    else
+        (: Anything else, assume it is a label, and display as-is, except capitalized :)
         functx:capitalize-first($role)
 };
 
@@ -200,7 +220,7 @@ declare function bod:roleLookupMarcCode($rolecode as xs:string) as xs:string
         case 'act' return "Actor"
         case 'adi' return "Art director"
         case 'adp' return "Adapter"
-        case 'aft' return "Author of afterword, colophon, etc."
+        case 'aft' return "Author of afterword or colophon"
         case 'anl' return "Analyst"
         case 'anm' return "Animator"
         case 'ann' return "Annotator"
@@ -219,7 +239,7 @@ declare function bod:roleLookupMarcCode($rolecode as xs:string) as xs:string
         case 'att' return "Attributed name"
         case 'auc' return "Auctioneer"
         case 'aud' return "Author of dialog"
-        case 'aui' return "Author of introduction, etc."
+        case 'aui' return "Author of introduction"
         case 'aus' return "Screenwriter"
         case 'aut' return "Author"
         case 'bdd' return "Binding designer"
