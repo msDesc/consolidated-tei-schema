@@ -586,14 +586,29 @@ declare function bod:italicizeTitles($elem as element()) as xs:string
 {
     normalize-space(
         string-join(
-            for $x in $elem//(text()|tei:title)
-            return
-            if ($x/self::tei:title) then
-                concat('&lt;i&gt;', string-join($x//text()), '&lt;/i&gt;')
-            else if (not($x/ancestor::tei:title)) then
-                $x
-            else
-                ()
+            for $x in $elem//(text()|tei:title|tei:ref[@target and matches(@target, '^(#|http)')])
+                return
+                if ($x/self::tei:title and not($x/ancestor::tei:ref[@target and matches(@target, '^(#|http)')]) and not($x/parent::tei:ref[@target and matches(@target, '^(#|http)')])) then
+                    concat('&lt;i&gt;', normalize-space(string-join($x//text())), '&lt;/i&gt;')
+                else if ($x/self::tei:ref[@target and matches(@target, '^(#|http)')]) then
+                    let $link as xs:string := 
+                        concat('&lt;a href="',
+                            if (starts-with($x/@target, '#')) then 
+                             concat('/catalog/', substring-after($x/@target/string(), '#'), '"&gt;')
+                            else
+                                concat($x/@target/string(), '" target="_blank"&gt;')
+                            , normalize-space(string-join($x//text()))
+                            , '&lt;/a&gt;'
+                        )
+                    return
+                    if ($x/tei:title or $x/parent::tei:title) then
+                        concat('&lt;i&gt;', $link, '&lt;/i&gt;')
+                    else
+                        $link
+                else if (not($x/ancestor::tei:title) and not($x/ancestor::tei:ref[@target and matches(@target, '^(#|http)')])) then
+                    $x
+                else
+                    ()
         , '')
     )
 };
