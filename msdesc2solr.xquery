@@ -960,9 +960,9 @@ declare function bod:digitized($teinodes as element()*, $solrfield as xs:string)
             ms_digbod_sm is the UUID on Digital Bodleian, to be used to create links back to the catalogue from there
             ms_digbod_b is a boolean field which is true if there is at least one Digital Bodleian UUID
     :)
-    let $uuids := 
+    let $uuids as xs:string* := 
         for $dburl in $teinodes/tei:ref/@target[matches(., '(digital|iiif)\.bodleian\.ox\.ac\.uk')]
-            let $matchinguuids := tokenize($dburl, '/')[matches(., '\w{8}\-\w{4}\-4\w{3}\-\w{4}\-\w{12}')]
+            let $matchinguuids := tokenize($dburl, '/')[matches(., '\w{8}\-\w{4}\-4\w{3}\-\w{4}\-\w{12}')][1]
             return
             if (count($matchinguuids) eq 1) then 
                 $matchinguuids[1]
@@ -981,7 +981,7 @@ declare function bod:digitized($teinodes as element()*, $solrfield as xs:string)
     else
         ()
     ,
-    for $uuid in $uuids
+    for $uuid in distinct-values($uuids)
         return
         <field name="ms_digbod_sm">{ $uuid }</field>
     )
