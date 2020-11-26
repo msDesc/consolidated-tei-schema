@@ -977,7 +977,11 @@ declare function bod:digitized($teinodes as element()*, $solrfield as xs:string)
         }
     </field>,
     if (count($uuids) gt 0) then
+        (
         <field name="ms_digbod_b">true</field>
+        ,
+        <field name="ms_digbodpath_s">/catalog/{ $teinodes[1]/ancestor::tei:TEI/@xml:id/string() }</field>
+        )
     else
         ()
     ,
