@@ -3450,7 +3450,7 @@
                                 about the availability of a manuscript, using the <att>status</att>
                                 attribute. Valid values for status are <val>free</val>,
                                     <val>unknown</val>, <val>restricted</val>, <val>offsite</val>,
-                                    <val>exhibition</val>. It may also contain information about the
+                                    <val>exhibition</val>, <val>SOLO</val>, <val>none</val>. It may also contain information about the
                                 images or text, such as any restrictions on their use or
                                 distribution, their copyright status, etc. </p>
                         </div>
@@ -4700,6 +4700,12 @@
                                     <valItem ident="offsite">
                                         <desc>The item is stored offsite, and will take at least
                                             twenty-four hours to produce.</desc>
+                                    </valItem>
+                                    <valItem ident="SOLO">
+                                        <desc>The item is orderable through SOLO, typically because it is a fragment in a printed book or because it is part of a collection of mostly printed material.</desc>
+                                    </valItem>
+                                    <valItem ident="none">
+                                        <desc>The item cannot be ordered, typically either because it is a stub record or because it is not held by the Bodleian Libraries or not part of the Weston Library.</desc>
                                     </valItem>
                                     <valItem ident="unknown">
                                         <desc>Availability of the item is unknown.</desc>
