@@ -864,6 +864,10 @@
         <span class="editorialgap"> […] </span>
     </xsl:template>
     
+    <xsl:template match="gap[@reason='blank']">
+        <span class="blankgap"> [<i>left blank</i>] </span>
+    </xsl:template>
+    
     <xsl:template match="gap[@unit='char' and number(@quantity)]">
         <xsl:variable name="possibleDots">
             .....................................................................................................................
