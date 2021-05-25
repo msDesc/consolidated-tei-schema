@@ -856,8 +856,12 @@
         </span>
     </xsl:template>
 
-    <xsl:template match="gap">
+    <xsl:template match="gap[not(@unit) and not(@reason)]">
         <span class="gap">…</span>
+    </xsl:template>
+    
+    <xsl:template match="gap[not(@unit) and @reason='editorial']">
+        <span class="editorialgap"> … </span>
     </xsl:template>
     
     <xsl:template match="gap[@unit='chars' and number(@quantity)]">
