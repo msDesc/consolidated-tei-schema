@@ -5107,6 +5107,8 @@
                             </constraint>
                         </constraintSpec>
                         
+                      
+                        
                         <!-- Warn about empty or self-closing elements with a @key -->
                         <constraintSpec ident="selfclosing.warn" scheme="schematron">
                             <constraint>
@@ -5124,7 +5126,21 @@
                         
                     </classSpec>
                     
-                    
+                    <!-- dating attributes: notBefore must be less than notAfter -->
+                    <classSpec ident="att.datable.w3c" type="atts" mode="change" module="tei">
+                        <constraintSpec ident="dating.check" scheme="schematron">
+                            <constraint>
+                                <sch:rule
+                                    context="//(tei:origDate|tei:date|tei:binding|tei:provenance)[@notBefore and @notAfter]">
+                                    <sch:assert 
+                                        test="@notBefore lt @notAfter" 
+                                        role="fail">
+                                        notBefore must be less than notAfter 
+                                    </sch:assert>
+                                </sch:rule>
+                            </constraint>
+                        </constraintSpec>
+                    </classSpec>
                   
                     
                     <!-- Warn about a common typo -->
