@@ -341,16 +341,18 @@
 
                         <p>Gaps should be marked with <gi>gap</gi> element, using the
                                 <att>reason</att> attribute to described the nature of the gap, and
-                            the <att>unit</att> attribute, in combination with <att>quantity</att>,
-                                <att>atMost</att>, <att>atLeast</att>, and if necessary
+                            the <att>unit</att> attribute, in combination with <att>quantity</att>, and if necessary
                                 <att>precision</att>, to specify its extent. This extent should be
-                            indicated in characters if possible. <list>
+                            indicated in characters if possible with the value <val>char</val> on the <att>unit</att> attribute. The 
+                            <att>atMost</att>, <att>atLeast</att> may be used instead of <att>quantity</att> but these will 
+                            be rendered as an ellipsis rather than a specific number of dots.
+                            <list>
                                 <head>Suggested values for <att>reason</att></head>
                                 <item><val>damage</val>: text has been omitted due to damage to the
                                     manuscript</item>
                                 <item><val>illegible</val>: text has been omitted because it is
                                     illegible (but the manuscript is not otherwise damaged)</item>
-                                <item><val>ellipsis</val>: text (e.g. the formulaic ending of an
+                                <item><val>editorial</val>: text (e.g. the formulaic ending of an
                                     explicit) has been omitted for brevity</item>
                                 <item><val>space</val>: the gap in the transcription represents
                                     space that has been left in the manuscript itself, usually with
@@ -364,10 +366,10 @@
 
                             </list>
                             <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                                <gap unit="characters" quantity="5" reason="damage"/>
+                                <gap unit="char" quantity="5" reason="damage"/>
                             </egXML>
                             <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                                <gap reason="illegible" atLeast="4" atMost="6" unit="character"/>
+                                <gap reason="illegible" atLeast="4" atMost="6" unit="char"/>
                             </egXML>
                             <!-- <specList>
                                 <specDesc key="gap" atts="extent reason unit"/>

@@ -860,7 +860,15 @@
         <span class="gap">…</span>
     </xsl:template>
     
-    <xsl:template match="gap[@unit='chars' and number(@quantity)]">
+    <xsl:template match="gap[@reason='editorial']">
+        <span class="editorialgap"> […] </span>
+    </xsl:template>
+    
+    <xsl:template match="gap[@reason='blank']">
+        <span class="blankgap"> [<i>left blank</i>] </span>
+    </xsl:template>
+    
+    <xsl:template match="gap[@unit='char' and number(@quantity)]">
         <xsl:variable name="possibleDots">
             .....................................................................................................................
         </xsl:variable>
@@ -869,7 +877,7 @@
         </span>
     </xsl:template>
     
-    <xsl:template match="gap[@unit='chars' and number(@extent)]">
+    <xsl:template match="gap[@unit='char' and number(@extent)]">
         <xsl:variable name="possibleDots">
             .....................................................................................................................
         </xsl:variable>
