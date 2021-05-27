@@ -5126,20 +5126,53 @@
                         
                     </classSpec>
                     
-                    <!-- dating attributes: notBefore must be less than notAfter -->
+                    
                     <classSpec ident="att.datable.w3c" type="atts" mode="change" module="tei">
-                        <constraintSpec ident="dating.check" scheme="schematron">
+                        
+                        <!-- Error if date ranges are impossible (only checks YYYY-MM-DD and YYYY formats) -->
+                        <constraintSpec ident="datable.ranging.check" scheme="schematron">
                             <constraint>
                                 <sch:rule
-                                    context="//(tei:origDate|tei:date|tei:binding|tei:provenance)[@notBefore and @notAfter]">
-                                    <sch:assert 
-                                        test="@notBefore lt @notAfter" 
-                                        role="fail">
-                                        notBefore must be less than notAfter 
-                                    </sch:assert>
+                                    context="//*[not(self::tei:locus or self::tei:biblScope or self::tei:citedRange)]
+                                                [(@notBefore and @notAfter) or (@from and @to)]">
+                                    <sch:let name="f" value="(@notBefore,@from)[1]"/>
+                                    <sch:let name="t" value="(@notAfter,@to)[1]"/>
+                                    <sch:let name="fd" value="if ($f castable as xs:date) then xs:date($f) else ()"/>
+                                    <sch:let name="td" value="if ($t castable as xs:date) then xs:date($t) else ()"/>
+                                    <sch:let name="fy" value="if ($f castable as xs:integer) then xs:integer($f) else ()"/>
+                                    <sch:let name="ty" value="if ($t castable as xs:integer) then xs:integer($t) else ()"/>
+                                    <sch:report 
+                                        test="(($fd and $td) or ($fy and $ty)) and $fv gt $tv" 
+                                        role="error">
+                                        The date range <sch:value-of select="$f"/>–<sch:value-of select="$t"/> is not valid.
+                                    </sch:report>
                                 </sch:rule>
                             </constraint>
                         </constraintSpec>
+                        
+                    </classSpec>
+                    
+                    
+                    <classSpec ident="att.ranging" type="atts" mode="change" module="tei">
+                        
+                        <!-- Error if numerical ranges are impossible -->
+                        <constraintSpec ident="numerical.ranging.check" scheme="schematron">
+                            <constraint>
+                                <sch:rule
+                                    context="//*[(@atLeast and @atMost) or (@min and @max)]">
+                                    <sch:let name="f" value="(@atLeast,@min)[1]"/>
+                                    <sch:let name="t" value="(@atMost,@max)[1]"/>
+                                    <sch:let name="fv" value="if ($f castable as xs:float) then xs:float($f) else ()"/>
+                                    <sch:let name="tv" value="if ($t castable as xs:float) then xs:float($t) else ()"/>
+                                    <sch:report 
+                                        test="$fv and $tv and $fv gt $tv" 
+                                        role="error">
+                                        The numerical range <sch:value-of select="$f"/>–<sch:value-of select="$t"/> is not valid.
+                                    </sch:report>
+                                </sch:rule>
+                            </constraint>
+                        </constraintSpec>
+                        
                     </classSpec>
                   
                     
