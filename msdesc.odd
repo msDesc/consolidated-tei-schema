@@ -5109,6 +5109,8 @@
                             </constraint>
                         </constraintSpec>
                         
+                      
+                        
                         <!-- Warn about empty or self-closing elements with a @key -->
                         <constraintSpec ident="selfclosing.warn" scheme="schematron">
                             <constraint>
@@ -5127,6 +5129,56 @@
                     </classSpec>
                     
                     
+                    <classSpec ident="att.datable.w3c" type="atts" mode="change" module="tei">
+                        
+                        <!-- Error if date ranges are impossible (only checks YYYY-MM-DD and YYYY formats, and if both ends are the same format) -->
+                        <constraintSpec ident="datable.ranging.check" scheme="schematron">
+                            <constraint>
+                                <sch:rule
+                                    context="//*[not(self::tei:locus or self::tei:biblScope or self::tei:citedRange)]
+                                                [(@notBefore and @notAfter) or (@from and @to)]">
+                                    <sch:let name="f" value="(@notBefore,@from)[1]"/>
+                                    <sch:let name="t" value="(@notAfter,@to)[1]"/>
+                                    <sch:let name="bothdates" value="$f castable as xs:date and $t castable as xs:date"/>
+                                    <sch:let name="bothyears" value="$f castable as xs:integer and $t castable as xs:integer"/>
+                                    <sch:let name="fd" value="if ($bothdates) then xs:date($f) else ()"/>
+                                    <sch:let name="td" value="if ($bothdates) then xs:date($t) else ()"/>
+                                    <sch:let name="fy" value="if ($bothyears) then xs:integer($f) else ()"/>
+                                    <sch:let name="ty" value="if ($bothyears) then xs:integer($t) else ()"/>
+                                    <sch:report 
+                                        test="($bothdates and $fd gt $td) or ($bothyears and $fy gt $ty)"
+                                        role="error">
+                                        The date range <sch:value-of select="$f"/>–<sch:value-of select="$t"/> in <sch:value-of select="name(.)"/> is not valid.
+                                    </sch:report>
+                                </sch:rule>
+                            </constraint>
+                        </constraintSpec>
+                        
+                    </classSpec>
+                    
+                    
+                    <classSpec ident="att.ranging" type="atts" mode="change" module="tei">
+                        
+                        <!-- Warn if numerical ranges have a lower maximum value than the minimum (assumes there are no reverse scales in codicology) -->
+                        <constraintSpec ident="numerical.ranging.check" scheme="schematron">
+                            <constraint>
+                                <sch:rule
+                                    context="//*[(@atLeast and @atMost) or (@min and @max)]">
+                                    <sch:let name="f" value="(@atLeast,@min)[1]"/>
+                                    <sch:let name="t" value="(@atMost,@max)[1]"/>
+                                    <sch:let name="bothnumbers" value="$f castable as xs:float and $t castable as xs:float"/>
+                                    <sch:let name="fv" value="if ($bothnumbers) then xs:float($f) else ()"/>
+                                    <sch:let name="tv" value="if ($bothnumbers) then xs:float($t) else ()"/>
+                                    <sch:report 
+                                        test="$bothnumbers and $fv gt $tv"
+                                        role="warn">
+                                        The numerical range <sch:value-of select="$f"/>–<sch:value-of select="$t"/> in <sch:value-of select="name(.)"/> may not be valid.
+                                    </sch:report>
+                                </sch:rule>
+                            </constraint>
+                        </constraintSpec>
+                        
+                    </classSpec>
                   
                     
                     <!-- Warn about a common typo -->
