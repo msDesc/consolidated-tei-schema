@@ -1550,6 +1550,9 @@
             <!--</xsl:if>-->
             <span>
                 <xsl:copy-of select="bod:direction(.)"/>
+                <xsl:if test="@defective='true'">
+                    <span class="defective">||</span>
+                </xsl:if>
                 <xsl:apply-templates/>
             </span>
         </div>
@@ -1567,6 +1570,9 @@
             <span>
                 <xsl:copy-of select="bod:direction(.)"/>
                 <xsl:apply-templates/>
+                <xsl:if test="@defective='true'">
+                    <span class="defective">||</span>
+                </xsl:if>
             </span>
         </div>
     </xsl:template>
