@@ -848,6 +848,15 @@
             <xsl:apply-templates/>
         </abbr>
     </xsl:template>
+    
+    <!-- rendering for damage element; same as for supplied: is that OK? -->
+    <xsl:template match="damage">
+        <span class="damage">
+            <xsl:text>⟨</xsl:text>
+            <xsl:apply-templates/>
+            <xsl:text>⟩</xsl:text>
+        </span>
+    </xsl:template>
 
     <xsl:template match="unclear">
         <span class="unclear">
@@ -1541,6 +1550,9 @@
             <!--</xsl:if>-->
             <span>
                 <xsl:copy-of select="bod:direction(.)"/>
+                <xsl:if test="@defective='true'">
+                    <span class="defective">||</span>
+                </xsl:if>
                 <xsl:apply-templates/>
             </span>
         </div>
@@ -1558,6 +1570,9 @@
             <span>
                 <xsl:copy-of select="bod:direction(.)"/>
                 <xsl:apply-templates/>
+                <xsl:if test="@defective='true'">
+                    <span class="defective">||</span>
+                </xsl:if>
             </span>
         </div>
     </xsl:template>
