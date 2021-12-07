@@ -4,24 +4,25 @@ declare variable $lang:disablelogging as xs:boolean external := false();
 
 (: The only function that should be called is lang:languageCodeLookup() :)
 
-declare function lang:languageCodeLookup($lang as xs:string) as xs:string
+declare function lang:languageCodeLookup($lang as xs:string) as xs:string*
 {
     (: Lookup the code and map those values to labels for display in filters on the web site :)
-    let $language as xs:string := if (string-length($lang) eq 2) then
-        lang:_twoCharLookup($lang)
-    else if (string-length($lang) eq 3) then
-        lang:_threeCharLookup($lang)
-    else
-        switch($lang)
-        (: Selected language and script combinations that should be displayed in filters :)
-        case 'egy-Egyd' return "Egyptian in Demotic script"
-        case 'egy-Egyh' return "Egyptian in Hieratic script"
-        default return
-            (: Try to match the first part of a language and script combination :)
-            if (substring($lang, 3, 1) eq '-') then lang:_twoCharLookup(substring($lang, 1, 2))
-            else if (substring($lang, 4, 1) eq '-') then lang:_threeCharLookup(substring($lang, 1, 3))
-            else lang:logging('warn', 'Unknown language', $lang)
-    return if ($language ne '') then $language else concat('Unknown language: ', $lang)
+    let $language as xs:string* := 
+        if (string-length($lang) eq 2) then
+            lang:_twoCharLookup($lang)
+        else if (string-length($lang) eq 3) then
+            lang:_threeCharLookup($lang)
+        else
+            switch($lang)
+            (: Selected language and script combinations that should be displayed in filters :)
+            case 'egy-Egyd' return ("Egyptian in Demotic script")
+            case 'egy-Egyh' return ("Egyptian in Hieratic script")
+            default return
+                (: Try to match the first part of a language and script combination :)
+                if (substring($lang, 3, 1) eq '-') then lang:_twoCharLookup(substring($lang, 1, 2))
+                else if (substring($lang, 4, 1) eq '-') then lang:_threeCharLookup(substring($lang, 1, 3))
+                else lang:logging('warn', 'Unknown language', $lang)
+    return if (count($language) gt 0) then $language else concat('Unknown language: ', $lang)
 };
 
 (: The following functions map codes to labels. They diverge slightly from the standards. 
@@ -33,7 +34,7 @@ declare function lang:languageCodeLookup($lang as xs:string) as xs:string
    lists manuscripts, one Ancient and one Modern. Same with some regional variations and 
    dialects, e.g. Frisian. :)
 
-declare function lang:_twoCharLookup($lang as xs:string) as xs:string
+declare function lang:_twoCharLookup($lang as xs:string) as xs:string*
 {
     switch($lang)
         case 'la' return "Latin"
@@ -223,7 +224,7 @@ declare function lang:_twoCharLookup($lang as xs:string) as xs:string
         default return lang:logging('warn', 'Unknown language', $lang)
 };
 
-declare function lang:_threeCharLookup($lang as xs:string) as xs:string
+declare function lang:_threeCharLookup($lang as xs:string) as xs:string*
 {
     switch($lang)
         case 'grc' return "Greek"
@@ -749,7 +750,7 @@ declare function lang:_threeCharLookup($lang as xs:string) as xs:string
         default return lang:_threeCharLookupMore($lang)
 };
 
-declare function lang:_threeCharLookupMore($lang as xs:string) as xs:string
+declare function lang:_threeCharLookupMore($lang as xs:string) as xs:string*
 {
     switch($lang)
         case 'aaa' return "Ghotuo"
@@ -8188,7 +8189,7 @@ declare function lang:_threeCharLookupMore($lang as xs:string) as xs:string
         default return lang:_threeCharLookupYetMore($lang)
 };
 
-declare function lang:_threeCharLookupYetMore($lang as xs:string) as xs:string
+declare function lang:_threeCharLookupYetMore($lang as xs:string) as xs:string*
 {
     switch($lang)
         case 'aav' return "Austro-Asiatic"
@@ -8248,6 +8249,6 @@ declare function lang:logging($level, $msg, $values)
 {
     if (not($lang:disablelogging)) then
         (: Trick XQuery into doing trace() to output message to STDERR but not insert it into the XML :)
-        substring(trace('', concat(upper-case($level), '	', $msg, '	', string-join($values, '	'), '	')), 0, 0)
+        substring(trace((), concat(upper-case($level), '	', $msg, '	', string-join($values, '	'), '	')), 0, 0)
     else ()
 };

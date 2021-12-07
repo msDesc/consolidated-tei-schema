@@ -907,9 +907,10 @@ declare function bod:languages($teinodes as element()*, $solrfield as xs:string)
     return
         (
         for $code in $langCodes
-        return <field name="{ $solrfield }">{ normalize-space(lang:languageCodeLookup($code)) }</field>
-        ,
-        if (count($langCodes) gt 1) then <field name="{ $solrfield }">Multiple Languages</field> else ()
+            for $lang in lang:languageCodeLookup($code)
+                return <field name="{ $solrfield }">{ normalize-space($lang) }</field>
+            ,
+            if (count($langCodes) gt 1) then <field name="{ $solrfield }">Multiple Languages</field> else ()
         )
 };
 
@@ -928,7 +929,7 @@ declare function bod:languages($teinodes as element()*, $solrfield as xs:string,
         $result
 };
 
-declare function bod:languageCodeLookup($lang as xs:string) as xs:string
+declare function bod:languageCodeLookup($lang as xs:string) as xs:string*
 {
     lang:languageCodeLookup($lang)
 };
