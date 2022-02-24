@@ -69,7 +69,7 @@
     
     <xsl:function name="bod:languageCodeLookup" as="xs:string">
         <xsl:param name="lang" as="xs:string"/>
-        <!-- TODO: Replace this with a lookup to an XML file -->
+        <!-- textLang elements should really contain both codes and a full description, but this is for the few known cases where there is just a code -->
         <xsl:choose>
             <xsl:when test="$lang eq 'he'">Hebrew</xsl:when>
             <xsl:when test="$lang eq 'yi'">Yiddish</xsl:when>
@@ -2251,6 +2251,9 @@
     
     <xsl:template match="adminInfo/availability">
         <h3>
+            <xsl:if test="count(preceding::availability[ancestor::msDesc]) eq 0">
+                <xsl:attribute name="id">availability</xsl:attribute>
+            </xsl:if>
             <xsl:copy-of select="bod:standardText('Availability')"/>
         </h3>
         <div class="{name()}">
