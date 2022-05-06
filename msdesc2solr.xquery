@@ -907,9 +907,10 @@ declare function bod:languages($teinodes as element()*, $solrfield as xs:string)
     return
         (
         for $code in $langCodes
-        return <field name="{ $solrfield }">{ normalize-space(lang:languageCodeLookup($code)) }</field>
-        ,
-        if (count($langCodes) gt 1) then <field name="{ $solrfield }">Multiple Languages</field> else ()
+            for $lang in lang:languageCodeLookup($code)
+                return <field name="{ $solrfield }">{ normalize-space($lang) }</field>
+            ,
+            if (count($langCodes) gt 1) then <field name="{ $solrfield }">Multiple Languages</field> else ()
         )
 };
 
@@ -928,7 +929,7 @@ declare function bod:languages($teinodes as element()*, $solrfield as xs:string,
         $result
 };
 
-declare function bod:languageCodeLookup($lang as xs:string) as xs:string
+declare function bod:languageCodeLookup($lang as xs:string) as xs:string*
 {
     lang:languageCodeLookup($lang)
 };
@@ -955,19 +956,21 @@ declare function bod:physForm($teinodes as element()*, $solrfield as xs:string, 
 
 declare function bod:digitized($teinodes as element()*, $solrfield as xs:string)
 {
-    (: This function returns 1 or 3 Solr fields:
-            ms_digitized_s is the 'Digital facsimile online' facet on the web site, including digitized images hosted anywhere
-            ms_digbod_sm is the UUID on Digital Bodleian, to be used to create links back to the catalogue from there
-            ms_digbod_b is a boolean field which is true if there is at least one Digital Bodleian UUID
+    (: This function returns some or all or the following Solr fields (the last 3 are Oxford-only):
+         ms_digitized_s: a label describing whether and how much of a manuscript has been digitized (the 'Digital facsimile online' facet)
+         ms_bestsurrogate_sni: the URL of the "best" digital surrogate (the first full one, if available, otherwise first partial)
+         ms_digbod_b: whether there is at least one Digital Bodleian object UUID (which Digital Bodleian uses to search for records it can link back to)
+         ms_digbod_sm: Digital Bodleian UUIDs (which Digital Bodleian uses to match catalogue records to its objects)
+         ms_digbodpath_s: the path part of the catalogue URL (which Digital Bodleian uses to build links back to the catalogue records)
     :)
     let $uuids as xs:string* := 
-        for $dburl in $teinodes/tei:ref/@target[matches(., '(digital|iiif)\.bodleian\.ox\.ac\.uk')]
-            let $matchinguuids := tokenize($dburl, '/')[matches(., '\w{8}\-\w{4}\-4\w{3}\-\w{4}\-\w{12}')][1]
+        for $dburl in $teinodes/tei:ref[matches(@target, '(digital|iiif)\.bodleian\.ox\.ac\.uk')]
+            let $matchinguuids := tokenize($dburl/@target, '/')[matches(., '\w{8}\-\w{4}\-4\w{3}\-\w{4}\-\w{12}')][1]
             return
             if (count($matchinguuids) eq 1) then 
                 $matchinguuids[1]
             else
-                bod:logging('warn', 'Invalid Digital Bodleian URL', $dburl)
+                bod:logging('warn', 'Invalid Digital Bodleian URL', $dburl/@target)
     return (
     <field name="ms_digitized_s">
         { 
@@ -981,6 +984,8 @@ declare function bod:digitized($teinodes as element()*, $solrfield as xs:string)
         <field name="ms_digbod_b">true</field>
         ,
         <field name="ms_digbodpath_s">/catalog/{ $teinodes[1]/ancestor::tei:TEI/@xml:id/string() }</field>
+        ,
+        <field name="ms_digbodbest_sni">{ $uuids[1] }</field>
         )
     else
         ()
@@ -988,10 +993,37 @@ declare function bod:digitized($teinodes as element()*, $solrfield as xs:string)
     for $uuid in distinct-values($uuids)
         return
         <field name="ms_digbod_sm">{ $uuid }</field>
+    ,
+    for $bibl in (
+        $teinodes[@type=('digital-fascimile','digital-facsimile') and @subtype='full' and tei:ref[matches(@target, '(digital|iiif)\.bodleian\.ox\.ac\.uk')]], 
+        $teinodes[@type=('digital-fascimile','digital-facsimile') and @subtype='full'], 
+        $teinodes[@type=('digital-fascimile','digital-facsimile') and @subtype='partial']
+        )[1]
+        return
+        (
+        <field name="ms_bestsurrogate_sni">{ $bibl/tei:ref/@target/data() }</field>
+        ,
+        <field name="ms_fullsurrogate_b">{ if ($bibl/@subtype eq 'full') then 'true' else 'false' }</field>
+        )
     )
 };
 
-
+declare function bod:requesting($teiroot as element())
+{
+    (: This function creates index fields needed for processing requests to view items in reading rooms :)
+    (: This should work for most catalogues, although each can override mapping in their Blacklight instances (e.g. shelfmarks in Senmai are stored elsewhere.) :)
+    (
+    bod:one2one(
+        (
+        $teiroot/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:msIdentifier/tei:idno[@type='shelfmark'], 
+        $teiroot/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:msIdentifier/tei:idno
+        )[1]
+        , 'ms_requestitemid_sni')
+    ,
+    bod:many2many($teiroot//tei:adminInfo/tei:availability, 'ms_availability_smni'),
+    bod:strings2many($teiroot//tei:adminInfo/tei:availability/@status/data(), 'ms_availstatus_smni')
+    )
+};
 
 
 (:~
