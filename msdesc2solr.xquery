@@ -835,14 +835,32 @@ declare function bod:centuries($teinodes as element()*, $solrfield as xs:string)
                     bod:logging('info', 'Unreadable dates', concat($date/@from/data(), '-', $date/@to/data()))
             else
                 ()
-        )
-    return 
+        )[string-length(.) gt 0]
+    let $years := for $dateval in $teinodes/(@when|@notBefore|@notAfter|@from|@to)/data()
+        return
+        if ($dateval castable as xs:integer) then
+            xs:integer($dateval)
+        else if (matches($dateval, $bod:yearregex)) then
+            for $y in functx:get-matches($dateval, $bod:yearregex)[string-length() gt 0] return xs:integer($y)
+        else
+            ()
+    return
         (
         for $century in $centuries
-        order by $century
-        return if (string-length($century) gt 0) then <field name="{ $solrfield }">{ $century }</field> else ()
+            order by $century
+            return
+            <field name="{ $solrfield }">{ $century }</field>
         ,
         if (count($centuries) gt 1) then <field name="{ $solrfield }">Multiple Centuries</field> else ()
+        ,
+        if (count($years) gt 0 and count($centuries) gt 0) then
+            (
+            <field name="start_year_i">{ min($years) }</field>
+            ,
+            <field name="end_year_i">{ max($years) }</field>
+            )
+        else
+            ()
         )
 };
 
