@@ -1039,7 +1039,8 @@ declare function bod:requesting($teiroot as element())
         , 'ms_requestitemid_sni')
     ,
     bod:many2many($teiroot//tei:adminInfo/tei:availability, 'ms_availability_smni'),
-    bod:strings2many($teiroot//tei:adminInfo/tei:availability/@status/data(), 'ms_availstatus_smni')
+    bod:strings2many($teiroot//tei:adminInfo/tei:availability/@status/data(), 'ms_availstatus_smni'),
+    bod:trueIfExists($teiroot//tei:adminInfo/tei:availability, 'ms_restricted_b')
     )
 };
 
