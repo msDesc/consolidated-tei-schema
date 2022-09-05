@@ -489,6 +489,27 @@
         </xsl:if>
     </xsl:function>
     
+    <xsl:function name="bod:doDisplayItemNumber" as="xs:boolean">
+        <xsl:param name="msitem" as="element(msItem)"/>
+        <!-- Decide whether to display the numbering on an msItem, based on the presence of other msItems in the same record, 
+             which (hopefully) form a sequence. When the msItems are split across multiple msPart, the numbering may or may not
+             restart for each part, but avoid every item being pointlessly numbered "1" (or "A" or "i") when there is one item per part. -->
+        <xsl:variable name="level" as="xs:integer" select="count($msitem/ancestor::*)"/>
+        <xsl:variable name="num" as="xs:string?" select="$msitem/@n"/>
+        <xsl:variable name="itemsatsamelevel" as="element(msItem)*" select="($msitem/preceding::msItem, $msitem/following::msItem)[count(ancestor::*) eq $level and string-length(@n) gt 0 and not(@n = 'toc')]"/>
+        <xsl:value-of select="boolean(
+            string-length($num) gt 0
+            and not($num = 'toc') 
+            and (
+                count($msitem/parent::*/msItem[string-length(@n) gt 0 and not(@n = 'toc')]) gt 1
+                or  (
+                    count($itemsatsamelevel) gt 0
+                    and not(every $otheritem in $itemsatsamelevel satisfies $otheritem/@n = $num)
+                    )
+                )
+            )"/>
+    </xsl:function>
+    
 
 
     <!-- Named template which is called from command line 
@@ -1381,8 +1402,9 @@
                     <xsl:text>border-bottom-color:#FFFFFF; margin-bottom:0px; padding-bottom:0px;</xsl:text>
                 </xsl:attribute>
             </xsl:if>
-            <xsl:if test="string-length(@n) gt 0 and not(@n = 'toc') and count(parent::msContents/msItem[@n]) gt 1 and not(child::*[1][self::locus])">
-                <!-- Display optional numbering on msItems, on its own line (except when the first-child is a locus, then it'll be inline) -->
+            <xsl:if test="bod:doDisplayItemNumber(.) and not(child::*[1][self::locus])">
+                <!-- Display optional numbering on msItems, on its own line (unless the first-child is a locus, 
+                     then leave it for locus template, so it'll be inline) -->
                 <div class="item-number">
                     <xsl:value-of select="@n"/>
                     <xsl:text>. </xsl:text>
@@ -1407,8 +1429,9 @@
                     </xsl:attribute>
                 </xsl:when>
             </xsl:choose>
-            <xsl:if test="string-length(@n) gt 0 and not(@n = 'toc') and count(parent::msItem/msItem[@n]) gt 1 and not(child::*[1][self::locus])">
-                <!-- Display optional numbering on msItems, on its own line (except when the first-child is a locus, then it'll be inline) -->
+            <xsl:if test="bod:doDisplayItemNumber(.) and not(child::*[1][self::locus])">
+                <!-- Display optional numbering on msItems, on its own line (unless the first-child is a locus, 
+                     then leave it for locus template, so it'll be inline) -->
                 <div class="item-number">
                     <xsl:value-of select="@n"/>
                     <xsl:text>. </xsl:text>
@@ -1625,8 +1648,9 @@
     
     <xsl:template match="msItem/locus">
         <div class="{name()}">
-            <xsl:if test="parent::msItem[@n] and not(parent::msItem/@n = 'toc') and count(parent::msItem/parent::*/msItem[@n]) gt 1 and count(preceding-sibling::*) = 0">
-                <!-- Display optional numbering on msItems, inline when the first-child is a locus (all other cases the number appears on its own line) -->
+            <xsl:if test="bod:doDisplayItemNumber(parent::msItem) and count(preceding-sibling::*) = 0">
+                <!-- Display optional numbering on msItems, inline when this locus is the first-child (otherwise, 
+                     this will have already been handled by the msItem template, which displays the number on its own line) -->
                 <span class="item-number">
                     <xsl:value-of select="parent::msItem/@n"/>
                     <xsl:text>. </xsl:text>
