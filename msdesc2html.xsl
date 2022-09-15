@@ -1087,8 +1087,8 @@
     <xsl:template match="msIdentifier/institution | msIdentifier/region | msIdentifier/country | msIdentifier/settlement | msIdentifier/repository | msIdentifier/idno[@type='shelfmark']" />
     <xsl:template match="msDesc/msIdentifier/altIdentifier[child::idno[@subtype]]"/>
 
-    <xsl:template match="msIdentifier/collection">
-        <p><xsl:apply-templates/></p>
+    <xsl:template match="msIdentifier/collection | msIdentifier/msName">
+        <p class="{name()}"><xsl:apply-templates/></p>
     </xsl:template>
 
     <xsl:template match="msDesc/msIdentifier/altIdentifier[child::idno[not(@subtype)]]">
