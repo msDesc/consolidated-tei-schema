@@ -84,7 +84,7 @@ declare function lang:_twoCharLookup($lang as xs:string) as xs:string*
         case 'fr' return "French"
         case 'fy' return "Frisian" (: Changed from "Western Frisian" :)
         case 'ga' return "Irish"
-        case 'gd' return "Gaelic" (: Changed from "Scottish Gaelic" :)
+        case 'gd' return "Scottish Gaelic"
         case 'gl' return "Galician"
         case 'gn' return "Guarani"
         case 'gu' return "Gujarati"
@@ -5698,7 +5698,7 @@ declare function lang:_threeCharLookup($lang as xs:string) as xs:string*
         case 'prl' return "Peruvian Sign Language"
         case 'prm' return "Kibiri"
         case 'prn' return "Prasuni"
-        case 'pro' return "Provençal" (: Changed from "Old Provençal" :)
+        case 'pro' return "Old Provençal"
         case 'prp' return "Parsi"
         case 'prq' return "Ashéninka Perené"
         case 'prr' return "Puri"
