@@ -2364,19 +2364,34 @@
     </xsl:template>
     
     <xsl:template match="list">
-        <span class="head"> 
-            <xsl:apply-templates select="head"/>
-        </span>
-        <ul class="{name()}"> 
-            <xsl:apply-templates select="(*|text())[not(self::head)]"/>
-        </ul>
-    </xsl:template>
-    
-    <xsl:template match="list/list">
-        <xsl:apply-templates select="head"/>
-        <ul class="{name()}"> 
-            <xsl:apply-templates select="(*|text())[not(self::head)]"/>
-        </ul>
+        <xsl:variable name="rendvals" select="tokenize(@rend, '\s+')"/>
+        <xsl:choose>
+            <xsl:when test="ancestor::list">
+                <xsl:apply-templates select="head"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <span class="head">
+                    <xsl:apply-templates select="head"/>
+                </span>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="some $v in $rendvals satisfies $v = ('numbered', 'ordered', 'ol')">
+                <ol class="{name()}">
+                    <xsl:apply-templates select="(*|text())[not(self::head)]"/>
+                </ol>
+            </xsl:when>
+            <xsl:when test="some $v in $rendvals satisfies $v = ('bulleted', 'unordered', 'ul')">
+                <ul class="{name()}" style="list-style:disc;">
+                    <xsl:apply-templates select="(*|text())[not(self::head)]"/>
+                </ul>
+            </xsl:when>
+            <xsl:otherwise>
+                <ul class="{name()}">
+                    <xsl:apply-templates select="(*|text())[not(self::head)]"/>
+                </ul>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
     <xsl:template match="list/label[following-sibling::item]">
