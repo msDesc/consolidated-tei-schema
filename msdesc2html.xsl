@@ -2364,7 +2364,7 @@
     </xsl:template>
     
     <xsl:template match="list">
-        <xsl:variable name="rendvals" select="tokenize(@rend, '\s+')"/>
+        <xsl:variable name="rendvals" select="tokenize(@rend, '\s+')[string-length() gt 0]"/>
         <xsl:choose>
             <xsl:when test="ancestor::list">
                 <xsl:apply-templates select="head"/>

@@ -5091,10 +5091,16 @@
                                         Any values can be used in rend attributes, but the web site currently only supports combinations of: 
                                         bold, italic, roman, smallcaps, superscript, subscript, underline, overline, and strikethrough.
                                     </sch:report>
-                                    <sch:assert 
-                                        test="self::tei:hi" 
+                                    <sch:report 
+                                        test="self::tei:list and not(every $r in tokenize(@rend, '\s+')[string-length() gt 0] satisfies $r = ('numbered', 'ordered', 'ol', 'bulleted', 'unordered', 'ul'))"
                                         role="info">
-                                        The web site currently only supports rend attributes for hi elements. Using it on <sch:value-of select="name(.)"/> 
+                                        Any values can be used in rend attributes, but the web site currently only supports combinations of: 
+                                        numbered, ordered, ol, bulleted, unordered, and ul.
+                                    </sch:report>
+                                    <sch:assert 
+                                        test="self::tei:hi or self::tei:list" 
+                                        role="info">
+                                        The web site currently only supports rend attributes for hi and list elements. Using it on <sch:value-of select="name(.)"/> 
                                         elements is valid but will be ignored.
                                     </sch:assert>
                                 </sch:rule>
