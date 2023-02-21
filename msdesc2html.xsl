@@ -1878,6 +1878,10 @@
     <!-- Seals -->
     <xsl:template match="seal">
         <p class="{name()}">
+            <xsl:if test="@n and (preceding-sibling::seal[@n] or following-sibling::seal[@n])">
+                <xsl:value-of select="@n"/>
+                <xsl:text>. </xsl:text>
+            </xsl:if>
             <xsl:apply-templates/>
         </p>
     </xsl:template>
