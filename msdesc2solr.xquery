@@ -1045,7 +1045,7 @@ declare function bod:requesting($teiroot as element())
     bod:many2many($teiroot//tei:adminInfo/tei:availability, 'ms_availability_smni'),
     bod:strings2many($teiroot//tei:adminInfo/tei:availability/@status/data(), 'ms_availstatus_smni'),
     bod:trueIfExists($teiroot//tei:adminInfo/tei:availability, 'ms_restricted_b'),
-    bod:many2many($teiroot//tei:custodialHist//tei:idno[@type = 'barcode'], 'ms_barcode_smni')
+    bod:many2many($teiroot//tei:custodialHist/tei:custEvent[not(@to or @notAfter)]//tei:idno[@type = 'barcode'], 'ms_barcode_smni')
     )
 };
 
