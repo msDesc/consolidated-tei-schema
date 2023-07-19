@@ -854,8 +854,8 @@
                             <p>For bilingual or multilingual units give the other languages in the
                                     <att>otherLangs</att> attribute, as a space-separated list.
                                     <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                                    <textLang mainLang="grc" otherLangs="la en">Greek with some
-                                        Latin and English</textLang>
+                                    <textLang mainLang="grc" otherLangs="la enm">Greek with some
+                                        Latin and Middle English</textLang>
                                 </egXML>
                             </p>
                             <p>In some cases the decision of which language is ‘main’ and which
@@ -875,6 +875,41 @@
                                 encoded at a high or low level of granularity - for example, Middle
                                 English may be encoded as "enm" or as "en", Anglo-Norman French may
                                 be encoded as "fr" or "xno".</p>
+                            <p>Current recommendations (July 2023) for cataloguers at Oxford and Cambridge are to encode languages to as granular a level as possible using the following codes:
+                            <table>
+                                <row>
+                                    <cell>Latin</cell><cell>la</cell>
+                                </row>
+                                <row>
+                                    <cell>Ancient Greek</cell><cell>grc</cell>
+                                </row>
+                                <row>
+                                    <cell>Modern Greek</cell><cell>el</cell>
+                                </row>
+                                <row>
+                                    <cell>Old English</cell><cell>ang</cell>
+                                </row>
+                                <row>
+                                    <cell>Middle English</cell><cell>enm</cell>
+                                </row>
+                                <row>
+                                    <cell>English (after c. 1500); do not encode "Early Modern English"</cell><cell>en</cell>
+                                </row>
+                                <row>
+                                    <cell>Old French</cell><cell>fro</cell>
+                                </row>
+                                <row>
+                                    <cell>Middle French</cell><cell>frm</cell>
+                                </row>
+                                <row>
+                                    <cell>Anglo-Norman</cell><cell>xno</cell>
+                                </row>
+                                <row>
+                                    <cell>French</cell><cell>fr</cell>
+                                </row>
+                            </table>
+                            Guidance for other vernacular languages is under development.
+                            </p>
                             <!-- todo: check! -->
                         </div>
                         <div xml:id="msitem">
@@ -1366,7 +1401,7 @@
                                                 <author key="person_304922354">Jean de
                                                   Meung</author>
                                                 <title key="work_1919">Le Roman de la Rose</title>
-                                                <textLang mainLang="fr">French</textLang>
+                                                <textLang mainLang="frm">Middle French</textLang>
                                             </msItem>
                                         </egXML></p>
                                     <p>Uncertainly regarding authorship can be indicated using the
@@ -1492,7 +1527,7 @@
                                         xmlns="http://www.tei-c.org/ns/Examples">
                                         <msItem xml:id="MS_Buchanan_e_13-item1-item5-item1">
                                             <locus>(fols.18r-21v)</locus>
-                                            <rubric xml:lang="fr">Oraison tres deuote de nostre
+                                            <rubric xml:lang="frm">Oraison tres deuote de nostre
                                                 dame</rubric>
                                             <incipit xml:lang="la">Obsecro te</incipit>
                                             <note>[masculine forms] (cf. MS. Buchanan e. 2)</note>
@@ -1782,11 +1817,11 @@
                                         not intended to form part of a codex, either kept flat or
                                         folded (rather than rolled) for storage.</item>
                                     <item><val>faltbuch</val></item>
-
+                                    <item><val>roll-codex</val></item>
                                     <item><val>other</val></item>
                                     <item><val>unknown</val></item>
                                 </list> The following may also be used: <list>
-                                    <item><val>roll-codex</val></item>
+                                    
                                     <item><val>booklet</val>: a gathering of two or more bifolia,
                                         with a binding/covering, that appears to be complete in
                                         terms of its original textual content</item>
@@ -2821,17 +2856,22 @@
                                 order given in the following table, with the appropriate values of
                                     <att>type</att> attribute. <table>
                                     <row>
-                                        <cell>Miniatures, listed in the following order: full-page,
-                                            half-page, small, column</cell>
+                                        <cell>Miniatures (or coloured drawings), listed in the following order: full-page,
+                                            half-page, small, column; use for painted or tinted images, whether part of an original decorative scheme or added.</cell>
                                         <cell>miniature</cell>
                                     </row>
+                                    <row>
+                                        <cell>Uncoloured drawings or sketches, whether part of an original decorative scheme or added.</cell>
+                                        <cell>drawing</cell>
+                                    </row>
+                                        
                                     <row>
                                         <cell>Bas-de-page scenes</cell>
                                         <cell>bas-de-page</cell>
                                     </row>
                                     <row>
                                         <cell>Borders, in the following order: historiated,
-                                            other</cell>
+                                            other; use for painted borders of any type (including for example historiated, inhabited, foliate)</cell>
                                         <cell>border</cell>
                                     </row>
                                     <row>
@@ -2856,17 +2896,17 @@
                                     </row>
                                     <row>
                                         <cell>Historiated initials (i.e., containing an identifiable
-                                            narrative scene) (Brown: historiated initial)</cell>
+                                            narrative scene) (Brown: historiated initial); initials, usually painted, containing identifiable persons or narrative scenes usually related to the text.</cell>
                                         <cell>histInit</cell>
                                     </row>
                                     <row>
                                         <cell>decorated initials (Brown: decorated initial,
                                             anthropomorphic initial, zoomorphoric initial, gymnastic
-                                            initial, inhabited initial).</cell>
+                                            initial, inhabited initial). Other initials with significant decorative features, usually painted; includes 'arabesque' and 'silhouette' initials.</cell>
                                         <cell>decInit</cell>
                                     </row>
                                     <row>
-                                        <cell>coloured initials</cell>
+                                        <cell>coloured initials (i.e. of a single colour with no or minimal decorative features)</cell>
                                         <cell>colInit</cell>
                                     </row>
                                     <row>
@@ -2874,8 +2914,7 @@
                                             Deutschen Kunstgeschichte: <ref
                                                 target="http://www.rdklabor.de/w/?oldid=89543"
                                                 >fleuronné</ref>) (Brown: pen-flourished initial,
-                                            littera florissa). Also use for so-called arabesque
-                                            initials.</cell>
+                                            littera florissa). Initials with "fine linear embellishment" (Brown) often in a contrasting colour (includes 'puzzle' initials); borders of similar embellishment.</cell>
                                         <cell>flourInit</cell>
                                     </row>
                                     <row>
@@ -2883,7 +2922,7 @@
                                         <cell>chrysography</cell>
                                     </row>
                                     <row>
-                                        <cell>plain initials</cell>
+                                        <cell>plain initials (i.e. in the ink of the text and with no or minimal decorative features)</cell>
                                         <cell>plainInit</cell>
                                     </row>
                                     <row>
@@ -3463,6 +3502,15 @@
                                 either as prose tagged with <gi>p</gi> elements, or as a series of
                                 custodial events, using the <gi>custEvent</gi> element with
                                 attributes <att>type</att>, <att>when</att>, etc.</p>
+                            <p>The <gi>custEvent</gi> element is currently used at the Bodleian to record barcoding of manuscripts:</p>
+                            <p>
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <custodialHist>
+                                        <custEvent type="barcode">Barcode: <idno type="barcode">603303329</idno>
+                                        </custEvent>
+                                    </custodialHist>
+                                </egXML>
+                            </p>
                         </div>
                         <!--<div xml:id="additional_note">
                             <head>Note</head>
@@ -3482,25 +3530,32 @@
                             <p>
                                 <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                     <surrogates>
-                                        <bibl type="digital-facsimile" subtype="full">
-                                            <ref
-                                                target="https://digital.bodleian.ox.ac.uk/inquire/p/34a6037b-12e8-4b12-8920-26c33914fe0e">
-                                                <title>Digital Bodleian</title>
-                                            </ref>
-                                            <note>(full digital facsimile)</note>
-                                        </bibl>
+                                        <listBibl>
+                                            <bibl type="digital-facsimile" subtype="full">
+                                                <ref
+                                                    target="https://digital.bodleian.ox.ac.uk/objects/34a6037b-12e8-4b12-8920-26c33914fe0e">
+                                                    <title>Digital Bodleian</title>
+                                                </ref>
+                                                <note>(full digital facsimile)</note>
+                                            </bibl>
+                                        </listBibl>
                                     </surrogates></egXML>
                             </p>
-                            <p>Note, when linking to Digital Bodleian, do not use the "permalink" in
-                                the right-hand panel. This is a link to a specific page. Instead,
-                                click the "iiif" button, copy the long string of letters, numbers
-                                and hyphens between "manifest/" and ".json" from your browser's
-                                location bar, and paste it after
-                                "https://digital.bodleian.ox.ac.uk/inquire/p/" into the target
-                                attribute in your TEI file, as in the above example. That ensures
-                                the TEI record is associated with the entire manuscript in Digtal
-                                Bodleian, and allows it to reciprocate the link back to the
-                                catalogue web site automatically.</p>
+                           <p>This section should also be used to record the availability of microfilms.</p>
+                            <p>
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                    <surrogates>
+                                        <bibl subtype="partial" type="digital-facsimile">
+                                            <ref target="https://digital.bodleian.ox.ac.uk/objects/4e3e7d80-c49a-40bd-9aff-a6452f196fa1/">
+                                                <title>Digital Bodleian</title>
+                                            </ref>
+                                            <note>(3 images from 35mm slides)</note>
+                                        </bibl>
+                                        <bibl type="microfilm" subtype="full">Microfilm available in the open shelf collections in the Weston Library (R. Films 101)</bibl>
+                                    </surrogates>
+                                </egXML>
+                            </p>
+                           
                         </div>
 
                         <div xml:id="bibliography">
@@ -3710,7 +3765,7 @@
                                                   <note>N. R. Ker, <title>Catalogue of Manuscripts
                                                   Containing Anglo-Saxon</title> (1957), p. 350 (no.
                                                   290).</note>
-                                                  <textLang mainLang="en">Old English</textLang>
+                                                  <textLang mainLang="ang">Old English</textLang>
                                                 </msItem>
                                                 <msItem>
                                                   <locus>(fol. 173v)</locus>
@@ -3855,11 +3910,11 @@
                                 <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                     <msItem n="12">
                                         <locus from="34r" to="58v">34r-58v</locus>
-                                        <title xml:lang="eng">Hours of the Virgin</title>
+                                        <title xml:lang="en">Hours of the Virgin</title>
                                         <textLang mainLang="lat">Latin</textLang>
                                         <msItem n="12.1">
                                             <locus from="34r" to="37r">34r-37r</locus>
-                                            <title xml:lang="eng">Matins</title>
+                                            <title xml:lang="en">Matins</title>
                                         </msItem>
                                     </msItem>
                                     <!-- etc. -->
@@ -3877,19 +3932,19 @@
                                 <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                     <msItem n="1">
                                         <locus from="2r" to="4v">2r-4v</locus>
-                                        <title xml:lang="eng">Prologue to the Vulgate</title>
+                                        <title xml:lang="en">Prologue to the Vulgate</title>
                                         <author> [...] </author>
                                         <msItem n="1.1">
                                             <locus from="2r" to="4r">2r-4r</locus>
-                                            <title xml:lang="lat">Epistula ad Paulinum
+                                            <title xml:lang="la">Epistula ad Paulinum
                                                 presbyterum</title>
                                             <rubric>
                                                 <locus from="1r" to="1r">1r</locus>Incipit prologus
                                                 Ieromini super totam bibliam </rubric>
-                                            <incipit xml:lang="lat">
+                                            <incipit xml:lang="la">
                                                 <locus from="1r" to="1r">1r</locus>Frater Ambrosius
                                                 tua mihi munuscula preferens </incipit>
-                                            <explicit xml:lang="lat">
+                                            <explicit xml:lang="la">
                                                 <locus from="4r" to="4r">4r</locus>facile contempnit
                                                 omnia qui se semper cogitat esse moriturum </explicit>
                                             <note>PL 23, 540-549; Stegmüller 284, 3306; CPL
@@ -3898,15 +3953,15 @@
                                         </msItem>
                                         <msItem n="1.2">
                                             <locus from="4r" to="4v">4r-4v</locus>
-                                            <title xml:lang="eng">Prologue to the Old
+                                            <title xml:lang="en">Prologue to the Old
                                                 Testament</title>
-                                            <rubric xml:lang="lat">
+                                            <rubric xml:lang="la">
                                                 <locus from="4r" to="4r">4r</locus>Incipit prologus
                                                 beati Ieromini in pentachum </rubric>
-                                            <incipit xml:lang="lat">
+                                            <incipit xml:lang="la">
                                                 <locus from="4r" to="4r">4r</locus> Desiderii meii
                                                 desideratus accepi epistulas </incipit>
-                                            <explicit xml:lang="lat">
+                                            <explicit xml:lang="la">
                                                 <locus from="4v" to="4v">4v</locus> possim eodem
                                                 spiritu quo scripti sunt libri in latinum eos
                                                 transferre sermonem </explicit>
@@ -3915,16 +3970,16 @@
                                     </msItem>
                                     <msItem n="2">
                                         <locus from="5r" to="321v">5r-321v</locus>
-                                        <title xml:lang="eng">Vulgate, Old Testament</title>
-                                        <incipit xml:lang="lat">
+                                        <title xml:lang="en">Vulgate, Old Testament</title>
+                                        <incipit xml:lang="la">
                                             <locus from="5r" to="5r">5r</locus>In principio creavit
                                             deus celum et terram </incipit>
-                                        <explicit xml:lang="lat">
+                                        <explicit xml:lang="la">
                                             <locus from="321v" to="321v">321v</locus>non erit ut
                                             ingratus hic ergo erit consummatus. </explicit>
                                         <msItem n="2.1">
                                             <locus from="5r" to="21v">5r-21v</locus>
-                                            <title xml:lang="eng">Genesis</title>
+                                            <title xml:lang="en">Genesis</title>
                                         </msItem>
                                         <!-- [...] -->
                                     </msItem>
@@ -4859,7 +4914,10 @@
                                     </valItem>
                                     <valItem ident="faltbuch">
                                         <desc>a codex whose leaves are opened by unfolding rather
-                                            than turning; an ‘almanac’</desc>
+                                            than turning; an ‘almanac’; a 'bat book'</desc>
+                                    </valItem>
+                                    <valItem ident="roll-codex">
+                                        <desc>a roll folded and bound in codex form; an 'accordion book'</desc>
                                     </valItem>
                                     <valItem ident="other">
                                         <desc>Some other unspecified format</desc>
