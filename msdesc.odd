@@ -4232,7 +4232,10 @@
                                         <desc>The decoration note concerns the micrography</desc>
                                     </valItem>
                                     <valItem ident="miniature">
-                                        <desc>The decoration note concerns the miniature(s)</desc>
+                                        <desc>The decoration note concerns miniature(s) or coloured drawings</desc>
+                                    </valItem>
+                                    <valItem ident="drawing">
+                                        <desc>The decoration note concerns (uncoloured) drawings or sketches</desc>
                                     </valItem>
                                     <valItem ident="rubrication">
                                         <desc>The decoration note concerns the rubrication or other
