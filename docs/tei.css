@@ -1035,6 +1035,9 @@ div.facsimage img{
 span.damage{
     border-bottom:1px dashed red;
 }
+span.ex {
+    font-style: italic;
+}
 /* app crit */
 div.appcrit{
     border-top:solid black 1pt;
@@ -1084,4 +1087,17 @@ table.border{
 }
 .orange{
     color:orange;
+}
+
+/* Bodleian customization: Add borders to tables */
+
+table {
+    border-collapse:collapse;
+    margin-top:1em;
+    margin-bottom:1em;
+}
+
+td {
+    border:1px black solid;
+    padding:10px;
 }
