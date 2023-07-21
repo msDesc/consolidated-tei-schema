@@ -4253,9 +4253,6 @@
                                         <desc>The decoration note concerns a headpiece</desc>
                                     </valItem>
                                     
-                                    <valItem ident="headpiece">
-                                        <desc>The decoration note concerns a headpiece</desc>
-                                    </valItem>
                                     <valItem ident="canonTable">
                                         <desc>The decoration note concerns canon table(s)</desc>
                                     </valItem>
