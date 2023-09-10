@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--<?xml-model href="http://jenkins.tei-c.org/job/TEIP5/lastSuccessfulBuild/artifact/P5/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="http://jenkins.tei-c.org/job/TEIP5/lastSuccessfulBuild/artifact/P5/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>-->
-<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en"
-    xmlns:sch="http://purl.oclc.org/dsdl/schematron">
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en" xmlns:sch="http://purl.oclc.org/dsdl/schematron">
     <teiHeader>
         <fileDesc>
             <titleStmt>
@@ -22,17 +21,14 @@
                 <note>Medieval manuscript guidelines written by James Freeman and Matthew Holford
                     and encoded by Matthew Holford</note>
                 <note>Medieval manuscript guidelines owe a debt to and incorporate some material from
-                    those created by Patrick Granholm and Eva Nyström for <ref
-                        target="https://www.manuscripta.se/"><title>Manuscripta</title></ref> and
+                    those created by Patrick Granholm and Eva Nyström for <ref target="https://www.manuscripta.se/"><title>Manuscripta</title></ref> and
                     licenced CC BY 4.0</note>
-                <note>Additional guidelines for non-medieval manuscripts added from <ref
-                        target="https://github.com/fihristorg/fihrist-mss/raw/master/archive/old_manual.pdf"
-                        >Fihrist Cataloguing Manual</ref></note>
+                <note>Additional guidelines for non-medieval manuscripts added from <ref target="https://github.com/fihristorg/fihrist-mss/raw/master/archive/old_manual.pdf">Fihrist Cataloguing Manual</ref></note>
             </notesStmt>
             <sourceDesc>
                 <p>Born digital</p>
             </sourceDesc>
-        </fileDesc>
+        </fileDesc><encodingDesc><appInfo><application ident="RomaJS" version="1.0.0" when="2023-09-10T14:36:53.509Z"><desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc></application></appInfo></encodingDesc>
         <revisionDesc>
             <change when="2020-04-03" who="#MLH">Add opener; new attribute for handNote: @execution; add attribute values for handNote and decoNote; make layout part of att.typed; allow biblStruct and associated elements; add guidance on extracts; add guidance on collation vocabulary; use measure rather than num for better TEI compliance.</change>
         </revisionDesc>
@@ -54,15 +50,12 @@
                 <div xml:id="acknowledgements">
                     <head>Acknowledgements</head>
                     <p>These draft guidelines are currently based on two main sources - the encoding
-                        guidelines for the Fihrist project [<ref
-                            target="https://github.com/fihristorg/fihrist-mss/raw/master/archive/old_manual.pdf"
-                            >pdf</ref>], and encoding guidelines for medieval manuscripts jointly
+                        guidelines for the Fihrist project [<ref target="https://github.com/fihristorg/fihrist-mss/raw/master/archive/old_manual.pdf">pdf</ref>], and encoding guidelines for medieval manuscripts jointly
                         created by Cambridge University Library (James Freeman, with Suzanne Paul)
                         and the Bodleian Library (Matthew Holford) with contributions by Andrew
                         Dunning (formerly British Library). The medieval guidelines in turn draw in
                         places on the guidelines created by Patrick Granholm and Eva Nyström for
-                            <ref target="https://www.manuscripta.se/"
-                            ><title>manuscripta.se</title></ref>.</p>
+                            <ref target="https://www.manuscripta.se/"><title>manuscripta.se</title></ref>.</p>
                 </div>
 
                 <div xml:id="phraselevel">
@@ -96,8 +89,7 @@
                             page (i.e. the letters do not run concurrently from recto to verso, or
                             across an opening). </p>
                         <p>To identify columns / lines in the <att>from</att> or <att>to</att>
-                            attributes, use (for example): <egXML
-                                xmlns="http://www.tei-c.org/ns/Examples">
+                            attributes, use (for example): <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                 <locus from="1ra10" to="2vb5">(fols. 1ra, line 10 - 2vb, line
                                     5)</locus>
                             </egXML></p>
@@ -106,13 +98,10 @@
                             </egXML>
                         </p>
                         <p>For texts scattered over more than one location in the manuscript the
-                                <gi>locusGrp</gi> element should be used. <egXML
-                                xmlns="http://www.tei-c.org/ns/Examples">
+                                <gi>locusGrp</gi> element should be used. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                 <locusGrp>
-                                    <locus from="356rb" to="356vb">Fols 356<hi rend="superscript"
-                                            >rb-vb</hi>,</locus>
-                                    <locus from="374ra" to="374rb">374<hi rend="superscript"
-                                            >rab</hi></locus>
+                                    <locus from="356rb" to="356vb">Fols 356<hi rend="superscript">rb-vb</hi>,</locus>
+                                    <locus from="374ra" to="374rb">374<hi rend="superscript">rab</hi></locus>
                                 </locusGrp>
                             </egXML>
                         </p>
@@ -128,22 +117,18 @@
                             MUST be linked to the persons authority file using the <att>key</att>
                             attribute. The role of the person referred to should be indicated using
                             the <att>role</att> attribute. Values should correspond to the Library
-                            of Congress relator term list (<ref
-                                target="http://www.loc.gov/marc//relators/relaterm.html"
-                                >http://www.loc.gov/marc//relators/relaterm.html</ref>). The most
+                            of Congress relator term list (<ref target="http://www.loc.gov/marc//relators/relaterm.html">http://www.loc.gov/marc//relators/relaterm.html</ref>). The most
                             commonly occurring roles are: "aut" (author), "bnd" (binder), "scr" (scribe), "art"
                             (artist; NB this is preferred to illustrator), "fmo" (former
                             owner),"sgn" (signer), "pat" (patron). If necessary, multiple roles can
-                            be separated with whitespace. <egXML
-                                xmlns="http://www.tei-c.org/ns/Examples"> Common-place book of
+                            be separated with whitespace. <egXML xmlns="http://www.tei-c.org/ns/Examples"> Common-place book of
                                     <persName role="scr fmo" key="person_697">John
                                     Curteys</persName> of Winchester College and New College, Oxford
                             </egXML>
                         </p>
                         <p>To record alternative names for a person in such contexts, use nested <gi>persName</gi>
                         elements, for example:
-                            <egXML
-                                xmlns="http://www.tei-c.org/ns/Examples">
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                 <persName key="person_f6124" role="scr">
                                     <persName xml:lang="fa-Latn-x-lc">ʿAbd al-Raḥmān</persName>
                                     (<persName xml:lang="fa">عبد الرحمان</persName>)
@@ -167,11 +152,8 @@
                             authority file using the <att>key</att> attribute. The role of the
                             organization referred to should be indicated using the <att>role</att>
                             attribute. Values should correspond to the Library of Congress relator
-                            term list (<ref target="http://www.loc.gov/marc//relators/relaterm.html"
-                                >http://www.loc.gov/marc//relators/relaterm.html</ref>). Separate
-                            multiple roles with whitespace. <egXML
-                                xmlns="http://www.tei-c.org/ns/Examples"><orgName role="fmo"
-                                    key="org_148998848">Würzburg, Domstift St Kilian</orgName>,
+                            term list (<ref target="http://www.loc.gov/marc//relators/relaterm.html">http://www.loc.gov/marc//relators/relaterm.html</ref>). Separate
+                            multiple roles with whitespace. <egXML xmlns="http://www.tei-c.org/ns/Examples"><orgName role="fmo" key="org_148998848">Würzburg, Domstift St Kilian</orgName>,
                                 12th-century ex libris, fol. 1r, and 15th-century shelfmark, fol.
                                 2r.</egXML>
                         </p>
@@ -181,8 +163,7 @@
                         <p>In sections relating to manuscript contents, physical description and
                             provenance, placenames should be tagged using the <gi>placeName</gi>.
                             For indexing to function correctly this MUST be linked to the places
-                            authority file using the <att>key</att> attribute. <egXML
-                                xmlns="http://www.tei-c.org/ns/Examples">
+                            authority file using the <att>key</att> attribute. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                 <placeName key="place_1234">Bologna</placeName>
                             </egXML>
                             <specList>
@@ -192,15 +173,13 @@
                         <p>In the <gi>origPlace</gi> element, placenames should be tagged using (as
                             appropriate) <gi>country</gi>, <gi>region</gi> and <gi>settlement</gi>.
                             Again, for indexing to function correctly these MUST be linked to the
-                            places authority file using the <att>key</att> attribute. See under <ref
-                                target="#origPlace">origPlace</ref>.</p>
+                            places authority file using the <att>key</att> attribute. See under <ref target="#origPlace">origPlace</ref>.</p>
                         <p>To accommodate geodata in legacy data, or for use by other systems,
                                 <gi>geo</gi> elements are permitted. But they are not displayed in
                             catalogue web sites. For example, from the International Dunhuang
                             Project:</p>
                         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                            <origPlace>DHMG.(Dunhuang Mogao) DHMG.17. <geo n="min"
-                                    >94.80388888888889198 40.03638888888888658</geo>
+                            <origPlace>DHMG.(Dunhuang Mogao) DHMG.17. <geo n="min">94.80388888888889198 40.03638888888888658</geo>
                                 <geo n="max">95.9375 40.04833333333333201</geo>
                             </origPlace>
                         </egXML>
@@ -213,8 +192,7 @@
                         <p>Hyperlinks may be created using the <gi>ref</gi> element with the URL as
                             the value of the <att>target</att> attribute. This can be used to
                             provide links to relevant electronic resources.</p>
-                        <egXML xmlns="http://www.tei-c.org/ns/Examples"><ref
-                                target="http://www.dimev.net/record.php?recID=4633">DIMEV
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples"><ref target="http://www.dimev.net/record.php?recID=4633">DIMEV
                             4633</ref></egXML>
                     </div>
                     <div xml:id="formatting">
@@ -311,8 +289,7 @@
                         <p>Additions by the scribe or later annotators should be recorded using the
                                 <gi>add</gi> element, with the <att>place</att> attribute. The
                             values of the place attribute should be one of the values specified in
-                            the <ref target="http://www.stoa.org/epidoc/gl/latest/ref-add.html"
-                                >EpiDoc guidelines</ref>, e.g: <list>
+                            the <ref target="http://www.stoa.org/epidoc/gl/latest/ref-add.html">EpiDoc guidelines</ref>, e.g: <list>
                                 <item><val>above</val>: written above the line</item>
                                 <item><val>below</val>: written below the line</item>
                                 <item><val>top</val>: written in the top margin</item>
@@ -328,8 +305,7 @@
 
                         <p>Corrections by the scribe or later annotators should be recorded using a
                             combination of the <gi>add</gi> and <gi>del</gi> elements with the
-                                <gi>subst</gi> or <gi>mod</gi> element. <egXML
-                                xmlns="http://www.tei-c.org/ns/Examples">
+                                <gi>subst</gi> or <gi>mod</gi> element. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                 <incipit>Theodocius dicit De coniugationibus apud grecos iii sunt
                                     coniugationes uerborum
                                     qu<subst><del>a</del><add>o</add></subst>rum prima
@@ -407,15 +383,11 @@
                             include the location or institution name; in the latter case, location
                             and institution should be included.</p>
                         <p> The <gi>ref</gi> element may be used to provide a link to an online
-                            catalogue or digital fascimile. <egXML
-                                xmlns="http://www.tei-c.org/ns/Examples"> Eberbach, Cistercian abbey
+                            catalogue or digital fascimile. <egXML xmlns="http://www.tei-c.org/ns/Examples"> Eberbach, Cistercian abbey
                                 (?): ‘modern’ chapter numbers added in boxes in the margin, as in
                                     <bibl type="MS" subtype="internal">MS. Laud Lat. 107</bibl>. </egXML>
                             <egXML xmlns="http://www.tei-c.org/ns/Examples"> This scribe was also
-                                responsible for most of the Simeon manuscript (<bibl type="MS"
-                                    subtype="external"><ref
-                                        target="http://www.bl.uk/manuscripts/FullDisplay.aspx?ref=Add_MS_22283"
-                                        >London, British Library, Add. MS. 22283</ref></bibl>) but
+                                responsible for most of the Simeon manuscript (<bibl type="MS" subtype="external"><ref target="http://www.bl.uk/manuscripts/FullDisplay.aspx?ref=Add_MS_22283">London, British Library, Add. MS. 22283</ref></bibl>) but
                                 has not yet been identified in any other manuscripts or documents.
                             </egXML>
                         </p>
@@ -495,8 +467,7 @@
                                 encoding. The <gi>respStmt</gi> element must have a
                                     <att>xml:id</att> attribute containing an identifier for the
                                 person(s) responsible for the cataloguing and/or encoding. The name
-                                should be recorded in a persName element (see <ptr
-                                    target="#personalnames"/>) and the role of the person
+                                should be recorded in a persName element (see <ptr target="#personalnames"/>) and the role of the person
                                 responsible in <gi>resp</gi> elements. If known, the date should be
                                 given in the <att>when</att> attribute of <gi>resp</gi>
                             </p>
@@ -573,12 +544,10 @@
                                     </respStmt>
                                 </egXML>
                                 <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                                    <provenance resp="#DL"><persName role="fmo" key="person_2854"
-                                            >William Wilson</persName>, F.S.A., of the Minories, his
+                                    <provenance resp="#DL"><persName role="fmo" key="person_2854">William Wilson</persName>, F.S.A., of the Minories, his
                                         sale, Christie's, 31 Jan.-1 Feb. 1833, lot 56 on 1 Feb.;
                                         bought by Thorpe for £53. 11s.</provenance>
-                                    <provenance resp="#DL">Purchased from Thorpe by <persName
-                                            key="person_69848690" role="fmo">Douce</persName>, Feb.
+                                    <provenance resp="#DL">Purchased from Thorpe by <persName key="person_69848690" role="fmo">Douce</persName>, Feb.
                                         1833.</provenance>
                                 </egXML>
                             </p>
@@ -634,19 +603,15 @@
                             provenance information, new identification of contents, etc. It must
                             contain at least one change element, which must have the <att>when</att>
                             attribute and may have the <att>who</att> attribute (which may be linked
-                            to the xml:id of the person in the <gi>respStmt</gi> element in <ptr
-                                target="#header"/>). The changes should be recorded in a reverse
+                            to the xml:id of the person in the <gi>respStmt</gi> element in <ptr target="#header"/>). The changes should be recorded in a reverse
                             chronological order with the most recent change first.</p>
                         <p><!-- TODO: change example -->
                             <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                 <revisionDesc>
                                     <change when="2018-06-15" xml:id="MMM"><persName>Mitch
                                             Fraas/Mapping Manuscript Migrations</persName>
-                                        Provenance and acquisition information added using <ref
-                                            target="https://github.com/littlegustv/oxfordupdates/blob/master/test_case_for_oxford_prov.rb"
-                                            >https://github.com/littlegustv/oxfordupdates/blob/master/test_case_for_oxford_prov.rb</ref>
-                                        in collaboration with the <ref
-                                            target="http://mappingmanuscriptmigrations.org/">Mapping
+                                        Provenance and acquisition information added using <ref target="https://github.com/littlegustv/oxfordupdates/blob/master/test_case_for_oxford_prov.rb">https://github.com/littlegustv/oxfordupdates/blob/master/test_case_for_oxford_prov.rb</ref>
+                                        in collaboration with the <ref target="http://mappingmanuscriptmigrations.org/">Mapping
                                             Manuscript Migrations</ref> project.'</change>
                                     <change when="2017-07-01">First online publication.</change>
                                 </revisionDesc>
@@ -670,8 +635,7 @@
                             <classDecl>
                                 <taxonomy xml:id="LCSH">
                                     <bibl>
-                                        <ref target="http://id.loc.gov/authorities/about.html#lcsh"
-                                            >Library of Congress Subject Headings</ref>
+                                        <ref target="http://id.loc.gov/authorities/about.html#lcsh">Library of Congress Subject Headings</ref>
                                     </bibl>
                                 </taxonomy>
                             </classDecl>
@@ -846,8 +810,7 @@
                             <p>Give the text language for the codicological unit in the
                                     <gi>textLang</gi>element , as a child of <gi>msContents</gi>,
                                 immediately after <gi>summary</gi> (if used), with the
-                                    <att>mainLang</att> attribute. <egXML
-                                    xmlns="http://www.tei-c.org/ns/Examples">
+                                    <att>mainLang</att> attribute. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                     <textLang mainLang="grc">Greek</textLang>
                                 </egXML>
                             </p>
@@ -861,12 +824,9 @@
                             <p>In some cases the decision of which language is ‘main’ and which
                                 is/are ‘other’ may be rather arbitrary.</p>
                             <p>The attributes values used should conform to the BCP 47 standard
-                                    (<ref target="http://www.rfc-editor.org/rfc/bcp/bcp47.txt"
-                                    >http://www.rfc-editor.org/rfc/bcp/bcp47.txt</ref>) which start
+                                    (<ref target="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">http://www.rfc-editor.org/rfc/bcp/bcp47.txt</ref>) which start
                                 with two-or-three-letter ISO 639 codes for languages, then an ISO
-                                15924 code for the script, and finally IANA language subtags (<ref
-                                    target="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry"
-                                    >https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry</ref>)
+                                15924 code for the script, and finally IANA language subtags (<ref target="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry">https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry</ref>)
                                 for other information, such as methods of transliteration.</p>
                             <p>If the unit contains multiple works, in different languages or
                                 scripts, the <gi>textLang</gi> element should be used in the
@@ -934,8 +894,7 @@
                                 works.) For retroconversion, follow the numbering system used in the
                                 original catalogue. For new cataloguing, use arabic numbers, using a
                                 decimal point when <gi>msItem</gi> is nested. For example, for the
-                                second section of the first work: <egXML
-                                    xmlns="http://www.tei-c.org/ns/Examples">
+                                second section of the first work: <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                     <msItem n="1.2">
                                         <!-- ... -->
                                     </msItem>
@@ -943,8 +902,7 @@
                                 <!--If the manuscript item is incomplete through loss or damage use the <att>defective</att> attribute with value <val>true</val> (default value is <val>false</val>).--></p>
                             <p>Just as the <att>n</att> attribute provides a way for readers to
                                 reference and locate items, <att>xml:id</att> attributes do the same
-                                for computers. So these ideally should be added too: <egXML
-                                    xmlns="http://www.tei-c.org/ns/Examples">
+                                for computers. So these ideally should be added too: <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                     <msItem n="1.2" xml:id="Add_1056-item1-item2">
                                         <!-- ... -->
                                     </msItem>
@@ -967,8 +925,7 @@
                                 </egXML>
                             </p>
                             <p>Pages containing short notes or scribbles by later hands should be
-                                recorded in the <gi>additions</gi> element, see <ptr
-                                    target="#additions"/>.</p>
+                                recorded in the <gi>additions</gi> element, see <ptr target="#additions"/>.</p>
                             <div xml:id="whatIsMsItem">
                                 <head>What is a manuscript item?</head>
                                 <p>The Guidelines offer the following definitions: ‘each discrete
@@ -1030,9 +987,7 @@
                                     <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                         <msItem><author key="person_66806872">AUGUSTINE</author>
                                             <title key="work_784">De Trinitate</title>
-                                            <note>Preceded by the relevant extract from <title
-                                                  key="work_804">Retract.</title> and the <title
-                                                  key="work_801">Epistola ad Aurelium (Epist.
+                                            <note>Preceded by the relevant extract from <title key="work_804">Retract.</title> and the <title key="work_801">Epistola ad Aurelium (Epist.
                                                   74).</title></note></msItem>
                                     </egXML>
                                     <egXML xmlns="http://www.tei-c.org/ns/Examples">
@@ -1059,9 +1014,7 @@
                                                   verses of each Psalm</title>
                                             </msItem>
                                             <msItem n="b">
-                                                <title type="desc">Subject-index, ‘<hi rend="italic"
-                                                  >Abissus</hi>—<hi rend="italic"
-                                                  >Zelus</hi>’</title>
+                                                <title type="desc">Subject-index, ‘<hi rend="italic">Abissus</hi>—<hi rend="italic">Zelus</hi>’</title>
                                                 <incipit>Abissus dicuntur in profundo
                                                   peccati</incipit>
                                                 <note>f. 413rv blank</note>
@@ -1185,9 +1138,7 @@
                                                 <gi>note</gi> to indicate if it is a later
                                             addition</item>
                                         <item>Group added texts together in a separate section at
-                                            the end of <gi>msContents</gi>, preceded by <egXML
-                                                xmlns="http://www.tei-c.org/ns/Examples"
-                                                  ><msItem><note>Added texts:</note>
+                                            the end of <gi>msContents</gi>, preceded by <egXML xmlns="http://www.tei-c.org/ns/Examples"><msItem><note>Added texts:</note>
                                                   <!-- added texts here -->
                                                 </msItem></egXML></item>
                                     </list>
@@ -1206,26 +1157,18 @@
                                             </msItem>
                                             <msItem n="b">
                                                 <locusGrp>
-                                                  <locus from="356rb" to="356vb">Fols 356<hi
-                                                  rend="superscript">rb-vb</hi>,</locus>
-                                                  <locus from="374ra" to="374rb">374<hi
-                                                  rend="superscript">rab</hi></locus>
+                                                  <locus from="356rb" to="356vb">Fols 356<hi rend="superscript">rb-vb</hi>,</locus>
+                                                  <locus from="374ra" to="374rb">374<hi rend="superscript">rab</hi></locus>
                                                 </locusGrp>
-                                                <incipit>heremita yu semest a fela <gap unit="chars"
-                                                  quantity="6"/>
+                                                <incipit>heremita yu semest a fela <gap unit="chars" quantity="6"/>
                                                   <lb/>
-                                                  <gap unit="chars" quantity="18"/> was he<gap
-                                                  unit="chars" quantity="2"/>
+                                                  <gap unit="chars" quantity="18"/> was he<gap unit="chars" quantity="2"/>
                                                   <lb/> but yu wit me al ny3t</incipit>
                                                 <incipit>
-                                                  <locus>[fol. 374<hi rend="superscript"
-                                                  >ra</hi>]</locus> And you seeme welle...</incipit>
+                                                  <locus>[fol. 374<hi rend="superscript">ra</hi>]</locus> And you seeme welle...</incipit>
                                                 <incipit>
-                                                  <locus>[fol. 374<hi rend="superscript"
-                                                  >rb</hi>]</locus> So help me lorde Jesu</incipit>
-                                                <explicit><gap unit="chars" quantity="13"/>d ye <gap
-                                                  unit="chars" quantity="2"/>y<gap unit="chars"
-                                                  quantity="1"/> prince <lb/> For yis work as tu
+                                                  <locus>[fol. 374<hi rend="superscript">rb</hi>]</locus> So help me lorde Jesu</incipit>
+                                                <explicit><gap unit="chars" quantity="13"/>d ye <gap unit="chars" quantity="2"/>y<gap unit="chars" quantity="1"/> prince <lb/> For yis work as tu
                                                   worth</explicit>
                                                 <title key="work_12461">The King and the
                                                   Hermit</title>
@@ -1243,14 +1186,12 @@
                                                   available witness, BodL, MS Ashmole 61, from which
                                                   it also widely diverges. Written in on blank
                                                   leaves in plummet, partially washed and much
-                                                  faded, in anglicana, s. xiv<hi rend="superscript"
-                                                  >ex</hi>. The incipit above corresponds to line
+                                                  faded, in anglicana, s. xiv<hi rend="superscript">ex</hi>. The incipit above corresponds to line
                                                   291 of the printed text (24); the text may begin
                                                   on the virtually illegible fol. 374.</note>
                                             </msItem>
                                             <msItem n="c">
-                                                <locus>Fols 372<hi rend="superscript">ra</hi>-73<hi
-                                                  rend="superscript">vb</hi></locus>
+                                                <locus>Fols 372<hi rend="superscript">ra</hi>-73<hi rend="superscript">vb</hi></locus>
                                                 <incipit defective="true"> an sit agend’ indic’
                                                   officio ut notatur Capitulo de edis
                                                   do<ex>m</ex>ini</incipit>
@@ -1285,10 +1226,8 @@
                                     location in the manuscript the <gi>locusGrp</gi> element should
                                     be used. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                         <locusGrp>
-                                            <locus from="356rb" to="356vb">Fols 356<hi
-                                                  rend="superscript">rb-vb</hi>,</locus>
-                                            <locus from="374ra" to="374rb">374<hi rend="superscript"
-                                                  >rab</hi></locus>
+                                            <locus from="356rb" to="356vb">Fols 356<hi rend="superscript">rb-vb</hi>,</locus>
+                                            <locus from="374ra" to="374rb">374<hi rend="superscript">rab</hi></locus>
                                         </locusGrp>
                                     </egXML>
                                 </p>
@@ -1300,8 +1239,7 @@
                                     inside the <gi>author</gi> element. This MUST have a reference,
                                     using the <att>key</att> attribute, to the persons authority
                                     file, see <ptr target="#personalnames"/>. The <gi>author</gi>
-                                    element should be omitted for anonymous works. <egXML
-                                        xmlns="http://www.tei-c.org/ns/Examples">
+                                    element should be omitted for anonymous works. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                         <author key="person_66806872">Augustine</author>
                                     </egXML>
                                 </p>
@@ -1316,8 +1254,7 @@
                                     If they have, set the <att>key</att> attribute to the identifier
                                     of the existing record, which is the part of the URL after the
                                     last slash, starting with "person_". If you can find the person
-                                    by searching in VIAF (<ref target="http://viaf.org/"
-                                        >http://viaf.org/</ref>) set the value to "person_" followed
+                                    by searching in VIAF (<ref target="http://viaf.org/">http://viaf.org/</ref>) set the value to "person_" followed
                                     by their VIAF number. Otherwise, leave the <att>key</att>
                                     attribute blank and an identifier will be assigned to it at a
                                     later date.</p>
@@ -1337,8 +1274,7 @@
                                         <att>type</att> attribute in which you can specify "laqab",
                                     "kunyah", "khitab", "nisbah”", etc.)</p>
                                 <p>(Optional) To indicate that an author's name is not present in
-                                    the MS., use <gi>supplied</gi>. <egXML
-                                        xmlns="http://www.tei-c.org/ns/Examples">
+                                    the MS., use <gi>supplied</gi>. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                         <author key="person_66806872">
                                             <supplied>Augustine</supplied>
                                         </author>
@@ -1351,8 +1287,7 @@
                                         name of an author, but whose true author is not known, are
                                         by convention attributed to Pseudo-Augustine,
                                         Pseudo-Ambrose, etc., and these conventional attributions
-                                        should be followed. <egXML
-                                            xmlns="http://www.tei-c.org/ns/Examples">
+                                        should be followed. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                             <author key="person_7386286">Ps.-Augustine</author>
                                             <title key="work_3881">De Vera et Falsa
                                                 Poenitentia</title>
@@ -1362,8 +1297,7 @@
                                         suspected, should be catalogued under the author which
                                         modern scholarship prefers. In some cases, where the
                                         association with other authors is strong, it will be useful
-                                        to give these in addition. <egXML
-                                            xmlns="http://www.tei-c.org/ns/Examples">
+                                        to give these in addition. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                             <author key="person_79148266">Haimo of Auxerre
                                                 (Ps.-Haimo of Halberstadt, Ps.-Cassiodorus)</author>
                                             <title key="work_1946">Commentary on the Song of
@@ -1376,25 +1310,20 @@
                                         recorded either in a <gi>note</gi> element or by relevant
                                         markup in the <gi>rubric</gi> element. Use the
                                             <gi>persName</gi> element with attribute <att>role</att>
-                                        of value <val>att</val> (= ‘attributed name’) <egXML
-                                            xmlns="http://www.tei-c.org/ns/Examples">
+                                        of value <val>att</val> (= ‘attributed name’) <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                             <author key="person_84971682">Ivo of Chartres</author>
                                             <title>Epistola ad Seuerinum</title>
-                                            <rubric>Incipit liber <persName key="person_100187025"
-                                                  role="att">Anselmi</persName> de caritate</rubric>
+                                            <rubric>Incipit liber <persName key="person_100187025" role="att">Anselmi</persName> de caritate</rubric>
                                         </egXML>
                                         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                                            <author key="person_209749583"
-                                                  ><supplied>Ps.-Bede</supplied></author>
+                                            <author key="person_209749583"><supplied>Ps.-Bede</supplied></author>
                                             <title key="work_6131"><supplied>Commentary on
                                                   John</supplied></title>
-                                            <note>Cap. 3. Here ascribed to <persName role="att"
-                                                  key="person_66806872">Augustine</persName>.</note>
+                                            <note>Cap. 3. Here ascribed to <persName role="att" key="person_66806872">Augustine</persName>.</note>
                                         </egXML>
                                     </p>
                                     <p>Multiple authors can be indicated using repeated
-                                            <gi>author</gi> elements. <egXML
-                                            xmlns="http://www.tei-c.org/ns/Examples">
+                                            <gi>author</gi> elements. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                             <msItem xml:id="MS_Douce_332-item1" n="1">
                                                 <author key="person_95220054">Guillaume de
                                                   Lorris</author>
@@ -1408,8 +1337,7 @@
                                             <att>cert</att> attribute. Following the usage of
                                         Richard Sharpe, ‘attrib.’ can be used for modern scholarly
                                         attributions of authorship; ‘ascr.’ denotes ascriptions in
-                                        manuscripts; and ‘(?)’ denotes broader uncertainty. <egXML
-                                            xmlns="http://www.tei-c.org/ns/Examples">
+                                        manuscripts; and ‘(?)’ denotes broader uncertainty. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                             <author key="person_2205" cert="medium">Roger of Caen
                                                 (attrib.) (Ps.-Alexander Nequam)</author>
                                             <title key="work_4455">De professione monachorum</title>
@@ -1425,9 +1353,7 @@
                                         <gi>editor</gi> element, distinguished with a
                                         <att>role</att> attribute containing a three-letter code (or
                                     multiple codes separated by spaces) selected from the MARC
-                                    relators list (<ref
-                                        target="https://www.loc.gov/marc/relators/relaterm.html"
-                                        >https://www.loc.gov/marc/relators/relaterm.html</ref>). Do
+                                    relators list (<ref target="https://www.loc.gov/marc/relators/relaterm.html">https://www.loc.gov/marc/relators/relaterm.html</ref>). Do
                                     not add a label for their role, as this will be added when
                                     displayed on the web site. For example, for a translator:</p>
                                 <egXML xmlns="http://www.tei-c.org/ns/Examples">
@@ -1445,12 +1371,10 @@
                                     be explained in a separate <gi>note</gi>. </p>
                                 <p>Alternatively (this is current practice in the medieval
                                     catalogue) information about translators, etc., may be provided
-                                    in the <gi>note</gi> element as follows: <egXML
-                                        xmlns="http://www.tei-c.org/ns/Examples">
+                                    in the <gi>note</gi> element as follows: <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                         <author key="person_95155322"> Origen </author>
                                         <title key="work_3395">Homilies on Joshua</title>
-                                        <note>(Latin tr. by <persName key="person_77679446"
-                                                role="trl">Rufinus</persName>)</note>
+                                        <note>(Latin tr. by <persName key="person_77679446" role="trl">Rufinus</persName>)</note>
                                     </egXML>
                                 </p>
                             </div>
@@ -1495,10 +1419,8 @@
                                     Otherwise, leave the key attribute blank and an identifier will
                                     be assigned to it at a later date.</p>
                                 <p>(optional) to indicate the title is not given in the manuscript,
-                                    use the <gi>supplied</gi> element. <egXML
-                                        xmlns="http://www.tei-c.org/ns/Examples">
-                                        <author key="person_89657091"
-                                                ><supplied>Bonaventure</supplied></author>
+                                    use the <gi>supplied</gi> element. <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                        <author key="person_89657091"><supplied>Bonaventure</supplied></author>
                                         <title key="work_1144"><supplied>Legenda
                                             maior</supplied></title>
                                     </egXML>
@@ -1515,16 +1437,14 @@
                                     rubric need not be noted, although it can be included in a
                                         <gi>note</gi> if it is significant (e.g. all other texts do
                                     have rubrics). </p>
-                                <p>Follow the principles of transcription outlined above <ptr
-                                        target="#transcription"/> to transcribe the MS. or to encode
+                                <p>Follow the principles of transcription outlined above <ptr target="#transcription"/> to transcribe the MS. or to encode
                                     the text given in an existing catalogue.</p>
                                 <p>It is assumed that the language of incipits, etc., is the same as
                                     the language specified in <gi>textLang</gi>. It is not necessary
                                     to use <att>xml:lang</att> to specify the language of the
                                     incipit (etc.), unless multiple languages are involved (e.g.
                                         <gi>msItem</gi> with <gi>rubric</gi> in French but
-                                        <gi>incipit</gi> in Latin). <egXML
-                                        xmlns="http://www.tei-c.org/ns/Examples">
+                                        <gi>incipit</gi> in Latin). <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                         <msItem xml:id="MS_Buchanan_e_13-item1-item5-item1">
                                             <locus>(fols.18r-21v)</locus>
                                             <rubric xml:lang="frm">Oraison tres deuote de nostre
@@ -1545,8 +1465,7 @@
                                             <locus from="64r" to="70v">(fols. 64r-70v)</locus>
                                             <title key="work_16047">Divinacio
                                                 ciceronalis</title><note>(incomplete)</note>
-                                            <note>See A. A. Guardo, 'La <foreign rend="italic"
-                                                  >Divinacio Ciceronalis</foreign>: un libro de
+                                            <note>See A. A. Guardo, 'La <foreign rend="italic">Divinacio Ciceronalis</foreign>: un libro de
                                                 suertes medieval. Estudio introductorio', in
                                                   <title>De lo humano y lo divino en la literatura
                                                   medieval: santos, ángeles y demonios</title>, ed.
@@ -1575,8 +1494,7 @@
                                     colophon form a single sentence, put both inside
                                         <gi>finalRubric</gi> with <att>type</att> attribute of value
                                         <val>colophon</val>. (The <gi>colophon</gi> element cannot
-                                    have the <att>type</att> attribute.) <egXML
-                                        xmlns="http://www.tei-c.org/ns/Examples">
+                                    have the <att>type</att> attribute.) <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                         <finalRubric type="colophon">Expliciunt omelie Iohannis
                                             Crisostomi patriarche Constantinopolitanis super Matheum
                                             operis imperfecti scripte anno Domini 1382</finalRubric>
@@ -1604,8 +1522,7 @@
                                 <p>Use of the <att>type</att> attribute will not always be possible
                                     in retroversion if the catalogue does not provide the
                                     information. In this case a series of the relevant elements
-                                    without <att>type</att> should be used. <egXML
-                                        xmlns="http://www.tei-c.org/ns/Examples">
+                                    without <att>type</att> should be used. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                         <!-- Merton College MS. 20 -->
                                         <msItem n="1">
                                             <locus from="1r" to="14v">(fols. 1-14v)</locus>
@@ -1640,8 +1557,7 @@
                                         to be generated to aid discovery.</p>
                                     <p>Incipits containing an initial address should be divided into
                                         two <gi>incipit</gi> elements, the first containing the
-                                        address and the second the incipit itself. <egXML
-                                            xmlns="http://www.tei-c.org/ns/Examples">
+                                        address and the second the incipit itself. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                             <author key="person_47155211">PETER OF WALTHAM</author>
                                             <title key="work_3545">Remediarium Conuersorum</title>
                                             <incipit>Reuerendo patri Ricardo ecclesie Londoniensi
@@ -1663,8 +1579,7 @@
                                                 duo; primum est Christo debita
                                                 administracio</incipit>
                                         </egXML> If the source is not given, the <gi>quote</gi>
-                                        element only may be used. <egXML
-                                            xmlns="http://www.tei-c.org/ns/Examples">
+                                        element only may be used. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                             <incipit><quote rend="italic"><supplied>V</supplied>erbo
                                                   Domini celi firmati sunt</quote> &amp;c. Tria in
                                                 hiis uerbis sunt notari primum omnium sacre
@@ -1674,8 +1589,7 @@
                                     <p>Where a brief lemma would not typically be indexed separately
                                         (e.g. in a glossary or commentary), but would be considered
                                         an integral part of the incipit, the lemma may only be
-                                        distinguished typographically. <egXML
-                                            xmlns="http://www.tei-c.org/ns/Examples">
+                                        distinguished typographically. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                             <incipit><hi rend="italic">Abba</hi> secundum Papiam
                                                 Syrum nomen est</incipit>
                                         </egXML>
@@ -1694,8 +1608,7 @@
                                     convenient in retroconversion to include this information in a
                                     single <gi>note</gi> element. Equally some of this information
                                     may be encoded more appropriately using other elements, such as
-                                        <gi>bibl</gi> or <gi>filiation</gi>. Compare: <egXML
-                                        xmlns="http://www.tei-c.org/ns/Examples">
+                                        <gi>bibl</gi> or <gi>filiation</gi>. Compare: <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                         <msItem n="3">
                                             <locus>(fols 54r-73r)</locus>
                                             <author key="person_196789494"><supplied>Ps.</supplied>
@@ -1720,8 +1633,7 @@
 
                                 <p>The <gi>filiation</gi> element provides information about the
                                     relationship of the manuscript with other surviving manuscripts
-                                    in terms of their content. For example: <egXML
-                                        xmlns="http://www.tei-c.org/ns/Examples">
+                                    in terms of their content. For example: <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                         <msItem n="2">
                                             <title xml:lang="ara-Latn-x-lc">Khulāṣat al-ikhtiṣāṣ fī
                                                 maʻrifat al-quwá wa-al-khawāṣṣ</title>
@@ -1736,10 +1648,7 @@
                                     catalogue pages. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                         <listBibl>
                                             <bibl>
-                                                <ref
-                                                  target="http://www.lib.cam.ac.uk/arabic_catalogues/browne/view.php?
-                                                    id=76"
-                                                  >no. 673</ref>
+                                                <ref target="http://www.lib.cam.ac.uk/arabic_catalogues/browne/view.php?                                                     id=76">no. 673</ref>
                                             </bibl>
                                         </listBibl>
                                     </egXML> Do not use this method to link to digitized copies, use
@@ -1870,8 +1779,7 @@
                                     <p>Provides a prose description of the material. For parchment,
                                         this may include comment on the quality of the parchment and
                                         its disposition. For mixed material, the nature of the
-                                        combination should be described. <egXML
-                                            xmlns="http://www.tei-c.org/ns/Examples"><support>Paper,
+                                        combination should be described. <egXML xmlns="http://www.tei-c.org/ns/Examples"><support>Paper,
                                                 with parchment bifolia for the outer and inner
                                                 leaves of the quire.</support></egXML>
                                     </p>
@@ -1900,10 +1808,8 @@
                                         manuscript, it should be described in the <gi>layout</gi>
                                         element, rather than in <gi>support</gi>. <!-- todo: check with JF here -->
                                         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                                            <support>Parchment (<term type="disposition"
-                                                >FHHF</term>)</support>
-                                            <support>Parchment (<term type="disposition"
-                                                >HFHF</term>)</support>
+                                            <support>Parchment (<term type="disposition">FHHF</term>)</support>
+                                            <support>Parchment (<term type="disposition">HFHF</term>)</support>
                                         </egXML>
                                     </p>
                                     <p>Note that this convention regarding H and F differs from the
@@ -1985,17 +1891,14 @@
                                             <head>Examples:</head>
                                             <p>
                                                 <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                                                  <watermark><term type="watermarkMotif" key="J3/3"
-                                                  >Monts/Dreiberg</term></watermark>
+                                                  <watermark><term type="watermarkMotif" key="J3/3">Monts/Dreiberg</term></watermark>
                                                 </egXML>
                                                 <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                                   <support>
                                                   <material>
                                                   <locus from="1r" to="48v">Fols. 1-48</locus>,
-                                                  paper, folded in <measure>quarto</measure>; <num
-                                                  type="chainlinesLeaf">8</num> chainlines per leaf.
-                                                  <watermark>Watermark: <term type="watermarkMotif"
-                                                  >Hand</term>, <note type="variation">surmounted by
+                                                  paper, folded in <measure>quarto</measure>; <num type="chainlinesLeaf">8</num> chainlines per leaf.
+                                                  <watermark>Watermark: <term type="watermarkMotif">Hand</term>, <note type="variation">surmounted by
                                                   a fleuron</note>, <note type="position">on a
                                                   chainline</note>. </watermark>
                                                   </material>
@@ -2005,44 +1908,28 @@
                                                   <support>
                                                   <material>
                                                   <locus from="1r" to="48v">1-48</locus>, paper,
-                                                  folded in <measure>quarto</measure>, <note
-                                                  type="paperType">chancery</note>; original size of
+                                                  folded in <measure>quarto</measure>, <note type="paperType">chancery</note>; original size of
                                                   the sheet <dimensions unit="mm" type="sheet">
                                                   <height>315</height>
                                                   <width>425</width>
-                                                  </dimensions> Chainlines: <num
-                                                  type="chainlinesLeaf">8</num> chainlines per leaf,
+                                                  </dimensions> Chainlines: <num type="chainlinesLeaf">8</num> chainlines per leaf,
                                                   <num type="chainlinesSheet">23</num> chainlines
-                                                  per sheet. <dimensions unit="mm" type="chainlines"
-                                                  ><width>19</width></dimensions> mm. between
-                                                  chainlines. <watermark>Watermark: <term
-                                                  type="watermarkMotif">Hand</term>, <note
-                                                  type="watermarkVariation">surmounted by a
+                                                  per sheet. <dimensions unit="mm" type="chainlines"><width>19</width></dimensions> mm. between
+                                                  chainlines. <watermark>Watermark: <term type="watermarkMotif">Hand</term>, <note type="watermarkVariation">surmounted by a
                                                   fleuron</note>, <note type="watermarkPosition">on
-                                                  a chainline</note> (<ref
-                                                  target="http://www.ksbm.oeaw.ac.at/_scripts/php/loadRepWmark.php?rep=briquet&amp;refnr=10713&amp;lang=fr"
-                                                  >Briquet 10713</ref>)</watermark>
+                                                  a chainline</note> (<ref target="http://www.ksbm.oeaw.ac.at/_scripts/php/loadRepWmark.php?rep=briquet&amp;refnr=10713&amp;lang=fr">Briquet 10713</ref>)</watermark>
                                                   </material> <material>
                                                   <locus from="49r" to="72v">49-72</locus>, paper,
-                                                  folded in <measure>folio</measure>, <note
-                                                  type="paperType">chancery</note>; original size of
+                                                  folded in <measure>folio</measure>, <note type="paperType">chancery</note>; original size of
                                                   the sheet <dimensions unit="mm" type="paperSheet">
                                                   <height>290</height>
                                                   <width>420</width>
-                                                  </dimensions>. Chainlines: <num
-                                                  type="chainlinesLeaf">6</num> chainlines per leaf,
+                                                  </dimensions>. Chainlines: <num type="chainlinesLeaf">6</num> chainlines per leaf,
                                                   <num type="chainlinesSheet">12</num> chainlines
-                                                  per sheet. <dimensions unit="mm" type="chainlines"
-                                                  ><width>33</width></dimensions> mm. between
-                                                  chainlines. <watermark>Watermark: <term
-                                                  type="watermarkMotif">Bird</term>, <note
-                                                  type="watermarkVariation">with a cross surmounted
-                                                  with trefoils</note>, <note
-                                                  type="watermarkPosition">between chainlines</note>
-                                                  (<ref
-                                                  target="http://www.ksbm.oeaw.ac.at/_scripts/php/loadRepWmark.php?amp;rep=briquet&amp;refnr=12170&amp;lang=fr"
-                                                  >Briquet 12170</ref>) <dimensions unit="mm"
-                                                  type="watermark">
+                                                  per sheet. <dimensions unit="mm" type="chainlines"><width>33</width></dimensions> mm. between
+                                                  chainlines. <watermark>Watermark: <term type="watermarkMotif">Bird</term>, <note type="watermarkVariation">with a cross surmounted
+                                                  with trefoils</note>, <note type="watermarkPosition">between chainlines</note>
+                                                  (<ref target="http://www.ksbm.oeaw.ac.at/_scripts/php/loadRepWmark.php?amp;rep=briquet&amp;refnr=12170&amp;lang=fr">Briquet 12170</ref>) <dimensions unit="mm" type="watermark">
                                                   <height>41</height>
                                                   <width>19</width>
                                                   </dimensions>
@@ -2165,10 +2052,7 @@
                                         <p>
                                             <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                                 <extent> [...] <seg type="leaf">
-                                                    <measure type="laterEndleaf" quantity="2">ii</measure> + <measure
-                                                        type="endleaf" quantity="1">1</measure> + <measure
-                                                            type="leaf" quantity="320">320</measure> + <measure
-                                                                type="laterEndleaf" quantity="2">ii</measure>
+                                                    <measure type="laterEndleaf" quantity="2">ii</measure> + <measure type="endleaf" quantity="1">1</measure> + <measure type="leaf" quantity="320">320</measure> + <measure type="laterEndleaf" quantity="2">ii</measure>
                                                   </seg>
                                                 </extent>
                                             </egXML>
@@ -2181,8 +2065,7 @@
                                             distinguished), but any rear endleaves are included in
                                             with the main block. In such cases mark up as follows:
                                                 <egXML xmlns="http://www.tei-c.org/ns/Examples"><extent>
-                                                  <num type="endleaf" value="2">ii</num> + <num
-                                                  type="leaf" value="73">73</num>
+                                                  <num type="endleaf" value="2">ii</num> + <num type="leaf" value="73">73</num>
                                                 </extent>
                                             </egXML>
                                         </p>
@@ -2224,8 +2107,7 @@
                                         machine-readable form of the measurement.</p>
                                     <p>For a range of measurement (typically greater variation than
                                         10mm between the leaves), use <att>min</att> and
-                                            <att>max</att>: <egXML
-                                            xmlns="http://www.tei-c.org/ns/Examples">
+                                            <att>max</att>: <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                             <dimensions type="fragment" unit="mm">
                                                 <height quantity="176">176</height>
                                                 <width quantity="125">125</width>
@@ -2242,9 +2124,7 @@
                                     <p>In retroconversion, if the source catalogue uses "c.", the
                                             <att>precision</att> attribute should be used. (The
                                         default value of <att>precision</att> is assumed to be
-                                            <val>high</val>.) <egXML
-                                            xmlns="http://www.tei-c.org/ns/Examples"><dimensions
-                                                type="leaf" unit="mm">
+                                            <val>high</val>.) <egXML xmlns="http://www.tei-c.org/ns/Examples"><dimensions type="leaf" unit="mm">
                                                 <height min="290" max="315" precision="medium">c.
                                                   290</height>
                                                 <width min="160" max="180" precision="medium">c.
@@ -2254,8 +2134,7 @@
                                     <p>If there is evidence of cropping (e.g. loss of text in the
                                         margins), record this using the attribute <att>cert</att>
                                         with the value <val>low</val>
-                                        <egXML xmlns="http://www.tei-c.org/ns/Examples"><dimensions
-                                                type="leaf" unit="mm">
+                                        <egXML xmlns="http://www.tei-c.org/ns/Examples"><dimensions type="leaf" unit="mm">
                                                 <height quantity="290" cert="low">290</height>
                                                 <width quantity="160">160</width>
                                             </dimensions><note>Severely cropped in the upper
@@ -2271,9 +2150,7 @@
                                         distinguished by folio range. These details may be recorded
                                         in a <gi>note</gi>.</p>
                                     <p>For rolls, provide both the dimensions of the roll as a
-                                        whole, followed by those of the membranes. <egXML
-                                            xmlns="http://www.tei-c.org/ns/Examples"><dimensions
-                                                type="roll" unit="mm">
+                                        whole, followed by those of the membranes. <egXML xmlns="http://www.tei-c.org/ns/Examples"><dimensions type="roll" unit="mm">
                                                 <height quantity="4425">4425</height>
                                                 <width quantity="290">290</width>
                                             </dimensions>
@@ -2305,8 +2182,7 @@
                                         sufficient to calculate an approximate number of lines and
                                         original size of the leaf. Use <att>cert</att> to indicate
                                         where such inferences have been made, adding within
-                                            <gi>note</gi> an explanation of the evidence. <egXML
-                                            xmlns="http://www.tei-c.org/ns/Examples">
+                                            <gi>note</gi> an explanation of the evidence. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                             <dimensions type="fragment" unit="mm">
                                                 <height quantity="183">183</height>
                                                 <width quantity="179">179</width>
@@ -2348,19 +2224,16 @@
                                         the practices as outlined above, using the attribute
                                             <att>type</att> with the values <val>ruled</val> or
                                             <val>written</val> as appropriate. </p>
-                                    <p>Concluding examples: <egXML
-                                            xmlns="http://www.tei-c.org/ns/Examples">
+                                    <p>Concluding examples: <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                             <extent>
                                                 <seg type="leaf">
                                                   <num type="later_endleaf" value="4">iv</num> +
-                                                  <num type="leaf" value="288">288</num> + <num
-                                                  type="later_endleaf" value="2">ii</num>
+                                                  <num type="leaf" value="288">288</num> + <num type="later_endleaf" value="2">ii</num>
                                                 </seg>
                                                 <seg type="dimensions">
                                                   <dimensions type="leaf" unit="mm">
                                                   <height quantity="350">350</height>
-                                                  <width quantity="245"
-                                                  >245</width></dimensions></seg>
+                                                  <width quantity="245">245</width></dimensions></seg>
                                             </extent>
                                         </egXML>
                                         <egXML xmlns="http://www.tei-c.org/ns/Examples">
@@ -2405,16 +2278,14 @@
                                             margin of each recto</p>
                                     </foliation>
                                     <foliation xml:id="modern">
-                                        <p>Additional pagination in pencil in <locus from="1b"
-                                                to="67a">ff. 1b-67a</locus></p>
+                                        <p>Additional pagination in pencil in <locus from="1b" to="67a">ff. 1b-67a</locus></p>
                                     </foliation>
                                 </egXML>
                                 <p>The dating attributes <att>notBefore</att>, <att>notAfter</att>
                                     and (less probably) <att>when</att> may be used if desired to
                                     (note: this is a customization and not currently part of the TEI
                                     P5 standard). <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                                        <foliation notBefore="1400" notAfter="1500"
-                                            >Fifteenth-century foliation in roman
+                                        <foliation notBefore="1400" notAfter="1500">Fifteenth-century foliation in roman
                                             numerals.</foliation>
                                     </egXML>
                                 </p>
@@ -2456,8 +2327,7 @@
                                 <p>The <gi>formula</gi> element should be used for brief collation
                                     formulae. For more detailed formulae, use the <gi>list</gi>
                                     element with attribute <att>type</att> of value
-                                        <val>collationFormula</val>. <egXML
-                                        xmlns="http://www.tei-c.org/ns/Examples">
+                                        <val>collationFormula</val>. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                         <collation>
                                             <list>
                                                 <item>2 modern paper endleaves</item>
@@ -2531,21 +2401,11 @@
                                     excised / missing / cancelled leaves or gatherings that has
                                     already been provided under <gi>collation</gi>. If there is a
                                     large quantity of information to record, use <gi>p</gi> to
-                                    separate it into paragraphs.<egXML
-                                        xmlns="http://www.tei-c.org/ns/Examples"><condition>
+                                    separate it into paragraphs.<egXML xmlns="http://www.tei-c.org/ns/Examples"><condition>
                                             <p>Several of the miniatures have been rubbed and the
-                                                pigments smudged (<locus from="10v" to="10v"
-                                                  >10v</locus>, <locus from="26v" to="26v"
-                                                  >26v</locus>, <locus from="30v" to="30v"
-                                                  >30v</locus>, <locus from="33v" to="33v"
-                                                  >33v</locus>, <locus from="44v" to="44v"
-                                                  >44v</locus>, <locus from="51v" to="51v"
-                                                  >51v</locus>).</p>
-                                            <p>Pigments have also flaked away in places (<locus
-                                                  from="10v" to="10v">10v</locus>, <locus from="59v"
-                                                  to="51v">59v</locus>) and transferred to facing
-                                                leaves (<locus from="44v" to="45r"
-                                                >44v-45r</locus>).</p>
+                                                pigments smudged (<locus from="10v" to="10v">10v</locus>, <locus from="26v" to="26v">26v</locus>, <locus from="30v" to="30v">30v</locus>, <locus from="33v" to="33v">33v</locus>, <locus from="44v" to="44v">44v</locus>, <locus from="51v" to="51v">51v</locus>).</p>
+                                            <p>Pigments have also flaked away in places (<locus from="10v" to="10v">10v</locus>, <locus from="59v" to="51v">59v</locus>) and transferred to facing
+                                                leaves (<locus from="44v" to="45r">44v-45r</locus>).</p>
                                         </condition>
                                     </egXML>
                                 </p>
@@ -2580,8 +2440,7 @@
                             <p>Give the height and width of the writing area in mm (with 5 mm
                                 precision) in the <gi>dimensions</gi> element (<att>type</att>
                                 attribute with value <val>written</val>, preceding this with the
-                                explanatory text 'written space'). <egXML
-                                    xmlns="http://www.tei-c.org/ns/Examples">
+                                explanatory text 'written space'). <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                     <layout columns="1" writtenLines="30">30 long lines; written
                                         space <dimensions type="written" unit="mm">
                                             <height quantity="290">290</height>
@@ -2594,8 +2453,7 @@
                                             extending the full height of the page, ruled on the
                                             flesh side of the leaves with an instrument which
                                             produced a scored line, but also often left a brown
-                                            'crayon' trace. <seg type="pricking"><hi
-                                                  rend="smallcaps">PRICKINGS</hi> are often visible
+                                            'crayon' trace. <seg type="pricking"><hi rend="smallcaps">PRICKINGS</hi> are often visible
                                                 in the upper and lower margins, and in the outer
                                                 margin c.7 mm. below the bottom ruled
                                             line.</seg></layout>
@@ -2616,9 +2474,7 @@
                             <p>The description of the ruling type may be according to: a printed
                                 repertory (use the standard markup for repertoria); a verbal
                                 description; the formula established by D. Muzerelle, <title>De re
-                                    rigatoria</title> [<ref
-                                    target="http://www.palaeographia.org/muzerelle/index.htm"
-                                    >http://www.palaeographia.org/muzerelle/index.htm</ref>]. In the
+                                    rigatoria</title> [<ref target="http://www.palaeographia.org/muzerelle/index.htm">http://www.palaeographia.org/muzerelle/index.htm</ref>]. In the
                                 latter case the formula should be enclosed in a <gi>formula</gi>
                                 element with attribute <att>notation</att> of value
                                     <val>Muzerelle</val></p>
@@ -2627,8 +2483,7 @@
                                     <layoutDesc>
                                         <layout columns="2" writtenLines="24 52">
                                             <locus from="29r" to="30v" scheme="folios">Fols.
-                                                29r-30v</locus>: written space <dimensions
-                                                type="written">
+                                                29r-30v</locus>: written space <dimensions type="written">
                                                 <height quantity="165" unit="mm">165</height>
                                                 <width quantity="115" unit="mm">115</width>
                                             </dimensions>
@@ -2637,16 +2492,11 @@
                                                 twice as many lines per page.</note>
                                         </layout>
                                     </layoutDesc>
-                                    <layout writtenLines="25" columns="1" topLine="above"
-                                        rulingMedium="leadpoint">25 long lines. <seg type="pricking"
-                                            >Pricked in the outer margins.</seg> Ruled in leadpoint;
+                                    <layout writtenLines="25" columns="1" topLine="above" rulingMedium="leadpoint">25 long lines. <seg type="pricking">Pricked in the outer margins.</seg> Ruled in leadpoint;
                                         ruling often very faint, with double vertical bounding lines
                                         extending the full height of the page, and the first, third,
                                         twenty-third and twenty-fifth horizontal lines extending the
-                                        full width of the page (Muzerelle, <ref
-                                            target="http://www.palaeographia.org/muzerelle/mastara.htm"
-                                            >Mastara</ref>, formula <formula notation="Muzerelle"
-                                            >2-2/0/101-101/J</formula>). Written above top line.
+                                        full width of the page (Muzerelle, <ref target="http://www.palaeographia.org/muzerelle/mastara.htm">Mastara</ref>, formula <formula notation="Muzerelle">2-2/0/101-101/J</formula>). Written above top line.
                                         Written space <dimensions unit="mm" type="written">
                                             <height max="125" min="115">c. 115-125</height>
                                             <width min="75" max="85">75-85</width>
@@ -2801,11 +2651,9 @@
                             </list>
 
                             <p>For further levels of classification the <gi>term</gi> element with
-                                    <att>type</att> of <val>script</val> may be used. <egXML
-                                    xmlns="http://www.tei-c.org/ns/Examples">
+                                    <att>type</att> of <val>script</val> may be used. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                     <handDesc hands="1">
-                                        <handNote script="cursivaAntiquior">Written in <term
-                                                type="script">anglicana</term> by a single
+                                        <handNote script="cursivaAntiquior">Written in <term type="script">anglicana</term> by a single
                                             scribe.</handNote>
                                     </handDesc>
                                 </egXML>
@@ -2820,11 +2668,9 @@
                             <p>Punctuation should be described in the <gi>handNote</gi> element. Use
                                 the <gi>term</gi> element with attribute <att>type</att> of value
                                     <val>punctuation</val> to mark up particular types of
-                                punctuation, if desired. <egXML
-                                    xmlns="http://www.tei-c.org/ns/Examples">
+                                punctuation, if desired. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                     <handNote>Written in gothic <term type="script">textura
-                                            quadrata</term>. Punctuation by <term type="punctuation"
-                                            >point</term> and <term type="punctuation">double
+                                            quadrata</term>. Punctuation by <term type="punctuation">point</term> and <term type="punctuation">double
                                             point</term>.</handNote>
                                 </egXML>
                             </p>
@@ -2911,9 +2757,7 @@
                                     </row>
                                     <row>
                                         <cell>initials with penwork flourishing (Reallexikon zur
-                                            Deutschen Kunstgeschichte: <ref
-                                                target="http://www.rdklabor.de/w/?oldid=89543"
-                                                >fleuronné</ref>) (Brown: pen-flourished initial,
+                                            Deutschen Kunstgeschichte: <ref target="http://www.rdklabor.de/w/?oldid=89543">fleuronné</ref>) (Brown: pen-flourished initial,
                                             littera florissa). Initials with "fine linear embellishment" (Brown) often in a contrasting colour (includes 'puzzle' initials); borders of similar embellishment.</cell>
                                         <cell>flourInit</cell>
                                     </row>
@@ -2987,10 +2831,8 @@
                                                 quadrilobes and surrounded by short black sprays
                                                 terminating in gold disks and ivy leaves.</p>
                                             <p>The second miniature is signed ‘Willelmus de monte
-                                                acuto me fecit’ by the artist <persName
-                                                  key="person_1234" role="art">William Montague (fl.
-                                                  1390s?) (<locus from="37r" to="37r"
-                                                  >37r</locus>).</persName></p>
+                                                acuto me fecit’ by the artist <persName key="person_1234" role="art">William Montague (fl.
+                                                  1390s?) (<locus from="37r" to="37r">37r</locus>).</persName></p>
                                         </decoNote>
                                     </decoDesc>
                                 </egXML>
@@ -3025,16 +2867,12 @@
                             <p>The subjects of miniatures can be classified using the <gi>term</gi>
                                 element with attribute <att>type</att> of value
                                     <val>iconography</val>. The <att>ref</att> attribute can be used
-                                to point to a thesaurus, such as <ref
-                                    target="http://www.iconclass.nl/home">Iconclass</ref>. <egXML
-                                    xmlns="http://www.tei-c.org/ns/Examples">
+                                to point to a thesaurus, such as <ref target="http://www.iconclass.nl/home">Iconclass</ref>. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                     <decoNote type="histInit">
                                         <list>
                                             <head>One six-line historiated initial: </head>
                                             <item><locus from="49r" to="49r">(fol. 49r)</locus>
-                                                Hours of the Virgin, Lauds. <term type="iconography"
-                                                  ref="http://www.iconclass.org/rkd/73A6"
-                                                  >Visitation</term>. </item>
+                                                Hours of the Virgin, Lauds. <term type="iconography" ref="http://www.iconclass.org/rkd/73A6">Visitation</term>. </item>
                                         </list>
                                     </decoNote></egXML></p>
                             <p>Aspects of the manuscript relating to the presentation of the text -
@@ -3112,16 +2950,12 @@
                                 <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                     <bindingDesc>
                                         <binding notBefore="1600" notAfter="1700">
-                                            <p>Light brown <term type="material"
-                                                  ref="http://w3id.org/lob/concept/1238"
-                                                  >calfskin</term> over paste-laminate boards,
+                                            <p>Light brown <term type="material" ref="http://w3id.org/lob/concept/1238">calfskin</term> over paste-laminate boards,
                                                 leather label on spine with title and shelfmark
                                                 tooled in gold, gauffered fore-edges. 17th
                                                 century.</p>
                                             <condition>Rebacked.</condition>
-                                            <p><term type="bookmark"
-                                                  ref="http://www.ligatus.org.uk/lob/concept/2945"
-                                                  >Leaf tab markers</term>.</p>
+                                            <p><term type="bookmark" ref="http://www.ligatus.org.uk/lob/concept/2945">Leaf tab markers</term>.</p>
                                         </binding>
                                     </bindingDesc>
                                 </egXML>
@@ -3229,8 +3063,7 @@
                                     be added in <gi>encodingDesc</gi>.)</p>
                                 <p>
                                     <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                                        <origDate notBefore="1000" notAfter="1025">s. xi<hi
-                                                rend="superscript">in</hi></origDate>
+                                        <origDate notBefore="1000" notAfter="1025">s. xi<hi rend="superscript">in</hi></origDate>
                                     </egXML>
                                 </p>
                                 <p>Values used in the Bodleian medieval catalogue (intended to
@@ -3268,12 +3101,9 @@
                                     the date (or origin) of a manuscript. This can also be recorded
                                     using multiple <gi>origDate</gi> elements. (The <att>resp</att>
                                     attribute may be used on the element to indicate responsibility
-                                    in a machine-readable way). <egXML
-                                        xmlns="http://www.tei-c.org/ns/Examples">
-                                        <origDate calendar="Gregorian" notAfter="1300"
-                                            notBefore="1290">13th century, end (Hutter)</origDate>
-                                        or <origDate calendar="Gregorian" notAfter="1325"
-                                            notBefore="1300">14th century, first quarter
+                                    in a machine-readable way). <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                        <origDate calendar="Gregorian" notAfter="1300" notBefore="1290">13th century, end (Hutter)</origDate>
+                                        or <origDate calendar="Gregorian" notAfter="1325" notBefore="1300">14th century, first quarter
                                             (Palau)</origDate>
                                     </egXML>
                                 </p>
@@ -3282,17 +3112,13 @@
                                         <att>type</att> of <val>additions</val></p>
                                 <p>
                                     <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                                        <origDate calendar="Gregorian" notAfter="1225"
-                                            notBefore="1200">13th century, first quarter</origDate>;
-                                            <origDate calendar="Gregorian" notAfter="1500"
-                                            notBefore="1400" type="additions">additions, 15th
+                                        <origDate calendar="Gregorian" notAfter="1225" notBefore="1200">13th century, first quarter</origDate>;
+                                            <origDate calendar="Gregorian" notAfter="1500" notBefore="1400" type="additions">additions, 15th
                                             century</origDate>
                                     </egXML>
                                     <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                         <origDate calendar="Gregorian" when="1488" cert="high">1488
-                                            (fols. 126-208)</origDate>; <origDate
-                                            calendar="Gregorian" notAfter="1488" notBefore="1464"
-                                            cert="high">1464 × 1488 (fols. 1-125v)</origDate>
+                                            (fols. 126-208)</origDate>; <origDate calendar="Gregorian" notAfter="1488" notBefore="1464" cert="high">1464 × 1488 (fols. 1-125v)</origDate>
                                     </egXML>
                                 </p>
                             </div>
@@ -3322,10 +3148,8 @@
                                         <att>type</att> of <val>additions</val>
                                     <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                         <origPlace>
-                                            <country key="place_1000070">French</country>, <region
-                                                key="place_7024267">Brittany</region></origPlace>
-                                        <origPlace type="additions">additions, <country
-                                                key="place_7002445">England</country>
+                                            <country key="place_1000070">French</country>, <region key="place_7024267">Brittany</region></origPlace>
+                                        <origPlace type="additions">additions, <country key="place_7002445">England</country>
                                         </origPlace>
                                     </egXML>
                                     <!-- todo: sort out XSLT treatment of punctuation here -->
@@ -3333,8 +3157,7 @@
                                 <p>For manuscripts produced in more than one place (or, where there
                                     is more than one potential place of origin), use multiple
                                         <gi>origPlace</gi> elements, with the <att>cert</att>
-                                    attribute if necessary. <egXML
-                                        xmlns="http://www.tei-c.org/ns/Examples">
+                                    attribute if necessary. <egXML xmlns="http://www.tei-c.org/ns/Examples">
                                         <origPlace cert="low">
                                             <country key="place_1000080">Italian (?)</country>
                                         </origPlace> or <origPlace cert="low">
@@ -3366,22 +3189,16 @@
                                 single event (such as a dated signature or the donation of an item
                                 to a library). People involved in the transfer of ownership should
                                 be marked up with <gi>persName</gi> tags, with a <att>role</att>
-                                attribute (a <ref
-                                    target="http://www.loc.gov/marc//relators/relaterm.html">Library
+                                attribute (a <ref target="http://www.loc.gov/marc//relators/relaterm.html">Library
                                     of Congress relator code</ref>, usually "fmo" for former
                                 owner).</p>
                             <p>Pressmarks and shelfmarks should be recorded in a <gi>q</gi> element
-                                with attribute <att>type</att>, value <val>pressmark</val>; see <ptr
-                                    target="#quotesFromMS"/>. It is not necesary to mark up
+                                with attribute <att>type</att>, value <val>pressmark</val>; see <ptr target="#quotesFromMS"/>. It is not necesary to mark up
                                 pressmarks and shelfmarks which are already recorded as manuscript
                                 identifiers. <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                                    <acquisition notAfter="1468">At the head of f. iii<hi
-                                            rend="superscript">v</hi> is ‘Liber domus scolarium de
-                                        Merton ex dono magistro <persName role="fmo dnr"
-                                            key="person_2899">Hamondi Haydok</persName>
-                                        incathenandus in libraria anno Domini m<hi
-                                            rend="superscript">mo</hi>cccc<hi rend="superscript"
-                                            >o</hi>lxviii<hi rend="superscript">o</hi>’, in the same
+                                    <acquisition notAfter="1468">At the head of f. iii<hi rend="superscript">v</hi> is ‘Liber domus scolarium de
+                                        Merton ex dono magistro <persName role="fmo dnr" key="person_2899">Hamondi Haydok</persName>
+                                        incathenandus in libraria anno Domini m<hi rend="superscript">mo</hi>cccc<hi rend="superscript">o</hi>lxviii<hi rend="superscript">o</hi>’, in the same
                                         hand as Wyght’s <foreign>ex dono</foreign> in MS 38. For
                                         Hammond Haydok, see MS 16. On the front pastedown is a brief
                                         table of contents, s. xvii, and <q type="pressmark">N. 3.
@@ -3406,14 +3223,12 @@
                             <p>Note the usage of the different dating attributes in the following
                                 example.</p>
                             <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                                <provenance notAfter="1833"><persName role="fmo"
-                                        key="person_2854">William Wilson</persName>, F.S.A.
+                                <provenance notAfter="1833"><persName role="fmo" key="person_2854">William Wilson</persName>, F.S.A.
                                     (-1832?), of the Minories, his sale, Christie's, 31 Jan.-1
                                     Feb. 1833, lot 56 on 1 Feb.; bought by Thorpe for £53.
                                     11s.</provenance>
                                 <provenance from="1833" to="1834">Purchased from Thorpe by
-                                        <persName key="person_69848690" role="fmo"
-                                        >Douce</persName>, Feb. 1833.</provenance>
+                                        <persName key="person_69848690" role="fmo">Douce</persName>, Feb. 1833.</provenance>
                                 <acquisition when="1834">Bequeathed by Douce to the Bodleian in
                                     1834.</acquisition>
                             </egXML>
@@ -3532,8 +3347,7 @@
                                     <surrogates>
                                         <listBibl>
                                             <bibl type="digital-facsimile" subtype="full">
-                                                <ref
-                                                    target="https://digital.bodleian.ox.ac.uk/objects/34a6037b-12e8-4b12-8920-26c33914fe0e">
+                                                <ref target="https://digital.bodleian.ox.ac.uk/objects/34a6037b-12e8-4b12-8920-26c33914fe0e">
                                                     <title>Digital Bodleian</title>
                                                 </ref>
                                                 <note>(full digital facsimile)</note>
@@ -3587,9 +3401,7 @@
                                             </listBibl>
                                             <listBibl type="INTERNET">
                                                 <head>Online resources:</head>
-                                                <bibl><ref
-                                                  target="http://jonas.irht.cnrs.fr/manuscrit/40258"
-                                                  ><title>JONAS: Répertoire des textes et des
+                                                <bibl><ref target="http://jonas.irht.cnrs.fr/manuscrit/40258"><title>JONAS: Répertoire des textes et des
                                                   manuscrits médiévaux d'oc et
                                                   d'oïl</title></ref></bibl>
                                             </listBibl>
@@ -3718,9 +3530,7 @@
                                         <msItem n="55">
                                             <locus>(fols. 198-208v)</locus>
                                             <title type="desc">Eight sermons on Ioh. 17: 1-26,
-                                                extracted from <persName role="aut"
-                                                  key="person_66806872">Augustine</persName>, <title
-                                                  key="work_822">Tractatus in Iohannis
+                                                extracted from <persName role="aut" key="person_66806872">Augustine</persName>, <title key="work_822">Tractatus in Iohannis
                                                   Euang.</title>, 104. 2 – 111. 6</title>
                                         </msItem>
                                         <!-- ... -->
@@ -3775,11 +3585,8 @@
                                             </msContents>
                                             <history>
                                                 <origin>
-                                                  <origPlace><country key="place_7002445"
-                                                  >England</country>, <orgName key="org_150107857"
-                                                  >Bury St Edmunds</orgName>
-                                                  (?)</origPlace><origDate calendar="Gregorian"
-                                                  notAfter="1200" notBefore="1150">11th century,
+                                                  <origPlace><country key="place_7002445">England</country>, <orgName key="org_150107857">Bury St Edmunds</orgName>
+                                                  (?)</origPlace><origDate calendar="Gregorian" notAfter="1200" notBefore="1150">11th century,
                                                   second half</origDate>
                                                 </origin>
                                                 <provenance>'Bealdewuine abb.', fol. 173r, probably
@@ -3840,8 +3647,7 @@
                                                   <p>Holkham binding of black leather, with Coke
                                                   family ostrich crest in gilt in the centre of the
                                                   upper cover; Date: early nineteenth century.
-                                                  Rebound by <persName role="bnd" key="person_707"
-                                                  >John Jones of Liverpool</persName> (worked for
+                                                  Rebound by <persName role="bnd" key="person_707">John Jones of Liverpool</persName> (worked for
                                                   Holkham 1816-1823). SPINE: lettered in gilt:
                                                   SYMEONIS| METAPHRASTAE|VITAE| S.S. MARTYRUM| G.R.|
                                                   M.S.| SAEC. XII|–| SEP.| </p>
@@ -3885,8 +3691,7 @@
                                             </physDesc>
                                             <history>
                                                 <origin>
-                                                  <origDate notBefore="1300" notAfter="1500"
-                                                  >14th-15th century</origDate>
+                                                  <origDate notBefore="1300" notAfter="1500">14th-15th century</origDate>
                                                 </origin>
                                             </history>
                                         </msPart>
@@ -4006,91 +3811,26 @@
 
 
                 <head>Schema</head>
-                <schemaSpec ident="msdesc" start="TEI ">
+                <schemaSpec ident="msdesc" start="TEI" prefix="tei_" targetLang="en" docLang="en">
                     <!-- Modules -->
                     <!-- TEI module include for overall infrastructure -->
                     <moduleRef key="tei"/>
                     <!-- core module -->
-                    <moduleRef key="core"
-                        include="
-                        abbr add address addrLine author analytic
-                        bibl biblScope biblStruct
-                        choice citedRange cit corr 
-                        date del desc 
-                        editor email expan 
-                        foreign 
-                        gap graphic 
-                        head hi 
-                        imprint item 
-                        l label lb 
-                        lg list listBibl 
-                        measure monogr
-                        name note num 
-                        orig 
-                        p pb postCode publisher pubPlace 
-                        q quote 
-                        ref reg relatedItem resp respStmt 
-                        series sic street 
-                        term textLang title 
-                        unclear 
-                    "/>
+                    <moduleRef key="core" include="                         abbr add address addrLine author analytic                         bibl biblScope biblStruct                         choice citedRange cit corr                          date del desc                          editor email expan                          foreign                          gap graphic                          head hi                          imprint item                          l label lb                          lg list listBibl                          measure monogr                         name note num                          orig                          p pb postCode publisher pubPlace                          q quote                          ref reg relatedItem resp respStmt                          series sic street                          term textLang title                          unclear                      "/>
                     <!-- figures module -->
                     <moduleRef key="figures" include="figDesc figure formula"/>
                     <!-- header module -->
-                    <moduleRef key="header"
-                        include="authority availability 
-                        catDesc category change classDecl 
-                        distributor 
-                        edition editionStmt encodingDesc extent 
-                        fileDesc funder 
-                        handNote 
-                        idno 
-                        keywords 
-                        licence 
-                        principal profileDesc projectDesc publicationStmt 
-                        revisionDesc 
-                        scriptNote sourceDesc sponsor 
-                        taxonomy teiHeader textClass titleStmt"/>
+                    <moduleRef key="header" include="authority availability                          catDesc category change classDecl                          distributor                          edition editionStmt encodingDesc extent                          fileDesc funder                          handNote                          idno                          keywords                          licence                          principal profileDesc projectDesc publicationStmt                          revisionDesc                          scriptNote sourceDesc sponsor                          taxonomy teiHeader textClass titleStmt"/>
                     <!-- linking module -->
                     <moduleRef key="linking" include="seg"/>
                     <!-- msdescription module -->
                     <moduleRef key="msdescription"/>
                     <!-- namesdates module -->
-                    <moduleRef key="namesdates"
-                        include="
-                        addName 
-                        country 
-                        district 
-                        forename 
-                        geo
-                        geogFeat 
-                        geogName 
-                        orgName 
-                        persName 
-                        placeName 
-                        region 
-                        settlement 
-                        surname 
-                        "/>
+                    <moduleRef key="namesdates" include="                         addName                          country                          district                          forename                          geo                         geogFeat                          geogName                          orgName                          persName                          placeName                          region                          settlement                          surname                          "/>
                     <!-- textstructure module -->
-                    <moduleRef key="textstructure"
-                        include="
-                        TEI 
-                        body 
-                        div 
-                        text"/>
+                    <moduleRef key="textstructure" include="                         TEI                          body                          div                          text"/>
                     <!-- transcr module -->
-                    <moduleRef key="transcr"
-                        include="
-                        am 
-                        damage 
-                        ex 
-                        facsimile
-                        fw
-                        subst 
-                        supplied surface surfaceGrp 
-                        zone
-                        "/>
+                    <moduleRef key="transcr" include="                         am                          damage                          ex                          facsimile                         fw                         subst                          supplied surface surfaceGrp                          zone                         "/>
                     <!-- attribute changes -->
                     <!-- availability/@status: "free, restricted, unknown" are TEI default -->
                     <!-- bibl/@type
@@ -4253,6 +3993,9 @@
                                         <desc>The decoration note concerns a headpiece</desc>
                                     </valItem>
                                     
+                                    <valItem ident="headpiece">
+                                        <desc>The decoration note concerns a headpiece</desc>
+                                    </valItem>
                                     <valItem ident="canonTable">
                                         <desc>The decoration note concerns canon table(s)</desc>
                                     </valItem>
@@ -4773,8 +4516,7 @@
                     </elementSpec>
 
                     <!-- add a new element 'countermark'. Model should be same as for 'watermark'  -->
-                    <elementSpec ident="countermark" mode="add"
-                        ns="https://github.com/msdesc/consolidated-tei-schema">
+                    <elementSpec ident="countermark" mode="add" ns="https://github.com/msdesc/consolidated-tei-schema">
                         <desc>Contains a description of a countermark. Note: This is a customization
                             which is not currently part of the TEI P5 standard.</desc>
                         <classes>
@@ -4797,24 +4539,14 @@
                     <elementSpec ident="supportDesc" module="msdescription" mode="change">
                         <constraintSpec ident="textLang.check" scheme="schematron">
                             <constraint>
-                                <sch:rule 
-                                    see="https://msdesc.github.io/consolidated-tei-schema/msdesc.html#supportdesc"
-                                    context="//tei:sourceDesc/tei:msDesc[not(tei:msPart)]">
-                                    <sch:assert 
-                                        test="tei:physDesc/tei:objectDesc/tei:supportDesc[@material]" 
-                                        role="warn">
+                                <sch:rule see="https://msdesc.github.io/consolidated-tei-schema/msdesc.html#supportdesc" context="//tei:sourceDesc/tei:msDesc[not(tei:msPart)]">
+                                    <sch:assert test="tei:physDesc/tei:objectDesc/tei:supportDesc[@material]" role="warn">
                                         The material (parchment, paper, etc.) of a manuscript should be recorded 
                                         in the supportDesc element, with a material attribute.
                                     </sch:assert>
                                 </sch:rule>
-                                <sch:rule 
-                                    context="//tei:sourceDesc/tei:msDesc/tei:msPart">
-                                    <sch:assert 
-                                        test="
-                                            tei:physDesc/tei:objectDesc/tei:supportDesc[@material]
-                                            or ancestor::tei:msDesc/tei:physDesc/tei:objectDesc/tei:supportDesc[@material]
-                                            " 
-                                        role="warn">
+                                <sch:rule context="//tei:sourceDesc/tei:msDesc/tei:msPart">
+                                    <sch:assert test="                                             tei:physDesc/tei:objectDesc/tei:supportDesc[@material]                                             or ancestor::tei:msDesc/tei:physDesc/tei:objectDesc/tei:supportDesc[@material]                                             " role="warn">
                                         The material (parchment, paper, etc.) of each part should be recorded in 
                                         the supportDesc element, with a material attribute, unless it has been 
                                         described for the entire manuscript.
@@ -4864,24 +4596,14 @@
                     <elementSpec ident="objectDesc" module="msdescription" mode="change">
                         <constraintSpec ident="textLang.check" scheme="schematron">
                             <constraint>
-                                <sch:rule 
-                                    see="https://msdesc.github.io/consolidated-tei-schema/msdesc.html#objectdescBook"
-                                    context="//tei:sourceDesc/tei:msDesc[not(tei:msPart)]">
-                                    <sch:assert 
-                                        test="tei:physDesc/tei:objectDesc[@form]" 
-                                        role="warn">
+                                <sch:rule see="https://msdesc.github.io/consolidated-tei-schema/msdesc.html#objectdescBook" context="//tei:sourceDesc/tei:msDesc[not(tei:msPart)]">
+                                    <sch:assert test="tei:physDesc/tei:objectDesc[@form]" role="warn">
                                         The physical form of the carrier should be recorded 
                                         in the objectDesc element, with a form attribute.
                                     </sch:assert>
                                 </sch:rule>
-                                <sch:rule 
-                                    context="//tei:sourceDesc/tei:msDesc/tei:msPart">
-                                    <sch:assert 
-                                        test="
-                                        tei:physDesc/tei:objectDesc[@form]
-                                        or ancestor::tei:msDesc/tei:physDesc/tei:objectDesc[@form]
-                                        " 
-                                        role="warn">
+                                <sch:rule context="//tei:sourceDesc/tei:msDesc/tei:msPart">
+                                    <sch:assert test="                                         tei:physDesc/tei:objectDesc[@form]                                         or ancestor::tei:msDesc/tei:physDesc/tei:objectDesc[@form]                                         " role="warn">
                                         The physical form of the carrier should be recorded in 
                                         the objectDesc element, with a form attribute, unless it 
                                         has been described for the entire manuscript.
@@ -4941,18 +4663,13 @@
                     <elementSpec ident="TEI" module="textstructure" mode="change">
                         <constraintSpec scheme="schematron" ident="TEI.xmlid.check">
                             <constraint>
-                                <sch:rule
-                                    context="tei:TEI">
-                                    <sch:assert 
-                                        test="matches(@xml:id, '^manuscript_\d+$') or contains(base-uri(.), 'genizah-mss')" 
-                                        role="fatal">
+                                <sch:rule context="tei:TEI">
+                                    <sch:assert test="matches(@xml:id, '^manuscript_\d+$') or contains(base-uri(.), 'genizah-mss')" role="fatal">
                                         The root TEI element must have an @xml:id beginning with 
                                         "manuscript_" then a number (which must also be unique 
                                         across the entire catalogue).
                                     </sch:assert>
-                                    <sch:assert 
-                                        test="matches(@xml:id, '^volume_\d+$') or not(contains(base-uri(.), 'genizah-mss'))" 
-                                        role="fatal">
+                                    <sch:assert test="matches(@xml:id, '^volume_\d+$') or not(contains(base-uri(.), 'genizah-mss'))" role="fatal">
                                         The root TEI element must have an @xml:id beginning with
                                         "volume_" then a number (which must also be unique 
                                         across the entire catalogue).
@@ -4967,8 +4684,7 @@
                     <elementSpec ident="author" module="core" mode="change">
                         <constraintSpec ident="author.key.check" scheme="isoschematron">
                             <constraint>
-                                <sch:rule
-                                    context="//tei:msItem//tei:author[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                                <sch:rule context="//tei:msItem//tei:author[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
                                     <sch:assert test="@key[matches(., 'person_\d+')]">In the
                                         medieval catalogue, the author element, when a child of
                                         msItem, must have a key matching the pattern
@@ -4982,8 +4698,7 @@
                     <elementSpec ident="persName" module="namesdates" mode="change">
                         <constraintSpec ident="persName.key.check" scheme="isoschematron">
                             <constraint>
-                                <sch:rule
-                                    context="//tei:msDesc//tei:persName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                                <sch:rule context="//tei:msDesc//tei:persName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
                                     <sch:assert test="@key[matches(., 'person_\d+')]">In the
                                         medieval catalogue, the persName element, when a descendant
                                         of msDesc, must have a key matching the pattern
@@ -4997,8 +4712,7 @@
                     <elementSpec ident="placeName" module="namesdates" mode="change">
                         <constraintSpec ident="placeName.key.check" scheme="isoschematron">
                             <constraint>
-                                <sch:rule
-                                    context="//tei:msDesc//tei:placeName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                                <sch:rule context="//tei:msDesc//tei:placeName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
                                     <sch:assert test="@key[matches(., 'place_\d+')]">In the medieval
                                         catalogue, the placeName element, when a descendant of
                                         msDesc, must have a key matching the pattern
@@ -5012,8 +4726,7 @@
                     <elementSpec ident="orgName" module="namesdates" mode="change">
                         <constraintSpec ident="orgName.key.check" scheme="isoschematron">
                             <constraint>
-                                <sch:rule
-                                    context="//tei:msDesc//tei:orgName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                                <sch:rule context="//tei:msDesc//tei:orgName[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
                                     <sch:assert test="@key[matches(., 'org_\d+')]">In the medieval
                                         catalogue, the orgName element, when a descendant of msDesc,
                                         must have a key matching the pattern 'org_\d+'.</sch:assert>
@@ -5028,8 +4741,7 @@
                     <elementSpec ident="country" module="namesdates" mode="change">
                         <constraintSpec ident="country.key.check" scheme="isoschematron">
                             <constraint>
-                                <sch:rule
-                                    context="//tei:origin//tei:country[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                                <sch:rule context="//tei:origin//tei:country[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
                                     <sch:assert test="@key[matches(., 'place_\d+')]">In the medieval
                                         catalogue, the country element, when a descendant of origin,
                                         must have a key matching the pattern
@@ -5043,8 +4755,7 @@
                     <elementSpec ident="settlement" module="namesdates" mode="change">
                         <constraintSpec ident="settlement.key.check" scheme="isoschematron">
                             <constraint>
-                                <sch:rule
-                                    context="//tei:origin//tei:settlement[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
+                                <sch:rule context="//tei:origin//tei:settlement[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
                                     <sch:assert test="@key[matches(., 'place_\d+')]">In the medieval
                                         catalogue, the settlement element, when a descendant of
                                         origin, must have a key matching the pattern
@@ -5059,37 +4770,22 @@
                         <constraintSpec ident="textLang.check" scheme="schematron">
                             <constraint>
                                 <sch:rule context="//tei:msItem">
-                                    <sch:assert 
-                                        test="
-                                            tei:textLang
-                                            or ancestor::tei:msContents/tei:textLang
-                                            or ancestor::tei:msItem/tei:textLang
-                                            or (
-                                                tei:msItem 
-                                                and (every $i in tei:msItem satisfies $i/descendant-or-self::tei:textLang)
-                                            )
-                                            " 
-                                        role="warn">
+                                    <sch:assert test="                                             tei:textLang                                             or ancestor::tei:msContents/tei:textLang                                             or ancestor::tei:msItem/tei:textLang                                             or (                                                 tei:msItem                                                  and (every $i in tei:msItem satisfies $i/descendant-or-self::tei:textLang)                                             )                                             " role="warn">
                                         The language of each item should be recorded in a textLang element,
                                         unless it has been described for the entire manuscript or part. Use
                                         'und' for undetermined or 'zxx' if there is no linguistic content.
                                     </sch:assert>
                                 </sch:rule>
                                 <sch:rule context="//tei:textLang">
-                                    <sch:assert
-                                        test="@mainLang and string-length(normalize-space(string())) gt 0"
-                                        role="error">
+                                    <sch:assert test="@mainLang and string-length(normalize-space(string())) gt 0" role="error">
                                         The predominant language must be recorded in
                                         using a code in a mainLang attribute (and an otherLang
                                         attribute if there are other languages) and described as
                                         text within the textLang element.
                                     </sch:assert>
                                 </sch:rule>
-                                <sch:rule
-                                    context="//tei:textLang/@mainLang | //tei:textLang/@otherLangs | //@xml:lang">
-                                    <sch:assert
-                                        test="every $code in tokenize(., ' ') satisfies matches($code, '^[a-z]{2,3}(-|$)')"
-                                        role="error">
+                                <sch:rule context="//tei:textLang/@mainLang | //tei:textLang/@otherLangs | //@xml:lang">
+                                    <sch:assert test="every $code in tokenize(., ' ') satisfies matches($code, '^[a-z]{2,3}(-|$)')" role="error">
                                         Codes in <sch:value-of select="name(.)"/>
                                         attributes must conform to BCP 47
                                         (https://tools.ietf.org/html/bcp47), starting with an ISO
@@ -5103,13 +4799,10 @@
 
                     <!-- binding element must have dating attributes -->
                     <elementSpec ident="binding" module="msdescription" mode="change">
-                        <constraintSpec ident="binding.check" scheme="schematron">
+                        <content><alternate maxOccurs="unbounded" minOccurs="1"><classRef key="model.noteLike"/><elementRef key="condition"/><elementRef key="decoNote"/><elementRef key="summary"/><elementRef key="endleaves"/><elementRef key="sewing"/><elementRef key="edges"/><elementRef key="spine"/><elementRef key="boards"/><elementRef key="endbands"/><elementRef key="covering"/><elementRef key="fastenings"/><elementRef key="furniture"/></alternate></content><constraintSpec ident="binding.check" scheme="schematron">
                             <constraint>
-                                <sch:rule
-                                    context="//tei:binding">
-                                    <sch:assert 
-                                        test="@when or @notBefore or @notAfter or @contemporary='true'" 
-                                        role="warn">
+                                <sch:rule context="//tei:binding">
+                                    <sch:assert test="@when or @notBefore or @notAfter or @contemporary='true'" role="warn">
                                         The binding element should have dating attributes (when or notBefore/notAfter) 
                                         or a contemporary attribute (with the value 'true').
                                     </sch:assert>
@@ -5122,11 +4815,8 @@
                     <elementSpec ident="origDate" module="msdescription" mode="change">
                         <constraintSpec ident="origDate.check" scheme="schematron">
                             <constraint>
-                                <sch:rule
-                                    context="//tei:origDate">
-                                    <sch:assert 
-                                        test="@calendar and (@when or @notBefore or @notAfter or @from or @to) and string-length(normalize-space(string())) gt 0" 
-                                        role="error">
+                                <sch:rule context="//tei:origDate">
+                                    <sch:assert test="@calendar and (@when or @notBefore or @notAfter or @from or @to) and string-length(normalize-space(string())) gt 0" role="error">
                                         The origDate element must have two or more attributes - calendar and at least one of
                                         when, notBefore, notAfter, from and/or to - and must contain some text describing the date.
                                     </sch:assert>
@@ -5141,32 +4831,22 @@
                          and rendition/style attributes which it always ignores  -->
                         <constraintSpec ident="rend.info" scheme="schematron">
                             <constraint>
-                                <sch:rule 
-                                    context="*[@rend]">
-                                    <sch:report 
-                                        test="self::tei:hi and not(every $r in tokenize(@rend, '\s+')[string-length() gt 0] satisfies $r = ('bold', 'italic', 'smallcaps', 'roman', 'superscript', 'subscript', 'underline', 'overline', 'strikethrough'))"
-                                        role="info">
+                                <sch:rule context="*[@rend]">
+                                    <sch:report test="self::tei:hi and not(every $r in tokenize(@rend, '\s+')[string-length() gt 0] satisfies $r = ('bold', 'italic', 'smallcaps', 'roman', 'superscript', 'subscript', 'underline', 'overline', 'strikethrough'))" role="info">
                                         Any values can be used in rend attributes, but the web site currently only supports combinations of: 
                                         bold, italic, roman, smallcaps, superscript, subscript, underline, overline, and strikethrough.
                                     </sch:report>
-                                    <sch:report 
-                                        test="self::tei:list and not(every $r in tokenize(@rend, '\s+')[string-length() gt 0] satisfies $r = ('numbered', 'ordered', 'ol', 'bulleted', 'unordered', 'ul'))"
-                                        role="info">
+                                    <sch:report test="self::tei:list and not(every $r in tokenize(@rend, '\s+')[string-length() gt 0] satisfies $r = ('numbered', 'ordered', 'ol', 'bulleted', 'unordered', 'ul'))" role="info">
                                         Any values can be used in rend attributes, but the web site currently only supports combinations of: 
                                         numbered, ordered, ol, bulleted, unordered, and ul.
                                     </sch:report>
-                                    <sch:assert 
-                                        test="self::tei:hi or self::tei:list" 
-                                        role="info">
+                                    <sch:assert test="self::tei:hi or self::tei:list" role="info">
                                         The web site currently only supports rend attributes for hi and list elements. Using it on <sch:value-of select="name(.)"/> 
                                         elements is valid but will be ignored.
                                     </sch:assert>
                                 </sch:rule>
-                                <sch:rule 
-                                    context="*[@rendition or @style]">
-                                    <sch:assert 
-                                        test="false()"
-                                        role="info">
+                                <sch:rule context="*[@rendition or @style]">
+                                    <sch:assert test="false()" role="info">
                                         The web site currently ignores rendition and style attributes.
                                     </sch:assert>
                                 </sch:rule>
@@ -5178,11 +4858,8 @@
                         <!-- Warn about empty or self-closing elements with a @key -->
                         <constraintSpec ident="selfclosing.warn" scheme="schematron">
                             <constraint>
-                                <sch:rule 
-                                    context="tei:*[@key]">
-                                    <sch:assert 
-                                        test="string-length(normalize-space(string())) gt 1"
-                                        role="warn">
+                                <sch:rule context="tei:*[@key]">
+                                    <sch:assert test="string-length(normalize-space(string())) gt 1" role="warn">
                                         Elements with key attributes should have some content (because they will be displayed 
                                         as links, and links need text for readers to click on.)
                                     </sch:assert>
@@ -5198,9 +4875,7 @@
                         <!-- Error if date ranges are impossible (only checks YYYY-MM-DD and YYYY formats, and if both ends are the same format) -->
                         <constraintSpec ident="datable.ranging.check" scheme="schematron">
                             <constraint>
-                                <sch:rule
-                                    context="//*[not(self::tei:locus or self::tei:biblScope or self::tei:citedRange)]
-                                                [(@notBefore and @notAfter) or (@from and @to)]">
+                                <sch:rule context="//*[not(self::tei:locus or self::tei:biblScope or self::tei:citedRange)]                                                 [(@notBefore and @notAfter) or (@from and @to)]">
                                     <sch:let name="f" value="(@notBefore,@from)[1]"/>
                                     <sch:let name="t" value="(@notAfter,@to)[1]"/>
                                     <sch:let name="bothdates" value="$f castable as xs:date and $t castable as xs:date"/>
@@ -5209,9 +4884,7 @@
                                     <sch:let name="td" value="if ($bothdates) then xs:date($t) else ()"/>
                                     <sch:let name="fy" value="if ($bothyears) then xs:integer($f) else ()"/>
                                     <sch:let name="ty" value="if ($bothyears) then xs:integer($t) else ()"/>
-                                    <sch:report 
-                                        test="($bothdates and $fd gt $td) or ($bothyears and $fy gt $ty)"
-                                        role="error">
+                                    <sch:report test="($bothdates and $fd gt $td) or ($bothyears and $fy gt $ty)" role="error">
                                         The date range <sch:value-of select="$f"/>–<sch:value-of select="$t"/> in <sch:value-of select="name(.)"/> is not valid.
                                     </sch:report>
                                 </sch:rule>
@@ -5226,16 +4899,13 @@
                         <!-- Warn if numerical ranges have a lower maximum value than the minimum (assumes there are no reverse scales in codicology) -->
                         <constraintSpec ident="numerical.ranging.check" scheme="schematron">
                             <constraint>
-                                <sch:rule
-                                    context="//*[(@atLeast and @atMost) or (@min and @max)]">
+                                <sch:rule context="//*[(@atLeast and @atMost) or (@min and @max)]">
                                     <sch:let name="f" value="(@atLeast,@min)[1]"/>
                                     <sch:let name="t" value="(@atMost,@max)[1]"/>
                                     <sch:let name="bothnumbers" value="$f castable as xs:float and $t castable as xs:float"/>
                                     <sch:let name="fv" value="if ($bothnumbers) then xs:float($f) else ()"/>
                                     <sch:let name="tv" value="if ($bothnumbers) then xs:float($t) else ()"/>
-                                    <sch:report 
-                                        test="$bothnumbers and $fv gt $tv"
-                                        role="warn">
+                                    <sch:report test="$bothnumbers and $fv gt $tv" role="warn">
                                         The numerical range <sch:value-of select="$f"/>–<sch:value-of select="$t"/> in <sch:value-of select="name(.)"/> may not be valid.
                                     </sch:report>
                                 </sch:rule>
@@ -5249,11 +4919,8 @@
                     <elementSpec ident="surrogates" module="msdescription" mode="change">
                         <constraintSpec ident="facsimile.warn" scheme="schematron">
                             <constraint>
-                                <sch:rule 
-                                    context="//tei:surrogates/tei:bibl">
-                                    <sch:report 
-                                        test="contains(@type, 'fascimile')"
-                                        role="warn">
+                                <sch:rule context="//tei:surrogates/tei:bibl">
+                                    <sch:report test="contains(@type, 'fascimile')" role="warn">
                                         The type attribute of "<sch:value-of select="@type"/>" contains a typo (fascimile should be facsimile).
                                     </sch:report>
                                 </sch:rule>
@@ -5277,7 +4944,7 @@
                     <!-- TODO?: the initial title in titleStmt should match the shelfmark -->
 
 
-                </schemaSpec>
+                <elementSpec ident="bindingDesc" mode="change"><content><elementRef key="summary"/><alternate maxOccurs="1" minOccurs="1"><alternate maxOccurs="unbounded" minOccurs="1"><classRef key="model.pLike"/><elementRef key="decoNote"/><elementRef key="condition"/></alternate><elementRef key="binding"/></alternate></content></elementSpec><moduleSpec ident="msdesc" mode="add"/><elementSpec ident="endleaves" ns="http://www.example.org/ns/msdesc" mode="add" module="msdesc"><classes/><content><classRef key="model.noteLike"/></content></elementSpec><moduleSpec ident="msdesc" mode="add"/><elementSpec ident="sewing" ns="http://www.example.org/ns/msdesc" mode="add" module="msdesc"><classes/><content><classRef key="model.noteLike"/></content></elementSpec><moduleSpec ident="msdesc" mode="add"/><elementSpec ident="edges" ns="http://www.example.org/ns/msdesc" mode="add" module="msdesc"><classes/><content><classRef key="model.noteLike"/></content></elementSpec><moduleSpec ident="msdesc" mode="add"/><elementSpec ident="spine" ns="http://www.example.org/ns/msdesc" mode="add" module="msdesc"><classes/><content><classRef key="model.noteLike"/></content></elementSpec><moduleSpec ident="msdesc" mode="add"/><elementSpec ident="boards" ns="http://www.example.org/ns/msdesc" mode="add" module="msdesc"><classes/></elementSpec><moduleSpec ident="msdesc" mode="add"/><elementSpec ident="endbands" ns="http://www.example.org/ns/msdesc" mode="add" module="msdesc"><classes/><content><classRef key="model.noteLike"/></content></elementSpec><moduleSpec ident="msdesc" mode="add"/><elementSpec ident="covering" ns="http://www.example.org/ns/msdesc" mode="add" module="msdesc"><classes/><content><classRef key="model.noteLike"/></content></elementSpec><moduleSpec ident="msdesc" mode="add"/><elementSpec ident="fastenings" ns="http://www.example.org/ns/msdesc" mode="add" module="msdesc"><classes/><content><classRef key="model.noteLike"/></content></elementSpec><moduleSpec ident="msdesc" mode="add"/><elementSpec ident="furniture" ns="http://www.example.org/ns/msdesc" mode="add" module="msdesc"><classes/><content><classRef key="model.noteLike"/></content></elementSpec></schemaSpec>
             </div>
         </body>
     </text>
