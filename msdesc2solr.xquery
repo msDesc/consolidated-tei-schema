@@ -1038,6 +1038,7 @@ declare function bod:requesting($teiroot as element())
     bod:one2one(
         (
         $teiroot/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:msIdentifier/tei:idno[@type='shelfmark'], 
+        $teiroot/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:msIdentifier/tei:idno[not(@type)],
         $teiroot/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:msIdentifier/tei:idno
         )[1]
         , 'ms_requestitemid_sni')
