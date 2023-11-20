@@ -2205,6 +2205,27 @@
             </ul>
         </div>
     </xsl:template>
+    
+    <!-- Basic support for biblStruct -->
+    <xsl:template match="additional/listBibl/biblStruct">
+        <span class="{name()}">
+            <i><xsl:value-of select=".//title"/></i>
+            <xsl:text>, </xsl:text>
+            <xsl:for-each select=".//author">
+                <xsl:value-of select="surname"/>
+                <xsl:text>, </xsl:text>
+                <xsl:value-of select="forename"/>
+            </xsl:for-each>
+            <xsl:if test=".//imprint">
+                <xsl:text> (</xsl:text>
+                <xsl:value-of select="string-join(.//imprint/*, ', ')"/>
+                <xsl:text>)</xsl:text>
+            </xsl:if>
+        </span>
+    </xsl:template>
+    
+    <!-- Block other children of biblStruct besides the basic ones used above -->
+    <xsl:template match="additional/listBibl/biblStruct/*"/>
 
     <xsl:template match="additional/surrogates">
         <div class="surrogates">
