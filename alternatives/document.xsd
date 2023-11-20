@@ -3,7 +3,7 @@
   <xs:import namespace="http://www.w3.org/2001/XInclude" schemaLocation="xinclude.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2023-07-21T08:55:05Z. .
+    Schema generated from ODD source 2023-11-20T15:36:59Z. .
     TEI Edition: Version 4.6.0. Last updated on
             4th April 2023, revision f18deffba
     TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 4.6.0/
