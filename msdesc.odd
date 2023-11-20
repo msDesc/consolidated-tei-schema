@@ -5190,6 +5190,20 @@
                             </constraint>
                         </constraintSpec>
                         
+                        <!-- Warn about empty dimension elements -->
+                        <constraintSpec ident="emptyDimensions.warn" scheme="schematron">
+                            <constraint>
+                                <sch:rule 
+                                    context="tei:height|tei:width">
+                                    <sch:assert 
+                                        test="string-length(normalize-space(string())) gt 1"
+                                        role="warn">
+                                        For dimensions the website displays the content of height and width elements. Attribute values are not displayed. Empty elements will not display correctly.
+                                    </sch:assert>
+                                </sch:rule>
+                            </constraint>
+                        </constraintSpec>
+                        
                     </classSpec>
                     
                     
