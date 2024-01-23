@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--<?xml-model href="http://jenkins.tei-c.org/job/TEIP5/lastSuccessfulBuild/artifact/P5/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="http://jenkins.tei-c.org/job/TEIP5/lastSuccessfulBuild/artifact/P5/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>-->
-<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en" xmlns:sch="http://purl.oclc.org/dsdl/schematron">
+<?xml-model href="http://jenkins.tei-c.org/job/TEIP5/lastSuccessfulBuild/artifact/P5/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>--><TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xml:lang="en">
     <teiHeader>
         <fileDesc>
             <titleStmt>
@@ -28,7 +26,7 @@
             <sourceDesc>
                 <p>Born digital</p>
             </sourceDesc>
-        </fileDesc><encodingDesc><appInfo><application ident="RomaJS" version="1.0.0" when="2023-09-10T14:36:53.509Z"><desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc></application></appInfo></encodingDesc>
+        </fileDesc><encodingDesc><appInfo><application ident="RomaJS" version="1.0.0" when="2023-09-10T14:36:53.509Z"><desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc></application></appInfo><appInfo><application ident="RomaJS" version="1.0.0" when="2024-01-23T12:31:46.959Z"><desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc></application></appInfo></encodingDesc>
         <revisionDesc>
             <change when="2020-04-03" who="#MLH">Add opener; new attribute for handNote: @execution; add attribute values for handNote and decoNote; make layout part of att.typed; allow biblStruct and associated elements; add guidance on extracts; add guidance on collation vocabulary; use measure rather than num for better TEI compliance.</change>
         </revisionDesc>
@@ -4799,7 +4797,7 @@
 
                     <!-- binding element must have dating attributes -->
                     <elementSpec ident="binding" module="msdescription" mode="change">
-                        <content><alternate maxOccurs="unbounded" minOccurs="1"><classRef key="model.noteLike"/><elementRef key="condition"/><elementRef key="decoNote"/><elementRef key="summary"/><elementRef key="endleaves"/><elementRef key="sewing"/><elementRef key="edges"/><elementRef key="spine"/><elementRef key="boards"/><elementRef key="endbands"/><elementRef key="covering"/><elementRef key="fastenings"/><elementRef key="furniture"/></alternate></content><constraintSpec ident="binding.check" scheme="schematron">
+                        <content><alternate maxOccurs="unbounded" minOccurs="1"><classRef key="model.noteLike"/><elementRef key="condition"/><elementRef key="decoNote"/><elementRef key="summary"/><elementRef key="endleaves"/><elementRef key="sewing"/><elementRef key="edges"/><elementRef key="spine"/><elementRef key="boards"/><elementRef key="endbands"/><elementRef key="covering"/><elementRef key="fastenings"/><elementRef key="furniture"/></alternate><alternate maxOccurs="unbounded" minOccurs="1"><classRef key="model.noteLike"/><elementRef key="condition"/><elementRef key="history"/><elementRef key="decoNote"/><elementRef key="summary"/><elementRef key="endleaves"/><elementRef key="sewing"/><elementRef key="edges"/><elementRef key="spine"/><elementRef key="boards"/><elementRef key="endbands"/><elementRef key="covering"/><elementRef key="fastenings"/><elementRef key="furniture"/></alternate></content><constraintSpec ident="binding.check" scheme="schematron">
                             <constraint>
                                 <sch:rule context="//tei:binding">
                                     <sch:assert test="@when or @notBefore or @notAfter or @contemporary='true'" role="warn">
