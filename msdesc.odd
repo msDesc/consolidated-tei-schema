@@ -5199,7 +5199,10 @@
                         <content>
                             <alternate maxOccurs="unbounded" minOccurs="1">
                                 <classRef key="model.noteLike"/>
+                                <elementRef key="p"/>
                                 <elementRef key="condition"/>
+                                <elementRef key="history"/>
+                                <elementRef key="dimensions"/>
                                 <elementRef key="decoNote"/>
                                 <elementRef key="summary"/>
                                 <elementRef key="endleaves"/>
