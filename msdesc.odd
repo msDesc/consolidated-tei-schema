@@ -4458,6 +4458,23 @@
                                     </valItem>
                                 </valList>
                             </attDef>
+                            <!-- 2025-6 redefine usage of scope -->
+                            <attDef ident="scope" mode="change">
+                                <desc>Specifies the extent to which the dimensions described are typical of the manuscript or codicological unit as a whole. Note: This is a customization which is not currently
+                                    part of the TEI P5 standard.</desc>
+                                <valList mode="replace" type="closed">
+                                    <valItem ident="sole">
+                                        <desc>The dimensions are typical of the whole manuscript or codicological unit.</desc>
+                                    </valItem>
+                                    <valItem ident="major">
+                                        <desc>The dimensions are typical of the majority of the manuscript or codicological unit.</desc>
+                                    </valItem>
+                                    <valItem ident="minor">
+                                        <desc>The dimensions are typical of a small part of the manuscript or codicological unit.</desc>
+                                    </valItem>
+                                </valList>
+                            </attDef>
+                            
                         </attList>
                     </elementSpec>
                     <!--
@@ -4671,6 +4688,7 @@
 
                     <!-- add new attributes "topLine" and "rulingMedium" to layout
                         make layout part of att.typed  -->
+                    <!-- 2025-06 add scope attribute -->
                     <elementSpec ident="layout" module="msdescription" mode="change">
                         <classes mode="change">
                             <memberOf key="att.typed"/>
@@ -4690,6 +4708,22 @@
                                     <valItem ident="mixed">
                                         <desc>The writing is variously above and below top line with
                                             no clear pattern.</desc>
+                                    </valItem>
+
+                                </valList>
+                            </attDef>
+                            <attDef ident="scope" mode="add">
+                                <desc>Specifies the extent to which the layout described is typical of the manuscript or codicological unit as a whole. Note: This is a customization which is not currently
+                                    part of the TEI P5 standard.</desc>
+                                <valList type="closed">
+                                    <valItem ident="sole">
+                                        <desc>Only this layout is used.</desc>
+                                    </valItem>
+                                    <valItem ident="major">
+                                        <desc>This layout is used through most of the manuscript or codicological unit.</desc>
+                                    </valItem>
+                                    <valItem ident="minor">
+                                        <desc>This layout is used occasionally through the manuscript or codicological unit.</desc>
                                     </valItem>
 
                                 </valList>
