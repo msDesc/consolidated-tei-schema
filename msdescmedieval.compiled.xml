@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?><TEI xmlns="http://www.tei-c.org/ns/1.0" xml:base="file:/C:/Users/matth/OneDrive/Documents2/GitHub/consolidated-tei-schema/msdescmedieval.odd"><?TEIVERSION 1.0 (April 2020)?>
+   <teiHeader><fileDesc>
+         <titleStmt>
+            <title>Title</title>
+         </titleStmt>
+         <publicationStmt>
+            <p>Publication Information</p>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Information about the source</p>
+         </sourceDesc>
+      </fileDesc><tei:encodingDesc xmlns:tei="http://www.tei-c.org/ns/1.0"><tei:constraintDecl scheme="schematron" queryBinding="xslt2">
+        <sch:ns xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" prefix="tei" uri="http://www.tei-c.org/ns/1.0"/>
+        <sch:ns xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
+        <sch:ns xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" prefix="rng" uri="http://relaxng.org/ns/structure/1.0"/>
+        <sch:ns xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" prefix="rna" uri="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+        <sch:ns xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" prefix="sch" uri="http://purl.oclc.org/dsdl/schematron"/>
+        <sch:ns xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" prefix="sch1x" uri="http://www.ascc.net/xml/schematron"/>
+      </tei:constraintDecl></tei:encodingDesc></teiHeader>
+   <text>
+      <body>
+         <schemaSpec ident="msdescmedieval" source="file:///C:/Users/matth/OneDrive/Documents2/GitHub/consolidated-tei-schema/msdesc.compiled.xml" start="TEI" prefix="tei_" targetLang="en" docLang="en"/>
+      </body>
+   </text>
+</TEI>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Title</title>
+         </titleStmt>
+         <publicationStmt>
+            <p>Publication Information</p>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Information about the source</p>
+         </sourceDesc>
+      </fileDesc>
+   </teiHeader>
+   <text>
+      <body>
+         <schemaSpec ident="msdescmedieval" source="file:///C:/Users/matth/OneDrive/Documents2/GitHub/consolidated-tei-schema/msdesc.compiled.xml" start="TEI" prefix="tei_" targetLang="en" docLang="en">
+            <moduleRef key="tei"/>
+            <!-- core module -->
+            <moduleRef key="core"/>
+            <!-- figures module -->
+            <moduleRef key="figures"/>
+            <!-- header module -->
+            <moduleRef key="header"/>
+            <!-- linking module -->
+            <moduleRef key="linking"/>
+            <!-- msdescription module -->
+            <moduleRef key="msdescription"/>
+            <!-- namesdates module -->
+            <moduleRef key="namesdates" />
+            <!-- textstructure module -->
+            <moduleRef key="textstructure"/>
+            <!-- transcr module -->
+            <moduleRef key="transcr"/>
+            
+            
+            
+            <elementSpec ident="dimensions" module="msdescription" mode="change">
+               <attList>
+                  <!-- 2025-6 redefine usage of scope -->
+                  <attDef ident="scope" mode="change">
+                     <desc>Specifies the extent to which the dimensions described are typical of the manuscript or codicological unit as a whole. Note: This is a customization which is not currently
+                        part of the TEI P5 standard.</desc>
+                     <valList mode="replace" type="closed">
+                        <valItem ident="sole">
+                           <desc>The dimensions are typical of the whole manuscript or codicological unit.</desc>
+                        </valItem>
+                        <valItem ident="major">
+                           <desc>The dimensions are typical of the majority of the manuscript or codicological unit.</desc>
+                        </valItem>
+                        <valItem ident="minor">
+                           <desc>The dimensions are typical of a small part of the manuscript or codicological unit.</desc>
+                        </valItem>
+                     </valList>
+                  </attDef>
+                  
+               </attList>
+            </elementSpec>
+            
+            <elementSpec ident="layout" module="msdescription" mode="change">
+               <attList>
+                  <attDef ident="scope" mode="add">
+                     <desc>Specifies the extent to which the layout described is typical of the manuscript or codicological unit as a whole. Note: This is a customization which is not currently
+                        part of the TEI P5 standard.</desc>
+                     <valList type="closed">
+                        <valItem ident="sole">
+                           <desc>Only this layout is used.</desc>
+                        </valItem>
+                        <valItem ident="major">
+                           <desc>This layout is used through most of the manuscript or codicological unit.</desc>
+                        </valItem>
+                        <valItem ident="minor">
+                           <desc>This layout is used occasionally through the manuscript or codicological unit.</desc>
+                        </valItem>
+                        
+                     </valList>
+                  </attDef>
+                
+               </attList>
+            </elementSpec>
+            
+            
+      </schemaSpec>
+      </body>
+   </text>
+</TEI>
