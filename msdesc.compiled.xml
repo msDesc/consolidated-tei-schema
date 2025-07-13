@@ -25,7 +25,7 @@
             <sourceDesc>
                 <p>Born digital</p>
             </sourceDesc>
-        </fileDesc><tei:encodingDesc xmlns:tei="http://www.tei-c.org/ns/1.0"><appInfo><application ident="RomaJS" version="1.0.0" when="2023-09-10T14:36:53.509Z"><desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc></application></appInfo><tei:constraintDecl scheme="schematron" queryBinding="xslt2">
+        </fileDesc><tei:encodingDesc xmlns:tei="http://www.tei-c.org/ns/1.0"><tei:constraintDecl scheme="schematron" queryBinding="xslt2">
         <sch:ns xmlns:rng="http://relaxng.org/ns/structure/1.0" prefix="tei" uri="http://www.tei-c.org/ns/1.0"/>
         <sch:ns xmlns:rng="http://relaxng.org/ns/structure/1.0" prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
         <sch:ns xmlns:rng="http://relaxng.org/ns/structure/1.0" prefix="rng" uri="http://relaxng.org/ns/structure/1.0"/>
@@ -3813,7 +3813,7 @@
 
 
                 <head>Schema</head>
-                <schemaSpec xmlns:teix="http://www.tei-c.org/ns/Examples" ident="msdesc" start="TEI" prefix="tei_" targetLang="en" docLang="en" defaultExceptions="http://www.tei-c.org/ns/1.0 teix:egXML" source="https://www.tei-c.org/Vault/P5/current/xml/tei/odd/p5subset.xml"><classSpec xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:rng="http://relaxng.org/ns/structure/1.0" module="tei" type="atts" xml:id="class-attr-anchoring" ident="att.anchoring">
+                <schemaSpec xmlns:teix="http://www.tei-c.org/ns/Examples" ident="msdesc" start="TEI " defaultExceptions="http://www.tei-c.org/ns/1.0 teix:egXML" source="https://www.tei-c.org/Vault/P5/current/xml/tei/odd/p5subset.xml"><classSpec xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:rng="http://relaxng.org/ns/structure/1.0" module="tei" type="atts" xml:id="class-attr-anchoring" ident="att.anchoring">
   <gloss versionDate="2021-01-28" xml:lang="en">anchoring</gloss>
   <desc versionDate="2021-01-28" xml:lang="en">provides attributes for use on annotations, e.g. notes and groups of notes
   describing the existence and position of an anchor for annotations.</desc>
@@ -5355,6 +5355,14 @@ associated with a dated element, at the time indicated.</desc>
                                     <sch:assert test="string-length(normalize-space(string())) gt 1" role="warn">
                                         Elements with key attributes should have some content (because they will be displayed 
                                         as links, and links need text for readers to click on.)
+                                    </sch:assert>
+                                </sch:rule>
+                            </constraint>
+                        </constraintSpec><constraintSpec ident="emptyDimensions.warn" scheme="schematron">
+                            <constraint>
+                                <sch:rule context="tei:height|tei:width">
+                                    <sch:assert test="string-length(normalize-space(string())) gt 0" role="warn">
+                                        For dimensions the website displays the content of height and width elements. Attribute values are not displayed. Empty elements will not display correctly.
                                     </sch:assert>
                                 </sch:rule>
                             </constraint>
@@ -24718,9 +24726,6 @@ such components.</desc><desc versionDate="2007-12-20" xml:lang="ko">원고의 �
                                         <desc>The decoration note concerns a headpiece</desc>
                                     </valItem>
                                     
-                                    <valItem ident="headpiece">
-                                        <desc>The decoration note concerns a headpiece</desc>
-                                    </valItem>
                                     <valItem ident="canonTable">
                                         <desc>The decoration note concerns canon table(s)</desc>
                                     </valItem>
@@ -24869,16 +24874,49 @@ On 21v: some runic letters and the sentence  <q xml:lang="la">aue maria gracia p
   <listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/MS.html#msph2">11.7.2. Writing, Decoration, and Other Notations</ref>
   </listRef>
-</elementSpec><elementSpec xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:rng="http://relaxng.org/ns/structure/1.0" rend="change" module="msdescription" xml:id="BINDINGDESC" ident="bindingDesc"><gloss versionDate="2007-07-04" xml:lang="en">binding description</gloss><gloss versionDate="2007-12-20" xml:lang="ko">제본 기술</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW"/><gloss versionDate="2021-01-18" xml:lang="es">descripción de la encuadernación</gloss><gloss versionDate="2007-06-12" xml:lang="fr">description de la reliure</gloss><gloss versionDate="2007-11-06" xml:lang="it">descrizione della rilegatura</gloss><gloss versionDate="2023-09-27" xml:lang="ja">装訂の記述</gloss><desc versionDate="2019-01-17" xml:lang="en" xml:id="bindingdesc.desc">describes the present and former bindings of a manuscript or other object, either
+</elementSpec><elementSpec xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:rng="http://relaxng.org/ns/structure/1.0" module="msdescription" xml:id="BINDINGDESC" ident="bindingDesc">
+  <gloss versionDate="2007-07-04" xml:lang="en">binding description</gloss>
+  <gloss versionDate="2007-12-20" xml:lang="ko">제본 기술</gloss>
+  <gloss versionDate="2007-05-02" xml:lang="zh-TW"/>
+  <gloss versionDate="2021-01-18" xml:lang="es">descripción de la encuadernación</gloss>
+  <gloss versionDate="2007-06-12" xml:lang="fr">description de la reliure</gloss>
+  <gloss versionDate="2007-11-06" xml:lang="it">descrizione della rilegatura</gloss>
+  <gloss versionDate="2023-09-27" xml:lang="ja">装訂の記述</gloss>
+  <desc versionDate="2019-01-17" xml:lang="en" xml:id="bindingdesc.desc">describes the present and former bindings of a manuscript or other object, either
 as a series of paragraphs or as a series of distinct <gi>binding</gi> elements,
-one for each binding of the manuscript.</desc><desc versionDate="2007-12-20" xml:lang="ko">원고의 각 제본에 대해 일련의 문단 또는 일련의 <gi>binding</gi> 요소로 원고의 현재 그리고 이전 제본 상태에 대해 기술한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">描述手稿現在與之前的裝訂，可以是連續性的文字段落、或是一連串專用的<gi>binding</gi>元素，每個手稿裝訂使用一個元素。</desc><desc versionDate="2008-04-05" xml:lang="ja">
+one for each binding of the manuscript.</desc>
+  <desc versionDate="2007-12-20" xml:lang="ko">원고의 각 제본에 대해 일련의 문단 또는 일련의 <gi>binding</gi> 요소로 원고의 현재 그리고 이전 제본 상태에 대해 기술한다.</desc>
+  <desc versionDate="2007-05-02" xml:lang="zh-TW">描述手稿現在與之前的裝訂，可以是連續性的文字段落、或是一連串專用的<gi>binding</gi>元素，每個手稿裝訂使用一個元素。</desc>
+  <desc versionDate="2008-04-05" xml:lang="ja">
     手書き資料の現行または以前の装訂に関する情報を示す。一連の段落または
   一連の要素<gi>binding</gi>で示される。各単位が当該手書き資料の各装訂
   に対応する。
-</desc><desc versionDate="2007-06-12" xml:lang="fr">décrit les reliures actuelles et anciennes d'un
+</desc>
+  <desc versionDate="2007-06-12" xml:lang="fr">décrit les reliures actuelles et anciennes d'un
       manuscrit, soit en une série de paragraphes <term>p</term>, soit sous la forme d'une série
-      d'éléments <gi>binding</gi>, un pour chaque reliure.</desc><desc versionDate="2007-05-04" xml:lang="es">describe la encuadernación actual y precedente de un manuscrito en forma de una serie de párrafos o de una serie de diversos elementos <gi>binding</gi> (encuadernación), uno para cada encuadernación del manuscrito.</desc><desc versionDate="2007-01-21" xml:lang="it">descrive la legatura attuale e precedente di un manoscritto sotto forma di una serie di paragrafi o di una serie di diversi elementi <gi>binding</gi>,
-uno per ogni legatura del manoscritto</desc><classes><memberOf key="att.global"/><memberOf key="model.physDescPart"/></classes><content><elementRef key="summary"/><alternate minOccurs="1" maxOccurs="1"><alternate minOccurs="1" maxOccurs="unbounded"><classRef key="model.pLike"/><elementRef key="decoNote"/><elementRef key="condition"/></alternate><elementRef key="binding"/></alternate></content><exemplum xml:lang="en">
+      d'éléments <gi>binding</gi>, un pour chaque reliure.</desc>
+  <desc versionDate="2007-05-04" xml:lang="es">describe la encuadernación actual y precedente de un manuscrito en forma de una serie de párrafos o de una serie de diversos elementos <gi>binding</gi> (encuadernación), uno para cada encuadernación del manuscrito.</desc>
+  <desc versionDate="2007-01-21" xml:lang="it">descrive la legatura attuale e precedente di un manoscritto sotto forma di una serie di paragrafi o di una serie di diversi elementi <gi>binding</gi>,
+uno per ogni legatura del manoscritto</desc>
+  <classes>
+    <memberOf key="att.global"/>
+    <memberOf key="model.physDescPart"/>
+  </classes>
+  <content>
+    <alternate>
+      
+        <alternate minOccurs="1" maxOccurs="unbounded">
+          <classRef key="model.pLike"/>
+          <elementRef key="decoNote"/>
+          <elementRef key="condition"/>
+        </alternate>
+      
+      
+        <elementRef key="binding" minOccurs="1" maxOccurs="unbounded"/>
+      
+    </alternate>
+  </content>
+  <exemplum xml:lang="en">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="BINDINGDESC-egXML-zi">
       <bindingDesc>
         <p>Sewing not visible; tightly rebound over
@@ -24890,7 +24928,8 @@ spine similarly tooled, without raised bands or title-piece; coloured
 endbands; the edges of the leaves and boards gilt.Boxed.</p>
       </bindingDesc>
     </egXML>
-  </exemplum><exemplum versionDate="2008-04-06" xml:lang="fr">
+  </exemplum>
+  <exemplum versionDate="2008-04-06" xml:lang="fr">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="BINDINGDESC-egXML-ip" source="#fr-ex-BnF-Reliures">
       <bindingDesc>
         <binding contemporary="true">
@@ -24925,15 +24964,18 @@ endbands; the edges of the leaves and boards gilt.Boxed.</p>
         </binding>
       </bindingDesc>
     </egXML>
-  </exemplum><exemplum xml:lang="zh-TW">
+  </exemplum>
+  <exemplum xml:lang="zh-TW">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="BINDINGDESC-egXML-pl">
       <bindingDesc>
         <p>內外兩層經板將經葉含夾以後，以絲質經索綑紮，並附上白色哈達，然後以黃綾經衣包裹，就成了完整一函的經篋。</p>
       </bindingDesc>
     </egXML>
-  </exemplum><listRef>
+  </exemplum>
+  <listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/MS.html#msphbi">11.7.3.1. Binding Descriptions</ref>
-  </listRef></elementSpec><elementSpec xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:rng="http://relaxng.org/ns/structure/1.0" rend="change" module="msdescription" xml:id="BINDING" ident="binding"><gloss versionDate="2007-06-12" xml:lang="en">binding</gloss><gloss versionDate="2007-06-12" xml:lang="fr">reliure</gloss><desc versionDate="2019-01-17" xml:lang="en" xml:id="binding.desc">contains a description of one binding, i.e. type of covering, boards, etc. applied to a manuscript or other object.</desc><desc versionDate="2007-12-20" xml:lang="ko">하나의 제본에 대한 기술을 포함한다. 즉, 원고에 적용된 커버, 표지 등의 유형</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">一個裝訂的描述，例如使用於該手稿的封面類型、封面等。</desc><desc versionDate="2008-04-05" xml:lang="ja">1つの装訂に関する情報を示す。例えば、手書き資料でいうカバーの種類、 表紙など。</desc><desc versionDate="2007-06-12" xml:lang="fr">contient la description d'une reliure, i.e. du type de couverture, d'ais, etc., rencontrés.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene la descripción de una encuadernación, p.ej. tipo de cubiertas, tablas, etc. presentes en un manuscrito.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene la descrizione di una legatura, cioè del tipo di copertine, tavole, ecc. utilizzate per il manoscritto</desc><classes><memberOf key="att.global"/><memberOf key="att.datable"/></classes><content><alternate minOccurs="1" maxOccurs="unbounded"><classRef key="model.noteLike"/><elementRef key="condition"/><elementRef key="decoNote"/><elementRef key="summary"/><elementRef key="endleaves"/><elementRef key="sewing"/><elementRef key="edges"/><elementRef key="spine"/><elementRef key="boards"/><elementRef key="endbands"/><elementRef key="covering"/><elementRef key="fastenings"/><elementRef key="furniture"/></alternate></content><constraintSpec ident="binding.check" scheme="schematron">
+  </listRef>
+</elementSpec><elementSpec xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:rng="http://relaxng.org/ns/structure/1.0" rend="change" module="msdescription" xml:id="BINDING" ident="binding"><gloss versionDate="2007-06-12" xml:lang="en">binding</gloss><gloss versionDate="2007-06-12" xml:lang="fr">reliure</gloss><desc versionDate="2019-01-17" xml:lang="en" xml:id="binding.desc">contains a description of one binding, i.e. type of covering, boards, etc. applied to a manuscript or other object.</desc><desc versionDate="2007-12-20" xml:lang="ko">하나의 제본에 대한 기술을 포함한다. 즉, 원고에 적용된 커버, 표지 등의 유형</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">一個裝訂的描述，例如使用於該手稿的封面類型、封面等。</desc><desc versionDate="2008-04-05" xml:lang="ja">1つの装訂に関する情報を示す。例えば、手書き資料でいうカバーの種類、 表紙など。</desc><desc versionDate="2007-06-12" xml:lang="fr">contient la description d'une reliure, i.e. du type de couverture, d'ais, etc., rencontrés.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene la descripción de una encuadernación, p.ej. tipo de cubiertas, tablas, etc. presentes en un manuscrito.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene la descrizione di una legatura, cioè del tipo di copertine, tavole, ecc. utilizzate per il manoscritto</desc><classes><memberOf key="att.global"/><memberOf key="att.datable"/></classes><content><alternate minOccurs="1" maxOccurs="unbounded"><classRef key="model.pLike"/><elementRef key="condition"/><elementRef key="decoNote"/></alternate></content><constraintSpec ident="binding.check" scheme="schematron">
                             <constraint>
                                 <sch:rule context="//tei:binding">
                                     <sch:assert test="@when or @notBefore or @notAfter or @contemporary='true'" role="warn">
@@ -28673,7 +28715,7 @@ element is appropriate for which circumstance.</p>
                             <memberOf key="att.global.source"/>
                         </classes><content>
                             <macroRef key="macro.phraseSeq"/>
-                        </content></elementSpec><moduleSpec ident="msdesc" mode="add"/><elementSpec rend="add" ident="endleaves" ns="http://www.example.org/ns/msdesc" mode="add" module="msdesc"><classes/><content><classRef key="model.noteLike"/></content></elementSpec><moduleSpec ident="msdesc" mode="add"/><elementSpec rend="add" ident="sewing" ns="http://www.example.org/ns/msdesc" mode="add" module="msdesc"><classes/><content><classRef key="model.noteLike"/></content></elementSpec><moduleSpec ident="msdesc" mode="add"/><elementSpec rend="add" ident="edges" ns="http://www.example.org/ns/msdesc" mode="add" module="msdesc"><classes/><content><classRef key="model.noteLike"/></content></elementSpec><moduleSpec ident="msdesc" mode="add"/><elementSpec rend="add" ident="spine" ns="http://www.example.org/ns/msdesc" mode="add" module="msdesc"><classes/><content><classRef key="model.noteLike"/></content></elementSpec><moduleSpec ident="msdesc" mode="add"/><elementSpec rend="add" ident="boards" ns="http://www.example.org/ns/msdesc" mode="add" module="msdesc"><classes/></elementSpec><moduleSpec ident="msdesc" mode="add"/><elementSpec rend="add" ident="endbands" ns="http://www.example.org/ns/msdesc" mode="add" module="msdesc"><classes/><content><classRef key="model.noteLike"/></content></elementSpec><moduleSpec ident="msdesc" mode="add"/><elementSpec rend="add" ident="covering" ns="http://www.example.org/ns/msdesc" mode="add" module="msdesc"><classes/><content><classRef key="model.noteLike"/></content></elementSpec><moduleSpec ident="msdesc" mode="add"/><elementSpec rend="add" ident="fastenings" ns="http://www.example.org/ns/msdesc" mode="add" module="msdesc"><classes/><content><classRef key="model.noteLike"/></content></elementSpec><moduleSpec ident="msdesc" mode="add"/><elementSpec rend="add" ident="furniture" ns="http://www.example.org/ns/msdesc" mode="add" module="msdesc"><classes/><content><classRef key="model.noteLike"/></content></elementSpec><moduleSpec xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:rng="http://relaxng.org/ns/structure/1.0" n="ST" xml:id="DSTTEI2" ident="tei" type="core"/><moduleSpec xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:rng="http://relaxng.org/ns/structure/1.0" n="CMC" ident="cmc"/><moduleSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" n="CO" xml:id="DCO" ident="core"/><moduleSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" n="FT" xml:id="DFTFF" ident="figures"/><moduleSpec xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:rng="http://relaxng.org/ns/structure/1.0" n="HD" xml:id="DHD" ident="header"/><moduleSpec xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:rng="http://relaxng.org/ns/structure/1.0" n="SA" xml:id="DSA" ident="linking"/><moduleSpec xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:rng="http://relaxng.org/ns/structure/1.0" n="MS" xml:id="DMSD2" ident="msdescription"/><moduleSpec xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:rng="http://relaxng.org/ns/structure/1.0" n="ND" xml:id="DND" ident="namesdates"/><moduleSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" n="DS" xml:id="DDS" ident="textstructure"/><moduleSpec xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:rng="http://relaxng.org/ns/structure/1.0" n="PH" xml:id="DPH" ident="transcr"/></schemaSpec>
+                        </content></elementSpec><moduleSpec xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:rng="http://relaxng.org/ns/structure/1.0" n="ST" xml:id="DSTTEI2" ident="tei" type="core"/><moduleSpec xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:rng="http://relaxng.org/ns/structure/1.0" n="CMC" ident="cmc"/><moduleSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" n="CO" xml:id="DCO" ident="core"/><moduleSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" n="FT" xml:id="DFTFF" ident="figures"/><moduleSpec xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:rng="http://relaxng.org/ns/structure/1.0" n="HD" xml:id="DHD" ident="header"/><moduleSpec xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:rng="http://relaxng.org/ns/structure/1.0" n="SA" xml:id="DSA" ident="linking"/><moduleSpec xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:rng="http://relaxng.org/ns/structure/1.0" n="MS" xml:id="DMSD2" ident="msdescription"/><moduleSpec xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:rng="http://relaxng.org/ns/structure/1.0" n="ND" xml:id="DND" ident="namesdates"/><moduleSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" n="DS" xml:id="DDS" ident="textstructure"/><moduleSpec xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:rng="http://relaxng.org/ns/structure/1.0" n="PH" xml:id="DPH" ident="transcr"/></schemaSpec>
             </div>
         </body>
     </text>
