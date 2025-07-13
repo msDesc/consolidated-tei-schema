@@ -5,7 +5,7 @@
          xmlns:teix="http://www.tei-c.org/ns/Examples"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2025-07-13T10:39:52Z. . 
+Schema generated from ODD source 2025-07-13T11:10:42Z. . 
 TEI Edition: 1.0 (April 2020) 
 TEI Edition Location: https://www.tei-c.org/Vault/P5// 
   
@@ -689,6 +689,18 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</a:documentati
                                     </sch:assert>
                                 </sch:rule>
    </pattern>
+   <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+            id="msdescmedieval-att.global.rendition-emptyDimensions.warn-constraint-rule-9">
+      <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
+                xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                xmlns="http://www.tei-c.org/ns/1.0"
+                context="tei:height|tei:width">
+                                    <sch:assert test="string-length(normalize-space(string())) gt 0" role="warn">
+                                        For dimensions the website displays the content of height and width elements. Attribute values are not displayed. Empty elements will not display correctly.
+                                    </sch:assert>
+                                </sch:rule>
+   </pattern>
    <define name="tei_att.global.responsibility.attributes">
       <ref name="tei_att.global.responsibility.attribute.cert"/>
       <ref name="tei_att.global.responsibility.attribute.resp"/>
@@ -748,7 +760,7 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</a:documentati
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="msdescmedieval-att.global.source-source-only_1_ODD_source-constraint-rule-9">
+            id="msdescmedieval-att.global.source-source-only_1_ODD_source-constraint-rule-10">
       <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -877,7 +889,7 @@ Suggested values include: 1] m (metre); 2] kg (kilogram); 3] s (second); 4] Hz (
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="msdescmedieval-att.measurement-att-measurement-unitRef-constraint-rule-10">
+            id="msdescmedieval-att.measurement-att-measurement-unitRef-constraint-rule-11">
       <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -966,7 +978,7 @@ Suggested values include: 1] top; 2] bottom; 3] margin; 4] opposite; 5] overleaf
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="msdescmedieval-att.pointing-targetLang-targetLang-constraint-rule-11">
+            id="msdescmedieval-att.pointing-targetLang-targetLang-constraint-rule-12">
       <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -1081,7 +1093,7 @@ Suggested values include: 1] top; 2] bottom; 3] margin; 4] opposite; 5] overleaf
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="msdescmedieval-att.ranging-numerical.ranging.check-constraint-rule-12">
+            id="msdescmedieval-att.ranging-numerical.ranging.check-constraint-rule-13">
       <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -1158,7 +1170,7 @@ Suggested values include: 1] sole; 2] major; 3] minor</a:documentation>
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="msdescmedieval-att.spanning-spanTo-spanTo-points-to-following-constraint-rule-13">
+            id="msdescmedieval-att.spanning-spanTo-spanTo-points-to-following-constraint-rule-14">
       <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -1194,7 +1206,7 @@ Suggested values include: 1] sole; 2] major; 3] minor</a:documentation>
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="msdescmedieval-att.typed-subtypeTyped-constraint-rule-14">
+            id="msdescmedieval-att.typed-subtypeTyped-constraint-rule-15">
       <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -3725,7 +3737,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="msdescmedieval-att.calendarSystem-calendar-calendar_attr_on_empty_element-constraint-rule-15">
+            id="msdescmedieval-att.calendarSystem-calendar-calendar_attr_on_empty_element-constraint-rule-16">
       <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -3742,7 +3754,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
          <ref name="tei_macro.paraContent"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-p-abstractModel-structure-p-in-ab-or-p-constraint-rule-16">
+                  id="msdescmedieval-p-abstractModel-structure-p-in-ab-or-p-constraint-rule-17">
             <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       context="tei:p">
@@ -3753,7 +3765,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-p-abstractModel-structure-p-in-l-constraint-rule-17">
+                  id="msdescmedieval-p-abstractModel-structure-p-in-l-constraint-rule-18">
             <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       context="tei:l//tei:p">
@@ -3867,7 +3879,7 @@ Suggested values include: 1] spoken (spoken); 2] thought (thought); 3] written (
          <ref name="tei_macro.limitedContent"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-desc-deprecationInfo-only-in-deprecated-constraint-rule-18">
+                  id="msdescmedieval-desc-deprecationInfo-only-in-deprecated-constraint-rule-19">
             <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       context="tei:desc[ @type eq 'deprecationInfo']">
@@ -4307,7 +4319,7 @@ Sample values include: 1] suspension (suspension); 2] contraction (contraction);
          <ref name="tei_macro.paraContent"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-ref-refAtts-constraint-rule-19">
+                  id="msdescmedieval-ref-refAtts-constraint-rule-20">
             <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       context="tei:ref">
@@ -4366,7 +4378,7 @@ Sample values include: 1] suspension (suspension); 2] contraction (contraction);
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-list-gloss-list-must-have-labels-constraint-rule-20">
+                  id="msdescmedieval-list-gloss-list-must-have-labels-constraint-rule-21">
             <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       context="tei:list[@type='gloss']">
@@ -4637,7 +4649,7 @@ Elements 7.2.5. Speech Contents]</a:documentation>
          <ref name="tei_macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-author-author.key.check-constraint-rule-21">
+                  id="msdescmedieval-author-author.key.check-constraint-rule-22">
             <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       context="//tei:msItem//tei:author[ancestor::tei:fileDesc[descendant::tei:idno[@type='catalogue']='Western']]">
@@ -4953,7 +4965,7 @@ Suggested values include: 1] MS; 2] QUARTO; 3] SC; 4] OC; 5] bible; 6] commentar
          </optional>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-relatedItem-targetorcontent1-constraint-rule-22">
+                  id="msdescmedieval-relatedItem-targetorcontent1-constraint-rule-23">
             <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       context="tei:relatedItem">
@@ -4988,7 +5000,7 @@ Suggested values include: 1] MS; 2] QUARTO; 3] SC; 4] OC; 5] bible; 6] commentar
          </zeroOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-l-abstractModel-structure-l-in-l-constraint-rule-23">
+                  id="msdescmedieval-l-abstractModel-structure-l-in-l-constraint-rule-24">
             <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       context="tei:l">
@@ -5037,7 +5049,7 @@ Suggested values include: 1] MS; 2] QUARTO; 3] SC; 4] OC; 5] bible; 6] commentar
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-lg-atleast1oflggapl-constraint-rule-24">
+                  id="msdescmedieval-lg-atleast1oflggapl-constraint-rule-25">
             <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       context="tei:lg">
@@ -5046,7 +5058,7 @@ Suggested values include: 1] MS; 2] QUARTO; 3] SC; 4] OC; 5] bible; 6] commentar
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-lg-abstractModel-structure-lg-in-l-constraint-rule-25">
+                  id="msdescmedieval-lg-abstractModel-structure-lg-in-l-constraint-rule-26">
             <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       context="tei:lg">
@@ -5067,7 +5079,7 @@ Suggested values include: 1] MS; 2] QUARTO; 3] SC; 4] OC; 5] bible; 6] commentar
          <ref name="tei_macro.specialPara"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-textLang-textLang.check-constraint-rule-26">
+                  id="msdescmedieval-textLang-textLang.check-constraint-rule-27">
             <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
@@ -5924,7 +5936,7 @@ Suggested values include: 1] formata; 2] libraria; 3] currens</a:documentation>
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-msDesc-one_ms_singleton_max-constraint-rule-29">
+                  id="msdescmedieval-msDesc-one_ms_singleton_max-constraint-rule-30">
             <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
@@ -5951,7 +5963,7 @@ Suggested values include: 1] formata; 2] libraria; 3] currens</a:documentation>
          <ref name="tei_macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-catchwords-catchword_in_msDesc-constraint-rule-30">
+                  id="msdescmedieval-catchwords-catchword_in_msDesc-constraint-rule-31">
             <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
@@ -5974,7 +5986,7 @@ Suggested values include: 1] formata; 2] libraria; 3] currens</a:documentation>
          </zeroOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-dimensions-dimensions-unit.check-constraint-rule-31">
+                  id="msdescmedieval-dimensions-dimensions-unit.check-constraint-rule-32">
             <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
@@ -5986,7 +5998,7 @@ Suggested values include: 1] formata; 2] libraria; 3] currens</a:documentation>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-dimensions-duplicateDim-constraint-rule-32">
+                  id="msdescmedieval-dimensions-duplicateDim-constraint-rule-33">
             <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
@@ -6213,7 +6225,7 @@ Sample values include: 1] binding; 2] endband; 3] slipcase; 4] support; 5] tie</
          </zeroOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-origDate-origDate.check-constraint-rule-33">
+                  id="msdescmedieval-origDate-origDate.check-constraint-rule-34">
             <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
@@ -6252,7 +6264,7 @@ Sample values include: 1] binding; 2] endband; 3] slipcase; 4] support; 5] tie</
          <ref name="tei_macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-secFol-secFol_in_msDesc-constraint-rule-34">
+                  id="msdescmedieval-secFol-secFol_in_msDesc-constraint-rule-35">
             <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
@@ -6270,7 +6282,7 @@ Sample values include: 1] binding; 2] endband; 3] slipcase; 4] support; 5] tie</
          <ref name="tei_macro.specialPara"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-signatures-signatures_in_msDesc-constraint-rule-35">
+                  id="msdescmedieval-signatures-signatures_in_msDesc-constraint-rule-36">
             <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
@@ -6346,7 +6358,7 @@ Sample values include: 1] binding; 2] endband; 3] slipcase; 4] support; 5] tie</
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-msIdentifier-msId_minimal-constraint-rule-36">
+                  id="msdescmedieval-msIdentifier-msId_minimal-constraint-rule-37">
             <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
@@ -6698,7 +6710,7 @@ Sample values include: 1] binding; 2] endband; 3] slipcase; 4] support; 5] tie</
          </choice>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-objectDesc-textLang.check-constraint-rule-37">
+                  id="msdescmedieval-objectDesc-textLang.check-constraint-rule-38">
             <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
@@ -6777,7 +6789,7 @@ Suggested values include: 1] codex; 2] roll; 3] sheet; 4] faltbuch; 5] roll-code
          </choice>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-supportDesc-textLang.check-constraint-rule-39">
+                  id="msdescmedieval-supportDesc-textLang.check-constraint-rule-40">
             <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
@@ -7110,7 +7122,7 @@ Suggested values include: 1] ink; 2] leadpoint; 3] hardpoint; 4] crayon; 5] mixe
          <optional>
             <attribute name="type">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">characterizes the element in some sense, using any convenient classification scheme or typology.
-Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5] marginal; 6] micrography; 7] miniature; 8] drawing; 9] rubrication; 10] bas-de-page; 11] map; 12] headpiece; 13] headpiece; 14] canonTable; 15] carpetPage; 16] histInit; 17] decInit; 18] flourInit; 19] colInit; 20] plainInit; 21] chrysography; 22] lineFill; 23] cadel; 24] instructions; 25] unfilled; 26] none; 27] other</a:documentation>
+Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5] marginal; 6] micrography; 7] miniature; 8] drawing; 9] rubrication; 10] bas-de-page; 11] map; 12] headpiece; 13] canonTable; 14] carpetPage; 15] histInit; 16] decInit; 17] flourInit; 18] colInit; 19] plainInit; 20] chrysography; 21] lineFill; 22] cadel; 23] instructions; 24] unfilled; 25] none; 26] other</a:documentation>
                <choice>
                   <value>border</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The decoration note concerns the border(s)</a:documentation>
@@ -7134,8 +7146,6 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The decoration note concerns bas-de-page scenes </a:documentation>
                   <value>map</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The decoration note concerns a map or maps</a:documentation>
-                  <value>headpiece</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The decoration note concerns a headpiece</a:documentation>
                   <value>headpiece</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The decoration note concerns a headpiece</a:documentation>
                   <value>canonTable</value>
@@ -7187,7 +7197,6 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
       <element name="bindingDesc">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(binding description) describes the present and former bindings of a manuscript or other object, either as a series of paragraphs or as a series of distinct <code xmlns="http://www.w3.org/1999/xhtml"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0">&lt;binding&gt;</code> elements, one for each binding of the manuscript. [11.7.3.1. Binding Descriptions]</a:documentation>
-         <ref name="tei_summary"/>
          <choice>
             <oneOrMore>
                <choice>
@@ -7196,7 +7205,9 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
                   <ref name="tei_condition"/>
                </choice>
             </oneOrMore>
-            <ref name="tei_binding"/>
+            <oneOrMore>
+               <ref name="tei_binding"/>
+            </oneOrMore>
          </choice>
          <ref name="tei_att.global.attributes"/>
          <empty/>
@@ -7207,15 +7218,14 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(binding) contains a description of one binding, i.e. type of covering, boards, etc. applied to a manuscript or other object. [11.7.3.1. Binding Descriptions]</a:documentation>
          <oneOrMore>
             <choice>
-               <ref name="tei_model.noteLike"/>
+               <ref name="tei_model.pLike"/>
                <ref name="tei_condition"/>
                <ref name="tei_decoNote"/>
-               <ref name="tei_summary"/>
             </choice>
          </oneOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-binding-binding.check-constraint-rule-41">
+                  id="msdescmedieval-binding-binding.check-constraint-rule-42">
             <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
@@ -7465,7 +7475,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <ref name="tei_macro.specialPara"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-surrogates-facsimile.warn-constraint-rule-42">
+                  id="msdescmedieval-surrogates-facsimile.warn-constraint-rule-43">
             <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
@@ -7802,7 +7812,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <ref name="tei_macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-orgName-orgName.key.check-constraint-rule-43">
+                  id="msdescmedieval-orgName-orgName.key.check-constraint-rule-44">
             <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
@@ -7827,7 +7837,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <ref name="tei_macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-persName-persName.key.check-constraint-rule-44">
+                  id="msdescmedieval-persName-persName.key.check-constraint-rule-45">
             <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
@@ -7886,7 +7896,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <ref name="tei_macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-placeName-placeName.key.check-constraint-rule-45">
+                  id="msdescmedieval-placeName-placeName.key.check-constraint-rule-46">
             <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
@@ -7912,7 +7922,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <ref name="tei_macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-country-country.key.check-constraint-rule-46">
+                  id="msdescmedieval-country-country.key.check-constraint-rule-47">
             <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
@@ -7949,7 +7959,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <ref name="tei_macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-settlement-settlement.key.check-constraint-rule-47">
+                  id="msdescmedieval-settlement-settlement.key.check-constraint-rule-48">
             <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
@@ -8041,7 +8051,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-TEI-TEI.xmlid.check-constraint-rule-48">
+                  id="msdescmedieval-TEI-TEI.xmlid.check-constraint-rule-49">
             <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       context="tei:TEI">
@@ -8237,7 +8247,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-div-abstractModel-structure-div-in-l-constraint-rule-49">
+                  id="msdescmedieval-div-abstractModel-structure-div-in-l-constraint-rule-50">
             <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       context="tei:l//tei:div">
@@ -8248,7 +8258,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-div-abstractModel-structure-div-in-ab-or-p-constraint-rule-50">
+                  id="msdescmedieval-div-abstractModel-structure-div-in-ab-or-p-constraint-rule-51">
             <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       context="tei:div">
@@ -8412,7 +8422,7 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-facsimile-no_facsimile_text_nodes-constraint-rule-51">
+                  id="msdescmedieval-facsimile-no_facsimile_text_nodes-constraint-rule-52">
             <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"
@@ -8588,7 +8598,7 @@ Sample values include: 1] header; 2] footer; 3] pageNum (page number); 4] lineNu
          </oneOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="msdescmedieval-subst-substContents1-constraint-rule-52">
+                  id="msdescmedieval-subst-substContents1-constraint-rule-53">
             <sch:rule xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns="http://www.tei-c.org/ns/1.0"

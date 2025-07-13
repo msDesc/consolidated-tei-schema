@@ -18,7 +18,7 @@
    </teiHeader>
    <text>
       <body>
-         <schemaSpec ident="msdescmedieval" source="file:///C:/Users/matth/OneDrive/Documents2/GitHub/consolidated-tei-schema/msdesc.compiled.xml" start="TEI" prefix="tei_" targetLang="en" docLang="en">
+         <schemaSpec ident="msdescmedieval" source="msdesc.compiled.xml" start="TEI" prefix="tei_" targetLang="en" docLang="en">
             <moduleRef key="tei"/>
             <!-- core module -->
             <moduleRef key="core"/>
