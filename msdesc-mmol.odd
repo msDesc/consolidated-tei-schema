@@ -2,7 +2,7 @@
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml"
 	schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xmlns="http://www.tei-c.org/ns/1.0">
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron">
    <teiHeader>
       <fileDesc>
          <titleStmt>
@@ -18,7 +18,7 @@
    </teiHeader>
    <text>
       <body>
-         <schemaSpec ident="msdescmedieval" source="msdesc.compiled.xml" start="TEI" prefix="tei_" targetLang="en" docLang="en">
+         <schemaSpec ident="msdescmedieval" source="https://raw.githubusercontent.com/msDesc/consolidated-tei-schema/refs/heads/master/msdesc.compiled.xml" start="TEI" prefix="tei_" targetLang="en" docLang="en">
             <moduleRef key="tei"/>
             <!-- core module -->
             <moduleRef key="core"/>
@@ -61,6 +61,7 @@
                </attList>
             </elementSpec>
             
+            <!-- add scope attribute to layout element -->
             <elementSpec ident="layout" module="msdescription" mode="change">
                <attList>
                   <attDef ident="scope" mode="add">
@@ -83,7 +84,439 @@
                </attList>
             </elementSpec>
             
+            <!-- changes to bindingDesc -->
+            <elementSpec ident="binding" module="msdescription" mode="change">
+               <classes mode="change">
+                  <memberOf key="att.typed"/>
+               </classes>
+               <content>
+                  <alternate maxOccurs="unbounded" minOccurs="1">
+                     <classRef key="model.noteLike"/>
+                     <elementRef key="p"/>
+                     <elementRef key="condition"/>
+                     <elementRef key="history"/>
+                     <elementRef key="dimensions"/>
+                     <elementRef key="decoNote"/>
+                     <elementRef key="summary"/>
+                     <elementRef key="endleaves"/>
+                     <elementRef key="sewing"/>
+                     <elementRef key="edges"/>
+                     <elementRef key="spine"/>
+                     <elementRef key="boards"/>
+                     <elementRef key="endbands"/>
+                     <elementRef key="covering"/>
+                     <elementRef key="fastenings"/>
+                     <elementRef key="furniture"/>
+                     <elementRef key="tacketing"/>
+                     <elementRef key="chaining"/>
+                     <elementRef key="bookmarks"/>
+                     <elementRef key="labels"/>
+                  </alternate>
+               </content>
+               <constraintSpec ident="binding.check" scheme="schematron">
+                  <constraint>
+                     <sch:rule context="//tei:binding">
+                        <sch:assert
+                           test="@when or @notBefore or @notAfter or @contemporary='true'"
+                           role="warn"> The binding element should have dating
+                           attributes (when or notBefore/notAfter) or a contemporary
+                           attribute (with the value 'true'). </sch:assert>
+                     </sch:rule>
+                  </constraint>
+               </constraintSpec>
+               <attList>
+                  <attDef ident="type" mode="change">
+                     <desc xml:lang="en">Classifies the general
+                        structure of the binding.</desc>
+                     <valList type="semi" mode="change">
+                        <valItem mode="add" ident="limp"/>
+                        <valItem mode="add" ident="inboard"/>
+                     </valList>
+                  </attDef>
+                  <attDef ident="subtype" mode="change">
+                     <desc versionDate="2024-01-23" xml:lang="en">Provides a broad
+                        classification of inboard structures</desc>
+                     <valList type="closed" mode="change">
+                        <valItem mode="add" ident="romanesque"/>
+                        <valItem mode="add" ident="gothic"/>
+                        <valItem mode="add" ident="earlyMedieval"/>
+                        <valItem mode="add" ident="lacedCase"/>
+                     </valList>
+                  </attDef>
+                  <attDef ident="status" mode="change">
+                     <desc xml:lang="en">Describes the status of the binding being described.</desc>
+                     <valList type="closed" mode="change">
+                        <valItem mode="add" ident="firstBinding"><desc>The binding being described is the first binding.</desc></valItem>
+                        <valItem mode="add" ident="rebinding"><desc>The binding described is a rebinding, with new sewing, that may preserve other components of earlier bindings.</desc></valItem>
+                        <valItem mode="add" ident="alteration"><desc>The binding described is an alteration of an earlier binding (usually meaning that the sewing of an earlier binding is preserved)</desc></valItem>
+                     </valList>
+                  </attDef>
+               </attList>
+            </elementSpec>
             
+            
+               <elementSpec ident="bindingDesc" mode="change">
+                        <content>
+
+                            <alternate maxOccurs="1" minOccurs="1">
+                                <alternate maxOccurs="unbounded" minOccurs="1">
+                                    <classRef key="model.pLike"/>
+                                    <elementRef key="decoNote"/>
+                                    <elementRef key="condition"/>
+                                </alternate>
+                                <elementRef key="summary"/>
+                                <elementRef key="binding"/>
+                            </alternate>
+                        </content>
+                    </elementSpec>
+                    <moduleSpec ident="msdesc" mode="add"/>
+                    <elementSpec ident="endleaves" ns="http://www.example.org/ns/msdesc" mode="add"
+                        module="msdesc">
+                        <classes>
+                            <memberOf key="att.typed"/>
+                        </classes>
+                        <content>
+                            <macroRef key="macro.specialPara"/>
+                        </content>
+                        <attList>
+                            <attDef ident="support" usage="opt">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="perg"/>
+                                    <valItem ident="chart"/>
+                                </valList>
+                            </attDef>
+                           
+                           <attDef ident="type" mode="change">
+                              <desc xml:lang="en">Classifies the 
+                                 type of endleaf structure.</desc>
+                              <valList type="semi" mode="change">
+                                 <valItem mode="add" ident="separate"/>
+                                 <valItem mode="add" ident="integral"/>
+                              </valList>
+                           </attDef>
+                           <attDef ident="subtype" mode="change">
+                              <desc xml:lang="en">Describes whether or not the endleaf material is reused.</desc>
+                              <valList type="semi" mode="change">
+                                 <valItem mode="add" ident="firstUse"/>
+                                 <valItem mode="add" ident="reused"/>
+                              </valList>
+                           </attDef>
+                           
+                        </attList>
+                    </elementSpec>
+                    <moduleSpec ident="msdesc" mode="add"/>
+                    <elementSpec ident="sewing" ns="http://www.example.org/ns/msdesc" mode="add"
+                        module="msdesc">
+                        <classes/>
+                        <content>
+                            <macroRef key="macro.specialPara"/>
+                        </content>
+                       <!-- need to check this with AH -->
+                        <attList>
+                            <attDef ident="stitching" usage="opt">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="allAlong"/>
+                                    <valItem ident="longStitch"/>
+                                    <valItem ident="chainStitch"/>
+                                </valList>
+                            </attDef>
+                            <attDef ident="supports" usage="opt">
+                                <datatype>
+                                    <dataRef name="nonNegativeInteger"/>
+                                </datatype>
+                            </attDef>
+                        </attList>
+                    </elementSpec>
+                    <moduleSpec ident="msdesc" mode="add"/>
+                    <elementSpec ident="edges" ns="http://www.example.org/ns/msdesc" mode="add"
+                        module="msdesc">
+                        <classes/>
+                        <content>
+                            <macroRef key="macro.specialPara"/>
+                        </content>
+                    </elementSpec>
+                    <moduleSpec ident="msdesc" mode="add"/>
+                    <elementSpec ident="spine" ns="http://www.example.org/ns/msdesc" mode="add"
+                        module="msdesc">
+                        <classes/>
+                        <content>
+                            <macroRef key="macro.specialPara"/>
+                        </content>
+                    </elementSpec>
+                    <moduleSpec ident="msdesc" mode="add"/>
+                    <elementSpec ident="boards" ns="http://www.example.org/ns/msdesc" mode="add"
+                        module="msdesc">
+                        <classes/>
+                        <content>
+                            <macroRef key="macro.specialPara"/>
+                        </content>
+                        <attList>
+                            <attDef ident="material">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="chart">
+                                        <desc versionDate="2024-01-24" xml:lang="en">The boards are
+                                            composed of paper
+                                            (https://www.ligatus.org.uk/lob/concept/4168)</desc>
+                                    </valItem>
+                                    <valItem ident="wood">
+                                        <desc versionDate="2024-01-24" xml:lang="en">The boards are
+                                            composed of wood
+                                            (https://www.ligatus.org.uk/lob/concept/3699)</desc>
+                                    </valItem>
+                                </valList>
+                            </attDef>
+                            <attDef ident="squares">
+                                <datatype>
+                                    <dataRef name="boolean"/>
+                                </datatype>
+                            </attDef>
+                            <attDef ident="reused">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                                <valList>
+                                    <valItem ident="true"/>
+                                    <valItem ident="false"/>
+                                    <valItem ident="unknown"/>
+                                </valList>
+                            </attDef>
+                        </attList>
+                    </elementSpec>
+                    <moduleSpec ident="msdesc" mode="add"/>
+                    <elementSpec ident="endbands" ns="http://www.example.org/ns/msdesc" mode="add"
+                        module="msdesc">
+                       <classes>
+                          <memberOf key="att.typed"/>
+                       </classes>
+                        <content>
+                            <macroRef key="macro.specialPara"/>
+                        </content>
+                       <attList><attDef ident="type" mode="change">
+                          <desc xml:lang="en">Classifies the endband as primary or secondary.</desc>
+                          <valList type="semi" mode="change">
+                             <valItem mode="add" ident="primary"/>
+                             <valItem mode="add" ident="secondary"/>
+                          </valList>
+                       </attDef></attList>
+                    </elementSpec>
+                    <moduleSpec ident="msdesc" mode="add"/>
+                    <elementSpec ident="covering" ns="http://www.example.org/ns/msdesc" mode="add"
+                        module="msdesc">
+                        <classes/>
+                        <content>
+                            <macroRef key="macro.specialPara"/>
+                        </content>
+                        <attList>
+                            <attDef ident="type" usage="opt">
+                                <datatype>
+                                    <dataRef key="teidata.enumerated"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="primary"/>
+                                    <valItem ident="secondary"/>
+                                    <valItem ident="foreedgeFlap"/>
+                                </valList>
+                            </attDef>
+                            <attDef ident="extent">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="full">
+                                        <desc versionDate="2024-01-24" xml:lang="en">"The covering
+                                            material extends around the spine from fore-edge to
+                                            fore-edge. A full cover can, but does not always, have
+                                            turn-ins."
+                                            (https://www.ligatus.org.uk/lob/concept/1348)</desc>
+                                    </valItem>
+                                    <valItem ident="half">
+                                        <desc versionDate="2024-01-24" xml:lang="en">"A part cover
+                                            in which the spine and the back edge of the boards are
+                                            covered in one material and the outer corners of the
+                                            boards are covered with pieces of either the same or a
+                                            different
+                                            material."(https://www.ligatus.org.uk/lob/concept/1382)</desc>
+                                    </valItem>
+                                    <valItem ident="quarter">
+                                        <desc versionDate="2024-01-24" xml:lang="en">"Quarter covers
+                                            are those which cover only the spine and the back edge
+                                            of the boards."
+                                            (https://www.ligatus.org.uk/lob/concept/1530)</desc>
+                                    </valItem>
+                                    <valItem ident="none">
+                                        <desc versionDate="2024-01-24" xml:lang="en">The boards are
+                                            not covered.</desc>
+                                    </valItem>
+                                </valList>
+                            </attDef>
+                            <attDef ident="material">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="skinTawed">
+                                        <desc versionDate="2024-01-24" xml:lang="en">The covering is
+                                            alum-tawed skin
+                                            (https://www.ligatus.org.uk/lob/concept/1197)</desc>
+                                    </valItem>
+                                    <valItem ident="skinTanned">
+                                        <desc versionDate="2024-01-24" xml:lang="en">The covering is
+                                            tanned skin
+                                            (https://www.ligatus.org.uk/lob/concept/1658)</desc>
+                                    </valItem>
+                                    <valItem ident="perg">
+                                        <desc versionDate="2024-01-24" xml:lang="en">The covering is
+                                            parchment
+                                            (https://www.ligatus.org.uk/lob/concept/1485)</desc>
+                                    </valItem>
+                                    <valItem ident="chart">
+                                        <desc versionDate="2024-01-24" xml:lang="en">The covering is
+                                            paper
+                                            (https://www.ligatus.org.uk/lob/concept/1481)</desc>
+                                    </valItem>
+                                    <valItem ident="textile">
+                                        <desc versionDate="2024-01-24" xml:lang="en">The covering is
+                                            textile
+                                            (https://www.ligatus.org.uk/lob/concept/2470)</desc>
+                                    </valItem>
+                                   <!-- todo: waste? -->
+                                </valList>
+                            </attDef>
+                            <attDef ident="colour">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                            </attDef>
+                        </attList>
+                    </elementSpec>
+                    <moduleSpec ident="msdesc" mode="add"/>
+                    <elementSpec ident="fastenings" ns="http://www.example.org/ns/msdesc" mode="add"
+                        module="msdesc">
+                        <classes/>
+                        <content>
+                            <macroRef key="macro.specialPara"/>
+                        </content>
+                        <attList>
+                            <attDef ident="direction">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                                <valList type="closed">
+                                    <valItem ident="rtl"/>
+                                    <valItem ident="ltr"/>
+                                    <valItem ident="unknown"/>
+                                </valList>
+                            </attDef>
+                            <attDef ident="type" usage="opt">
+                                <datatype>
+                                    <dataRef key="string"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="tie"/>
+                                    <valItem ident="clasp"/>
+                                    <valItem ident="strap"/>
+                                </valList>
+                            </attDef>
+                           <!-- remove following? -->
+                            <attDef ident="condition">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="lost"/>
+                                    <valItem ident="repaired"/>
+                                    <valItem ident="original"/>
+                                    <valItem ident="damaged"/>
+                                </valList>
+                            </attDef>
+                            <attRef name="quantity" class="att.dimensions"/>
+                        </attList>
+                    </elementSpec>
+            
+                    <moduleSpec ident="msdesc" mode="add"/>
+                    <elementSpec ident="furniture" ns="http://www.example.org/ns/msdesc" mode="add"
+                        module="msdesc">
+                        <classes>
+                            <memberOf key="att.typed"/>
+                        </classes>
+                        <content>
+                            <macroRef key="macro.specialPara"/>
+                        </content>
+                    </elementSpec>
+            
+            
+                    <elementSpec ident="chaining" ns="http://www.example.org/ns/msdesc" mode="add"
+                        module="msdesc">
+                        <desc versionDate="2024-01-23" xml:lang="en">Describes any evidence for
+                            chaining of the book.</desc>
+                        <classes/>
+                        <content>
+                            <macroRef key="macro.specialPara"/>
+                        </content>
+                    </elementSpec>
+            
+            
+                    <elementSpec ident="tacketing" ns="http://www.example.org/ns/msdesc" mode="add"
+                        module="msdesc">
+                        <classes/>
+                        <content>
+                            <macroRef key="macro.specialPara"/>
+                        </content>
+                    </elementSpec>
+            
+            
+                    <elementSpec ident="bookmarks" ns="http://www.example.org/ns/msdesc" mode="add"
+                        module="msdesc">
+                        <classes/>
+                        <content>
+                            <macroRef key="macro.specialPara"/>
+                        </content>
+                        <attList>
+                            <attDef ident="type" usage="opt">
+                                <datatype>
+                                    <dataRef key="teidata.enumerated"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="leafThread">
+                                        <desc versionDate="2024-01-24" xml:lang="en">"These are
+                                            often made of string or thread or occasionally skin or
+                                            gut. They are sewn or laced through a leaf in a
+                                            bookblock at fore-edge or head-edge."
+                                            (https://www.ligatus.org.uk/lob/concept/2944)</desc>
+                                    </valItem>
+                                    <valItem ident="ribbon">
+                                        <desc versionDate="2024-01-24" xml:lang="en">"Narrow strips,
+                                            often made of silk, used as a bookmark. "
+                                            (https://www.ligatus.org.uk/lob/concept/3003)</desc>
+                                    </valItem>
+                                    <valItem ident="rotatingColumn">
+                                        <desc versionDate="2024-01-24" xml:lang="en">"Column
+                                            indicators made in the form of rotating disks within a
+                                            fold of parchment with the numbers of the columns
+                                            present in any opening written on the disks. "
+                                            (https://www.ligatus.org.uk/lob/concept/4913)</desc>
+                                    </valItem>
+                                </valList>
+                            </attDef>
+                           <attRef name="quantity" class="att.dimensions"/>
+                        </attList>
+                    </elementSpec>
+                    <elementSpec ident="labels" ns="http://www.example.org/ns/msdesc" mode="add"
+                        module="msdesc">
+                        <classes/>
+                        <content>
+                            <macroRef key="macro.specialPara"/>
+                        </content>
+                    </elementSpec>
       </schemaSpec>
       </body>
    </text>
