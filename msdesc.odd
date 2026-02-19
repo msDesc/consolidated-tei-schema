@@ -4937,14 +4937,14 @@
                     <!-- ********************** -->
 
 
-                    <!-- The TEI element must have xml:id in the form "manuscript_1234" (except in Genizah where it must be "volume_5678") -->
+                    <!-- The TEI element must have xml:id in the form "manuscript_1234" (except in Genizah where it must be "volume_5678" or MLGB where it must be "book_5678") -->
                     <elementSpec ident="TEI" module="textstructure" mode="change">
                         <constraintSpec scheme="schematron" ident="TEI.xmlid.check">
                             <constraint>
                                 <sch:rule
                                     context="tei:TEI">
                                     <sch:assert 
-                                        test="matches(@xml:id, '^manuscript_\d+$') or contains(base-uri(.), 'genizah-mss')" 
+                                        test="matches(@xml:id, '^manuscript_\d+$') or contains(base-uri(.), 'genizah-mss') or contains(base-uri(.), 'mlgb-mss')" 
                                         role="fatal">
                                         The root TEI element must have an @xml:id beginning with 
                                         "manuscript_" then a number (which must also be unique 
@@ -4955,6 +4955,13 @@
                                         role="fatal">
                                         The root TEI element must have an @xml:id beginning with
                                         "volume_" then a number (which must also be unique 
+                                        across the entire catalogue).
+                                    </sch:assert>
+                                    <sch:assert 
+                                        test="matches(@xml:id, '^book_\d+$') or not(contains(base-uri(.), 'mlgb-mss'))" 
+                                        role="fatal">
+                                        The root TEI element must have an @xml:id beginning with
+                                        "book_" then a number (which must also be unique 
                                         across the entire catalogue).
                                     </sch:assert>
                                 </sch:rule>

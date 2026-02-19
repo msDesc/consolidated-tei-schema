@@ -8170,18 +8170,27 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
                       xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="tei:TEI">
-                                    <sch:assert role="fatal"
-                           test="matches(@xml:id, '^manuscript_\d+$') or contains(base-uri(.), 'genizah-mss')">
-                                        The root TEI element must have an @xml:id beginning with 
-                                        "manuscript_" then a number (which must also be unique 
-                                        across the entire catalogue).
-                                    </sch:assert>
-                                    <sch:assert role="fatal"
-                           test="matches(@xml:id, '^volume_\d+$') or not(contains(base-uri(.), 'genizah-mss'))">
-                                        The root TEI element must have an @xml:id beginning with
-                                        "volume_" then a number (which must also be unique 
-                                        across the entire catalogue).
-                                    </sch:assert>
+               <sch:assert 
+                  test="matches(@xml:id, '^manuscript_\d+$') or contains(base-uri(.), 'genizah-mss') or contains(base-uri(.), 'mlgb-mss')" 
+                  role="fatal">
+                  The root TEI element must have an @xml:id beginning with 
+                  "manuscript_" then a number (which must also be unique 
+                  across the entire catalogue).
+               </sch:assert>
+               <sch:assert 
+                  test="matches(@xml:id, '^volume_\d+$') or not(contains(base-uri(.), 'genizah-mss'))" 
+                  role="fatal">
+                  The root TEI element must have an @xml:id beginning with
+                  "volume_" then a number (which must also be unique 
+                  across the entire catalogue).
+               </sch:assert>
+               <sch:assert 
+                  test="matches(@xml:id, '^book_\d+$') or not(contains(base-uri(.), 'mlgb-mss'))" 
+                  role="fatal">
+                  The root TEI element must have an @xml:id beginning with
+                  "book_" then a number (which must also be unique 
+                  across the entire catalogue).
+               </sch:assert>
                                 </sch:rule>
          </pattern>
          <sch:ns xmlns:rng="http://relaxng.org/ns/structure/1.0"
