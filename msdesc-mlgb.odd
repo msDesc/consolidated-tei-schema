@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0"
+    xmlns:sch="http://purl.oclc.org/dsdl/schematron">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>MLGB customisations for msDesc schema</title>
+            </titleStmt>
+            <publicationStmt>
+                <p>Publication Information</p>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Information about the source</p>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <schemaSpec ident="msdescmlgb" source="https://raw.githubusercontent.com/msDesc/consolidated-tei-schema/refs/heads/master/msdesc.compiled.xml" start="TEI" targetLang="en" docLang="en">
+                <moduleRef key="tei"/>
+                <!-- core module -->
+                <moduleRef key="core"/>
+                <!-- figures module -->
+                <moduleRef key="figures"/>
+                <!-- header module -->
+                <moduleRef key="header"/>
+                <!-- linking module -->
+                <moduleRef key="linking"/>
+                <!-- msdescription module -->
+                <moduleRef key="msdescription"/>
+                <!-- namesdates module -->
+                <moduleRef key="namesdates" />
+                <!-- textstructure module -->
+                <moduleRef key="textstructure"/>
+                <!-- transcr module -->
+                <moduleRef key="transcr"/>
+
+
+                <!-- ********************** -->
+                <!-- Schematron constraints -->
+                <!-- ********************** -->
+
+                <!-- The TEI element must have xml:id in the form "book_1234" or "booklist_5678" -->
+                <elementSpec ident="TEI" module="textstructure" mode="change">
+                    <constraintSpec scheme="schematron" ident="TEI.xmlid.check" mode="change">
+                        <constraint>
+                            <sch:rule context="tei:TEI">
+                                <sch:assert test="matches(@xml:id, '^book_\d+$') or matches(@xml:id, '^booklist_\d+$')" role="fatal">
+                                The root TEI element must have an @xml:id beginning with 
+                                "book_" or "booklist_" then a number (which must also be unique 
+                                across the entire catalogue).
+                                </sch:assert>
+                            </sch:rule>
+                        </constraint>
+                    </constraintSpec>
+                </elementSpec>
+
+            </schemaSpec>
+        </body>
+    </text>
+</TEI>
