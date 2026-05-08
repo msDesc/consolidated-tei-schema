@@ -5,7 +5,7 @@
          xmlns:xlink="http://www.w3.org/1999/xlink"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2025-11-11T16:30:30Z. . 
+Schema generated from ODD source 2026-05-08T15:11:54Z. . 
 TEI Edition: 1.0 (April 2020) 
 TEI Edition Location: https://www.tei-c.org/Vault/P5// 
   
@@ -7120,7 +7120,7 @@ Suggested values include: 1] ink; 2] leadpoint; 3] hardpoint; 4] crayon; 5] mixe
          <optional>
             <attribute name="type">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">characterizes the element in some sense, using any convenient classification scheme or typology.
-Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5] marginal; 6] micrography; 7] miniature; 8] drawing; 9] rubrication; 10] bas-de-page; 11] map; 12] headpiece; 13] canonTable; 14] carpetPage; 15] histInit; 16] decInit; 17] flourInit; 18] colInit; 19] plainInit; 20] chrysography; 21] lineFill; 22] cadel; 23] instructions; 24] unfilled; 25] none; 26] other</a:documentation>
+Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5] marginal; 6] micrography; 7] miniature; 8] drawing; 9] rubrication; 10] bas-de-page; 11] map; 12] headpiece; 13] canonTable; 14] carpetPage; 15] histInit; 16] decInit; 17] flourInit; 18] colInit; 19] plainInit; 20] chrysography; 21] lineFill; 22] cadel; 23] instructions; 24] unfilled; 25] none; 26] other; 27] blindTooled; 28] goldTooled; 29] cutLeather; 30] embroidered; 31] unknown</a:documentation>
                <choice>
                   <value>border</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The decoration note concerns the border(s)</a:documentation>
@@ -7174,6 +7174,16 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The decoration note records the absence of any decoration</a:documentation>
                   <value>other</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The decoration note concerns other/unspecified aspects (you may also provide a custom value)</a:documentation>
+                  <value>blindTooled</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The decoration note concerns a blind-tooled binding</a:documentation>
+                  <value>goldTooled</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The decoration note concerns a gold-tooled binding</a:documentation>
+                  <value>cutLeather</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The decoration note concerns a cut-leather binding</a:documentation>
+                  <value>embroidered</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The decoration note concerns an embroidered binding</a:documentation>
+                  <value>unknown</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The decoration note concerns a binding without evidence for the presence, absence or type of decoration</a:documentation>
                   <data type="token">
                      <param name="pattern">[^\p{C}\p{Z}]+</param>
                   </data>
@@ -7196,15 +7206,20 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(binding description) describes the present and former bindings of a manuscript or other object, either as a series of paragraphs or as a series of distinct <code xmlns="http://www.w3.org/1999/xhtml"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0">&lt;binding&gt;</code> elements, one for each binding of the manuscript. [11.7.3.1. Binding Descriptions]</a:documentation>
          <choice>
-            <oneOrMore>
-               <choice>
+            <group>
+               <ref name="tei_summary"/>
+               <oneOrMore>
+                  <ref name="tei_binding"/>
+               </oneOrMore>
+            </group>
+            <choice>
+               <oneOrMore>
                   <ref name="tei_model.pLike"/>
-                  <ref name="tei_decoNote"/>
-                  <ref name="tei_condition"/>
-               </choice>
-            </oneOrMore>
-            <ref name="tei_summary"/>
-            <ref name="tei_binding"/>
+               </oneOrMore>
+               <ref name="tei_decoNote"/>
+               <ref name="tei_condition"/>
+               <ref name="tei_binding"/>
+            </choice>
          </choice>
          <ref name="tei_att.global.attributes"/>
          <empty/>
@@ -7213,30 +7228,37 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
    <define name="tei_binding">
       <element name="binding">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(binding) contains a description of one binding, i.e. type of covering, boards, etc. applied to a manuscript or other object. [11.7.3.1. Binding Descriptions]</a:documentation>
-         <oneOrMore>
+         <choice>
             <choice>
-               <ref name="tei_model.noteLike"/>
-               <ref name="tei_p"/>
-               <ref name="tei_condition"/>
-               <ref name="tei_history"/>
-               <ref name="tei_dimensions"/>
+               <oneOrMore>
+                  <ref name="tei_model.pLike"/>
+               </oneOrMore>
                <ref name="tei_decoNote"/>
-               <ref name="tei_summary"/>
-               <ref name="tei_endleaves"/>
-               <ref name="tei_sewing"/>
-               <ref name="tei_edges"/>
-               <ref name="tei_spine"/>
-               <ref name="tei_boards"/>
-               <ref name="tei_endbands"/>
-               <ref name="tei_covering"/>
-               <ref name="tei_fastenings"/>
-               <ref name="tei_furniture"/>
-               <ref name="tei_tacketing"/>
-               <ref name="tei_chaining"/>
-               <ref name="tei_bookmarks"/>
-               <ref name="tei_labels"/>
+               <ref name="tei_condition"/>
             </choice>
-         </oneOrMore>
+            <zeroOrMore>
+               <choice>
+                  <ref name="tei_head"/>
+                  <ref name="tei_history"/>
+                  <ref name="tei_endleaves"/>
+                  <ref name="tei_sewing"/>
+                  <ref name="tei_boards"/>
+                  <ref name="tei_edges"/>
+                  <ref name="tei_spine"/>
+                  <ref name="tei_endbands"/>
+                  <ref name="tei_covering"/>
+                  <ref name="tei_decoNote"/>
+                  <ref name="tei_fastenings"/>
+                  <ref name="tei_furniture"/>
+                  <ref name="tei_tacketing"/>
+                  <ref name="tei_alterations"/>
+                  <ref name="tei_bookmarks"/>
+                  <ref name="tei_curtains"/>
+                  <ref name="tei_chaining"/>
+                  <ref name="tei_labels"/>
+               </choice>
+            </zeroOrMore>
+         </choice>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   id="msdescmedieval-binding-binding.check-constraint-rule-42">
@@ -7268,11 +7290,15 @@ Suggested values include: 1] border; 2] diagram; 3] illustration; 4] initial; 5]
          <optional>
             <attribute name="type">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Classifies the general structure of the binding.
-Suggested values include: 1] limp; 2] inboard</a:documentation>
+Suggested values include: 1] limp; 2] inboard; 3] case; 4] stiched</a:documentation>
                <choice>
                   <value>limp</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <value>inboard</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>case</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>stiched</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <data type="token">
                      <param name="pattern">[^\p{C}\p{Z}]+</param>
@@ -7282,7 +7308,20 @@ Suggested values include: 1] limp; 2] inboard</a:documentation>
          </optional>
          <optional>
             <attribute name="subtype">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(subtype) Provides a broad classification of inboard structures</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(subtype) Describes whether the binding is a first binding, a rebinding, or an alteration.</a:documentation>
+               <choice>
+                  <value>firstBinding</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The binding being described is the first binding.</a:documentation>
+                  <value>rebinding</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The binding described is a rebinding, with new sewing, that may preserve other components of earlier bindings.</a:documentation>
+                  <value>alteration</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">The binding described is an alteration of an earlier binding (usually meaning that the sewing of an earlier binding is preserved)</a:documentation>
+               </choice>
+            </attribute>
+         </optional>
+         <optional>
+            <attribute name="structure">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Provides a broad classification of inboard structures</a:documentation>
                <choice>
                   <value>romanesque</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
@@ -7291,6 +7330,10 @@ Suggested values include: 1] limp; 2] inboard</a:documentation>
                   <value>earlyMedieval</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <value>lacedCase</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>greek</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>wrapper</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                </choice>
             </attribute>
@@ -8713,11 +8756,13 @@ Suggested values include: 1] separate; 2] integral</a:documentation>
          <optional>
             <attribute name="subtype">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(subtype) Describes whether or not the endleaf material is reused.
-Suggested values include: 1] firstUse; 2] reused</a:documentation>
+Suggested values include: 1] firstUse; 2] reused; 3] mixed</a:documentation>
                <choice>
                   <value>firstUse</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <value>reused</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>mixed</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <data type="token">
                      <param name="pattern">[^\p{C}\p{Z}]+</param>
@@ -8738,6 +8783,25 @@ Suggested values include: 1] perg; 2] chart</a:documentation>
                </choice>
             </attribute>
          </optional>
+         <optional>
+            <attribute name="status">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+Suggested values include: 1] extant; 2] partiallyExtant; 3] lost; 4] unknown; 5] none</a:documentation>
+               <choice>
+                  <value>extant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>partiallyExtant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>lost</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>unknown</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>none</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <data type="string"/>
+               </choice>
+            </attribute>
+         </optional>
          <empty/>
       </element>
    </define>
@@ -8746,15 +8810,13 @@ Suggested values include: 1] perg; 2] chart</a:documentation>
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
          <ref name="tei_macro.specialPara"/>
          <optional>
-            <attribute name="stitching">
+            <attribute name="sewing">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
-Suggested values include: 1] allAlong; 2] longStitch; 3] chainStitch</a:documentation>
+Suggested values include: 1] supported; 2] unsupported</a:documentation>
                <choice>
-                  <value>allAlong</value>
+                  <value>supported</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>longStitch</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>chainStitch</value>
+                  <value>unsupported</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <data type="string"/>
                </choice>
@@ -8766,6 +8828,25 @@ Suggested values include: 1] allAlong; 2] longStitch; 3] chainStitch</a:document
                <data type="nonNegativeInteger"/>
             </attribute>
          </optional>
+         <optional>
+            <attribute name="status">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+Suggested values include: 1] extant; 2] partiallyExtant; 3] lost; 4] unknown; 5] none</a:documentation>
+               <choice>
+                  <value>extant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>partiallyExtant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>lost</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>unknown</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>none</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <data type="string"/>
+               </choice>
+            </attribute>
+         </optional>
          <empty/>
       </element>
    </define>
@@ -8773,12 +8854,71 @@ Suggested values include: 1] allAlong; 2] longStitch; 3] chainStitch</a:document
       <element name="edges" ns="http://www.example.org/ns/msdesc">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
          <ref name="tei_macro.specialPara"/>
+         <optional>
+            <attribute name="decoration">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+Suggested values include: 1] coloured; 2] marbled; 3] sprinkled; 4] pasteDecorated; 5] gilded; 6] gauffered; 7] painted; 8] none</a:documentation>
+               <choice>
+                  <value>coloured</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>marbled</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>sprinkled</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>pasteDecorated</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>gilded</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>gauffered</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>painted</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>none</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <data type="string"/>
+               </choice>
+            </attribute>
+         </optional>
+         <empty/>
       </element>
    </define>
    <define name="tei_spine">
       <element name="spine" ns="http://www.example.org/ns/msdesc">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
          <ref name="tei_macro.specialPara"/>
+         <optional>
+            <attribute name="profile">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+Suggested values include: 1] flat; 2] rounded</a:documentation>
+               <choice>
+                  <value>flat</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>rounded</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <data type="string"/>
+               </choice>
+            </attribute>
+         </optional>
+         <optional>
+            <attribute name="status">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+Suggested values include: 1] extant; 2] partiallyExtant; 3] lost; 4] unknown; 5] none</a:documentation>
+               <choice>
+                  <value>extant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>partiallyExtant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>lost</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>unknown</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>none</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <data type="string"/>
+               </choice>
+            </attribute>
+         </optional>
+         <empty/>
       </element>
    </define>
    <define name="tei_boards">
@@ -8800,14 +8940,42 @@ Suggested values include: 1] chart; 2] wood</a:documentation>
          </optional>
          <optional>
             <attribute name="squares">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-               <data type="boolean"/>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+Suggested values include: 1] true; 2] false; 3] unknown</a:documentation>
+               <choice>
+                  <value>true</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>false</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>unknown</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <data type="string"/>
+               </choice>
             </attribute>
          </optional>
          <optional>
             <attribute name="reused">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                <data type="string"/>
+            </attribute>
+         </optional>
+         <optional>
+            <attribute name="status">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+Suggested values include: 1] extant; 2] partiallyExtant; 3] lost; 4] unknown; 5] none</a:documentation>
+               <choice>
+                  <value>extant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>partiallyExtant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>lost</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>unknown</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>none</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <data type="string"/>
+               </choice>
             </attribute>
          </optional>
          <empty/>
@@ -8817,19 +8985,54 @@ Suggested values include: 1] chart; 2] wood</a:documentation>
       <element name="endbands" ns="http://www.example.org/ns/msdesc">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
          <ref name="tei_macro.specialPara"/>
-         <ref name="tei_att.typed.attribute.subtype"/>
          <optional>
             <attribute name="type">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Classifies the endband as primary or secondary.
-Suggested values include: 1] primary; 2] secondary</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Classifies the endband as primary, compound, or stuck on.
+Suggested values include: 1] primary; 2] compound; 3] stuckOn</a:documentation>
                <choice>
                   <value>primary</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>secondary</value>
+                  <value>compound</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>stuckOn</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <data type="token">
                      <param name="pattern">[^\p{C}\p{Z}]+</param>
                   </data>
+               </choice>
+            </attribute>
+         </optional>
+         <optional>
+            <attribute name="subtype">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(subtype) Classifies the endband as structural or non-structural.
+Suggested values include: 1] structural; 2] nonStructural</a:documentation>
+               <choice>
+                  <value>structural</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>nonStructural</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <data type="token">
+                     <param name="pattern">[^\p{C}\p{Z}]+</param>
+                  </data>
+               </choice>
+            </attribute>
+         </optional>
+         <optional>
+            <attribute name="status">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+Suggested values include: 1] extant; 2] partiallyExtant; 3] lost; 4] unknown; 5] none</a:documentation>
+               <choice>
+                  <value>extant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>partiallyExtant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>lost</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>unknown</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>none</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <data type="string"/>
                </choice>
             </attribute>
          </optional>
@@ -8843,13 +9046,17 @@ Suggested values include: 1] primary; 2] secondary</a:documentation>
          <optional>
             <attribute name="type">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
-Suggested values include: 1] primary; 2] secondary; 3] foreedgeFlap</a:documentation>
+Suggested values include: 1] primary; 2] secondary; 3] foreedgeFlap; 4] overback; 5] wrapper</a:documentation>
                <choice>
                   <value>primary</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <value>secondary</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <value>foreedgeFlap</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>overback</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>wrapper</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <data type="token">
                      <param name="pattern">[^\p{C}\p{Z}]+</param>
@@ -8894,9 +9101,41 @@ Suggested values include: 1] skinTawed; 2] skinTanned; 3] perg; 4] chart; 5] tex
             </attribute>
          </optional>
          <optional>
+            <attribute name="materialUse">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+Suggested values include: 1] firstUse; 2] reused</a:documentation>
+               <choice>
+                  <value>firstUse</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>reused</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <data type="string"/>
+               </choice>
+            </attribute>
+         </optional>
+         <optional>
             <attribute name="colour">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                <data type="string"/>
+            </attribute>
+         </optional>
+         <optional>
+            <attribute name="status">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+Suggested values include: 1] extant; 2] partiallyExtant; 3] lost; 4] unknown; 5] none</a:documentation>
+               <choice>
+                  <value>extant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>partiallyExtant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>lost</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>unknown</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>none</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <data type="string"/>
+               </choice>
             </attribute>
          </optional>
          <empty/>
@@ -8922,7 +9161,7 @@ Suggested values include: 1] skinTawed; 2] skinTanned; 3] perg; 4] chart; 5] tex
          <optional>
             <attribute name="type">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
-Suggested values include: 1] tie; 2] clasp; 3] strap</a:documentation>
+Suggested values include: 1] tie; 2] clasp; 3] strap; 4] other</a:documentation>
                <choice>
                   <value>tie</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
@@ -8930,21 +9169,25 @@ Suggested values include: 1] tie; 2] clasp; 3] strap</a:documentation>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <value>strap</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>other</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                </choice>
             </attribute>
          </optional>
          <optional>
-            <attribute name="condition">
+            <attribute name="status">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
-Suggested values include: 1] lost; 2] repaired; 3] original; 4] damaged</a:documentation>
+Suggested values include: 1] extant; 2] partiallyExtant; 3] lost; 4] unknown; 5] none</a:documentation>
                <choice>
+                  <value>extant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>partiallyExtant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <value>lost</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>repaired</value>
+                  <value>unknown</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>original</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>damaged</value>
+                  <value>none</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <data type="string"/>
                </choice>
@@ -8958,7 +9201,43 @@ Suggested values include: 1] lost; 2] repaired; 3] original; 4] damaged</a:docum
       <element name="furniture" ns="http://www.example.org/ns/msdesc">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
          <ref name="tei_macro.specialPara"/>
-         <ref name="tei_att.typed.attributes"/>
+         <ref name="tei_att.typed.attribute.subtype"/>
+         <optional>
+            <attribute name="type">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Classifies the type of furniture.
+Suggested values include: 1] boss; 2] corner; 3] other</a:documentation>
+               <choice>
+                  <value>boss</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>corner</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>other</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <data type="token">
+                     <param name="pattern">[^\p{C}\p{Z}]+</param>
+                  </data>
+               </choice>
+            </attribute>
+         </optional>
+         <optional>
+            <attribute name="status">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+Suggested values include: 1] extant; 2] partiallyExtant; 3] lost; 4] unknown; 5] none</a:documentation>
+               <choice>
+                  <value>extant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>partiallyExtant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>lost</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>unknown</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>none</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <data type="string"/>
+               </choice>
+            </attribute>
+         </optional>
          <empty/>
       </element>
    </define>
@@ -8966,12 +9245,53 @@ Suggested values include: 1] lost; 2] repaired; 3] original; 4] damaged</a:docum
       <element name="chaining" ns="http://www.example.org/ns/msdesc">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Describes any evidence for chaining of the book.</a:documentation>
          <ref name="tei_macro.specialPara"/>
+         <ref name="tei_att.datable.attributes"/>
+         <optional>
+            <attribute name="status">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+Suggested values include: 1] extant; 2] partiallyExtant; 3] lost; 4] unknown; 5] none</a:documentation>
+               <choice>
+                  <value>extant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>partiallyExtant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>lost</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>unknown</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>none</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <data type="string"/>
+               </choice>
+            </attribute>
+         </optional>
+         <empty/>
       </element>
    </define>
    <define name="tei_tacketing">
       <element name="tacketing" ns="http://www.example.org/ns/msdesc">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
          <ref name="tei_macro.specialPara"/>
+         <optional>
+            <attribute name="status">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+Suggested values include: 1] extant; 2] partiallyExtant; 3] lost; 4] unknown; 5] none</a:documentation>
+               <choice>
+                  <value>extant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>partiallyExtant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>lost</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>unknown</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>none</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <data type="string"/>
+               </choice>
+            </attribute>
+         </optional>
+         <empty/>
       </element>
    </define>
    <define name="tei_bookmarks">
@@ -8995,6 +9315,25 @@ Suggested values include: 1] leafThread; 2] ribbon; 3] rotatingColumn</a:documen
                </choice>
             </attribute>
          </optional>
+         <optional>
+            <attribute name="status">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+Suggested values include: 1] extant; 2] partiallyExtant; 3] lost; 4] unknown; 5] none</a:documentation>
+               <choice>
+                  <value>extant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>partiallyExtant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>lost</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>unknown</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>none</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <data type="string"/>
+               </choice>
+            </attribute>
+         </optional>
          <ref name="tei_att.dimensions.attribute.quantity"/>
          <empty/>
       </element>
@@ -9003,6 +9342,79 @@ Suggested values include: 1] leafThread; 2] ribbon; 3] rotatingColumn</a:documen
       <element name="labels" ns="http://www.example.org/ns/msdesc">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
          <ref name="tei_macro.specialPara"/>
+         <optional>
+            <attribute name="status">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+Suggested values include: 1] extant; 2] partiallyExtant; 3] lost; 4] unknown; 5] none</a:documentation>
+               <choice>
+                  <value>extant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>partiallyExtant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>lost</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>unknown</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>none</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <data type="string"/>
+               </choice>
+            </attribute>
+         </optional>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_curtains">
+      <element name="curtains" ns="http://www.example.org/ns/msdesc">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+         <ref name="tei_macro.specialPara"/>
+         <optional>
+            <attribute name="status">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+Suggested values include: 1] extant; 2] partiallyExtant; 3] lost; 4] unknown; 5] none</a:documentation>
+               <choice>
+                  <value>extant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>partiallyExtant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>lost</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>unknown</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>none</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <data type="string"/>
+               </choice>
+            </attribute>
+         </optional>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_alterations">
+      <element name="alterations" ns="http://www.example.org/ns/msdesc">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+         <ref name="tei_macro.specialPara"/>
+         <ref name="tei_att.datable.attributes"/>
+         <optional>
+            <attribute name="status">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+Suggested values include: 1] extant; 2] partiallyExtant; 3] lost; 4] unknown; 5] none</a:documentation>
+               <choice>
+                  <value>extant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>partiallyExtant</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>lost</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>unknown</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>none</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <data type="string"/>
+               </choice>
+            </attribute>
+         </optional>
+         <empty/>
       </element>
    </define>
    <start>

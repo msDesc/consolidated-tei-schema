@@ -15,6 +15,9 @@
             <p>Information about the source</p>
          </sourceDesc>
       </fileDesc>
+       <revisionDesc>
+           <change when="2026-05">Further refinements to encoding for binding descriptions.</change>
+       </revisionDesc>
    </teiHeader>
    <text>
       <body>
@@ -37,7 +40,7 @@
             <!-- transcr module -->
             <moduleRef key="transcr"/>
             
-            
+             <moduleSpec ident="msdesc" mode="add"/>
             
             <elementSpec ident="dimensions" module="msdescription" mode="change">
                <attList>
@@ -84,34 +87,87 @@
                </attList>
             </elementSpec>
             
+            
+            
             <!-- changes to bindingDesc -->
+             
+             
+                    <!-- possible schema rules
+                    
+                    structure: only if first binding or rebinding?
+                    
+                    -->
+             
+             
+             
+             
+             <elementSpec ident="bindingDesc" mode="change">
+                 <content>
+                     
+                     <alternate>
+                         <sequence><elementRef key="summary" maxOccurs="1"/>
+                             <elementRef key="binding" minOccurs="1" maxOccurs="unbounded" /></sequence>
+                         
+                         <alternate><classRef key="model.pLike" maxOccurs="unbounded"/>
+                             <elementRef key="decoNote" />
+                             <elementRef key="condition" />
+                             <elementRef key="binding" /></alternate>
+                         
+                         
+                         
+                     </alternate>
+                 </content>
+             </elementSpec>
+             
+             
             <elementSpec ident="binding" module="msdescription" mode="change">
                <classes mode="change">
                   <memberOf key="att.typed"/>
                </classes>
                <content>
-                  <alternate maxOccurs="unbounded" minOccurs="1">
-                     <classRef key="model.noteLike"/>
-                     <elementRef key="p"/>
-                     <elementRef key="condition"/>
-                     <elementRef key="history"/>
+                   
+                   <alternate>
+                      
+                       
+                       <!-- TEI P5: allow any combination of p, decoNote, condition -->
+                       <alternate><classRef key="model.pLike" maxOccurs="unbounded"/>
+                           <elementRef key="decoNote" />
+                           <elementRef key="condition" /></alternate>
+                       
+                       
+                       <!-- MMOL -->
+                  <alternate maxOccurs="unbounded" minOccurs="0" >
+                     <!--<classRef key="model.noteLike"/>-->
+                      <elementRef key="head"/>
+                    <!-- <elementRef key="p"/>-->
+                     
+                   <!--  
                      <elementRef key="dimensions"/>
-                     <elementRef key="decoNote"/>
-                     <elementRef key="summary"/>
-                     <elementRef key="endleaves"/>
-                     <elementRef key="sewing"/>
-                     <elementRef key="edges"/>
-                     <elementRef key="spine"/>
-                     <elementRef key="boards"/>
-                     <elementRef key="endbands"/>
-                     <elementRef key="covering"/>
-                     <elementRef key="fastenings"/>
-                     <elementRef key="furniture"/>
-                     <elementRef key="tacketing"/>
-                     <elementRef key="chaining"/>
-                     <elementRef key="bookmarks"/>
-                     <elementRef key="labels"/>
+                    
+                     <elementRef key="summary"/>-->
+                      <elementRef key="history" />
+                      <elementRef key="endleaves"  />
+                      <elementRef key="sewing"  />
+                      <elementRef key="boards" />
+                      <elementRef key="edges" />
+                      <elementRef key="spine"  />
+                    
+                      <elementRef key="endbands"  />
+                      <elementRef key="covering" />
+                      <elementRef key="decoNote" />
+                      <elementRef key="fastenings" />
+                      <elementRef key="furniture" />
+                      <elementRef key="tacketing"  />
+                      <elementRef key="alterations"  />  
+                      <elementRef key="bookmarks"  /> 
+                      <elementRef key="curtains"   />
+                      <elementRef key="chaining"   />
+                   
+                      <elementRef key="labels"  />
+                    
                   </alternate>
+                   
+                    </alternate>
                </content>
                <constraintSpec ident="binding.check" scheme="schematron">
                   <constraint>
@@ -131,46 +187,154 @@
                      <valList type="semi" mode="change">
                         <valItem mode="add" ident="limp"/>
                         <valItem mode="add" ident="inboard"/>
+                        <valItem mode="add" ident="case"/>
+                        <valItem mode="add" ident="stiched"/>
                      </valList>
                   </attDef>
                   <attDef ident="subtype" mode="change">
-                     <desc versionDate="2024-01-23" xml:lang="en">Provides a broad
+                      <desc xml:lang="en">Describes whether the binding is a first binding, a rebinding, or an alteration.</desc>
+                      <valList type="closed" mode="change">
+                          <valItem mode="add" ident="firstBinding"><desc>The binding being described is the first binding.</desc></valItem>
+                          <valItem mode="add" ident="rebinding"><desc>The binding described is a rebinding, with new sewing, that may preserve other components of earlier bindings.</desc></valItem>
+                          <valItem mode="add" ident="alteration"><desc>The binding described is an alteration of an earlier binding (usually meaning that the sewing of an earlier binding is preserved)</desc></valItem>
+                      </valList>
+                  </attDef>
+                  <attDef ident="structure" mode="add">
+                      <desc versionDate="2024-01-23" xml:lang="en">Provides a broad
                         classification of inboard structures</desc>
                      <valList type="closed" mode="change">
                         <valItem mode="add" ident="romanesque"/>
                         <valItem mode="add" ident="gothic"/>
                         <valItem mode="add" ident="earlyMedieval"/>
                         <valItem mode="add" ident="lacedCase"/>
-                     </valList>
-                  </attDef>
-                  <attDef ident="status" mode="change">
-                     <desc xml:lang="en">Describes the status of the binding being described.</desc>
-                     <valList type="closed" mode="change">
-                        <valItem mode="add" ident="firstBinding"><desc>The binding being described is the first binding.</desc></valItem>
-                        <valItem mode="add" ident="rebinding"><desc>The binding described is a rebinding, with new sewing, that may preserve other components of earlier bindings.</desc></valItem>
-                        <valItem mode="add" ident="alteration"><desc>The binding described is an alteration of an earlier binding (usually meaning that the sewing of an earlier binding is preserved)</desc></valItem>
+                        <valItem mode="add" ident="greek"/>
+                        <valItem mode="add" ident="wrapper"/>
                      </valList>
                   </attDef>
                </attList>
             </elementSpec>
-            
-            
-               <elementSpec ident="bindingDesc" mode="change">
-                        <content>
+             
+             
+             <!-- changes to decoNote element -->
+             <elementSpec ident="decoNote" module="msdescription" mode="change">
+                 <attList>
+                     <attDef ident="type" mode="change">
+                         <valList mode="replace" type="semi">
+                             <valItem ident="border">
+                                 <desc>The decoration note concerns the border(s)</desc>
+                             </valItem>
+                             <valItem ident="diagram">
+                                 <desc>The decoration note concerns the diagram(s)</desc>
+                             </valItem>
+                             <valItem ident="illustration">
+                                 <desc>The decoration note concerns the
+                                     illustration(s)</desc>
+                             </valItem>
+                             <valItem ident="initial">
+                                 <desc>The decoration note concerns the initial(s)</desc>
+                             </valItem>
+                             <valItem ident="marginal">
+                                 <desc>The decoration note concerns the marginal
+                                     decoration</desc>
+                             </valItem>
+                             <valItem ident="micrography">
+                                 <desc>The decoration note concerns the micrography</desc>
+                             </valItem>
+                             <valItem ident="miniature">
+                                 <desc>The decoration note concerns miniature(s) or coloured drawings</desc>
+                             </valItem>
+                             <valItem ident="drawing">
+                                 <desc>The decoration note concerns (uncoloured) drawings or sketches</desc>
+                             </valItem>
+                             <valItem ident="rubrication">
+                                 <desc>The decoration note concerns the rubrication or other
+                                     highlighting</desc>
+                             </valItem>
+                             
+                             <!-- add value lists for medieval -->
+                             <valItem ident="bas-de-page">
+                                 <desc>The decoration note concerns bas-de-page scenes </desc>
+                             </valItem>
+                             <valItem ident="map">
+                                 <desc>The decoration note concerns a map or maps</desc>
+                             </valItem>
+                             <valItem ident="headpiece">
+                                 <desc>The decoration note concerns a headpiece</desc>
+                             </valItem>
+                             
+                             <valItem ident="canonTable">
+                                 <desc>The decoration note concerns canon table(s)</desc>
+                             </valItem>
+                             <valItem ident="carpetPage">
+                                 <desc>The decoration note concerns so-called carpet page(s)</desc>
+                             </valItem>
+                             
+                             <valItem ident="histInit">
+                                 <desc>The decoration note concerns historiated initials</desc>
+                             </valItem>
+                             <valItem ident="decInit">
+                                 <desc>The decoration note concerns decorated (but not historiated) initials</desc>
+                             </valItem>
+                             
+                             <valItem ident="flourInit">
+                                 <desc>The decoration note concerns pen-work flourishing of letters and/or borders</desc>
+                             </valItem>
+                             
+                             <valItem ident="colInit">
+                                 <desc>The decoration note concerns coloured (but not decorated or flourished) initials</desc>
+                             </valItem>
+                             
+                             <valItem ident="plainInit">
+                                 <desc>The decoration note concerns plain initials (in the ink of the text)</desc>
+                             </valItem>
+                             
+                             <valItem ident="chrysography">
+                                 <desc>The decoration note concerns chrysography (writing in gold)</desc>
+                             </valItem>
+                             <valItem ident="lineFill">
+                                 <desc>The decoration note concerns line fillers</desc>
+                             </valItem>
+                             <valItem ident="cadel">
+                                 <desc>The decoration note concerns cadels</desc>
+                             </valItem>
+                             <valItem ident="instructions">
+                                 <desc>The decoration note concerns intructions for decoration</desc>
+                             </valItem>
+                             <valItem ident="unfilled">
+                                 <desc>The decoration note concerns space for decoration left unfilled</desc>
+                             </valItem>
+                             <valItem ident="none">
+                                 <desc>The decoration note records the absence of any decoration</desc>
+                             </valItem>
+                             
+                             <valItem ident="other">
+                                 <desc>The decoration note concerns other/unspecified aspects
+                                     (you may also provide a custom value)</desc>
+                             </valItem>
+                             
+                             <!-- new values for bindings -->
+                             <!-- blind-tooled, gold-tooled, cut leather, embroidered, other -->
+                             <valItem ident="blindTooled">
+                                 <desc>The decoration note concerns a blind-tooled binding</desc>
+                             </valItem>
+                             <valItem ident="goldTooled">
+                                 <desc>The decoration note concerns a gold-tooled binding</desc>
+                             </valItem>
+                             <valItem ident="cutLeather">
+                                 <desc>The decoration note concerns a cut-leather binding</desc>
+                             </valItem>
+                             <valItem ident="embroidered">
+                                 <desc>The decoration note concerns an embroidered binding</desc>
+                             </valItem>
+                             <valItem ident="unknown">
+                                 <desc>The decoration note concerns a binding without evidence for the presence, absence or type of decoration</desc>
+                             </valItem>
+                         </valList>
+                     </attDef>
+                 </attList>
+             </elementSpec>
 
-                            <alternate maxOccurs="1" minOccurs="1">
-                                <alternate maxOccurs="unbounded" minOccurs="1">
-                                    <classRef key="model.pLike"/>
-                                    <elementRef key="decoNote"/>
-                                    <elementRef key="condition"/>
-                                </alternate>
-                                <elementRef key="summary"/>
-                                <elementRef key="binding"/>
-                            </alternate>
-                        </content>
-                    </elementSpec>
-                    <moduleSpec ident="msdesc" mode="add"/>
-                    <elementSpec ident="endleaves" ns="http://www.example.org/ns/msdesc" mode="add"
+             <elementSpec ident="endleaves" ns="http://www.example.org/ns/msdesc" mode="add"
                         module="msdesc">
                         <classes>
                             <memberOf key="att.typed"/>
@@ -202,28 +366,38 @@
                               <valList type="semi" mode="change">
                                  <valItem mode="add" ident="firstUse"/>
                                  <valItem mode="add" ident="reused"/>
+                                 <valItem mode="add" ident="mixed"/>
                               </valList>
                            </attDef>
-                           
+                            <attDef ident="status">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="extant"/>
+                                    <valItem ident="partiallyExtant"/>
+                                    <valItem ident="lost"/>
+                                    <valItem ident="unknown"/>
+                                    <valItem ident="none"/>
+                                </valList>
+                            </attDef>
                         </attList>
                     </elementSpec>
-                    <moduleSpec ident="msdesc" mode="add"/>
-                    <elementSpec ident="sewing" ns="http://www.example.org/ns/msdesc" mode="add"
+
+             <elementSpec ident="sewing" ns="http://www.example.org/ns/msdesc" mode="add"
                         module="msdesc">
                         <classes/>
                         <content>
                             <macroRef key="macro.specialPara"/>
                         </content>
-                       <!-- need to check this with AH -->
                         <attList>
-                            <attDef ident="stitching" usage="opt">
+                            <attDef ident="sewing" usage="opt">
                                 <datatype>
                                     <dataRef name="string"/>
                                 </datatype>
                                 <valList type="semi">
-                                    <valItem ident="allAlong"/>
-                                    <valItem ident="longStitch"/>
-                                    <valItem ident="chainStitch"/>
+                                    <valItem ident="supported"/>
+                                    <valItem ident="unsupported"/>
                                 </valList>
                             </attDef>
                             <attDef ident="supports" usage="opt">
@@ -231,26 +405,80 @@
                                     <dataRef name="nonNegativeInteger"/>
                                 </datatype>
                             </attDef>
+                            <attDef ident="status">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="extant"/>
+                                    <valItem ident="partiallyExtant"/>
+                                    <valItem ident="lost"/>
+                                    <valItem ident="unknown"/>
+                                    <valItem ident="none"/>
+                                </valList>
+                            </attDef>
                         </attList>
                     </elementSpec>
-                    <moduleSpec ident="msdesc" mode="add"/>
-                    <elementSpec ident="edges" ns="http://www.example.org/ns/msdesc" mode="add"
+
+             <elementSpec ident="edges" ns="http://www.example.org/ns/msdesc" mode="add"
                         module="msdesc">
                         <classes/>
                         <content>
                             <macroRef key="macro.specialPara"/>
                         </content>
+                 <attList>
+                     <attDef ident="decoration" usage="opt">
+                         <datatype>
+                             <dataRef name="string"/>
+                         </datatype>
+                         <valList type="semi">
+                             <valItem ident="coloured"/>
+                             <valItem ident="marbled"/>
+                             <valItem ident="sprinkled"/>
+                             <valItem ident="pasteDecorated"/>
+                             <valItem ident="gilded"/>
+                             <valItem ident="gauffered"/>
+                             <valItem ident="painted"/>
+                             <valItem ident="none"/>
+                         </valList>
+                     </attDef>
+                    
+                 </attList>
                     </elementSpec>
-                    <moduleSpec ident="msdesc" mode="add"/>
-                    <elementSpec ident="spine" ns="http://www.example.org/ns/msdesc" mode="add"
+             
+             
+             <elementSpec ident="spine" ns="http://www.example.org/ns/msdesc" mode="add"
                         module="msdesc">
                         <classes/>
                         <content>
                             <macroRef key="macro.specialPara"/>
                         </content>
+                 <attList>
+                     <attDef ident="profile" usage="opt">
+                         <datatype>
+                             <dataRef name="string"/>
+                         </datatype>
+                         <valList type="semi">
+                             <valItem ident="flat"/>
+                             <valItem ident="rounded"/>
+                         </valList>
+                     </attDef>
+                     <attDef ident="status">
+                         <datatype>
+                             <dataRef name="string"/>
+                         </datatype>
+                         <valList type="semi">
+                             <valItem ident="extant"/>
+                             <valItem ident="partiallyExtant"/>
+                             <valItem ident="lost"/>
+                             <valItem ident="unknown"/>
+                             <valItem ident="none"/>
+                         </valList>
+                     </attDef>
+                 </attList>
                     </elementSpec>
-                    <moduleSpec ident="msdesc" mode="add"/>
-                    <elementSpec ident="boards" ns="http://www.example.org/ns/msdesc" mode="add"
+
+             <elementSpec ident="boards" ns="http://www.example.org/ns/msdesc" mode="add"
                         module="msdesc">
                         <classes/>
                         <content>
@@ -276,8 +504,13 @@
                             </attDef>
                             <attDef ident="squares">
                                 <datatype>
-                                    <dataRef name="boolean"/>
+                                    <dataRef name="string"/>
                                 </datatype>
+                                <valList type="semi">
+                                    <valItem ident="true"/>
+                                    <valItem ident="false"/>
+                                    <valItem ident="unknown"/>
+                                </valList>
                             </attDef>
                             <attDef ident="reused">
                                 <datatype>
@@ -289,9 +522,22 @@
                                     <valItem ident="unknown"/>
                                 </valList>
                             </attDef>
+                            <attDef ident="status">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="extant"/>
+                                    <valItem ident="partiallyExtant"/>
+                                    <valItem ident="lost"/>
+                                    <valItem ident="unknown"/>
+                                    <valItem ident="none"/>
+                                </valList>
+                            </attDef>
                         </attList>
                     </elementSpec>
-                    <moduleSpec ident="msdesc" mode="add"/>
+             
+             
                     <elementSpec ident="endbands" ns="http://www.example.org/ns/msdesc" mode="add"
                         module="msdesc">
                        <classes>
@@ -300,15 +546,39 @@
                         <content>
                             <macroRef key="macro.specialPara"/>
                         </content>
-                       <attList><attDef ident="type" mode="change">
-                          <desc xml:lang="en">Classifies the endband as primary or secondary.</desc>
+                       <attList>
+                           <attDef ident="type" mode="change">
+                          <desc xml:lang="en">Classifies the endband as primary, compound, or stuck on.</desc>
                           <valList type="semi" mode="change">
                              <valItem mode="add" ident="primary"/>
-                             <valItem mode="add" ident="secondary"/>
+                             <valItem mode="add" ident="compound"/>
+                             <valItem mode="add" ident="stuckOn"/>
                           </valList>
-                       </attDef></attList>
+                       </attDef>
+                           <attDef ident="subtype" mode="change">
+                          <desc xml:lang="en">Classifies the endband as structural or non-structural.</desc>
+                          <valList type="semi" mode="change">
+                             <valItem mode="add" ident="structural"/>
+                             <valItem mode="add" ident="nonStructural"/>
+                          </valList>
+                       </attDef>
+                           <attDef ident="status">
+                               <datatype>
+                                   <dataRef name="string"/>
+                               </datatype>
+                               <valList type="semi">
+                                   <valItem ident="extant"/>
+                                   <valItem ident="partiallyExtant"/>
+                                   <valItem ident="lost"/>
+                                   <valItem ident="unknown"/>
+                                   <valItem ident="none"/>
+                               </valList>
+                           </attDef>
+                       </attList>
+                        
                     </elementSpec>
-                    <moduleSpec ident="msdesc" mode="add"/>
+             
+             
                     <elementSpec ident="covering" ns="http://www.example.org/ns/msdesc" mode="add"
                         module="msdesc">
                         <classes/>
@@ -324,6 +594,8 @@
                                     <valItem ident="primary"/>
                                     <valItem ident="secondary"/>
                                     <valItem ident="foreedgeFlap"/>
+                                    <valItem ident="overback"/>
+                                    <valItem ident="wrapper"/>
                                 </valList>
                             </attDef>
                             <attDef ident="extent">
@@ -391,16 +663,41 @@
                                    <!-- todo: waste? -->
                                 </valList>
                             </attDef>
+                            <attDef ident="materialUse">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="firstUse">
+                                    </valItem>
+                                    <valItem ident="reused">
+                                    </valItem>
+                                </valList>
+                            </attDef>
                             <attDef ident="colour">
                                 <datatype>
                                     <dataRef name="string"/>
                                 </datatype>
                             </attDef>
+                            <attDef ident="status">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="extant"/>
+                                    <valItem ident="partiallyExtant"/>
+                                    <valItem ident="lost"/>
+                                    <valItem ident="unknown"/>
+                                    <valItem ident="none"/>
+                                </valList>
+                            </attDef>
                         </attList>
                     </elementSpec>
-                    <moduleSpec ident="msdesc" mode="add"/>
-                    <elementSpec ident="fastenings" ns="http://www.example.org/ns/msdesc" mode="add"
-                        module="msdesc">
+             
+                  <!-- decoNote TODO -->
+             
+             <elementSpec ident="fastenings" ns="http://www.example.org/ns/msdesc" mode="add"
+                 module="msdesc">
                         <classes/>
                         <content>
                             <macroRef key="macro.specialPara"/>
@@ -424,25 +721,28 @@
                                     <valItem ident="tie"/>
                                     <valItem ident="clasp"/>
                                     <valItem ident="strap"/>
+                                    <valItem ident="other"/>
                                 </valList>
                             </attDef>
-                           <!-- remove following? -->
-                            <attDef ident="condition">
+                            
+                          
+                            <attDef ident="status">
                                 <datatype>
                                     <dataRef name="string"/>
                                 </datatype>
                                 <valList type="semi">
+                                    <valItem ident="extant"/>
+                                    <valItem ident="partiallyExtant"/>
                                     <valItem ident="lost"/>
-                                    <valItem ident="repaired"/>
-                                    <valItem ident="original"/>
-                                    <valItem ident="damaged"/>
+                                    <valItem ident="unknown"/>
+                                    <valItem ident="none"/>
                                 </valList>
                             </attDef>
+                            
                             <attRef name="quantity" class="att.dimensions"/>
                         </attList>
                     </elementSpec>
             
-                    <moduleSpec ident="msdesc" mode="add"/>
                     <elementSpec ident="furniture" ns="http://www.example.org/ns/msdesc" mode="add"
                         module="msdesc">
                         <classes>
@@ -451,6 +751,28 @@
                         <content>
                             <macroRef key="macro.specialPara"/>
                         </content>
+                        <attList>
+                            <attDef ident="type" mode="change">
+                                <desc xml:lang="en">Classifies the type of furniture.</desc>
+                                <valList type="semi" mode="change">
+                                    <valItem mode="add" ident="boss"/>
+                                    <valItem mode="add" ident="corner"/>
+                                    <valItem mode="add" ident="other"/>
+                                </valList>
+                            </attDef>
+                            <attDef ident="status">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="extant"/>
+                                    <valItem ident="partiallyExtant"/>
+                                    <valItem ident="lost"/>
+                                    <valItem ident="unknown"/>
+                                    <valItem ident="none"/>
+                                </valList>
+                            </attDef>
+                        </attList>
                     </elementSpec>
             
             
@@ -458,10 +780,29 @@
                         module="msdesc">
                         <desc versionDate="2024-01-23" xml:lang="en">Describes any evidence for
                             chaining of the book.</desc>
-                        <classes/>
+                        <classes>
+                            <memberOf key="att.datable"/>
+                            <!--<memberOf key="att.datable.custom"/>
+                            <memberOf key="att.datable.iso"/>
+                            <memberOf key="att.datable.w3c"/>-->
+                        </classes>
                         <content>
                             <macroRef key="macro.specialPara"/>
                         </content>
+                        <attList>
+                            <attDef ident="status">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="extant"/>
+                                    <valItem ident="partiallyExtant"/>
+                                    <valItem ident="lost"/>
+                                    <valItem ident="unknown"/>
+                                    <valItem ident="none"/>
+                                </valList>
+                            </attDef>
+                        </attList>
                     </elementSpec>
             
             
@@ -471,6 +812,20 @@
                         <content>
                             <macroRef key="macro.specialPara"/>
                         </content>
+                        <attList>
+                            <attDef ident="status">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="extant"/>
+                                    <valItem ident="partiallyExtant"/>
+                                    <valItem ident="lost"/>
+                                    <valItem ident="unknown"/>
+                                    <valItem ident="none"/>
+                                </valList>
+                            </attDef>
+                        </attList>
                     </elementSpec>
             
             
@@ -508,6 +863,18 @@
                                 </valList>
                             </attDef>
                            <attRef name="quantity" class="att.dimensions"/>
+                            <attDef ident="status">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="extant"/>
+                                    <valItem ident="partiallyExtant"/>
+                                    <valItem ident="lost"/>
+                                    <valItem ident="unknown"/>
+                                    <valItem ident="none"/>
+                                </valList>
+                            </attDef>
                         </attList>
                     </elementSpec>
                     <elementSpec ident="labels" ns="http://www.example.org/ns/msdesc" mode="add"
@@ -516,6 +883,64 @@
                         <content>
                             <macroRef key="macro.specialPara"/>
                         </content>
+                        <attList>
+                            <attDef ident="status">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="extant"/>
+                                    <valItem ident="partiallyExtant"/>
+                                    <valItem ident="lost"/>
+                                    <valItem ident="unknown"/>
+                                    <valItem ident="none"/>
+                                </valList>
+                            </attDef>
+                        </attList>
+                    </elementSpec>
+                    <elementSpec ident="curtains" ns="http://www.example.org/ns/msdesc" mode="add"
+                        module="msdesc">
+                        <classes/>
+                        <content>
+                            <macroRef key="macro.specialPara"/>
+                        </content>
+                        <attList>
+                            <attDef ident="status">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="extant"/>
+                                    <valItem ident="partiallyExtant"/>
+                                    <valItem ident="lost"/>
+                                    <valItem ident="unknown"/>
+                                    <valItem ident="none"/>
+                                </valList>
+                            </attDef>
+                        </attList>
+                    </elementSpec>
+                    <elementSpec ident="alterations" ns="http://www.example.org/ns/msdesc" mode="add"
+                        module="msdesc">
+                        <classes>
+                            <memberOf key="att.datable"/>
+                        </classes>
+                        <content>
+                            <macroRef key="macro.specialPara"/>
+                        </content>
+                        <attList>
+                            <attDef ident="status">
+                                <datatype>
+                                    <dataRef name="string"/>
+                                </datatype>
+                                <valList type="semi">
+                                    <valItem ident="extant"/>
+                                    <valItem ident="partiallyExtant"/>
+                                    <valItem ident="lost"/>
+                                    <valItem ident="unknown"/>
+                                    <valItem ident="none"/>
+                                </valList>
+                            </attDef>
+                        </attList>
                     </elementSpec>
       </schemaSpec>
       </body>
